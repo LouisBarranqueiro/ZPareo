@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <title>ZPareo - Liste des vos examens</title>
+        <title>ZPareo - Liste de vos examens</title>
         <link type="text/css" rel="stylesheet" href="http://localhost:8080/ZPareo/ressources/css/bootstrap.css" />
         <link type="text/css" rel="stylesheet" href="http://localhost:8080/ZPareo/ressources/css/main.css" />
         <link type="text/css" rel="stylesheet" href="http://localhost:8080/ZPareo/ressources/css/style.css" />
@@ -22,26 +22,6 @@
 					    		<span class="icon-stats"></span>
 					    		<span>Examens</span>
 					    	</a>
-							<a href="http://localhost:8080/ZPareo/ai/groupe">
-								<span class="icon-addressbook"></span>
-								<span>Groupes</span>
-							</a>
-							<a href="http://localhost:8080/ZPareo/ai/matiere">
-								<span class="icon-presentation"></span>
-								<span>Matières</span>
-							</a>
-							<a href="http://localhost:8080/ZPareo/ai/etudiant">
-								<span  class="icon-graduate"></span>
-								<span>Etudiants</span>
-							</a>
-							<a href="http://localhost:8080/ZPareo/ai/professeur">
-								<span class="icon-suitcase3"></span>
-								<span>Professeurs</span>
-							</a>
-							<a href="http://localhost:8080/ZPareo/ai/administrateur">
-								<span class="icon-profile"></span>
-								<span>Administrateurs</span>
-							</a>
 					    </nav>
 					    <a href="">Deconnexion</a>
 					</section>
@@ -50,9 +30,9 @@
                         <!-- Interface de gestion des administrateurs -->
                         <section class="module module-fixe">
                             <div class="module-barre">
-                                <h1>Liste des examens</h1>
+                                <h1>Liste de vos examens</h1>
                                 <p><c:out value="${ nbExamens }"/> examens enregistrés</p>
-                                <button type="button" class="bouton bouton-success" onclick="affFormCreation('administrateur',300)">AJOUTER UN ADMINISTRATEUR</button>
+                                <button type="button" class="bouton bouton-success" onclick="affFormCreation('administrateur',300)">AJOUTER UN EXAMEN</button>
                             </div>
                             <!-- formulaire de recherche de administrateurs -->
                             <form action="http://localhost:8080/ZPareo/examen" method="GET" class="form-inline">

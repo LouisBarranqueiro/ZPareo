@@ -48,7 +48,24 @@ public class Connexion extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+		HttpSession session = request.getSession();
+		
+		if (session.getAttribute(ATT_SESSION_ADMINISTRATEUR) != null)
+	    {
+			response.sendRedirect("http://localhost:8080/ZPareo/ai/administrateur"); 
+	    } 
+		else if (session.getAttribute(ATT_SESSION_PROFESSEUR) != null)
+	    {
+			response.sendRedirect("http://localhost:8080/ZPareo/pi/examen");  
+	    } 
+		else if (session.getAttribute(ATT_SESSION_ETUDIANT) != null)
+        {
+			response.sendRedirect("http://localhost:8080/ZPareo/ei");
+        }
+		else
+		{
+			this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 

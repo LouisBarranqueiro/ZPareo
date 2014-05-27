@@ -18,10 +18,6 @@
 						</div>
 						<nav>
 							<h2>MENU PRINCIPAL</h2>
-							<a href="http://localhost:8080/ZPareo/examen">
-					    		<span class="icon-stats"></span>
-					    		<span>Examens</span>
-					    	</a>
 							<a href="http://localhost:8080/ZPareo/ai/groupe">
 								<span class="icon-addressbook"></span>
 								<span>Groupes</span>

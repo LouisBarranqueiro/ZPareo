@@ -3,7 +3,7 @@
  */ 
 var initTableSorter = function()
 {
-	$( 'table.style-1' ).tablesorter(); 
+	$('table.style-1').tablesorter(); 
 };
 
 /**
@@ -11,30 +11,32 @@ var initTableSorter = function()
  */
 var animColonne = function() 
 {
-	$( 'th.sortable' ).click( function() 
+	$('th.sortable').click(function() 
 	{
-		if( $( this ).hasClass( 'active') )
+		if($(this).hasClass('active'))
 		{
-			$( this ).removeClass( 'active' );
-			$( this ).addClass( 'activee' );
+			$(this).removeClass('active');
+			$(this).addClass('activee');
 		}
 		else
 		{
-			$( '.sortable' ).removeClass( 'activee' );
-			$( '.sortable' ).removeClass( 'active' );
-			$( this ).addClass( 'active' );
+			$('.sortable').removeClass('activee');
+			$('.sortable').removeClass('active');
+			$(this).addClass('active');
 		}
 	});
 };
 
 /**
  * Centre la fenetre Modale
+ * 
+ * @return true
  */
-var centrerFenetreModale = function( largFenetre )
+var centrerFenetreModale = function(largFenetre)
 {
-	var fenetreModale = $( '.fenetre-modale' );
-    var popMargTop = ( fenetreModale.height() ) / 2;
-    var popMargLeft = ( fenetreModale.width() ) / 2;
+	var fenetreModale = $('.fenetre-modale');
+    var popMargTop = (fenetreModale.height()) / 2;
+    var popMargLeft = (fenetreModale.width()) / 2;
     
     fenetreModale.css({
         'width'   : largFenetre,
@@ -53,8 +55,10 @@ var centrerFenetreModale = function( largFenetre )
  */ 
 var affMasque = function() 
 {
-	$( 'body' ).append( '<div id="masque"></div>' );
-	$( '#masque' ).css({ 'filter' : 'alpha(opacity=80)' }).fadeIn();
+	$('body').append('<div id="masque"></div>');
+	$('#masque').css({
+		'filter': 'alpha(opacity=80)'
+	}).fadeIn();
 };
 
 /**
@@ -62,7 +66,7 @@ var affMasque = function()
  */ 
 var affFenetreModale = function() 
 {
-	$( '.fenetre-modale' ).show();
+	$('.fenetre-modale').show();
 };
 
 /**
@@ -70,7 +74,7 @@ var affFenetreModale = function()
  */
 var supprMasque = function() 
 {
-	$( '#masque' ).remove();
+	$('#masque').remove();
 };
 
 /**
@@ -78,7 +82,7 @@ var supprMasque = function()
  */ 
 var cacheFenetresModales = function() 
 {
-	$( '.fenetre-modale' ).hide();
+	$('.fenetre-modale').hide();
 	remMasque();
 };
 
@@ -87,16 +91,16 @@ var cacheFenetresModales = function()
  */
 var supprFenetresModales = function() 
 {
-	$( '.fenetre-modale' ).remove();
-	$( '#masque' ).remove();
+	$('.fenetre-modale').remove();
+	$('#masque').remove();
 };
 
 /**
  * Initialise la fenetre modale
  */
-var initFenetreModale = function( largeurFenetre ) 
+var initFenetreModale = function(largeurFenetre) 
 {
-	centrerFenetreModale( largeurFenetre );
+	centrerFenetreModale(largeurFenetre);
 	supprMasque();
 	affMasque();
 	affFenetreModale();
@@ -128,8 +132,11 @@ var rechFonctEdit = function()
 
 /**
  * Affiche le formulaire de création d'un objet
+ * 
+ * @param object
+ * @param tailleFenetre
  */
-var affFormCreation = function( objet, tailleFenetre ) 
+var affFormCreation = function(objet, tailleFenetre) 
 {
 	$.ajax({ 
 		type: "GET", 
@@ -140,7 +147,7 @@ var affFormCreation = function( objet, tailleFenetre )
 	    },
 	    success: function( data ) 
 	    {
-	    	$( '#module-conteneur' ).append( data );
+	    	$('#module-conteneur').append( data );
 	    	initFenetreModale( tailleFenetre );
 	    	rechFonctCreat();
 	    } 
@@ -149,8 +156,12 @@ var affFormCreation = function( objet, tailleFenetre )
 
 /**
  * Affiche le formulaire d'edition d'un objet
+ * 
+ * @param objet
+ * @param id
+ * @param tailleFenetre
  */
-var affFormEdition = function( objet, id, tailleFenetre ) 
+var affFormEdition = function(objet, id, tailleFenetre) 
 {
 	$.ajax({ 
 		type: "GET", 
@@ -164,7 +175,7 @@ var affFormEdition = function( objet, id, tailleFenetre )
 	    },
 	    success: function( data ) 
 	    {
-	    	$( 'main' ).append( data );
+	    	$('main').append( data );
 	    	initFenetreModale( tailleFenetre );
 	    	rechFonctEdit();
 	    } 
@@ -173,8 +184,12 @@ var affFormEdition = function( objet, id, tailleFenetre )
 
 /**
  * Affiche le details d'un objet
+ * 
+ * @param objet
+ * @param id
+ * @param tailleFenetre
  */
-var affFormDetails = function( objet, id, tailleFenetre ) 
+var affFormDetails = function(objet, id, tailleFenetre) 
 {
 	$.ajax({ 
 		type: "GET", 
@@ -189,7 +204,7 @@ var affFormDetails = function( objet, id, tailleFenetre )
 	    },
 	    success: function( data ) 
 	    {
-	    	$( 'main' ).append( data );
+	    	$('main').append( data );
 	    	initFenetreModale( tailleFenetre );
 	    } 
 	});
@@ -200,10 +215,10 @@ var affFormDetails = function( objet, id, tailleFenetre )
  */ 
 var creerMatiere = function()  
 {
-	$( '#creation-matiere' ).submit( function( event )
+	$('#creation-matiere').submit(function(event)
 	{
 		event.preventDefault();
-		var nom = $( '#creation-matiere input[name=nom]' ).val();
+		var nom = $('#creation-matiere input[name=nom]').val();
 		
 		$.ajax({ 
 		    type: "POST", 
@@ -214,20 +229,20 @@ var creerMatiere = function()
 		    }, 
 		    error: function() 
 		    { 
-		    	alert( "erreur !" ); 
+		    	alert("erreur !"); 
 		    },
-		    success: function( data ) 
+		    success: function(data) 
 		    { 
-		    	if( data.match( '<tbody>' ) ) 
+		    	if(data.match('<tbody>')) 
 		    	{
 		    		supprFenetresModales();
-		    		vue = data.substr( data.search( "<div id='module-conteneur'>" ), data.search( "</main>" ) );
-		    		$( '#module-conteneur' ).replaceWith( vue );
+		    		vue = data.substr(data.search("<div id='module-conteneur'>"), data.search("</main>"));
+		    		$('#module-conteneur').replaceWith( vue );
 		    	}
 		    	else 
 		    	{
-		    		$( '.fenetre-modale' ).replaceWith( data );
-		    		initFenetreModale( 300 );
+		    		$('.fenetre-modale').replaceWith(data);
+		    		initFenetreModale(300);
 		    		rechFonctCreat();
 		    	}
 		    } 
@@ -241,11 +256,11 @@ var creerMatiere = function()
  */
 var editerMatiere = function()  
 {
-	$( '#edition-matiere' ).submit( function( event )
+	$('#edition-matiere').submit(function(event)
 	{
 		event.preventDefault();
-		var id = $( '#edition-matiere input[name=id]' ).val();
-		var nom = $( '#edition-matiere input[name=nom]' ).val();
+		var id = $('#edition-matiere input[name=id]').val();
+		var nom = $('#edition-matiere input[name=nom]').val();
 		
 		$.ajax({ 
 			type: "POST", 
@@ -257,20 +272,20 @@ var editerMatiere = function()
 		    }, 
 		    error: function() 
 		    { 
-		    	alert( "erreur !" ); 
+		    	alert("erreur !"); 
 		    },
-		    success: function( data ) 
+		    success: function(data) 
 		    { 
-		    	if( data.match( '<tbody>' ) ) 
+		    	if(data.match('<tbody>')) 
 		    	{
 		    		supprFenetresModales();
-		    		vue = data.substr( data.search( "<div id='module-conteneur'>" ), data.search( "</main>" ) );
-		    		$( '#module-conteneur' ).replaceWith( vue );
+		    		vue = data.substr( data.search("<div id='module-conteneur'>"), data.search("</main>"));
+		    		$('#module-conteneur').replaceWith( vue );
 		    	}
 		    	else 
 		    	{
-		    		$( '.fenetre-modale' ).replaceWith( data );
-		    		initFenetreModale( 300 );
+		    		$('.fenetre-modale').replaceWith(data);
+		    		initFenetreModale(300);
 		    		rechFonctEdit();
 		    	}
 		    } 
@@ -283,10 +298,10 @@ var editerMatiere = function()
  */ 
 var creerGroupe = function()  
 {
-	$( '#creation-groupe' ).submit( function( event )
+	$('#creation-groupe').submit(function(event)
 	{
 		event.preventDefault();
-		var nom = $( '#creation-groupe input[name=nom]' ).val();
+		var nom = $('#creation-groupe input[name=nom]').val();
 		
 		$.ajax({ 
 		    type: "POST", 
@@ -297,20 +312,20 @@ var creerGroupe = function()
 		    }, 
 		    error: function() 
 		    { 
-		    	alert( "erreur !" ); 
+		    	alert("erreur !"); 
 		    },
-		    success: function( data ) 
+		    success: function(data) 
 		    { 
-		    	if( data.match( '<tbody>' ) ) 
+		    	if(data.match('<tbody>')) 
 		    	{
 		    		supprFenetresModales();
-		    		vue = data.substr( data.search( "<div id='module-conteneur'>" ), data.search( "</main>" ) );
-		    		$( '#module-conteneur' ).replaceWith( vue );
+		    		vue = data.substr(data.search("<div id='module-conteneur'>"), data.search("</main>"));
+		    		$('#module-conteneur').replaceWith(vue);
 		    	}
 		    	else 
 		    	{
-		    		$( '.fenetre-modale' ).replaceWith( data );
-		    		initFenetreModale( 300 );
+		    		$('.fenetre-modale').replaceWith(data);
+		    		initFenetreModale(300);
 		    		rechFonctCreat();
 		    	}
 		    } 
@@ -323,11 +338,11 @@ var creerGroupe = function()
  */
 var editerGroupe = function()  
 {
-	$( '#edition-groupe' ).submit( function( event )
+	$('#edition-groupe').submit( function( event )
 	{
 		event.preventDefault();
-		var id = $( '#edition-groupe input[name=id]' ).val();
-		var nom = $( '#edition-groupe input[name=nom]' ).val();
+		var id = $('#edition-groupe input[name=id]').val();
+		var nom = $('#edition-groupe input[name=nom]').val();
 		
 		$.ajax({ 
 			type: "POST", 
@@ -339,20 +354,20 @@ var editerGroupe = function()
 		    }, 
 		    error: function() 
 		    { 
-		    	alert( "erreur !" ); 
+		    	alert("erreur !"); 
 		    },
-		    success: function( data ) 
+		    success: function(data) 
 		    { 
-		    	if( data.match( '<tbody>' ) ) 
+		    	if(data.match('<tbody>')) 
 		    	{
 		    		supprFenetresModales();
-		    		vue = data.substr( data.search( "<div id='module-conteneur'>" ), data.search( "</main>" ) );
-		    		$( '#module-conteneur' ).replaceWith( vue );
+		    		vue = data.substr(data.search("<div id='module-conteneur'>"), data.search("</main>"));
+		    		$('#module-conteneur').replaceWith(vue);
 		    	}
 		    	else 
 		    	{
-		    		$( '.fenetre-modale' ).replaceWith( data );
-		    		initFenetreModale( 300 );
+		    		$('.fenetre-modale').replaceWith(data);
+		    		initFenetreModale(300);
 		    		rechFonctEdit();
 		    	}
 		    } 
@@ -365,13 +380,13 @@ var editerGroupe = function()
  */ 
 var creerEtudiant = function()  
 {
-	$( '#creation-etudiant' ).submit( function( event )
+	$('#creation-etudiant').submit(function(event)
 	{
 		event.preventDefault();
-		var nom = $( '#creation-etudiant input[name=nom]' ).val();
-		var prenom = $( '#creation-etudiant input[name=prenom]' ).val();
-		var adresseMail = $( '#creation-etudiant input[name=adresseMail]' ).val();
-		var groupe = $( '#creation-etudiant select[name=groupe]' ).val();
+		var nom = $('#creation-etudiant input[name=nom]').val();
+		var prenom = $('#creation-etudiant input[name=prenom]').val();
+		var adresseMail = $('#creation-etudiant input[name=adresseMail]').val();
+		var groupe = $('#creation-etudiant select[name=groupe]').val();
 		var vue = "";
 
 		$.ajax({ 
@@ -386,20 +401,20 @@ var creerEtudiant = function()
 		    }, 
 		    error: function() 
 		    { 
-		    	alert( "erreur !" ); 
+		    	alert("erreur !"); 
 		    },
-		    success: function( data ) 
+		    success: function(data) 
 		    { 
-		    	if( data.match( '<tbody>' ) ) 
+		    	if(data.match('<tbody>')) 
 		    	{
 		    		supprFenetresModales();
-		    		vue = data.substr( data.search( "<div id='module-conteneur'>" ), data.search( "</main>" ) );
+		    		vue = data.substr(data.search("<div id='module-conteneur'>"), data.search("</main>"));
 		    		$( '#module-conteneur' ).replaceWith( vue );
 		    	}
 		    	else 
 		    	{
-		    		$( '.fenetre-modale' ).replaceWith( data );
-		    		initFenetreModale( 300 );
+		    		$('.fenetre-modale').replaceWith(data);
+		    		initFenetreModale(300);
 		    		rechFonctCreat();
 		    	}
 		    } 
@@ -412,14 +427,14 @@ var creerEtudiant = function()
  */
 var editerEtudiant = function()  
 {
-	$( '#edition-etudiant' ).submit( function( event )
+	$('#edition-etudiant').submit(function(event)
 	{
 		event.preventDefault();
-		var id = $( '#edition-etudiant input[name=id]' ).val();
-		var nom = $( '#edition-etudiant input[name=nom]' ).val();
-		var prenom = $( '#edition-etudiant input[name=prenom]' ).val();
-		var adresseMail = $( '#edition-etudiant input[name=adresseMail]' ).val();
-		var groupe = $( '#edition-etudiant select[name=groupe]' ).val();
+		var id = $('#edition-etudiant input[name=id]').val();
+		var nom = $('#edition-etudiant input[name=nom]').val();
+		var prenom = $('#edition-etudiant input[name=prenom]').val();
+		var adresseMail = $('#edition-etudiant input[name=adresseMail]').val();
+		var groupe = $('#edition-etudiant select[name=groupe]').val();
 		var vue = "";
 
 		$.ajax({ 
@@ -435,20 +450,20 @@ var editerEtudiant = function()
 		    }, 
 		    error: function() 
 		    { 
-		    	alert( "erreur !" ); 
+		    	alert("erreur !"); 
 		    },
-		    success: function( data ) 
+		    success: function(data) 
 		    { 
-		    	if( data.match( '<tbody>' ) ) 
+		    	if(data.match('<tbody>')) 
 		    	{
 		    		supprFenetresModales();
-		    		vue = data.substr( data.search( "<div id='module-conteneur'>" ), data.search( "</main>" ) );
-		    		$( '#module-conteneur' ).replaceWith( vue );
+		    		vue = data.substr(data.search("<div id='module-conteneur'>"), data.search("</main>"));
+		    		$('#module-conteneur').replaceWith( vue );
 		    	}
 		    	else 
 		    	{
-		    		$( '.fenetre-modale' ).replaceWith( data );
-		    		initFenetreModale( 300 );
+		    		$('.fenetre-modale').replaceWith(data);
+		    		initFenetreModale(300);
 		    		rechFonctEdit();
 		    	}
 		    } 
@@ -461,16 +476,16 @@ var editerEtudiant = function()
  */ 
 var creerProfesseur = function()  
 {
-	$( '#creation-professeur' ).submit( function( event )
+	$('#creation-professeur').submit( function( event )
 	{
 		event.preventDefault();
-		var nom = $( '#creation-professeur input[name=nom]' ).val();
-		var prenom = $( '#creation-professeur input[name=prenom]' ).val();
-		var adresseMail = $( '#creation-professeur input[name=adresseMail]' ).val();
-		var motDePasse = $( '#creation-professeur input[name=motDePasse]' ).val();
-		var confirmation = $( '#creation-professeur input[name=confirmation]' ).val();
-		var groupes = $( '#creation-professeur select[name=groupes]' ).val();
-		var matieres = $( '#creation-professeur select[name=matieres]' ).val();
+		var nom = $('#creation-professeur input[name=nom]').val();
+		var prenom = $('#creation-professeur input[name=prenom]').val();
+		var adresseMail = $('#creation-professeur input[name=adresseMail]').val();
+		var motDePasse = $('#creation-professeur input[name=motDePasse]').val();
+		var confirmation = $('#creation-professeur input[name=confirmation]').val();
+		var groupes = $('#creation-professeur select[name=groupes]').val();
+		var matieres = $('#creation-professeur select[name=matieres]').val();
 		var vue = "";
 		
 		$.ajax({ 
@@ -488,20 +503,20 @@ var creerProfesseur = function()
 		    }, 
 		    error: function() 
 		    { 
-		    	alert( "erreur !" ); 
+		    	alert("erreur !"); 
 		    },
-		    success: function( data ) 
+		    success: function(data) 
 		    { 
-		    	if( data.match( '<tbody>' ) ) 
+		    	if(data.match('<tbody>')) 
 		    	{
 		    		supprFenetresModales();
-		    		vue = data.substr( data.search( "<div id='module-conteneur'>" ), data.search( "</main>" ) );
-		    		$( '#module-conteneur' ).replaceWith( vue );
+		    		vue = data.substr(data.search("<div id='module-conteneur'>"), data.search("</main>"));
+		    		$('#module-conteneur').replaceWith( vue );
 		    	}
 		    	else 
 		    	{
-		    		$( '.fenetre-modale' ).replaceWith( data );
-		    		initFenetreModale( 600 );
+		    		$('.fenetre-modale').replaceWith(data);
+		    		initFenetreModale(600);
 		    		rechFonctCreat();
 		    	}
 		    } 
@@ -514,17 +529,17 @@ var creerProfesseur = function()
  */ 
 var editerProfesseur = function()  
 {
-	$( '#edition-professeur' ).submit( function( event )
+	$('#edition-professeur').submit(function(event)
 	{
 		event.preventDefault();
-		var id = $( '#edition-professeur input[name=id]' ).val();
-		var nom = $( '#edition-professeur input[name=nom]' ).val();
-		var prenom = $( '#edition-professeur input[name=prenom]' ).val();
-		var adresseMail = $( '#edition-professeur input[name=adresseMail]' ).val();
-		var motDePasse = $( '#edition-professeur input[name=motDePasse]' ).val();
-		var confirmation = $( '#edition-professeur input[name=confirmation]' ).val();
-		var groupes = $( '#edition-professeur select[name=groupes]' ).val();
-		var matieres = $( '#edition-professeur select[name=matieres]' ).val();
+		var id = $('#edition-professeur input[name=id]').val();
+		var nom = $('#edition-professeur input[name=nom]').val();
+		var prenom = $('#edition-professeur input[name=prenom]').val();
+		var adresseMail = $('#edition-professeur input[name=adresseMail]').val();
+		var motDePasse = $('#edition-professeur input[name=motDePasse]').val();
+		var confirmation = $('#edition-professeur input[name=confirmation]').val();
+		var groupes = $('#edition-professeur select[name=groupes]').val();
+		var matieres = $('#edition-professeur select[name=matieres]').val();
 		var vue = "";
 
 		$.ajax({ 
@@ -543,20 +558,20 @@ var editerProfesseur = function()
 		    }, 
 		    error: function() 
 		    { 
-		    	alert( "erreur !" ); 
+		    	alert("erreur !"); 
 		    },
-		    success: function( data ) 
+		    success: function(data) 
 		    { 
-		    	if( data.match( '<tbody>' ) ) 
+		    	if(data.match('<tbody>')) 
 		    	{
 		    		supprFenetresModales();
-		    		vue = data.substr( data.search( "<div id='module-conteneur'>" ), data.search( "</main>" ) );
-		    		$( '#module-conteneur' ).replaceWith( vue );
+		    		vue = data.substr( data.search("<div id='module-conteneur'>"), data.search("</main>"));
+		    		$('#module-conteneur').replaceWith(vue);
 		    	}
 		    	else 
 		    	{
-		    		$( '.fenetre-modale' ).replaceWith( data );
-		    		initFenetreModale( 600 );
+		    		$('.fenetre-modale').replaceWith(data);
+		    		initFenetreModale(600);
 		    		rechFonctEdit();
 		    	}
 		    } 
@@ -570,14 +585,14 @@ var editerProfesseur = function()
  */ 
 var creerAdministrateur = function()  
 {
-	$( '#creation-administrateur' ).submit( function( event )
+	$('#creation-administrateur').submit( function( event )
 	{
 		event.preventDefault();
-		var nom = $( '#creation-administrateur input[name=nom]' ).val();
-		var prenom = $( '#creation-administrateur input[name=prenom]' ).val();
-		var adresseMail = $( '#creation-administrateur input[name=adresseMail]' ).val();
-		var motDePasse = $( '#creation-administrateur input[name=motDePasse]' ).val();
-		var confirmation = $( '#creation-administrateur input[name=confirmation]' ).val();
+		var nom = $('#creation-administrateur input[name=nom]').val();
+		var prenom = $('#creation-administrateur input[name=prenom]').val();
+		var adresseMail = $('#creation-administrateur input[name=adresseMail]').val();
+		var motDePasse = $('#creation-administrateur input[name=motDePasse]').val();
+		var confirmation = $('#creation-administrateur input[name=confirmation]').val();
 		var vue = "";
 		$.ajax({ 
 		    type: "POST", 
@@ -592,20 +607,20 @@ var creerAdministrateur = function()
 		    }, 
 		    error: function() 
 		    { 
-		    	alert( "erreur !" ); 
+		    	alert("erreur !"); 
 		    },
-		    success: function( data ) 
+		    success: function(data) 
 		    { 
-		    	if( data.match( '<tbody>' ) ) 
+		    	if(data.match('<tbody>')) 
 		    	{
 		    		supprFenetresModales();
-		    		vue = data.substr( data.search( "<div id='module-conteneur'>" ), data.search( "</main>" ) );
-		    		$( '#module-conteneur' ).replaceWith( vue );
+		    		vue = data.substr(data.search("<div id='module-conteneur'>"), data.search("</main>"));
+		    		$('#module-conteneur').replaceWith(vue);
 		    	}
 		    	else 
 		    	{
-		    		$( '.fenetre-modale' ).replaceWith( data );
-		    		initFenetreModale( 300 );
+		    		$('.fenetre-modale').replaceWith(data);
+		    		initFenetreModale(300);
 		    		rechFonctCreat();
 		    	}
 		    } 
@@ -618,15 +633,15 @@ var creerAdministrateur = function()
  */ 
 var editerAdministrateur = function()  
 {
-	$( '#edition-administrateur' ).submit( function( event )
+	$('#edition-administrateur').submit(function(event)
 	{
 		event.preventDefault();
-		var id = $( '#edition-administrateur input[name=id]' ).val();
-		var nom = $( '#edition-administrateur input[name=nom]' ).val();
-		var prenom = $( '#edition-administrateur input[name=prenom]' ).val();
-		var adresseMail = $( '#edition-administrateur input[name=adresseMail]' ).val();
-		var motDePasse = $( '#edition-administrateur input[name=motDePasse]' ).val();
-		var confirmation = $( '#edition-administrateur input[name=confirmation]' ).val();
+		var id = $('#edition-administrateur input[name=id]').val();
+		var nom = $('#edition-administrateur input[name=nom]').val();
+		var prenom = $('#edition-administrateur input[name=prenom]').val();
+		var adresseMail = $('#edition-administrateur input[name=adresseMail]').val();
+		var motDePasse = $('#edition-administrateur input[name=motDePasse]').val();
+		var confirmation = $('#edition-administrateur input[name=confirmation]').val();
 
 		$.ajax({ 
 		    type: "POST", 
@@ -642,20 +657,20 @@ var editerAdministrateur = function()
 		    }, 
 		    error: function() 
 		    { 
-		    	alert( "erreur !" ); 
+		    	alert("erreur !"); 
 		    },
-		    success: function( data ) 
+		    success: function(data) 
 		    { 
-		    	if( data.match( '<tbody>' ) ) 
+		    	if(data.match('<tbody>')) 
 		    	{
 		    		supprFenetresModales();
-		    		vue = data.substr( data.search( "<div id='module-conteneur'>" ), data.search( "</main>" ) );
-		    		$( '#module-conteneur' ).replaceWith( vue );
+		    		vue = data.substr(data.search("<div id='module-conteneur'>"), data.search("</main>"));
+		    		$('#module-conteneur').replaceWith(vue);
 		    	}
 		    	else 
 		    	{
-		    		$( '.fenetre-modale' ).replaceWith( data );
-		    		initFenetreModale( 300 );
+		    		$('.fenetre-modale').replaceWith(data);
+		    		initFenetreModale(300);
 		    		rechFonctEdit();
 		    	}
 		    } 
@@ -668,16 +683,16 @@ var editerAdministrateur = function()
  */ 
 var verifIdentifiant = function()  
 {
-	$( '#authentification' ).submit( function( event )
+	$('#authentification').submit(function(event)
 	{
 		event.preventDefault();
-		var adresseMail = $( '#connexion input[name=adresseMail]' ).val();
-		var motDePasse = $( '#connexion input[name=motDePasse]' ).val();
+		var adresseMail = $('#connexion input[name=adresseMail]').val();
+		var motDePasse = $('#connexion input[name=motDePasse]').val();
 		var vue = "";
 		
 		// Animation 
-		$(".module-form").fadeOut(300);
-		$("#connexion-loader-conteneur").delay(300).fadeIn(1500, function()
+		$('.module-form').fadeOut(300);
+		$('#connexion-loader-conteneur').delay(300).fadeIn(1500, function()
 		{
 			$.ajax({ 
 			    type: "POST", 
@@ -689,34 +704,57 @@ var verifIdentifiant = function()
 			    }, 
 			    error: function() 
 			    { 
-			    	alert( "erreur !" ); 
+			    	alert("erreur !"); 
 			    },
-			    success: function( data ) 
+			    success: function(data, status, xhr) 
 			    { 
-			    	if( data.match( '<tbody>' ) ) 
+			    	if (data.match('<tbody>')) 
 			    	{
 			    		$('#connexion').delay(1300).animate({
-			    			left:"-=2000"
+			    			left: '-=2000'
 			    		},1000, function()
 			    		{
-				    		vue = data.substr( data.search( "<div id=\"site-conteneur\">" ), data.search( "<!-- Fin site-conteneur -->" ));
-				    		$( 'body' ).hide();
+				    		vue = data.substr( data.search("<div id=\"site-conteneur\">"), data.search("<!-- Fin site-conteneur -->"));
+				    		$('body').hide();
 				    		$('header').remove();
-				    		$( '#site-conteneur' ).replaceWith( vue );
-				    		$( 'body' ).fadeIn();
-				    		
-				    		/*$( '#site-conteneur' ).css({
-				    			left: $(window).width()
-				    		})
-				    		.show().animate({
-				    			left: "+=" + $(window).width()
-				    		});*/
+				    		$('#site-conteneur').replaceWith(vue);
+				    		$('body').fadeIn();
+				    		if (vue.search("Liste des administrateurs") > 0) 
+				    		{
+				    			history.pushState({ 
+				    				path: this.path 
+				    			}, 
+				    				'', 
+				    				'http://localhost:8080/ZPareo/ai/administrateur'
+				    			);
+				    			document.title = "ZPareo - Liste des administrateurs";
+				    		}
+				    		else if (vue.search("Liste de vos examens") > 0) 
+				    		{
+				    			history.pushState({ 
+				    				path: this.path 
+				    			}, 
+				    				'', 
+				    				'http://localhost:8080/ZPareo/pi/examen'
+				    			);
+				    			document.title = "ZPareo - Liste de vos examens";
+				    		}
+				    		else if (vue.search("Mes notes") > 0) 
+				    		{
+				    			history.pushState({ 
+				    				path: this.path 
+				    			},
+				    				'', 
+				    				'http://localhost:8080/ZPareo/ei/note'
+				    			);
+				    			document.title = "ZPareo - Mes notes";
+				    		}
 			    		});
 			    	}
 			    	else 
 			    	{
-			    		vue = data.substr( data.search( "<div id=\"site-conteneur\">" ), data.search( "<!-- Fin site-conteneur -->" ));
-			    		$( '#site-conteneur' ).replaceWith( vue );
+			    		vue = data.substr( data.search("<div id=\"site-conteneur\">"), data.search("<!-- Fin site-conteneur -->"));
+			    		$('#site-conteneur').replaceWith(vue);
 			    		$('#connexion').animate({
 			    			left:"+=5"
 			    		},60).animate({
@@ -728,7 +766,6 @@ var verifIdentifiant = function()
 			    		},60).animate({
 			    			left:"+=5"
 			    		},60);
-			    		
 			    	}
 			    } 
 			});

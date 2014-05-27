@@ -14,14 +14,10 @@
 						<a href="">Portail ZPareo</a>
 						<div id="info-utilisateur">
 							<span></span>
-							<span><c:out value="${ sessionScope.util.nom }"></c:out><br/><c:out value="${ sessionScope.util.prenom }"></c:out></span>
+							<span><c:out value="${ sessionScope.sessionAdministrateur.nom }"></c:out><br/><c:out value="${ sessionScope.sessionAdministrateur.prenom }"></c:out></span>
 						</div>
 						<nav>
 							<h2>MENU PRINCIPAL</h2>
-							<a href="http://localhost:8080/ZPareo/examen">
-					    		<span class="icon-stats"></span>
-					    		<span>Examens</span>
-					    	</a>
 							<a href="http://localhost:8080/ZPareo/ai/groupe">
 								<span class="icon-addressbook"></span>
 								<span>Groupes</span>

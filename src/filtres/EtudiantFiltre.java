@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-//@WebFilter("")
+@WebFilter("/ei/*")
 public class EtudiantFiltre implements Filter 
 {
 	public static final String URL_CONNEXION        = "/connexion";
