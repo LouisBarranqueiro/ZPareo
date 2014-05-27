@@ -1,0 +1,47 @@
+body {
+	width:100%;
+	height:100%;
+	margin: 0;
+	padding: 0;
+	background:#ffffff;
+}
+#connexion {
+	width:300px;
+	height:auto;
+	margin-right:auto;
+	margin-left:auto;
+	dislpay:inline-block;
+	vertical-align:middle;
+	background:#ffffff;
+	
+}
+#connexion .module-form
+{
+	padding-bottom:0px;
+}
+#connexion input,
+#connexion button.bouton {
+	margin-bottom:10px;
+	width:100%;
+}
+#connexion form {
+	padding:10px 10px 0px 10px;
+}
+#connexion button[type=submit]
+{
+	margin:10px 0 0 0;
+}
+#connexion-loader-conteneur
+{
+	width:100%;
+	display:none;
+	height:130px;
+	line-height:140px;
+	padding:50px 0;
+}
+#connexion-loader 
+{
+	display:block;
+	margin:0 auto;
+
+}
