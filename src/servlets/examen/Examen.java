@@ -42,15 +42,15 @@ public class Examen extends HttpServlet
 	{
 	
 		HttpSession session = request.getSession();
-		//ExamenForm form = new ExamenForm();
-		TreeSet<Examen> listeExamens = new TreeSet<Examen>();
+		ExamenForm form = new ExamenForm(examenDao);
+		TreeSet<beans.Examen> listeExamens = new TreeSet<beans.Examen>();
 		Professeur professeur = (Professeur) session.getAttribute(ATT_SESSION_PROFESSEUR);
 		long nbExamens;
 		
-		//listeExamens = form.rechercherExamen(professeur, request);
+		listeExamens = form.rechercherExamen(professeur, request);
 		nbExamens = listeExamens.size();
 		
-        //request.setAttribute(ATT_FORM, form);
+        request.setAttribute(ATT_FORM, form);
         request.setAttribute(ATT_EXAMENS, listeExamens);
         request.setAttribute(ATT_NB_EXAMENS, nbExamens);
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);

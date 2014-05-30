@@ -23,7 +23,7 @@
 					    		<span>Examens</span>
 					    	</a>
 					    </nav>
-					    <a href="">Deconnexion</a>
+					    <a href="http://localhost:8080/ZPareo/deconnexion">Deconnexion</a>
 					</section>
                     <!--  Conteneur de module -->
                     <div id='module-conteneur'>

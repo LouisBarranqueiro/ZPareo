@@ -10,7 +10,7 @@ public class Examen implements Comparable<Examen>
 	private Groupe groupe;
 	private Matiere matiere;
 	private Set<Note> listeNotes;
-	private Float moyenne;
+	private Float moyenneGenerale;
 	
 	public Long getId() 
 	{
@@ -72,12 +72,13 @@ public class Examen implements Comparable<Examen>
 		this.listeNotes = listeNotes;
 	}
 	
-	public Float getMoyenne() {
-		return moyenne;
+	public Float getMoyenneGenerale() {
+		return moyenneGenerale;
 	}
 
-	public void setMoyenne(Float moyenne) {
-		this.moyenne = moyenne;
+	public void setMoyenneGenerale(Float moyenneGenerale) 
+	{
+		this.moyenneGenerale = moyenneGenerale;
 	}
 	
 	@Override

@@ -15,7 +15,15 @@ public abstract class Utilisateur
 		this.prenom = null;
 		this.adresseMail = null;
 		this.motDePasse = null;
-		
+	}
+	
+	public Utilisateur(Utilisateur utilisateur)
+	{
+		this.setId(utilisateur.getId());
+		this.setNom(utilisateur.getNom());
+		this.setPrenom(utilisateur.getPrenom());
+		this.setAdresseMail(utilisateur.getAdresseMail());
+		this.setMotDePasse(utilisateur.getMotDePasse());
 	}
 	
 	public Long getId() 

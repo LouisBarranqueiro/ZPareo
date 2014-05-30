@@ -10,6 +10,17 @@ public class Professeur extends Utilisateur implements Comparable<Professeur>
 	private Set<Matiere> listeMatieres;
 	private Set<Groupe> listeGroupes;
 	
+	public Professeur()
+	{
+		super();
+	}
+	public Professeur(Professeur professeur)
+	{
+		super(professeur);
+		this.setListeMatieres(professeur.getListeMatieres());
+		this.setListeGroupes(professeur.getListeGroupes());
+	}
+	
 	public Set<Matiere> getListeMatieres()
 	{
 		return listeMatieres;

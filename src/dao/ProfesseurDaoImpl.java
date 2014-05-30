@@ -36,7 +36,6 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 	private static final String SQL_UPDATE_GROUPE                 = "UPDATE gnw_professeur_groupe SET date_suppr = now() WHERE fk_professeur = ?"; 
 	private static final String SQL_UPDATE_SUPPR                  = "UPDATE gnw_utilisateur SET date_suppr = now() WHERE id = ?";
 
-	
 	/**
 	 * Récupère la daoFactory
 	 * 
