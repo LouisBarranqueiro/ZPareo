@@ -6,9 +6,11 @@ public class Examen implements Comparable<Examen>
 {
 	private Long id;
 	private String nom;
+	private Professeur professeur;
 	private Groupe groupe;
 	private Matiere matiere;
 	private Set<Note> listeNotes;
+	private Float moyenne;
 	
 	public Long getId() 
 	{
@@ -19,7 +21,7 @@ public class Examen implements Comparable<Examen>
 	{
 		this.id = id;
 	}
-	
+
 	public String getNom()
 	{
 		return nom;
@@ -28,6 +30,16 @@ public class Examen implements Comparable<Examen>
 	public void setNom(String nom) 
 	{
 		this.nom = nom;
+	}
+
+	public Professeur getProfesseur()
+	{
+		return professeur;
+	}
+	
+	public void setProfesseur(Professeur professeur) 
+	{
+		this.professeur = professeur;
 	}
 	
 	public Groupe getGroupe()
@@ -59,7 +71,15 @@ public class Examen implements Comparable<Examen>
 	{
 		this.listeNotes = listeNotes;
 	}
+	
+	public Float getMoyenne() {
+		return moyenne;
+	}
 
+	public void setMoyenne(Float moyenne) {
+		this.moyenne = moyenne;
+	}
+	
 	@Override
 	public int compareTo(Examen examen2) 
 	{
@@ -67,4 +87,5 @@ public class Examen implements Comparable<Examen>
         if(compId != 0) return compId;
         return 0;
 	}
+	
 }

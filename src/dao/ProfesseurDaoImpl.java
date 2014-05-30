@@ -21,8 +21,8 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 	private static final String SQL_COUNT_TOUS                    = "SELECT COUNT(id) FROM gnw_utilisateur WHERE profil = 1 AND date_suppr IS NULL";
 	private static final String SQL_SELECT_COUNT_PAR_ADRESSE_MAIL = "SELECT COUNT(id) FROM gnw_utilisateur WHERE profil = 1 AND adresse_mail = ?";
 	private static final String SQL_SELECT_TOUS                   = "SELECT id, nom, prenom, adresse_mail  FROM gnw_utilisateur WHERE profil = 1 AND date_suppr IS NULL";
-	private static final String SQL_SELECT_MATIERES               = "SELECT fk_matiere FROM gnw_professeur_matiere WHERE date_suppr IS NULL AND fk_professeur = ?";
-	private static final String SQL_SELECT_GROUPES                = "SELECT fk_groupe FROM gnw_professeur_groupe WHERE date_suppr IS NULL AND fk_professeur = ?";
+	private static final String SQL_SELECT_MATIERES               = "SELECT gnw_professeur_matiere.fk_matiere as matiereId, gnw_matiere.nom as matiereNom FROM gnw_professeur_matiere, gnw_matiere WHERE gnw_professeur_matiere.date_suppr IS NULL AND gnw_professeur_matiere.fk_professeur = ? AND gnw_professeur_matiere.fk_matiere = gnw_matiere.id";
+	private static final String SQL_SELECT_GROUPES                = "SELECT gnw_professeur_groupe.fk_groupe as groupeId, gnw_groupe.nom as groupeNom FROM gnw_professeur_groupe, gnw_groupe WHERE gnw_professeur_groupe.date_suppr IS NULL AND gnw_professeur_groupe.fk_professeur = ? AND gnw_professeur_groupe.fk_groupe = gnw_groupe.id";
 	private static final String SQL_SELECT_PAR_ID                 = "SELECT id, nom, prenom, adresse_mail FROM gnw_utilisateur WHERE id = ? AND date_suppr IS NULL";
 	private static final String SQL_SELECT_COUNT_MATIERE          = "SELECT COUNT(id) FROM gnw_professeur_matiere WHERE fk_professeur = ? AND fk_groupe = ? AND date_suppr IS NULL";
 	private static final String SQL_SELECT_COUNT_GROUPE           = "SELECT COUNT(id) FROM gnw_professeur_groupe WHERE fk_professeur = ? AND fk_matiere = ? AND date_suppr IS NULL";
@@ -854,7 +854,8 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 	{
 		Matiere matiere = new Matiere();
 		
-		matiere.setId(resultSet.getLong("fk_matiere"));
+		matiere.setId(resultSet.getLong("matiereId"));
+		matiere.setNom(resultSet.getString("matiereNom"));
 		
 		return matiere;
 	}
@@ -870,7 +871,8 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 	{
 		Groupe groupe = new Groupe();
 		
-		groupe.setId(resultSet.getLong("fk_groupe"));
+		groupe.setId(resultSet.getLong("groupeId"));
+		groupe.setNom(resultSet.getString("groupeNom"));
 		
 		return groupe;
 	}

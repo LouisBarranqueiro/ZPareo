@@ -14,7 +14,7 @@
 						<a href="">Portail ZPareo</a>
 						<div id="info-utilisateur">
 							<span></span>
-							<span><c:out value="${ sessionScope.util.nom }"></c:out><br/><c:out value="${ sessionScope.util.prenom }"></c:out></span>
+							<span><c:out value="${ sessionScope.sessionProfesseur.nom }"></c:out><br/><c:out value="${ sessionScope.sessionProfesseur.prenom }"></c:out></span>
 						</div>
 						<nav>
 							<h2>MENU PRINCIPAL</h2>
@@ -32,7 +32,7 @@
                             <div class="module-barre">
                                 <h1>Liste de vos examens</h1>
                                 <p><c:out value="${ nbExamens }"/> examens enregistrés</p>
-                                <button type="button" class="bouton bouton-success" onclick="affFormCreation('administrateur',300)">AJOUTER UN EXAMEN</button>
+                                <button type="button" class="bouton bouton-success" onclick="affFormCreation('examen',600)">AJOUTER UN EXAMEN</button>
                             </div>
                             <!-- formulaire de recherche de administrateurs -->
                             <form action="http://localhost:8080/ZPareo/examen" method="GET" class="form-inline">
@@ -43,32 +43,49 @@
                                             <th><input type="text" name="id" class="form-control input-sm" size="10" pattern="[0-9]+" placeholder="Reference" x-moz-errormessage="Veuillez entrez une référence correcte"/></th>
                                             <th><input type="text" name="nom" class="form-control input-sm" size="30" pattern=".{5,55}" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom correct"/></th>
                                             <th>
-                                            	
+                                            	<select name="groupe" class="form-control input-sm">
+			         								<option value="">Tous</option>
+			        								<c:forEach items="${ sessionScope.sessionProfesseur.listeGroupes }" var="groupe">
+			             								<option value="${ groupe.id }">
+			            	 								<c:out value="${ groupe.nom }"/>
+			            								</option>
+			        							 	</c:forEach>
+			    								</select>
                                             </th>
                                             <th>
-                                            
+                                            	<select name="matiere" class="form-control input-sm">
+			         								<option value="">Tous</option>
+			        								<c:forEach items="${ sessionScope.sessionProfesseur.listeMatieres }" var="matiere">
+			             								<option value="${ matiere.id }">
+			            	 								<c:out value="${ matiere.nom }"/>
+			            								</option>
+			        							 	</c:forEach>
+			    								</select>
                                             </th>
+                                            <th><input type="text" name="moyenne" class="form-control input-sm" size="10" pattern="[0-9,.]{1,5}" placeholder="Moyenne" x-moz-errormessage="Veuillez entrer un nombre correct"/></th>
                                             <th><button type="submit" class="bouton bouton-primary">RECHERCHER</button></th>
                                         </tr>
                                         <tr>
                                             <th class="sortable">Référence</th>
                                             <th class="sortable">Nom</th>
-                                            <th class="sortable">Matiere</th>
                                             <th class="sortable">Groupe</th>
+                                            <th class="sortable">Matière</th>
+                                            <th class="sortable">Moyenne Générale</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach items="${ listeAdministrateurs }" var="administrateur" >
+                                        <c:forEach items="${ listeExamens }" var="examen" >
                                             <tr>
                                                 <td><c:out value="${ examen.id }"/></td>
                                                 <td><c:out value="${ examen.nom }"/></td>
-                                                <td><c:out value="${ examen.matiere }"/></td>
-                                                <td><c:out value="${ examen.Groupe }"/></td>
+                                                <td><c:out value="${ examen.groupe.nom }"/></td>
+                                                <td><c:out value="${ examen.matiere.nom }"/></td>
+                                                <td><c:out value="${ examen.moyenneGenerale }"/></td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button type="button" class="bouton bouton-action" onclick="affFormEdition('administrateur',<c:out value="${ administrateur.id }"/>,300)"><span class="icon-edit"></span></button>
-                                                        <a class="unstyled" href="http://localhost:8080/ZPareo/ai/administrateur/suppression?id=<c:out value="${ administrateur.id }"/>"><button type="button" class="bouton bouton-action" onclick="return(confirm('Etes vous sur de vouloir supprimer l\'administrateur : <c:out value="${ administrateur.prenom }"/> <c:out value="${ administrateur.nom }"/> ?'));"><span class="icon-trashcan"></span></button></a>
+                                                        <button type="button" class="bouton bouton-action" onclick="affFormEdition('examen',<c:out value="${ examen.id }"/>,600)"><span class="icon-edit"></span></button>
+                                                        <a class="unstyled" href="http://localhost:8080/ZPareo/pi/examen/suppression?id=<c:out value="${ examen.id }"/>"><button type="button" class="bouton bouton-action" onclick="return(confirm('Etes vous sur de vouloir supprimer l\'examen : <c:out value="${ examen.nom }"/> ?'));"><span class="icon-trashcan"></span></button></a>
                                                     </div>
                                                 </td>
                                             </tr>
