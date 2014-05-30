@@ -39,7 +39,7 @@ public class Matiere extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
         MatiereForm form = new MatiereForm(this.matiereDao);
-        Set<models.Matiere> listeMatieres = new TreeSet<models.Matiere>();
+        Set<beans.Matiere> listeMatieres = new TreeSet<beans.Matiere>();
         
         listeMatieres = form.rechercherMatiere(request);
         System.out.println( listeMatieres.toString() );

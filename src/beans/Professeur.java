@@ -1,7 +1,10 @@
-package models;
+package beans;
 
 import java.sql.Timestamp;
 import java.util.Set;
+
+import beans.Groupe;
+import beans.Matiere;
 
 public class Professeur extends Utilisateur implements Comparable<Professeur>
 {

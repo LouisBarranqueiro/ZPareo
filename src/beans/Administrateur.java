@@ -1,4 +1,5 @@
-package models;
+package beans;
+
 
 public class Administrateur extends Utilisateur implements Comparable<Administrateur>
 {

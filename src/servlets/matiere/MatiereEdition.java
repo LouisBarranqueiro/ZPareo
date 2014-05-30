@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.DAOFactory;
 import dao.MatiereDao;
 import forms.MatiereForm;
-import models.Matiere;
+import beans.Matiere;
 
 @WebServlet("/ai/matiere/edition")
 public class MatiereEdition extends HttpServlet 

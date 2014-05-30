@@ -2,8 +2,8 @@ package dao;
 
 import java.util.Set;
 
-import models.Administrateur;
-import models.Etudiant;
+import beans.Administrateur;
+import beans.Etudiant;
 
 public interface AdministrateurDao
 {

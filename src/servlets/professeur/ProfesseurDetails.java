@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Etudiant;
-import models.Groupe;
-import models.Matiere;
+import beans.Etudiant;
+import beans.Groupe;
+import beans.Matiere;
 import dao.DAOFactory;
 import dao.EtudiantDao;
 import dao.GroupeDao;
@@ -56,7 +56,7 @@ public class ProfesseurDetails extends HttpServlet
 		listeGroupes = this.groupeDao.rechercher(groupe);
 		listeMatieres = this.matiereDao.rechercher(matiere);
 		ProfesseurForm form = new ProfesseurForm(this.professeurDao);
-		models.Professeur professeur = form.trouverProfesseur(request);
+		beans.Professeur professeur = form.trouverProfesseur(request);
 		request.setAttribute(ATT_PROFESSEUR, professeur);
         request.setAttribute(ATT_MATIERES, listeMatieres);
         request.setAttribute(ATT_GROUPES, listeGroupes);

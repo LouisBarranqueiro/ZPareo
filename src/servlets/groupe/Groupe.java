@@ -37,7 +37,7 @@ public class Groupe extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		GroupeForm form = new GroupeForm(this.groupeDao);
-        Set<models.Groupe> listeGroupes = new TreeSet<models.Groupe>();
+        Set<beans.Groupe> listeGroupes = new TreeSet<beans.Groupe>();
         
         listeGroupes = form.rechercherGroupe(request);
 		int nbGroupes = listeGroupes.size();

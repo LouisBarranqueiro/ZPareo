@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Groupe;
+import beans.Groupe;
 import dao.DAOFactory;
 import dao.GroupeDao;
 import forms.GroupeForm;

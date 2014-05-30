@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import models.Groupe;
-import models.Matiere;
+import beans.Groupe;
+import beans.Matiere;
 import dao.MatiereDao;
 import javax.servlet.http.HttpServletRequest;
 

@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Etudiant;
-import models.Groupe;
-import models.Matiere;
+import beans.Etudiant;
+import beans.Groupe;
+import beans.Matiere;
 import dao.DAOFactory;
 import dao.EtudiantDao;
 import dao.GroupeDao;
@@ -64,7 +64,7 @@ public class ProfesseurCreation extends HttpServlet
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         ProfesseurForm form = new ProfesseurForm(this.professeurDao);
-        models.Professeur professeur = form.creerProfesseur(request);
+        beans.Professeur professeur = form.creerProfesseur(request);
 		
         if(form.getErreurs().isEmpty())
         {

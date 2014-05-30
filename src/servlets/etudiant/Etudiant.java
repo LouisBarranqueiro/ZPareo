@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Groupe;
+import beans.Groupe;
 import dao.DAOFactory;
 import dao.EtudiantDao;
 import dao.GroupeDao;
@@ -42,9 +42,9 @@ public class Etudiant extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
         EtudiantForm form = new EtudiantForm(this.etudiantDao);
-        Set<models.Etudiant> listeEtudiants = new TreeSet<models.Etudiant>();
+        Set<beans.Etudiant> listeEtudiants = new TreeSet<beans.Etudiant>();
         Groupe groupe = new Groupe();
-        Set<models.Groupe> listeGroupes = new TreeSet<models.Groupe>();
+        Set<beans.Groupe> listeGroupes = new TreeSet<beans.Groupe>();
         
         listeEtudiants = form.rechercherEtudiant(request);
         listeGroupes = this.groupeDao.rechercher(groupe);

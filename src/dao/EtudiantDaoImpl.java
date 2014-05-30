@@ -5,11 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import static dao.DAOUtilitaire.*;
+
 import java.util.TreeSet;
 import java.util.Set;
-import models.Etudiant;
-import models.Groupe;
+
+import beans.Etudiant;
+import beans.Groupe;
 
 public class EtudiantDaoImpl implements EtudiantDao 
 {

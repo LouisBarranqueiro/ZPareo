@@ -12,8 +12,8 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
-import models.Groupe;
-import models.Matiere;
+import beans.Groupe;
+import beans.Matiere;
 
 public class MatiereDaoImpl implements MatiereDao 
 {

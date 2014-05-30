@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import forms.MatiereForm;
-import models.Matiere;
+import beans.Matiere;
 import dao.DAOFactory;
 import dao.MatiereDao;
 

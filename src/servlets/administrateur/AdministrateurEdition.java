@@ -38,7 +38,7 @@ public class AdministrateurEdition extends HttpServlet
 	{
 		AdministrateurForm form = new AdministrateurForm(this.administrateurDao);
 		
-		models.Administrateur administrateur = form.trouverAdministrateur(request);
+		beans.Administrateur administrateur = form.trouverAdministrateur(request);
 		request.setAttribute(ATT_FORM, form);
         request.setAttribute(ATT_ADMINISTRATEUR, administrateur);
         this.getServletContext().getRequestDispatcher(VUE_EDITION).forward(request, response);   
@@ -48,7 +48,7 @@ public class AdministrateurEdition extends HttpServlet
 	{
 		AdministrateurForm form = new AdministrateurForm(this.administrateurDao);
 		
-		models.Administrateur administrateur = form.editerAdministrateur(request);
+		beans.Administrateur administrateur = form.editerAdministrateur(request);
 		
 		if(form.getErreurs().isEmpty())
 	    {

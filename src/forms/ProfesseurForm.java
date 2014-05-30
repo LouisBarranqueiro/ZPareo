@@ -10,10 +10,10 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import models.Etudiant;
-import models.Groupe;
-import models.Matiere;
-import models.Professeur;
+import beans.Professeur;
+import beans.Etudiant;
+import beans.Groupe;
+import beans.Matiere;
 import dao.MatiereDao;
 import dao.ProfesseurDao;
 

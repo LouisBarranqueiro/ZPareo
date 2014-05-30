@@ -12,10 +12,10 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
-import models.Etudiant;
-import models.Groupe;
-import models.Matiere;
-import models.Professeur;
+import beans.Professeur;
+import beans.Etudiant;
+import beans.Groupe;
+import beans.Matiere;
 
 public class ProfesseurDaoImpl implements ProfesseurDao
 {

@@ -11,8 +11,8 @@ import java.util.TreeSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import models.Administrateur;
-import models.Etudiant;
+import beans.Administrateur;
+import beans.Etudiant;
 
 public class AdministrateurDaoImpl implements AdministrateurDao
 {

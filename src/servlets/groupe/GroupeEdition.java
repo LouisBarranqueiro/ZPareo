@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Groupe;
+import beans.Groupe;
 import dao.DAOFactory;
 import dao.GroupeDao;
 import forms.GroupeForm;
@@ -36,7 +36,7 @@ public class GroupeEdition extends HttpServlet
 	{
 		GroupeForm form = new GroupeForm( this.groupeDao );
 		
-        Groupe groupe = form.trouverGroupe( request );
+        Groupe groupe = form.trouverGroupe(request);
         request.setAttribute(ATT_GROUPE , groupe);
         this.getServletContext().getRequestDispatcher(VUE_EDITION).forward(request, response);   
 	}

@@ -3,13 +3,13 @@ package dao;
 import java.util.Set;
 import java.util.TreeSet;
 
-import models.Groupe;
-import models.Matiere;
+import beans.Groupe;
+import beans.Matiere;
 
 public interface MatiereDao 
 {
 	/**
-     * Ajoute une matire dans la base de donnes
+     * Ajoute une matiï¿½re dans la base de donnï¿½es
      * 
      * @param matiere
      * @throws DAOException
@@ -17,7 +17,7 @@ public interface MatiereDao
 	void creer(Matiere matiere) throws DAOException;
 	
 	/**
-     * Recherche une ou des matire(s) dans la base de donnes
+     * Recherche une ou des matiï¿½re(s) dans la base de donnï¿½es
      * 
      * @param matiere
      * @throws DAOException
@@ -25,14 +25,14 @@ public interface MatiereDao
 	Set<Matiere> rechercher(Matiere matiere) throws DAOException;
 	
 	/**
-	 * Compte le nombre de matire de la base de donnes
+	 * Compte le nombre de matiï¿½re de la base de donnï¿½es
 	 * 
 	 * @throws DAOException
 	 */
 	int compterTous() throws DAOException;
 	
 	/**
-	 * Edite une matiere dans la base de donnes
+	 * Edite une matiere dans la base de donnï¿½es
 	 * 
 	 * @param matiere
 	 * @throws DAOException
@@ -40,7 +40,7 @@ public interface MatiereDao
 	Matiere editer (Matiere matiere) throws DAOException;
 	
 	/**
-	 * Vrifie l'existance d'une matire dans la base de donnes
+	 * Vï¿½rifie l'existance d'une matiï¿½re dans la base de donnï¿½es
 	 * 
 	 * @param matiere
 	 * @throws DAOException
@@ -48,7 +48,7 @@ public interface MatiereDao
 	int verifExistance(Matiere matiere) throws DAOException;
 	
 	/**
-	 * Cherche une matiere dans la base de donnes
+	 * Cherche une matiere dans la base de donnï¿½es
 	 * 
 	 * @param matiere
 	 * @throws DAOException
@@ -56,7 +56,7 @@ public interface MatiereDao
 	Matiere trouver(Matiere matiere) throws DAOException;
 	
 	/**
-	 * Supprime une matiere dans la base de donnes
+	 * Supprime une matiere dans la base de donnï¿½es
 	 * 
 	 * @param matiere
 	 * @throws DAOException

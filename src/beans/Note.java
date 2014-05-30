@@ -1,4 +1,6 @@
-package models;
+package beans;
+
+import beans.Etudiant;
 
 
 public class Note 

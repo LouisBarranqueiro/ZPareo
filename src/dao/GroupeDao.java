@@ -3,13 +3,13 @@ package dao;
 import java.util.Set;
 import java.util.TreeSet;
 
-import models.Etudiant;
-import models.Groupe;
+import beans.Etudiant;
+import beans.Groupe;
 
 public interface GroupeDao 
 {
 	/**
-     * Ajoute un groupe dans la base de donnŽes
+     * Ajoute un groupe dans la base de donnï¿½es
      * 
      * @param groupe
      * @throws DAOException
@@ -17,7 +17,7 @@ public interface GroupeDao
 	void creer(Groupe groupe) throws DAOException;
 	
 	/**
-     * Recherche une ou des groupe(s) dans la base de donnŽes
+     * Recherche une ou des groupe(s) dans la base de donnï¿½es
      * 
      * @param groupe
      * @throws DAOException
@@ -25,14 +25,14 @@ public interface GroupeDao
 	Set<Groupe> rechercher(Groupe groupe) throws DAOException;
 	
 	/**
-	 * Compte le nombre de groupes de la base de donnŽes
+	 * Compte le nombre de groupes de la base de donnï¿½es
 	 * 
 	 * @throws DAOException
 	 */
 	int compterTous() throws DAOException;
 	
 	/**
-	 * Edite une matiere dans la base de donnŽes
+	 * Edite une matiere dans la base de donnï¿½es
 	 * 
 	 * @param groupe
 	 * @throws DAOException
@@ -40,7 +40,7 @@ public interface GroupeDao
 	Groupe editer(Groupe groupe) throws DAOException;
 	
 	/**
-	 * VŽrifie l'existance d'un groupe dans la base de donnŽes
+	 * Vï¿½rifie l'existance d'un groupe dans la base de donnï¿½es
 	 * 
 	 * @param groupe
 	 * @throws DAOException
@@ -48,7 +48,7 @@ public interface GroupeDao
 	int verifExistance(Groupe groupe) throws DAOException;
 
 	/**
-	 * Cherche un groupe dans la base de donnŽes
+	 * Cherche un groupe dans la base de donnï¿½es
 	 * 
 	 * @param groupe
 	 * @throws DAOException
@@ -56,7 +56,7 @@ public interface GroupeDao
 	Groupe trouver(Groupe groupe) throws DAOException;
 	
 	/**
-	 * Supprime un groupe dans la base de donnŽes
+	 * Supprime un groupe dans la base de donnï¿½es
 	 * 
 	 * @param groupe
 	 * @return

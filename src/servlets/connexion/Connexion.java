@@ -75,9 +75,9 @@ public class Connexion extends HttpServlet
 		ProfesseurForm professeurForm = new ProfesseurForm(this.professeurDao);
 		AdministrateurForm administrateurDao = new AdministrateurForm(this.administrateurDao);
 		
-		models.Etudiant etudiant = etudiantForm.verifIdentifiantEtudiant(request);
-		models.Professeur professeur = professeurForm.verifIdentifiantProfesseur(request);
-		models.Administrateur administrateur = administrateurDao.verifIdentifiantAdmin(request);
+		beans.Etudiant etudiant = etudiantForm.verifIdentifiantEtudiant(request);
+		beans.Professeur professeur = professeurForm.verifIdentifiantProfesseur(request);
+		beans.Administrateur administrateur = administrateurDao.verifIdentifiantAdmin(request);
 		
 		if(etudiant.getId() != null)
 		{

@@ -38,7 +38,7 @@ public class Administrateur extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		AdministrateurForm form = new AdministrateurForm(this.administrateurDao);
-        Set<models.Administrateur> listeAdministrateurs = new TreeSet<models.Administrateur>();
+        Set<beans.Administrateur> listeAdministrateurs = new TreeSet<beans.Administrateur>();
         
         listeAdministrateurs = form.rechercherAdministrateur(request);
 		int nbAdministrateurs = listeAdministrateurs.size();

@@ -10,8 +10,8 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import models.Administrateur;
-import models.Professeur;
+import beans.Administrateur;
+import beans.Professeur;
 import dao.AdministrateurDao;
 
 public class AdministrateurForm

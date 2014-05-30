@@ -3,7 +3,7 @@ package dao;
 import java.util.HashSet;
 import java.util.Set;
 
-import models.Examen;
+import beans.Examen;
 
 public class ExamenDaoImpl implements ExamenDao 
 {

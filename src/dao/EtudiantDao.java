@@ -1,7 +1,8 @@
 package dao;
 
 import java.util.Set;
-import models.Etudiant;
+
+import beans.Etudiant;
 
 public interface EtudiantDao 
 {

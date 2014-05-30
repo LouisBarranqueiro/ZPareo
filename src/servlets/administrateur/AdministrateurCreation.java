@@ -43,7 +43,7 @@ public class AdministrateurCreation extends HttpServlet
 	{
 		AdministrateurForm form = new AdministrateurForm(this.administrateurDao);
         
-		models.Administrateur administrateur = form.creerAdministrateur(request);
+		beans.Administrateur administrateur = form.creerAdministrateur(request);
 
         if(form.getErreurs().isEmpty())
         {

@@ -1,4 +1,4 @@
-package models;
+package beans;
 
 import java.util.Set;
 

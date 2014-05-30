@@ -7,13 +7,14 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import models.Etudiant;
-import models.Groupe;
-import models.Professeur;
 import dao.EtudiantDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.Session;
+
+import beans.Etudiant;
+import beans.Groupe;
+import beans.Professeur;
 
 public final class EtudiantForm 
 {

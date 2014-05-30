@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Etudiant;
-import models.Groupe;
+import beans.Etudiant;
+import beans.Groupe;
 import dao.DAOFactory;
 import dao.EtudiantDao;
 import dao.GroupeDao;

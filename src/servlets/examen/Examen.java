@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import beans.Groupe;
+import beans.Matiere;
+import beans.Professeur;
 import dao.DAOFactory;
 import dao.ExamenDao;
 import forms.ExamenForm;
 import forms.GroupeForm;
-import models.Groupe;
-import models.Matiere;
-import models.Professeur;
 @WebServlet("/pi/examen")
 public class Examen extends HttpServlet 
 {	
