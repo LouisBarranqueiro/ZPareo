@@ -5,7 +5,7 @@ import dao.ExamenDao;
 public class ExamenForm 
 {
 	
-    private ExamenDao examenDao;
+    //private ExamenDao examenDao;
     
 	/**
      * Récupère l'objet : examenDao
@@ -14,7 +14,7 @@ public class ExamenForm
      */
     public ExamenForm(ExamenDao examenDao) 
     {
-    	this.examenDao = examenDao;
+    	//this.examenDao = examenDao;
     }
     
 }

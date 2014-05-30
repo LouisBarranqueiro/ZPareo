@@ -1,8 +1,6 @@
 package servlets.connexion;
 
 import java.io.IOException;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import servlets.etudiant.Etudiant;
 import dao.AdministrateurDao;
 import dao.DAOFactory;
 import dao.EtudiantDao;
@@ -20,6 +17,7 @@ import forms.AdministrateurForm;
 import forms.EtudiantForm;
 import forms.ProfesseurForm;
 
+@SuppressWarnings("serial")
 @WebServlet("/connexion")
 public class Connexion extends HttpServlet 
 {

@@ -1,8 +1,6 @@
 package servlets.administrateur;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,9 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.DAOFactory;
 import dao.AdministrateurDao;
-
 import forms.AdministrateurForm;
 
+@SuppressWarnings("serial")
 @WebServlet("/ai/administrateur/creation")
 public class AdministrateurCreation extends HttpServlet 
 {

@@ -7,13 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashSet;
-import java.util.Iterator;
+
 import java.util.Set;
 import java.util.TreeSet;
 
 import beans.Professeur;
-import beans.Etudiant;
 import beans.Groupe;
 import beans.Matiere;
 

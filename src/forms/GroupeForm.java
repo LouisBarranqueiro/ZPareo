@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import beans.Etudiant;
+
 import beans.Groupe;
+
 import dao.GroupeDao;
+
 import javax.servlet.http.HttpServletRequest;
 
 public final class GroupeForm 

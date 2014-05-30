@@ -1,8 +1,7 @@
 package forms;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -11,7 +10,6 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import beans.Administrateur;
-import beans.Professeur;
 import dao.AdministrateurDao;
 
 public class AdministrateurForm
@@ -293,7 +291,6 @@ public class AdministrateurForm
     	try 
     	{
     		validationMotsDePasse( motDePasse, confirmation );
-    		MessageDigest md = MessageDigest.getInstance("SHA-256");
             motDePasse = crypterMotDePasse(motDePasse);
     	} 
     	catch (Exception e)
@@ -486,19 +483,6 @@ public class AdministrateurForm
         {
             return valeur.trim();
         }
-    }
-    
-    /**
-     * Retourne les valeurs des champs du formulaire de type multiple
-     * 
-     * @param request
-     * @param nomChamp
-     * @return valeur
-     */
-    private static String[] getValeursChamp(HttpServletRequest request, String nomChamp) 
-    {
-    	return request.getParameterValues(nomChamp);
-   
     }
     
 }

@@ -1,6 +1,5 @@
 package beans;
 
-import java.sql.Timestamp;
 import java.util.Set;
 
 import beans.Groupe;

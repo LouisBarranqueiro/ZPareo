@@ -10,17 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.Etudiant;
 import beans.Groupe;
 import beans.Matiere;
 import dao.DAOFactory;
-import dao.EtudiantDao;
 import dao.GroupeDao;
 import dao.MatiereDao;
 import dao.ProfesseurDao;
-import forms.EtudiantForm;
 import forms.ProfesseurForm;
 
+@SuppressWarnings("serial")
 @WebServlet("/ai/professeur/details")
 public class ProfesseurDetails extends HttpServlet 
 {

@@ -1,9 +1,7 @@
 package dao;
 
 import java.util.Set;
-import java.util.TreeSet;
 
-import beans.Groupe;
 import beans.Matiere;
 
 public interface MatiereDao 

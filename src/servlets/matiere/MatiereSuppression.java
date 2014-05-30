@@ -8,11 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.Matiere;
+
+
+
 import dao.DAOFactory;
 import dao.MatiereDao;
 import forms.MatiereForm;
 
+@SuppressWarnings("serial")
 @WebServlet("/ai/matiere/suppression")
 public class MatiereSuppression extends HttpServlet
 {

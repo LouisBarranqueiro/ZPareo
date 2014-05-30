@@ -1,7 +1,6 @@
 package servlets.matiere;
 
 import java.io.IOException;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,9 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.DAOFactory;
 import dao.MatiereDao;
+
 import forms.MatiereForm;
+
 import beans.Matiere;
 
+@SuppressWarnings("serial")
 @WebServlet("/ai/matiere/edition")
 public class MatiereEdition extends HttpServlet 
 {

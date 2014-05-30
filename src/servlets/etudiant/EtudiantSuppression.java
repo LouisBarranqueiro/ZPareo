@@ -12,6 +12,7 @@ import dao.DAOFactory;
 import dao.EtudiantDao;
 import forms.EtudiantForm;
 
+@SuppressWarnings("serial")
 @WebServlet("/ai/etudiant/suppression")
 public class EtudiantSuppression extends HttpServlet 
 {

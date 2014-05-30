@@ -7,12 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import java.util.TreeSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import beans.Administrateur;
-import beans.Etudiant;
 
 public class AdministrateurDaoImpl implements AdministrateurDao
 {
@@ -47,13 +46,11 @@ public class AdministrateurDaoImpl implements AdministrateurDao
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
-		ResultSet resultSet;
 		
 		try 
 		{
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_PROFESSEUR, true, administrateur.getNom(), administrateur.getPrenom(), administrateur.getAdresseMail(), administrateur.getMotDePasse());
-			
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -64,7 +61,6 @@ public class AdministrateurDaoImpl implements AdministrateurDao
 		{
 			fermeturesSilencieuses(preparedStatement, connexion);
 		}
-
 	}
 	
 	/**

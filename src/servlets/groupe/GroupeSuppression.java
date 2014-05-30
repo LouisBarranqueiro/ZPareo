@@ -13,6 +13,7 @@ import dao.GroupeDao;
 import forms.GroupeForm;
 
 
+@SuppressWarnings("serial")
 @WebServlet("/ai/groupe/suppression")
 public class GroupeSuppression extends HttpServlet 
 {

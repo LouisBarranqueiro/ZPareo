@@ -8,7 +8,7 @@ import java.sql.Statement;
 import static dao.DAOUtilitaire.*;
 import java.util.TreeSet;
 import java.util.Set;
-import beans.Etudiant;
+
 import beans.Groupe;
 
 public class GroupeDaoImpl implements GroupeDao 

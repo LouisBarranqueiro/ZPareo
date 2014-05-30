@@ -3,7 +3,6 @@ package dao;
 import java.util.Set;
 
 import beans.Administrateur;
-import beans.Etudiant;
 
 public interface AdministrateurDao
 {

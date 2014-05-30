@@ -3,9 +3,7 @@ package dao;
 import java.util.Set;
 
 import beans.Professeur;
-import beans.Etudiant;
-import beans.Groupe;
-import beans.Matiere;
+
 
 public interface ProfesseurDao 
 {

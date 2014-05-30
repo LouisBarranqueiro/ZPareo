@@ -2,7 +2,6 @@ package beans;
 
 import beans.Etudiant;
 
-
 public class Note 
 {
 	private Long id;

@@ -8,7 +8,7 @@ import beans.Examen;
 public class ExamenDaoImpl implements ExamenDao 
 {
 
-	private DAOFactory daoFactory;
+	//private DAOFactory daoFactory;
 	
 	/**
 	 * R�Récupère la daoFactory
@@ -17,7 +17,7 @@ public class ExamenDaoImpl implements ExamenDao
 	 */
 	ExamenDaoImpl(DAOFactory daoFactory) 
 	{
-        this.daoFactory = daoFactory;
+        //this.daoFactory = daoFactory;
     }
 	
 	/**

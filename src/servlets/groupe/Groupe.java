@@ -14,6 +14,7 @@ import dao.DAOFactory;
 import dao.GroupeDao;
 import forms.GroupeForm;
 
+@SuppressWarnings("serial")
 @WebServlet("/ai/groupe")
 public class Groupe extends HttpServlet 
 {

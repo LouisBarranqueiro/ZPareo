@@ -1,8 +1,6 @@
-package servlets.examen;
+/*package servlets.examen;
 
 import java.io.IOException;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,13 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.Groupe;
-import beans.Matiere;
-import beans.Professeur;
 import dao.DAOFactory;
 import dao.ExamenDao;
-import forms.ExamenForm;
-import forms.GroupeForm;
+
+@SuppressWarnings("serial")
 @WebServlet("/pi/examen")
 public class Examen extends HttpServlet 
 {	
@@ -39,7 +34,7 @@ public class Examen extends HttpServlet
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		/*ExamenForm form = new ExamenForm(this.examenDao);
+		ExamenForm form = new ExamenForm(this.examenDao);
         Professeur professeur = new Professeur();
         
         
@@ -48,7 +43,7 @@ public class Examen extends HttpServlet
         
         request.setAttribute(ATT_FORM, form);
         request.setAttribute(ATT_EXAMENS, listeGroupes);
-        request.setAttribute(ATT_NB_EXAMENS, nbMatiere);*/
+        request.setAttribute(ATT_NB_EXAMENS, nbMatiere);
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
 
@@ -58,3 +53,4 @@ public class Examen extends HttpServlet
 	}
 
 }
+*/

@@ -4,17 +4,14 @@ import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 
 import dao.EtudiantDao;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.websocket.Session;
 
 import beans.Etudiant;
 import beans.Groupe;
-import beans.Professeur;
 
 public final class EtudiantForm 
 {
@@ -112,6 +109,7 @@ public final class EtudiantForm
     	
     	etudiant.setNom(nom);
     	etudiant.setPrenom(prenom);
+    	etudiant.setAdresseMail(adresseMail);
     	etudiant.setGroupe(groupe);
     	listeEtudiants = etudiantDao.rechercher(etudiant);
         
@@ -490,12 +488,7 @@ public final class EtudiantForm
         System.out.println(motDePasse.toString());
         return motDePasse.toString();
     }
-    
-    private void envoyerMail() 
-    {
-    	
-    }
-    
+
     /**
      * Crypte un mot de passe
      * 

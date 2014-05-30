@@ -1,8 +1,7 @@
 package forms;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -11,10 +10,9 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import beans.Professeur;
-import beans.Etudiant;
 import beans.Groupe;
 import beans.Matiere;
-import dao.MatiereDao;
+
 import dao.ProfesseurDao;
 
 public class ProfesseurForm
@@ -336,7 +334,6 @@ public class ProfesseurForm
     	try 
     	{
     		validationMotsDePasse( motDePasse, confirmation );
-    		MessageDigest md = MessageDigest.getInstance("SHA-256");
             motDePasse = crypterMotDePasse(motDePasse);
     	} 
     	catch (Exception e)

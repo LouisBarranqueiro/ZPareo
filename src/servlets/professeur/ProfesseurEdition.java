@@ -12,14 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import beans.Groupe;
 import beans.Matiere;
-
 import dao.DAOFactory;
 import dao.GroupeDao;
 import dao.MatiereDao;
 import dao.ProfesseurDao;
-
 import forms.ProfesseurForm;
 
+@SuppressWarnings("serial")
 @WebServlet("/ai/professeur/edition")
 public class ProfesseurEdition extends HttpServlet 
 {

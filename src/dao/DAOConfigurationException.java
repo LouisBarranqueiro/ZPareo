@@ -1,5 +1,6 @@
 package dao;
 
+@SuppressWarnings("serial")
 public class DAOConfigurationException extends RuntimeException 
 {
 	/**

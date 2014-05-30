@@ -1,8 +1,6 @@
 package servlets.administrateur;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,15 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.DAOFactory;
 import dao.AdministrateurDao;
+
 import forms.AdministrateurForm;
 
+@SuppressWarnings("serial")
 @WebServlet("/ai/administrateur/suppression")
 public class AdministrateurSuppression extends HttpServlet 
 {
 	public static final String CONF_DAO_FACTORY   = "daofactory";
 	public static final String ATT_ADMINISTRATEUR = "administrateur";
     public static final String ATT_FORM           = "form";
-	private static final String VUE_CREATION      = "/WEB-INF/administrateur/creation.jsp";
     private AdministrateurDao administrateurDao;
 
     public AdministrateurSuppression() 

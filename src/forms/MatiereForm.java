@@ -4,10 +4,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
-import beans.Groupe;
+
 import beans.Matiere;
+
 import dao.MatiereDao;
+
 import javax.servlet.http.HttpServletRequest;
 
 public final class MatiereForm 

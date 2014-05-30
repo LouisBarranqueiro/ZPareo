@@ -8,11 +8,9 @@ import java.sql.Statement;
 
 import static dao.DAOUtilitaire.*;
 
-import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
-import beans.Groupe;
 import beans.Matiere;
 
 public class MatiereDaoImpl implements MatiereDao 

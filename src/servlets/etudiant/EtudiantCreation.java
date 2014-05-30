@@ -18,6 +18,7 @@ import dao.GroupeDao;
 import forms.EtudiantForm;
 
 
+@SuppressWarnings("serial")
 @WebServlet("/ai/etudiant/creation")
 public class EtudiantCreation extends HttpServlet 
 {

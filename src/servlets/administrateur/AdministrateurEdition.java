@@ -1,8 +1,6 @@
 package servlets.administrateur;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +13,7 @@ import dao.AdministrateurDao;
 import forms.AdministrateurForm;
 
 
+@SuppressWarnings("serial")
 @WebServlet("/ai/administrateur/edition")
 public class AdministrateurEdition extends HttpServlet 
 {

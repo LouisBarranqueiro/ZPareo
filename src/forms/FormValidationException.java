@@ -1,5 +1,6 @@
 package forms;
 
+@SuppressWarnings("serial")
 public class FormValidationException extends Exception 
 {
     /**

@@ -1,16 +1,18 @@
 package servlets.professeur;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import dao.DAOFactory;
 import dao.ProfesseurDao;
-import forms.MatiereForm;
 import forms.ProfesseurForm;
 
+@SuppressWarnings("serial")
 @WebServlet("/ai/professeur/suppression")
 public class ProfesseurSuppression extends HttpServlet 
 {

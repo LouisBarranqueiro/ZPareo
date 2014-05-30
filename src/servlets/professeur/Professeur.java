@@ -10,14 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.Groupe;
-import beans.Matiere;
-import dao.GroupeDao;
 import dao.DAOFactory;
-import dao.MatiereDao;
 import dao.ProfesseurDao;
 import forms.ProfesseurForm;
 
+@SuppressWarnings("serial")
 @WebServlet("/ai/professeur")
 public class Professeur extends HttpServlet 
 {   
@@ -28,8 +25,6 @@ public class Professeur extends HttpServlet
 	public static final String ATT_NB_PROFESSEURS  = "nbProfesseurs";
     public static final String ATT_FORM            = "form";
 	private static final String VUE                = "/WEB-INF/professeur/index.jsp";
-	private GroupeDao groupeDao;
-	private MatiereDao matiereDao;
 	private ProfesseurDao professeurDao;
 	
     public Professeur() 
@@ -40,8 +35,6 @@ public class Professeur extends HttpServlet
     public void init() throws ServletException 
     {
     	this.professeurDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getProfesseurDao();
-    	this.groupeDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getGroupeDao();
-    	this.matiereDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getMatiereDao();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
