@@ -128,7 +128,6 @@ public class EtudiantDaoImpl implements EtudiantDao
 		{
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_AUTH, true, etudiant.getAdresseMail(), etudiant.getMotDePasse());
-			System.out.println(preparedStatement.toString());
 			resultSet = preparedStatement.executeQuery();
 			
 			if (resultSet.next()) 

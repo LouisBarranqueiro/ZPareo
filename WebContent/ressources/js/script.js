@@ -136,11 +136,11 @@ var rechFonctEdit = function()
  * @param object
  * @param tailleFenetre
  */
-var affFormCreation = function(objet, tailleFenetre) 
+var affFormCreation = function(url, tailleFenetre) 
 {
 	$.ajax({ 
 		type: "GET", 
-		url: "http://localhost:8080/ZPareo/ai/" + objet + "/creation",  
+		url: "http://localhost:8080/ZPareo/" + url + "/creation",  
 	    error: function() 
 	    { 
 	    	alert("erreur !"); 
@@ -161,11 +161,11 @@ var affFormCreation = function(objet, tailleFenetre)
  * @param id
  * @param tailleFenetre
  */
-var affFormEdition = function(objet, id, tailleFenetre) 
+var affFormEdition = function(url, id, tailleFenetre) 
 {
 	$.ajax({ 
 		type: "GET", 
-	    url: "http://localhost:8080/ZPareo/ai/" + objet + "/edition?id=" + id, 
+	    url: "http://localhost:8080/ZPareo/" + url + "/edition?id=" + id, 
 	    data: 
 	    {
 	    }, 
@@ -189,11 +189,11 @@ var affFormEdition = function(objet, id, tailleFenetre)
  * @param id
  * @param tailleFenetre
  */
-var affFormDetails = function(objet, id, tailleFenetre) 
+var affFormDetails = function(url, id, tailleFenetre) 
 {
 	$.ajax({ 
 		type: "GET", 
-	    url: "http://localhost:8080/ZPareo/ai/" + objet + "/details?id=" + id, 
+	    url: "http://localhost:8080/ZPareo/" + url + "/details?id=" + id, 
 	    data: 
 	    {
 	    	id: id
@@ -677,6 +677,51 @@ var editerAdministrateur = function()
 		});
 	});
 };
+
+/**
+ * Creer un examen dans la base de données
+ */ 
+var creerExamen = function()  
+{
+	$('#creation-examen').submit(function(event)
+	{
+		event.preventDefault();
+		var nom = $('#creation-examen input[name=nom]').val();
+		var matiere = $('#creation-examen input[name=matiere]').val();
+		var groupe = $('#creation-examen input[name=groupe]').val();
+
+		$.ajax({ 
+		    type: "POST", 
+		    url: "http://localhost:8080/ZPareo/ai/examen/creation", 
+		    data: 
+		    {
+		    	nom: nom,
+		    	matiere: matiere,
+		    	groupe: groupe
+		    }, 
+		    error: function() 
+		    { 
+		    	alert("erreur !"); 
+		    },
+		    success: function(data) 
+		    { 
+		    	if(data.match('<tbody>')) 
+		    	{
+		    		supprFenetresModales();
+		    		vue = data.substr(data.search("<div id='module-conteneur'>"), data.search("</main>"));
+		    		$('#module-conteneur').replaceWith(vue);
+		    	}
+		    	else 
+		    	{
+		    		$('.fenetre-modale').replaceWith(data);
+		    		initFenetreModale(300);
+		    		rechFonctEdit();
+		    	}
+		    } 
+		});
+	});
+};
+
 
 /**
  * Creer un etudiant dans la base de donn�es

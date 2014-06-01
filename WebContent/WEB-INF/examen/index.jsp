@@ -32,16 +32,24 @@
                             <div class="module-barre">
                                 <h1>Liste de vos examens</h1>
                                 <p><c:out value="${ nbExamens }"/> examens enregistrés</p>
-                                <button type="button" class="bouton bouton-success" onclick="affFormCreation('examen',600)">AJOUTER UN EXAMEN</button>
+                                <button type="button" class="bouton bouton-success" onclick="affFormCreation('pi/examen',300)">AJOUTER UN EXAMEN</button>
                             </div>
                             <!-- formulaire de recherche de administrateurs -->
-                            <form action="http://localhost:8080/ZPareo/examen" method="GET" class="form-inline">
+                            <form action="http://localhost:8080/ZPareo/pi/examen" method="GET" class="form-inline">
                                 <!-- Tableau principal -->
                                 <table class="style-1">
                                     <thead>
                                         <tr>
                                             <th><input type="text" name="id" class="form-control input-sm" size="10" pattern="[0-9]+" placeholder="Reference" x-moz-errormessage="Veuillez entrez une référence correcte"/></th>
-                                            <th><input type="text" name="nom" class="form-control input-sm" size="30" pattern=".{5,55}" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom correct"/></th>
+                                            <th><input type="date" name="date" class="form-control input-sm" size="7" placeholder="Nom" x-moz-errormessage="Veuillez entrer une date correct"/></th>
+                                            <th>
+                                           		<select name="format" class="form-control input-sm">
+			         								<option value="0">Tous</option>
+			        								<option value="1">Oral</option>
+			        								<option value="2">Ecrit</option>
+			    								</select>
+                                            </th>
+                                            <th><input type="text" name="nom" class="form-control input-sm" size="60" pattern=".{5,55}" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom correct"/></th>
                                             <th>
                                             	<select name="groupe" class="form-control input-sm">
 			         								<option value="">Tous</option>
@@ -67,6 +75,8 @@
                                         </tr>
                                         <tr>
                                             <th class="sortable">Référence</th>
+                                            <th class="sortable">Date</th>
+                                            <th class="sortable">format</th>
                                             <th class="sortable">Nom</th>
                                             <th class="sortable">Groupe</th>
                                             <th class="sortable">Matière</th>
@@ -78,13 +88,15 @@
                                         <c:forEach items="${ listeExamens }" var="examen" >
                                             <tr>
                                                 <td><c:out value="${ examen.id }"/></td>
+                                                <td><c:out value="${ examen.date }"/></td>
+                                                <td><c:out value="${ examen.format }"/></td>
                                                 <td><c:out value="${ examen.nom }"/></td>
                                                 <td><c:out value="${ examen.groupe.nom }"/></td>
                                                 <td><c:out value="${ examen.matiere.nom }"/></td>
                                                 <td><c:out value="${ examen.moyenneGenerale }"/></td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button type="button" class="bouton bouton-action" onclick="affFormEdition('examen',<c:out value="${ examen.id }"/>,600)"><span class="icon-edit"></span></button>
+                                                        <button type="button" class="bouton bouton-action" onclick="affFormEdition('pi/examen',<c:out value="${ examen.id }"/>,600)"><span class="icon-edit"></span></button>
                                                         <a class="unstyled" href="http://localhost:8080/ZPareo/pi/examen/suppression?id=<c:out value="${ examen.id }"/>"><button type="button" class="bouton bouton-action" onclick="return(confirm('Etes vous sur de vouloir supprimer l\'examen : <c:out value="${ examen.nom }"/> ?'));"><span class="icon-trashcan"></span></button></a>
                                                     </div>
                                                 </td>

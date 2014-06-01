@@ -47,7 +47,7 @@
 					        <div class="module-barre">
 					            <h1>Liste des groupes</h1>
 					            <p><c:out value="${ nbGroupes }"/> groupes enregistrés</p>
-					            <button type="button" class="bouton bouton-success" onclick="affFormCreation('groupe',300)">AJOUTER UN GROUPE</button>
+					            <button type="button" class="bouton bouton-success" onclick="affFormCreation('ai/groupe',300)">AJOUTER UN GROUPE</button>
 					        </div>
 					        <!-- formulaire de recherche de groupes -->
 					        <form action="http://localhost:8080/ZPareo/ai/groupe" method="GET" class="form-inline">
@@ -72,7 +72,7 @@
 					                            <td><c:out value="${ groupe.nom }"/></td>
 					                            <td>
 													<div class="btn-group">
-													  	<button type="button" class="bouton bouton-action" onclick="affFormEdition('groupe',<c:out value="${ groupe.id }"/>,300)"><span class="icon-edit"></span></button>
+													  	<button type="button" class="bouton bouton-action" onclick="affFormEdition('ai/groupe',<c:out value="${ groupe.id }"/>,300)"><span class="icon-edit"></span></button>
 													  	<a class="unstyled" href="http://localhost:8080/ZPareo/ai/groupe/suppression?id=<c:out value="${ groupe.id }"/>"><button type="button" class="bouton bouton-action" onclick="return(confirm('Etes-vous sur de vouloir supprimer la groupe : <c:out value="${ groupe.nom }"/>?'));"><span class="icon-trashcan"></span></button></a>
 													</div>
 												</td>

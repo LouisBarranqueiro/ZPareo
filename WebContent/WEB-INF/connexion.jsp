@@ -23,7 +23,7 @@
 						<form id="authentification" action="<c:url value='/connexion'/>" method="POST" class="form-horizontal" role="form">
 						<div class="module-form">						
 							<input type="text" name="adresseMail" class="form-control input-sm" value="<c:out value='${ utilisateur.adresseMail }'></c:out>" placeholder="Adresse mail" pattern="[a-zA-Z0-9@.-_]+@[a-zA-Z]{2,20}.[a-zA-Z]{2,3}" x-moz-errormessage="Veuillez entrez un identifiant" required/>
-							<input type="text" name="motDePasse" class="form-control input-sm" placeholder="Mot de passe" pattern=".{8,}" x-moz-errormessage="Veuillez entrez un mot de passe" required/>
+							<input type="password" name="motDePasse" class="form-control input-sm" placeholder="Mot de passe" pattern=".{8,}" x-moz-errormessage="Veuillez entrez un mot de passe" required/>
 							<span class="erreur">${ form.erreurs['connexion'] }</span>
 							<button type="submit" class="form-control  bouton bouton-primary">CONNEXION</button>
 						</div>

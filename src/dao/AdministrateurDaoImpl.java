@@ -385,7 +385,6 @@ public class AdministrateurDaoImpl implements AdministrateurDao
 		{
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_AUTH, true, administrateur.getAdresseMail(), administrateur.getMotDePasse());
-			System.out.println(preparedStatement.toString());
 			resultSet = preparedStatement.executeQuery();
 			
 			if (resultSet.next()) 

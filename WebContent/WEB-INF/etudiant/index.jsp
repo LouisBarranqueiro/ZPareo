@@ -48,7 +48,7 @@
                             <div class="module-barre">
                                 <h1>Liste des étudiants</h1>
                                 <p><c:out value="${ nbEtudiants }"/> étudiants enregistrés</p>
-                                <button type="button" class="bouton bouton-success" onclick="affFormCreation('etudiant',300)">AJOUTER UN ETUDIANT</button>
+                                <button type="button" class="bouton bouton-success" onclick="affFormCreation('ai/etudiant',300)">AJOUTER UN ETUDIANT</button>
                             </div>
                             <!-- formulaire de recherche de etudiant -->
                             <form action="http://localhost:8080/ZPareo/ai/etudiant" method="GET" class="form-inline">
@@ -89,7 +89,7 @@
                                                 <td><c:out value="${ etudiant.groupe.nom }"/></td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button type="button" class="bouton bouton-action" onclick="affFormEdition('etudiant',<c:out value="${ etudiant.id }"/>,500)"><span class="icon-edit"></span></button>
+                                                        <button type="button" class="bouton bouton-action" onclick="affFormEdition('ai/etudiant',<c:out value="${ etudiant.id }"/>,500)"><span class="icon-edit"></span></button>
                                                         <a class="unstyled" href="http://localhost:8080/ZPareo/ai/etudiant/suppression?id=<c:out value="${ etudiant.id }"/>"><button type="button" class="bouton bouton-action" onclick="return(confirm('Etes vous sur de vouloir supprimer l\'étudiant : <c:out value="${ etudiant.prenom }"/> <c:out value="${ etudiant.nom }"/> ?'));"><span class="icon-trashcan"></span></button></a>
                                                     </div>
                                                 </td>

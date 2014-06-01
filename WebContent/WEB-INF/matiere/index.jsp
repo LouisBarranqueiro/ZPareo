@@ -48,7 +48,7 @@
 					        <div class="module-barre">
 					            <h1>Liste des matières</h1>
 					            <p><c:out value="${ nbMatieres }"/> matières enregistrées</p>
-					            <button type="button" class="bouton bouton-success" onclick="affFormCreation('matiere',300)">AJOUTER UNE MATIERE</button>
+					            <button type="button" class="bouton bouton-success" onclick="affFormCreation('ai/matiere',300)">AJOUTER UNE MATIERE</button>
 					        </div>
 					        <!-- formulaire de recherche de groupes -->
 					        <form action="http://localhost:8080/ZPareo/ai/matiere" method="GET" class="form-inline">
@@ -73,7 +73,7 @@
 					                            <td><c:out value="${ matiere.nom }"/></td>
 					                            <td>
 													<div class="btn-group">
-													  	<button type="button" class="bouton bouton-action" onclick="affFormEdition('matiere',<c:out value="${ matiere.id }"/>,300)"><span class="icon-edit"></span></button>
+													  	<button type="button" class="bouton bouton-action" onclick="affFormEdition('ai/matiere',<c:out value="${ matiere.id }"/>,300)"><span class="icon-edit"></span></button>
 													  	<a class="unstyled" href="http://localhost:8080/ZPareo/ai/matiere/suppression?id=<c:out value="${ matiere.id }"/>"><button type="button" class="bouton bouton-action" onclick="return(confirm('Etes-vous sur de vouloir supprimer la matiere : <c:out value="${ matiere.nom }"/>?'));"><span class="icon-trashcan"></span></button></a>
 													</div>
 												</td>

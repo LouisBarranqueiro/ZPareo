@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.TreeSet;
 
 import beans.Examen;
@@ -16,8 +18,9 @@ import beans.Professeur;
 
 public class ExamenDaoImpl implements ExamenDao 
 {
-
-	public static final String SQL_SELECT_TOUS = "SELECT gnw_examen.id, gnw_examen.nom, gnw_groupe.nom, gnw_matiere.nom, gnw_examen.moyenne_generale FROM gnw_examen, gnw_matiere, gnw_groupe WHERE gnw_examen.date_suppr Is NULL AND gnw_examen.fk_groupe = gnw_groupe.id AND gnw_examen.fk_matiere = gnw_matiere.id AND gnw_examen.fk_professeur = ?";
+	private static final String SQL_FORMAT = "yyyy-mm-dd";
+	private static final String APP_FORMAT = "dd-mm-yyyy";
+	public static final String SQL_SELECT_TOUS = "SELECT gnw_examen.id, gnw_examen.nom, gnw_examen.date, gnw_examen.format, gnw_groupe.nom as groupeNom, gnw_matiere.nom as matiereNom, gnw_examen.moyenne_generale FROM gnw_examen, gnw_matiere, gnw_groupe WHERE gnw_examen.date_suppr Is NULL AND gnw_examen.fk_groupe = gnw_groupe.id AND gnw_examen.fk_matiere = gnw_matiere.id AND gnw_examen.fk_professeur = ?";
 	private DAOFactory daoFactory;
 	
 	/**
@@ -42,7 +45,7 @@ public class ExamenDaoImpl implements ExamenDao
 	}
 	
 	/**
-     * Recherche une ou des examen(s) dans la base de données
+     * Recherche un ou des examen(s) dans la base de données
      * 
      * @param examen
      * @throws DAOException
@@ -71,7 +74,7 @@ public class ExamenDaoImpl implements ExamenDao
 				sqlSelectRecherche += " AND gnw_examen.id IS NOT ?";	
 			}
 			
-			if (examen.getNom() != null )
+			if (examen.getNom() != null)
 			{
 				sqlSelectRecherche += " AND gnw_examen.nom LIKE ?";
 				examen.setNom("%" + examen.getNom() + "%");
@@ -79,6 +82,28 @@ public class ExamenDaoImpl implements ExamenDao
 			else
 			{
 				sqlSelectRecherche += " AND gnw_examen.nom IS NOT ?";	
+			}
+			
+			if (examen.getDate() != null)
+			{
+				sqlSelectRecherche += " AND gnw_examen.date = ?";
+			}
+			else
+			{
+				sqlSelectRecherche += " AND gnw_examen.date IS NOT ?";	
+			}
+			
+			if (examen.getFormat() == "Ecrit")
+			{
+				sqlSelectRecherche += " AND gnw_examen.format = 2";
+			}
+			else if (examen.getFormat() == "Oral")
+			{
+				sqlSelectRecherche += " AND gnw_examen.format = 1";
+			}
+			else
+			{
+				sqlSelectRecherche += " AND gnw_examen.format IS NOT NULL";	
 			}
 			
 			if(groupe.getId() != null)
@@ -108,7 +133,7 @@ public class ExamenDaoImpl implements ExamenDao
 				sqlSelectRecherche += " AND gnw_examen.moyenne_generale IS NOT ?";	
 			}
 			
-			preparedStatement = initialisationRequetePreparee(connexion, sqlSelectRecherche, true, professeur.getId(), examen.getId(), examen.getNom(), groupe.getId(), matiere.getId(), examen.getMoyenneGenerale());
+			preparedStatement = initialisationRequetePreparee(connexion, sqlSelectRecherche, true, professeur.getId(), examen.getId(), examen.getNom(), examen.getDate(), groupe.getId(), matiere.getId(), examen.getMoyenneGenerale());
 			System.out.println(preparedStatement.toString());
 			resultSet = preparedStatement.executeQuery();
 			
@@ -187,16 +212,16 @@ public class ExamenDaoImpl implements ExamenDao
 	{
 		PreparedStatement preparedStatement = connexion.prepareStatement(sql, returnGeneratedKeys ?Statement.RETURN_GENERATED_KEYS : Statement.NO_GENERATED_KEYS);
 		
-		for ( int i = 0; i < objets.length; i++ ) 
+		for (int i = 0; i < objets.length; i++) 
 		{
-			preparedStatement.setObject( i + 1, objets[i] );
+			preparedStatement.setObject(i + 1, objets[i]);
 		}
 		
 		return preparedStatement;
 	}
 	
 	/**
-	 * Transf�re les donn�es du resultSet vers un objet
+	 * Transfère les données du resultSet vers un objet
 	 * 
 	 * @param resultSet
 	 * @return groupe
@@ -210,6 +235,17 @@ public class ExamenDaoImpl implements ExamenDao
 		
 		examen.setId(resultSet.getLong("id"));
 		examen.setNom(resultSet.getString("nom"));
+		examen.setDate(resultSet.getDate("date"));
+		
+		if (resultSet.getLong("format") == 1)
+		{
+			examen.setFormat("Oral");
+		}
+		else if (resultSet.getLong("format") == 2)
+		{
+			examen.setFormat("Ecrit");
+		}
+		
 		examen.setMoyenneGenerale(resultSet.getFloat("moyenne_generale"));
 		groupe.setNom(resultSet.getString("groupeNom"));
 		matiere.setNom(resultSet.getString("matiereNom"));

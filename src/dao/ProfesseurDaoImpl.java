@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -20,6 +19,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 	private DAOFactory daoFactory;
 	private static final String SQL_COUNT_TOUS                    = "SELECT COUNT(id) FROM gnw_utilisateur WHERE profil = 1 AND date_suppr IS NULL";
 	private static final String SQL_SELECT_COUNT_PAR_ADRESSE_MAIL = "SELECT COUNT(id) FROM gnw_utilisateur WHERE profil = 1 AND adresse_mail = ?";
+	private static final String SQL_SELECT_PAR_ADRESSE_MAIL       = "SELECT id FROM gnw_utilisateur WHERE profil = 1 AND adresse_mail = ? AND date_suppr IS NULL";
 	private static final String SQL_SELECT_TOUS                   = "SELECT id, nom, prenom, adresse_mail  FROM gnw_utilisateur WHERE profil = 1 AND date_suppr IS NULL";
 	private static final String SQL_SELECT_MATIERES               = "SELECT gnw_professeur_matiere.fk_matiere as matiereId, gnw_matiere.nom as matiereNom FROM gnw_professeur_matiere, gnw_matiere WHERE gnw_professeur_matiere.date_suppr IS NULL AND gnw_professeur_matiere.fk_professeur = ? AND gnw_professeur_matiere.fk_matiere = gnw_matiere.id";
 	private static final String SQL_SELECT_GROUPES                = "SELECT gnw_professeur_groupe.fk_groupe as groupeId, gnw_groupe.nom as groupeNom FROM gnw_professeur_groupe, gnw_groupe WHERE gnw_professeur_groupe.date_suppr IS NULL AND gnw_professeur_groupe.fk_professeur = ? AND gnw_professeur_groupe.fk_groupe = gnw_groupe.id";
@@ -81,11 +81,10 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 			preparedStatement.executeUpdate();
 			
 			// Recherche de l'id du professeur
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_COUNT_PAR_ADRESSE_MAIL, true, professeur.getAdresseMail());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_PAR_ADRESSE_MAIL, true, professeur.getAdresseMail());
 			resultSet = preparedStatement.executeQuery();
 			resultSet.next();
-			professeur1 = mapProfesseur(resultSet);
-			professeur.setId(professeur1.getId());
+			professeur.setId(resultSet.getLong("id"));
 
 		} 
 		catch (SQLException e) 
@@ -506,7 +505,6 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 		{
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_AUTH, true, professeur.getAdresseMail(), professeur.getMotDePasse());
-			System.out.println(preparedStatement.toString());
 			resultSet = preparedStatement.executeQuery();
 			
 			if (resultSet.next()) 

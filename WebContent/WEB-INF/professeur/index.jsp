@@ -48,7 +48,7 @@
 					        <div class="module-barre">
 					            <h1>Liste des professeurs</h1>
 					            <p><c:out value="${ nbProfesseurs }"/> professeurs enregistrées</p>
-					            <button type="button" class="bouton bouton-success" onclick="affFormCreation('professeur',600)">AJOUTER UN PROFESSEUR</button>
+					            <button type="button" class="bouton bouton-success" onclick="affFormCreation('ai/professeur',600)">AJOUTER UN PROFESSEUR</button>
 					        </div>
 					        <!-- formulaire de recherche de professeurs -->
 					        <form action="http://localhost:8080/ZPareo/ai/professeur" method="GET" class="form-inline">
@@ -79,8 +79,8 @@
 					                            <td><c:out value="${ professeur.adresseMail }"/></td>
 					                            <td>
 													<div class="btn-group">
-														<button type="button" class="bouton bouton-action" onclick="affFormDetails('professeur',<c:out value="${ professeur.id }"/>,400)"><span class="icon-list2" ></span></button>
-													  	<button type="button" class="bouton bouton-action" onclick="affFormEdition('professeur',<c:out value="${ professeur.id }"/>,600)"><span class="icon-edit"></span></button>
+														<button type="button" class="bouton bouton-action" onclick="affFormDetails('ai/professeur',<c:out value="${ professeur.id }"/>,400)"><span class="icon-list2" ></span></button>
+													  	<button type="button" class="bouton bouton-action" onclick="affFormEdition('ai/professeur',<c:out value="${ professeur.id }"/>,600)"><span class="icon-edit"></span></button>
 													  	<a class="unstyled" href="http://localhost:8080/ZPareo/ai/professeur/suppression?id=<c:out value="${ professeur.id }"/>"><button type="button" class="bouton bouton-action" onclick="return(confirm('Etes-vous sur de vouloir supprimer le professeur : <c:out value="${ professeur.prenom }"/> <c:out value="${ professeur.nom }"/>?'));"><span class="icon-trashcan"></span></button></a>
 													</div>
 												</td>

@@ -1,17 +1,24 @@
 package beans;
 
+import java.util.Date;
 import java.util.Set;
 
 public class Examen implements Comparable<Examen>
 {
 	private Long id;
 	private String nom;
+	private Date date;
+	private String format;
 	private Professeur professeur;
 	private Groupe groupe;
 	private Matiere matiere;
 	private Set<Note> listeNotes;
 	private Float moyenneGenerale;
 	
+	public Examen()
+	{
+		
+	}
 	public Long getId() 
 	{
 		return id;
@@ -25,6 +32,26 @@ public class Examen implements Comparable<Examen>
 	public String getNom()
 	{
 		return nom;
+	}
+	
+	public Date getDate() 
+	{
+		return date;
+	}
+
+	public void setDate(Date date) 
+	{
+		this.date = date;
+	}
+	
+	public String getFormat() 
+	{
+		return format;
+	}
+	
+	public void setFormat(String format) 
+	{
+		this.format = format;
 	}
 	
 	public void setNom(String nom) 

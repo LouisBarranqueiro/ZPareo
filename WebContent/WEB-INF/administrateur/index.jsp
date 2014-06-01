@@ -48,7 +48,7 @@
                             <div class="module-barre">
                                 <h1>Liste des administrateurs</h1>
                                 <p><c:out value="${ nbAdministrateurs }"/> administrateurs enregistrés</p>
-                                <button type="button" class="bouton bouton-success" onclick="affFormCreation('administrateur',300)">AJOUTER UN ADMINISTRATEUR</button>
+                                <button type="button" class="bouton bouton-success" onclick="affFormCreation('ai/administrateur',300)">AJOUTER UN ADMINISTRATEUR</button>
                             </div>
                             <!-- formulaire de recherche de administrateurs -->
                             <form action="http://localhost:8080/ZPareo/ai/administrateur" method="GET" class="form-inline">
@@ -79,7 +79,7 @@
                                                 <td><c:out value="${ administrateur.adresseMail }"/></td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button type="button" class="bouton bouton-action" onclick="affFormEdition('administrateur',<c:out value="${ administrateur.id }"/>,300)"><span class="icon-edit"></span></button>
+                                                        <button type="button" class="bouton bouton-action" onclick="affFormEdition('ai/administrateur',<c:out value="${ administrateur.id }"/>,300)"><span class="icon-edit"></span></button>
                                                         <a class="unstyled" href="http://localhost:8080/ZPareo/ai/administrateur/suppression?id=<c:out value="${ administrateur.id }"/>"><button type="button" class="bouton bouton-action" onclick="return(confirm('Etes vous sur de vouloir supprimer l\'administrateur : <c:out value="${ administrateur.prenom }"/> <c:out value="${ administrateur.nom }"/> ?'));"><span class="icon-trashcan"></span></button></a>
                                                     </div>
                                                 </td>
