@@ -40,18 +40,20 @@
                                 <table class="style-1">
                                     <thead>
                                         <tr>
-                                            <th><input type="text" name="id" class="form-control input-sm" size="10" pattern="[0-9]+" placeholder="Reference" x-moz-errormessage="Veuillez entrez une référence correcte"/></th>
-                                            <th><input type="date" name="date" class="form-control input-sm" size="7" placeholder="Nom" x-moz-errormessage="Veuillez entrer une date correct"/></th>
+                                            <th><input type="text" name="id" class="form-control input-sm" size="8" pattern="[0-9]+" placeholder="Reference" x-moz-errormessage="Veuillez entrez une référence correcte"/></th>
+                                            <th><input type="date" name="date" class="form-control input-sm" size="7" placeholder="Date" x-moz-errormessage="Veuillez entrer une date correct"/></th>
                                             <th>
                                            		<select name="format" class="form-control input-sm">
+                                           			<option disabled="disabled" value="">Format</option>
 			         								<option value="0">Tous</option>
 			        								<option value="1">Oral</option>
 			        								<option value="2">Ecrit</option>
 			    								</select>
                                             </th>
-                                            <th><input type="text" name="nom" class="form-control input-sm" size="60" pattern=".{5,55}" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom correct"/></th>
+                                            <th><input type="text" name="nom" class="form-control input-sm" size="40" pattern=".{5,55}" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom correct"/></th>
                                             <th>
                                             	<select name="groupe" class="form-control input-sm">
+                                            	<option disabled="disabled" value="">Groupe</option>
 			         								<option value="">Tous</option>
 			        								<c:forEach items="${ sessionScope.sessionProfesseur.listeGroupes }" var="groupe">
 			             								<option value="${ groupe.id }">
@@ -62,6 +64,7 @@
                                             </th>
                                             <th>
                                             	<select name="matiere" class="form-control input-sm">
+                                            		<option disabled="disabled" value="">Matière</option>
 			         								<option value="">Tous</option>
 			        								<c:forEach items="${ sessionScope.sessionProfesseur.listeMatieres }" var="matiere">
 			             								<option value="${ matiere.id }">
@@ -80,7 +83,7 @@
                                             <th class="sortable">Nom</th>
                                             <th class="sortable">Groupe</th>
                                             <th class="sortable">Matière</th>
-                                            <th class="sortable">Moyenne Générale</th>
+                                            <th class="sortable">Moyenne</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -96,6 +99,7 @@
                                                 <td><c:out value="${ examen.moyenneGenerale }"/></td>
                                                 <td>
                                                     <div class="btn-group">
+                                                    	<button type="button" class="bouton bouton-action" onclick="affFormDetails('pi/examen',<c:out value="${ examen.id }"/>,600)"><span class="icon-list2"></span></button>
                                                         <button type="button" class="bouton bouton-action" onclick="affFormEdition('pi/examen',<c:out value="${ examen.id }"/>,600)"><span class="icon-edit"></span></button>
                                                         <a class="unstyled" href="http://localhost:8080/ZPareo/pi/examen/suppression?id=<c:out value="${ examen.id }"/>"><button type="button" class="bouton bouton-action" onclick="return(confirm('Etes vous sur de vouloir supprimer l\'examen : <c:out value="${ examen.nom }"/> ?'));"><span class="icon-trashcan"></span></button></a>
                                                     </div>
