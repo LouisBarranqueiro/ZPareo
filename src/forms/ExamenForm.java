@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import beans.Etudiant;
 import beans.Examen;
+import beans.FormatExamen;
 import beans.Groupe;
 import beans.Matiere;
 import beans.Professeur;
@@ -25,6 +26,7 @@ public final class ExamenForm
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	private static final String CHAMP_ID               = "id";
 	private static final String CHAMP_FORMAT           = "format";
+	private static final String CHAMP_PROFESSEUR       = "professeur";
 	private static final String CHAMP_DATE             = "date";
     private static final String CHAMP_NOM              = "nom";
     private static final String CHAMP_GROUPE           = "groupe";
@@ -54,6 +56,43 @@ public final class ExamenForm
     }
   
     /**
+     * Créer un examen dans la base de données
+     * 
+     * @param examen
+     * @return listeExamens
+     */
+    public Examen creerExamen(HttpServletRequest request) 
+    {
+    	String date = getValeurChamp(request, CHAMP_DATE);
+    	String format = getValeurChamp(request, CHAMP_FORMAT);
+    	String nom = getValeurChamp(request, CHAMP_NOM);
+    	String professeurId = getValeurChamp(request, CHAMP_PROFESSEUR);
+    	String groupeId = getValeurChamp(request, CHAMP_GROUPE);
+    	String matiereId = getValeurChamp(request, CHAMP_MATIERE);
+    	Examen examen = new Examen();
+    	
+        try 
+        {
+        	traiterFormat(format, examen);
+        	traiterNom(nom, examen);
+        	traiterDate(date, examen);
+        	traiterGroupeId(groupeId, examen);
+        	traiterMatiereId(matiereId, examen);
+        	traiterProfesseurId(professeurId, examen);
+            
+            if (erreurs.isEmpty()) 
+            {
+            	examenDao.creer(examen);
+            }
+        } 
+        catch (Exception e) 
+        {
+        	e.printStackTrace();
+        }
+
+        return examen;
+    }
+    /**
      * Recherche un ou des examen(s) dans la base de données
      * 
      * @param request
@@ -70,21 +109,15 @@ public final class ExamenForm
     	String moyenneGenerale = getValeurChamp(request, CHAMP_MOYENNE_GENERALE);
     	TreeSet<Examen> listeExamens = new TreeSet<Examen>();
     	Examen examen = new Examen();
-    	Matiere matiere = new Matiere();
-    	Groupe groupe = new Groupe();
-    	System.out.println(format);
     	
     	traiterId(id, examen);
-    	traiterMatiereId(matiereId, matiere);
-    	traiterGroupeId(groupeId, groupe);
+    	traiterMatiereId(matiereId, examen);
+    	traiterGroupeId(groupeId, examen);
     	traiterMoyenneGenerale(moyenneGenerale, examen);
-    	traiterDate(date, examen);
     	traiterFormat(format, examen);
+    	examen.setDate(date);
     	examen.setNom(nom);
-    	examen.setGroupe(groupe);
-    	examen.setMatiere(matiere);
     	examen.setProfesseur(professeur);
-    	
     	listeExamens = examenDao.rechercher(examen);
         
     	return listeExamens;
@@ -132,20 +165,16 @@ public final class ExamenForm
      */
     private void traiterDate(String date, Examen examen) 
     {
-    	final SimpleDateFormat SQL_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-    	java.util.Date judDate1 = new java.util.Date();
-
     	try
     	{
     		validationDate(date);
-    		judDate1 = SQL_FORMAT.parse(date);
-    		java.sql.Date sqlDate1 = new java.sql.Date(judDate1.getTime());
-    		examen.setDate(SQL_FORMAT.format(sqlDate1));
     	} 	
     	catch (Exception e) 
     	{
     		e.printStackTrace();
     	}
+
+    	examen.setDate(date);
     }
     
     /**
@@ -154,12 +183,16 @@ public final class ExamenForm
      * @param matiereId
      * @param examen
      */
-    private void traiterMatiereId(String matiereId, Matiere matiere) 
+    private void traiterMatiereId(String matiereId, Examen examen) 
     {
+    	Matiere matiere = new Matiere();
+    	
     	if (matiereId != null) 
     	{
     		matiere.setId(Long.parseLong(matiereId));
     	}
+    	
+    	examen.setMatiere(matiere);
     }
     
     /**
@@ -168,12 +201,34 @@ public final class ExamenForm
      * @param groupeId
      * @param examen
      */
-    private void traiterGroupeId(String groupeId, Groupe groupe) 
+    private void traiterGroupeId(String groupeId, Examen examen) 
     {
+    	Groupe groupe = new Groupe();
+    	
     	if (groupeId != null) 
     	{
     		groupe.setId(Long.parseLong(groupeId));
     	}
+    	
+    	examen.setGroupe(groupe);
+    }
+    
+    /**
+     *  Traite l'attribut : professeurId
+     *  
+     * @param professeurId
+     * @param examen
+     */
+    private void traiterProfesseurId(String professeurId, Examen examen) 
+    {
+    	Professeur professeur = new Professeur();
+    	
+    	if (professeurId != null) 
+    	{
+    		professeur.setId(Long.parseLong(professeurId));
+    	}
+    	
+    	examen.setProfesseur(professeur);
     }
     
     /**
@@ -182,23 +237,16 @@ public final class ExamenForm
      * @param format
      * @param examen
      */
-    private void traiterFormat(String format, Examen examen) 
+    private void traiterFormat(String formatId, Examen examen) 
     {
-    	long formatId = 0;
-    	if (format != null) 
+    	FormatExamen format = new FormatExamen();
+    	
+    	if (formatId != null) 
     	{
-    		formatId = Long.parseLong(format);
+    		format.setId(Long.parseLong(formatId));
     	}
-    	if (formatId == 1) 
-    	{
-    		examen.setFormat("Oral");
-    	}
-    	else if (formatId == 2) 
-    	{
-    		examen.setFormat("Ecrit");
-    	}
-    	System.out.println(format);
-    	System.out.println(examen.getFormat());
+    	
+    	examen.setFormat(format);
     }
 
     /**
@@ -237,9 +285,9 @@ public final class ExamenForm
      */
     private void validationDate(String date) throws Exception 
     {
-        if ((date == null) || (date.matches("(0[1-9]|1[0-9]|2[0-9]|3[01])/(0[1-9]|1[012])/[0-9]{4}"))) 
+        if (date == null) 
         {
-            throw new Exception("Veuillez entrer un nom de 2 à 50 caractères");
+            throw new Exception("Veuillez entrer un date au format JJ/MM/AAAA");
         }
     }
     
@@ -273,6 +321,22 @@ public final class ExamenForm
         {
             return valeur.trim();
         }
+    }
+    private String modifFormatDate(String ancienFormat, String nouvFormat, String dateString)
+    {
+    	final SimpleDateFormat SQL_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    	java.util.Date dateUtil = new java.util.Date();
+    	java.sql.Date dateSQL = null;
+    	try
+    	{
+    		dateUtil = SQL_FORMAT.parse(dateString);
+    		dateSQL = new java.sql.Date(dateUtil.getTime());
+    	} 	
+    	catch (Exception e) 
+    	{
+    		e.printStackTrace();
+    	}
+    	return SQL_FORMAT.format(dateSQL);
     }
 }
 

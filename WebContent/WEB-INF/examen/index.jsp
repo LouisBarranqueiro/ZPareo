@@ -37,7 +37,7 @@
                             <!-- formulaire de recherche de administrateurs -->
                             <form action="http://localhost:8080/ZPareo/pi/examen" method="GET" class="form-inline">
                                 <!-- Tableau principal -->
-                                <table class="style-1">
+                                <table id="table-examens"class="style-1">
                                     <thead>
                                         <tr>
                                             <th><input type="text" name="id" class="form-control input-sm" size="8" pattern="[0-9]+" placeholder="Reference" x-moz-errormessage="Veuillez entrez une référence correcte"/></th>
@@ -45,7 +45,7 @@
                                             <th>
                                            		<select name="format" class="form-control input-sm">
                                            			<option disabled="disabled" value="">Format</option>
-			         								<option value="0">Tous</option>
+			         								<option value="">Tous</option>
 			        								<option value="1">Oral</option>
 			        								<option value="2">Ecrit</option>
 			    								</select>
@@ -73,7 +73,7 @@
 			        							 	</c:forEach>
 			    								</select>
                                             </th>
-                                            <th><input type="text" name="moyenne" class="form-control input-sm" size="10" pattern="[0-9,.]{1,5}" placeholder="Moyenne" x-moz-errormessage="Veuillez entrer un nombre correct"/></th>
+                                            <th></th>
                                             <th><button type="submit" class="bouton bouton-primary">RECHERCHER</button></th>
                                         </tr>
                                         <tr>
@@ -92,7 +92,7 @@
                                             <tr>
                                                 <td><c:out value="${ examen.id }"/></td>
                                                 <td><c:out value="${ examen.date }"/></td>
-                                                <td><c:out value="${ examen.format }"/></td>
+                                                <td><c:out value="${ examen.format.nom }"/></td>
                                                 <td><c:out value="${ examen.nom }"/></td>
                                                 <td><c:out value="${ examen.groupe.nom }"/></td>
                                                 <td><c:out value="${ examen.matiere.nom }"/></td>

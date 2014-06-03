@@ -116,6 +116,7 @@ var rechFonctCreat = function()
 	creerMatiere();
 	creerProfesseur();
 	creerAdministrateur();
+	creerExamen();
 };
 
 /**
@@ -128,6 +129,7 @@ var rechFonctEdit = function()
 	editerEtudiant();
 	editerProfesseur();
 	editerAdministrateur();
+	editerExamen();
 };
 
 /**
@@ -687,16 +689,22 @@ var creerExamen = function()
 	$('#creation-examen').submit(function(event)
 	{
 		event.preventDefault();
+		var professeur = $('#creation-examen input[name=professeur]').val();
+		var format = $('#creation-examen select[name=format]').val();
 		var nom = $('#creation-examen input[name=nom]').val();
-		var matiere = $('#creation-examen input[name=matiere]').val();
-		var groupe = $('#creation-examen input[name=groupe]').val();
-
+		var date = $('#creation-examen input[name=date]').val();
+		var matiere = $('#creation-examen select[name=matiere]').val();
+		var groupe = $('#creation-examen select[name=groupe]').val();
+		
 		$.ajax({ 
 		    type: "POST", 
-		    url: "http://localhost:8080/ZPareo/ai/examen/creation", 
+		    url: "http://localhost:8080/ZPareo/pi/examen/creation", 
 		    data: 
 		    {
+		    	professeur: professeur,
+		    	format: format,
 		    	nom: nom,
+		    	date: date,
 		    	matiere: matiere,
 		    	groupe: groupe
 		    }, 
@@ -714,9 +722,10 @@ var creerExamen = function()
 		    	}
 		    	else 
 		    	{
+		    		alert("ok");
 		    		$('.fenetre-modale').replaceWith(data);
 		    		initFenetreModale(300);
-		    		rechFonctEdit();
+		    		rechFonctCreat();
 		    	}
 		    } 
 		});

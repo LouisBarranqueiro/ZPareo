@@ -285,7 +285,7 @@ public class EtudiantDaoImpl implements EtudiantDao
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
-		Groupe groupe = new Groupe( etudiant.getGroupe() );
+		Groupe groupe = new Groupe(etudiant.getGroupe());
 		
 		try 
 		{

@@ -14,16 +14,15 @@ import java.util.Date;
 import java.util.TreeSet;
 
 import beans.Examen;
+import beans.FormatExamen;
 import beans.Groupe;
 import beans.Matiere;
 import beans.Professeur;
 
 public class ExamenDaoImpl implements ExamenDao 
 {
-	private static final SimpleDateFormat APP_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
-	private static final SimpleDateFormat SQL_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-	
-    SimpleDateFormat dmyFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+    private static final String SQL_INSERT_EXAMEN = "INSERT INTO gnw_examen(format, nom, date, fk_professeur, fk_groupe, fk_matiere) VALUES (?, ?, ?, ?, ?, ?)";
 	public static final String SQL_SELECT_TOUS = "SELECT gnw_examen.id, gnw_examen.nom, gnw_examen.date, gnw_examen.format, gnw_groupe.nom as groupeNom, gnw_matiere.nom as matiereNom, gnw_examen.moyenne_generale FROM gnw_examen, gnw_matiere, gnw_groupe WHERE gnw_examen.date_suppr Is NULL AND gnw_examen.fk_groupe = gnw_groupe.id AND gnw_examen.fk_matiere = gnw_matiere.id AND gnw_examen.fk_professeur = ?";
 	private DAOFactory daoFactory;
 	
@@ -45,7 +44,50 @@ public class ExamenDaoImpl implements ExamenDao
      */
 	public void creer(Examen examen) throws DAOException
 	{
+		ajouterExamen(examen);
+	}
+	
+	/**
+	 * Ajoute un examen dans la base de données
+	 * 
+	 */
+	public void ajouterExamen(Examen examen)
+	{
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		Groupe groupe = new Groupe(examen.getGroupe());
+		Matiere matiere = new Matiere(examen.getMatiere());
+		Professeur professeur = new Professeur(examen.getProfesseur());
+		FormatExamen format = new FormatExamen(examen.getFormat());
+		ResultSet resultSet;
 		
+		try 
+		{
+			connexion = daoFactory.getConnection();
+			
+			// Insertion de l'examen dans la base de données
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_EXAMEN, true, format.getId(), examen.getNom(), examen.getDate(),professeur.getId(), groupe.getId(), matiere.getId() );
+			System.out.println(preparedStatement.toString());
+			preparedStatement.executeUpdate();
+			System.out.println(preparedStatement.toString());
+			// Récupération de l'id de l'examen
+			resultSet = preparedStatement.getGeneratedKeys();
+			
+			if (resultSet.next()) 
+			{
+				examen.setId(resultSet.getLong(1));
+				System.out.println("id  : " + examen.getId());
+			}
+
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(preparedStatement, connexion);
+		}
 	}
 	
 	/**
@@ -60,6 +102,7 @@ public class ExamenDaoImpl implements ExamenDao
 		Groupe groupe = new Groupe(examen.getGroupe());
 		Matiere matiere = new Matiere(examen.getMatiere());
 		Professeur professeur = new Professeur(examen.getProfesseur());
+		FormatExamen format = new FormatExamen(examen.getFormat());
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -97,17 +140,13 @@ public class ExamenDaoImpl implements ExamenDao
 				sqlSelectRecherche += " AND gnw_examen.date IS NOT ?";	
 			}
 			
-			if (examen.getFormat() == "Ecrit")
+			if (format.getId() != null)
 			{
-				sqlSelectRecherche += " AND gnw_examen.format = 2";
-			}
-			else if (examen.getFormat() == "Oral")
-			{
-				sqlSelectRecherche += " AND gnw_examen.format = 1";
+				sqlSelectRecherche += " AND gnw_examen.format = ?";
 			}
 			else
 			{
-				sqlSelectRecherche += " AND gnw_examen.format IS NOT NULL";	
+				sqlSelectRecherche += " AND gnw_examen.format IS NOT ?";	
 			}
 			
 			if(groupe.getId() != null)
@@ -128,16 +167,7 @@ public class ExamenDaoImpl implements ExamenDao
 				sqlSelectRecherche += " AND gnw_examen.fk_matiere IS NOT ?";	
 			}
 			
-			if (examen.getMoyenneGenerale() != null) 
-			{
-				sqlSelectRecherche += " AND gnw_examen.moyenne_generale = ?";
-			}
-			else
-			{
-				sqlSelectRecherche += " AND gnw_examen.moyenne_generale IS NOT ?";	
-			}
-			
-			preparedStatement = initialisationRequetePreparee(connexion, sqlSelectRecherche, true, professeur.getId(), examen.getId(), examen.getNom(), examen.getDate(), groupe.getId(), matiere.getId(), examen.getMoyenneGenerale());
+			preparedStatement = initialisationRequetePreparee(connexion, sqlSelectRecherche, true, professeur.getId(), examen.getId(), examen.getNom(), examen.getDate(), format.getId(), groupe.getId(), matiere.getId());
 			System.out.println(preparedStatement.toString());
 			resultSet = preparedStatement.executeQuery();
 			
@@ -236,21 +266,22 @@ public class ExamenDaoImpl implements ExamenDao
 		Examen examen = new Examen();
 		Matiere matiere = new Matiere();
 		Groupe groupe = new Groupe();
+		FormatExamen format = new FormatExamen();
 		
 		examen.setId(resultSet.getLong("id"));
 		examen.setNom(resultSet.getString("nom"));
-
 		examen.setDate(convertirDateToString(resultSet.getDate("date")));
-		
-		if (resultSet.getLong("format") == 1)
+		format.setId(resultSet.getLong("format"));
+		if(format.getId() == 1 )
 		{
-			examen.setFormat("Oral");
+			
+			format.setNom("Oral");
 		}
-		else if (resultSet.getLong("format") == 2)
+		else
 		{
-			examen.setFormat("Ecrit");
+			format.setNom("Ecrit");
 		}
-		
+		examen.setFormat(format);
 		examen.setMoyenneGenerale(resultSet.getFloat("moyenne_generale"));
 		groupe.setNom(resultSet.getString("groupeNom"));
 		matiere.setNom(resultSet.getString("matiereNom"));
@@ -259,6 +290,12 @@ public class ExamenDaoImpl implements ExamenDao
 		
 		return examen;
 	}
+	/**
+	 * Converti une Date en chaine de caractères
+	 * 
+	 * @param date
+	 * @return 
+	 */
 	private static String convertirDateToString(java.sql.Date date)
 	{
 		DateFormat APP_FORMAT = new SimpleDateFormat("dd/MM/yyyy");

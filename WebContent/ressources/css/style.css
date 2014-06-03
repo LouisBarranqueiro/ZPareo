@@ -45,3 +45,7 @@ body {
 	margin:0 auto;
 
 }
+#table-examens thead tr:last-child th:nth-child(7)
+{
+	width:100px;
+}

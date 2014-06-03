@@ -8,12 +8,13 @@ public class Examen implements Comparable<Examen>
 	private Long id;
 	private String nom;
 	private String date;
-	private String format;
+	private FormatExamen format;
 	private Professeur professeur;
 	private Groupe groupe;
 	private Matiere matiere;
 	private Set<Note> listeNotes;
 	private Float moyenneGenerale;
+	private Float coefficient;
 	
 	public Examen()
 	{
@@ -44,12 +45,12 @@ public class Examen implements Comparable<Examen>
 		this.date = date;
 	}
 	
-	public String getFormat() 
+	public FormatExamen getFormat() 
 	{
 		return format;
 	}
 	
-	public void setFormat(String format) 
+	public void setFormat(FormatExamen format) 
 	{
 		this.format = format;
 	}
@@ -114,6 +115,12 @@ public class Examen implements Comparable<Examen>
 		int compId = this.getId().compareTo(examen2.getId());
         if(compId != 0) return compId;
         return 0;
+	}
+	public Float getCoefficient() {
+		return coefficient;
+	}
+	public void setCoefficient(Float coefficient) {
+		this.coefficient = coefficient;
 	}
 	
 }

@@ -49,7 +49,6 @@ public class Examen extends HttpServlet
 		
 		listeExamens = form.rechercherExamen(professeur, request);
 		nbExamens = listeExamens.size();
-		
         request.setAttribute(ATT_FORM, form);
         request.setAttribute(ATT_EXAMENS, listeExamens);
         request.setAttribute(ATT_NB_EXAMENS, nbExamens);

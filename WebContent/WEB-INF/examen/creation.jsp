@@ -5,15 +5,19 @@
 		<div class="module-barre">
 			<h1 class="centre">Ajout d'un examen</h1>
 		</div>
-		<form action="http://localhost:8080/ZPareo/examen/creation" method="POST" class="form-horizontal">
+		<form action="http://localhost:8080/ZPareo/pi/examen/creation" method="POST" class="form-horizontal">
 			<div class="module-form">
+				<input type="hidden" name="professeur" class="form-control input-sm" value="<c:out value='${ sessionScope.sessionProfesseur.id }'/>" pattern=".{5,55}" readonly="readonly" required="required"/>
  				<select name="format" class="form-control input-sm">
                 	<option disabled="disabled" selected="selected">Sélectionner un type</option>
                 	<option value="1">Oral</option>
                 	<option value="2">Ecrit</option>
 			    </select>
+			    <span class="erreur">${ form.erreurs['format'] }</span>
                 <input type="text" name="nom" class="form-control input-sm" pattern=".{5,55}" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom correct"/>
+                <span class="erreur">${ form.erreurs['nom'] }</span>
                 <input type="date" name="date" class="form-control input-sm" placeholder="Date de l'examen" x-moz-errormessage="Veuillez entrer une date correct"/>
+                <span class="erreur">${ form.erreurs['date'] }</span>
                 <select name="groupe" class="form-control input-sm">
                 	<option disabled="disabled" selected="selected">Sélectionner un groupe</option>
 			        <c:forEach items="${ sessionScope.sessionProfesseur.listeGroupes }" var="groupe">
@@ -22,6 +26,7 @@
 			            </option>
 			        </c:forEach>
 			    </select>
+			    <span class="erreur">${ form.erreurs['groupe'] }</span>
                 <select name="matiere" class="form-control input-sm">
                 	<option disabled="disabled" selected="selected">Sélectionner une matière</option>
 			        <c:forEach items="${ sessionScope.sessionProfesseur.listeMatieres }" var="matiere">
@@ -30,6 +35,7 @@
 			            </option>
 			        </c:forEach>
 			   	</select>
+			   	<span class="erreur">${ form.erreurs['matiere'] }</span>
 			</div>				
 			<div class="module-control-bas">
 				<button type="submit" class="bouton bouton-primary">AJOUTER</button>
