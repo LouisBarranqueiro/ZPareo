@@ -1,6 +1,5 @@
 package beans;
 
-import java.util.Date;
 import java.util.Set;
 
 public class Examen implements Comparable<Examen>

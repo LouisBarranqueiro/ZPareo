@@ -1,20 +1,11 @@
 package forms;
 
-import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeSet;
-
-import dao.EtudiantDao;
 import dao.ExamenDao;
-
 import javax.servlet.http.HttpServletRequest;
-
-import beans.Etudiant;
 import beans.Examen;
 import beans.FormatExamen;
 import beans.Groupe;
@@ -92,6 +83,23 @@ public final class ExamenForm
 
         return examen;
     }
+    /**
+     * Cherche un examen dans la base de données
+     * 
+     * @param examen
+     * @return
+     */
+    public Examen trouverExamen(HttpServletRequest request)
+    {
+    	String id = getValeurChamp(request, CHAMP_ID);
+    	Examen examen = new Examen();
+    	
+    	traiterId(id, examen);
+    	examen = examenDao.trouver(examen);
+    
+    	return examen;
+    }
+    
     /**
      * Recherche un ou des examen(s) dans la base de données
      * 
@@ -322,7 +330,17 @@ public final class ExamenForm
             return valeur.trim();
         }
     }
-    private String modifFormatDate(String ancienFormat, String nouvFormat, String dateString)
+    
+    /**
+     * Modifier le format d'une date
+     * 
+     * @param ancienFormat
+     * @param nouvFormat
+     * @param dateString
+     * @return
+     */
+    @SuppressWarnings("unused")
+	private String modifFormatDate(String ancienFormat, String nouvFormat, String dateString)
     {
     	final SimpleDateFormat SQL_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     	java.util.Date dateUtil = new java.util.Date();

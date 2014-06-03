@@ -732,6 +732,56 @@ var creerExamen = function()
 	});
 };
 
+/**
+ * edite un examen dans la base de données
+ */ 
+var editerExamen = function()  
+{
+	$('#creation-examen').submit(function(event)
+	{
+		event.preventDefault();
+		var professeur = $('#creation-examen input[name=professeur]').val();
+		var format = $('#creation-examen select[name=format]').val();
+		var nom = $('#creation-examen input[name=nom]').val();
+		var date = $('#creation-examen input[name=date]').val();
+		var matiere = $('#creation-examen select[name=matiere]').val();
+		var groupe = $('#creation-examen select[name=groupe]').val();
+		
+		$.ajax({ 
+		    type: "POST", 
+		    url: "http://localhost:8080/ZPareo/pi/examen/edition", 
+		    data: 
+		    {
+		    	professeur: professeur,
+		    	format: format,
+		    	nom: nom,
+		    	date: date,
+		    	matiere: matiere,
+		    	groupe: groupe
+		    }, 
+		    error: function() 
+		    { 
+		    	alert("erreur !"); 
+		    },
+		    success: function(data) 
+		    { 
+		    	if(data.match('<tbody>')) 
+		    	{
+		    		supprFenetresModales();
+		    		vue = data.substr(data.search("<div id='module-conteneur'>"), data.search("</main>"));
+		    		$('#module-conteneur').replaceWith(vue);
+		    	}
+		    	else 
+		    	{
+		    		alert("ok");
+		    		$('.fenetre-modale').replaceWith(data);
+		    		initFenetreModale(800);
+		    		rechFonctCreat();
+		    	}
+		    } 
+		});
+	});
+};
 
 /**
  * Creer un etudiant dans la base de donn�es

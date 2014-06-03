@@ -69,7 +69,6 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
-		Professeur professeur1 = new Professeur();
 		ResultSet resultSet;
 		
 		try 

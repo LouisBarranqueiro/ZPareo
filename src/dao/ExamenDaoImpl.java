@@ -8,9 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.TreeSet;
 
 import beans.Examen;
@@ -24,6 +22,7 @@ public class ExamenDaoImpl implements ExamenDao
 
     private static final String SQL_INSERT_EXAMEN = "INSERT INTO gnw_examen(format, nom, date, fk_professeur, fk_groupe, fk_matiere) VALUES (?, ?, ?, ?, ?, ?)";
 	public static final String SQL_SELECT_TOUS = "SELECT gnw_examen.id, gnw_examen.nom, gnw_examen.date, gnw_examen.format, gnw_groupe.nom as groupeNom, gnw_matiere.nom as matiereNom, gnw_examen.moyenne_generale FROM gnw_examen, gnw_matiere, gnw_groupe WHERE gnw_examen.date_suppr Is NULL AND gnw_examen.fk_groupe = gnw_groupe.id AND gnw_examen.fk_matiere = gnw_matiere.id AND gnw_examen.fk_professeur = ?";
+	private static final String SQL_SELECT_EXAMEN_PAR_ID = "SELECT gnw_examen.id, gnw_examen.nom, gnw_examen.date, gnw_examen.format, gnw_groupe.nom as groupeNom, gnw_matiere.nom as matiereNom, gnw_examen.moyenne_generale FROM gnw_examen, gnw_matiere, gnw_groupe WHERE gnw_examen.date_suppr IS NULL AND gnw_examen.fk_groupe = gnw_groupe.id AND gnw_examen.fk_matiere = gnw_matiere.id AND gnw_examen.id = ?";
 	private DAOFactory daoFactory;
 	
 	/**
@@ -42,7 +41,7 @@ public class ExamenDaoImpl implements ExamenDao
      * @param examen
      * @throws DAOException
      */
-	public void creer(Examen examen) throws DAOException
+	public void creer(Examen examen)
 	{
 		ajouterExamen(examen);
 	}
@@ -50,8 +49,9 @@ public class ExamenDaoImpl implements ExamenDao
 	/**
 	 * Ajoute un examen dans la base de données
 	 * 
+	 * @param examen
 	 */
-	public void ajouterExamen(Examen examen)
+	public void ajouterExamen(Examen examen) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -67,9 +67,8 @@ public class ExamenDaoImpl implements ExamenDao
 			
 			// Insertion de l'examen dans la base de données
 			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_EXAMEN, true, format.getId(), examen.getNom(), examen.getDate(),professeur.getId(), groupe.getId(), matiere.getId() );
-			System.out.println(preparedStatement.toString());
 			preparedStatement.executeUpdate();
-			System.out.println(preparedStatement.toString());
+			
 			// Récupération de l'id de l'examen
 			resultSet = preparedStatement.getGeneratedKeys();
 			
@@ -168,7 +167,6 @@ public class ExamenDaoImpl implements ExamenDao
 			}
 			
 			preparedStatement = initialisationRequetePreparee(connexion, sqlSelectRecherche, true, professeur.getId(), examen.getId(), examen.getNom(), examen.getDate(), format.getId(), groupe.getId(), matiere.getId());
-			System.out.println(preparedStatement.toString());
 			resultSet = preparedStatement.executeQuery();
 			
 			while (resultSet.next()) 
@@ -197,7 +195,8 @@ public class ExamenDaoImpl implements ExamenDao
 	 */
 	public Examen editer(Examen examen) throws DAOException
 	{
-		return new Examen();
+
+		return examen;
 	}
 	
 	/**
@@ -208,7 +207,32 @@ public class ExamenDaoImpl implements ExamenDao
 	 */
 	public Examen trouver(Examen examen) throws DAOException
 	{
-		return new Examen();
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try 
+		{
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_EXAMEN_PAR_ID, true, examen.getId());
+			System.out.println(preparedStatement.toString());
+			resultSet = preparedStatement.executeQuery();
+			
+			if (resultSet.next()) 
+			{
+				examen = mapExamen(resultSet);
+	        }
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(preparedStatement, connexion);
+		}
+		
+		return examen;
 	}
 
 	/**
