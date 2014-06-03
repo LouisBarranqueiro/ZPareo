@@ -147,7 +147,7 @@ var affFormCreation = function(url, tailleFenetre)
 	    },
 	    success: function( data ) 
 	    {
-	    	$('#module-conteneur').append( data );
+	    	$('main').append( data );
 	    	initFenetreModale( tailleFenetre );
 	    	rechFonctCreat();
 	    } 
@@ -176,6 +176,7 @@ var affFormEdition = function(url, id, tailleFenetre)
 	    success: function( data ) 
 	    {
 	    	$('main').append( data );
+	    	alert(data);
 	    	initFenetreModale( tailleFenetre );
 	    	rechFonctEdit();
 	    } 
@@ -409,7 +410,7 @@ var creerEtudiant = function()
 		    	{
 		    		supprFenetresModales();
 		    		vue = data.substr(data.search("<div id='module-conteneur'>"), data.search("</main>"));
-		    		$( '#module-conteneur' ).replaceWith( vue );
+		    		$('#module-conteneur').replaceWith(vue);
 		    	}
 		    	else 
 		    	{
@@ -458,7 +459,7 @@ var editerEtudiant = function()
 		    	{
 		    		supprFenetresModales();
 		    		vue = data.substr(data.search("<div id='module-conteneur'>"), data.search("</main>"));
-		    		$('#module-conteneur').replaceWith( vue );
+		    		$('#module-conteneur').replaceWith(vue);
 		    	}
 		    	else 
 		    	{
@@ -525,7 +526,7 @@ var creerProfesseur = function()
 };
 
 /**
- * Creer un professeur dans la base de données
+ * Editer un professeur dans la base de données
  */ 
 var editerProfesseur = function()  
 {

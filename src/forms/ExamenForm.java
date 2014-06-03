@@ -132,19 +132,20 @@ public final class ExamenForm
      */
     private void traiterDate(String date, Examen examen) 
     {
-    	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-    	Date dateFormater =  null;
-    	try 
+    	final SimpleDateFormat SQL_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    	java.util.Date judDate1 = new java.util.Date();
+
+    	try
     	{
     		validationDate(date);
-            dateFormater = formatter.parse(date);
-        } 
+    		judDate1 = SQL_FORMAT.parse(date);
+    		java.sql.Date sqlDate1 = new java.sql.Date(judDate1.getTime());
+    		examen.setDate(SQL_FORMAT.format(sqlDate1));
+    	} 	
     	catch (Exception e) 
     	{
-            setErreur(CHAMP_NOM, e.getMessage());
-        }
-    	
-    	examen.setDate(dateFormater);
+    		e.printStackTrace();
+    	}
     }
     
     /**

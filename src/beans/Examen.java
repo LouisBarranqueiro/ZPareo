@@ -7,7 +7,7 @@ public class Examen implements Comparable<Examen>
 {
 	private Long id;
 	private String nom;
-	private Date date;
+	private String date;
 	private String format;
 	private Professeur professeur;
 	private Groupe groupe;
@@ -34,12 +34,12 @@ public class Examen implements Comparable<Examen>
 		return nom;
 	}
 	
-	public Date getDate() 
+	public String getDate() 
 	{
 		return date;
 	}
 
-	public void setDate(Date date) 
+	public void setDate(String date) 
 	{
 		this.date = date;
 	}

@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TreeSet;
@@ -18,8 +20,10 @@ import beans.Professeur;
 
 public class ExamenDaoImpl implements ExamenDao 
 {
-	private static final String SQL_FORMAT = "yyyy-mm-dd";
-	private static final String APP_FORMAT = "dd-mm-yyyy";
+	private static final SimpleDateFormat APP_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+	private static final SimpleDateFormat SQL_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+	
+    SimpleDateFormat dmyFormat = new SimpleDateFormat("yyyy-MM-dd");
 	public static final String SQL_SELECT_TOUS = "SELECT gnw_examen.id, gnw_examen.nom, gnw_examen.date, gnw_examen.format, gnw_groupe.nom as groupeNom, gnw_matiere.nom as matiereNom, gnw_examen.moyenne_generale FROM gnw_examen, gnw_matiere, gnw_groupe WHERE gnw_examen.date_suppr Is NULL AND gnw_examen.fk_groupe = gnw_groupe.id AND gnw_examen.fk_matiere = gnw_matiere.id AND gnw_examen.fk_professeur = ?";
 	private DAOFactory daoFactory;
 	
@@ -235,7 +239,8 @@ public class ExamenDaoImpl implements ExamenDao
 		
 		examen.setId(resultSet.getLong("id"));
 		examen.setNom(resultSet.getString("nom"));
-		examen.setDate(resultSet.getDate("date"));
+
+		examen.setDate(convertirDateToString(resultSet.getDate("date")));
 		
 		if (resultSet.getLong("format") == 1)
 		{
@@ -253,5 +258,12 @@ public class ExamenDaoImpl implements ExamenDao
 		examen.setMatiere(matiere);
 		
 		return examen;
+	}
+	private static String convertirDateToString(java.sql.Date date)
+	{
+		DateFormat APP_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+		
+		return APP_FORMAT.format(date);
+		
 	}
 }
