@@ -29,6 +29,7 @@ public class EtudiantDaoImpl implements EtudiantDao
 	private static final String SQL_UPDATE_GROUPE                 = "UPDATE gnw_etudiant_groupe SET fk_groupe = ? WHERE fk_etudiant = ?";
 	private static final String SQL_UPDATE_SUPPR                  = "UPDATE gnw_utilisateur SET date_suppr = now() WHERE id = ?";
 	
+	
 	/**
 	 * Récupère la daoFactory
 	 * 

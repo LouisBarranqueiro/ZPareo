@@ -1,6 +1,6 @@
 package dao;
 
-import java.util.TreeSet;
+import java.util.Set;
 
 import beans.Examen;
 
@@ -20,7 +20,7 @@ public interface ExamenDao
      * @param examen
      * @throws DAOException
      */
-	TreeSet<Examen> rechercher(Examen examen) throws DAOException;
+	Set<Examen> rechercher(Examen examen) throws DAOException;
 	
 	/**
 	 * Edite un examen dans la base de données

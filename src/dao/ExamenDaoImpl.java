@@ -9,21 +9,24 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Set;
 import java.util.TreeSet;
 
+import beans.Etudiant;
 import beans.Examen;
 import beans.FormatExamen;
 import beans.Groupe;
 import beans.Matiere;
+import beans.Note;
 import beans.Professeur;
 
 public class ExamenDaoImpl implements ExamenDao 
 {
-
     private static final String SQL_INSERT_EXAMEN = "INSERT INTO gnw_examen(fk_format, nom, date, coefficient, fk_professeur, fk_groupe, fk_matiere, fk_utilisateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 	public static final String SQL_SELECT_TOUS = "SELECT gnw_examen.id, gnw_examen.nom, gnw_examen.date, gnw_examen.fk_format as formatId, gnw_formatexamen.nom as formatNom, gnw_groupe.nom as groupeNom, gnw_matiere.nom as matiereNom, gnw_examen.moyenne, gnw_examen.coefficient FROM gnw_examen, gnw_matiere, gnw_groupe, gnw_formatexamen WHERE gnw_examen.date_suppr Is NULL AND gnw_examen.fk_groupe = gnw_groupe.id AND gnw_examen.fk_matiere = gnw_matiere.id AND gnw_examen.fk_format = gnw_formatexamen.id AND gnw_examen.fk_professeur = ?";
 	private static final String SQL_SELECT_EXAMEN_PAR_ID = "SELECT gnw_examen.id, gnw_examen.nom, gnw_examen.date, gnw_examen.fk_format as formatId, gnw_formatexamen.nom as formatNom, gnw_groupe.nom as groupeNom, gnw_matiere.nom as matiereNom, gnw_examen.moyenne, gnw_examen.coefficient FROM gnw_examen, gnw_matiere, gnw_groupe, gnw_formatexamen WHERE gnw_examen.date_suppr IS NULL AND gnw_examen.fk_groupe = gnw_groupe.id AND gnw_examen.fk_format = gnw_formatexamen.id AND gnw_examen.fk_matiere = gnw_matiere.id AND gnw_examen.id = ?";
 	private DAOFactory daoFactory;
+	private EtudiantDao etudiantDao;
 	
 	/**
 	 * RéRécupère la daoFactory
@@ -43,7 +46,38 @@ public class ExamenDaoImpl implements ExamenDao
      */
 	public void creer(Examen examen)
 	{
+		Etudiant etudiant = new Etudiant();
+		Set<Etudiant> listeEtudiants = new TreeSet<Etudiant>();
+		
 		ajouterExamen(examen);
+		recupererListeNotes(examen);
+;		//mettreAJourNotes(examen);
+	}
+	
+	/**
+	 * Récupère la liste des notes d'un examen
+	 * 
+	 * @param examen
+	 */
+	private void recupererListeNotes(Examen examen)
+	{
+		Etudiant etudiant = new Etudiant();
+		Set<Etudiant> listeEtudiants = new TreeSet<Etudiant>();
+		Set<Note> listeNotes = new TreeSet<Note>();
+		
+		etudiant.setGroupe(examen.getGroupe());
+		listeEtudiants = etudiantDao.rechercher(etudiant);
+		Object[] etudiants = listeEtudiants.toArray();
+		
+		for(Object e : etudiants)
+		{
+			Note note = new Note();
+			Etudiant etudiant1 = (Etudiant) e;
+			note.setEtudiant(etudiant1);
+			listeNotes.add(note);
+			
+		}
+		examen.setListeNotes(listeNotes);
 	}
 	
 	/**
@@ -95,9 +129,9 @@ public class ExamenDaoImpl implements ExamenDao
      * @param examen
      * @throws DAOException
      */
-	public TreeSet<Examen> rechercher(Examen examen) throws DAOException
+	public Set<Examen> rechercher(Examen examen) throws DAOException
 	{
-		TreeSet<Examen> listeExamens = new TreeSet<Examen>();
+		Set<Examen> listeExamens = new TreeSet<Examen>();
 		Groupe groupe = new Groupe(examen.getGroupe());
 		Matiere matiere = new Matiere(examen.getMatiere());
 		Professeur professeur = new Professeur(examen.getProfesseur());

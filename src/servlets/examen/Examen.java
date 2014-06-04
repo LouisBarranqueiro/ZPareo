@@ -1,6 +1,7 @@
 package servlets.examen;
 
 import java.io.IOException;
+import java.util.Set;
 import java.util.TreeSet;
 
 import javax.servlet.ServletException;
@@ -42,7 +43,7 @@ public class Examen extends HttpServlet
 	
 		HttpSession session = request.getSession();
 		ExamenForm form = new ExamenForm(examenDao);
-		TreeSet<beans.Examen> listeExamens = new TreeSet<beans.Examen>();
+		Set<beans.Examen> listeExamens = new TreeSet<beans.Examen>();
 		Professeur professeur = (Professeur) session.getAttribute(ATT_SESSION_PROFESSEUR);
 		long nbExamens;
 		

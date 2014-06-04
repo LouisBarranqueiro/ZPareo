@@ -3,9 +3,13 @@ package forms;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeSet;
+
 import dao.ExamenDao;
+
 import javax.servlet.http.HttpServletRequest;
+
 import beans.Examen;
 import beans.FormatExamen;
 import beans.Groupe;
@@ -109,7 +113,7 @@ public final class ExamenForm
      * @param request
      * @return listeExamens
      */
-    public TreeSet<Examen> rechercherExamen(Professeur professeur, HttpServletRequest request) 
+    public Set<Examen> rechercherExamen(Professeur professeur, HttpServletRequest request) 
     {
     	String id = getValeurChamp(request, CHAMP_ID);
     	String date = getValeurChamp(request, CHAMP_DATE);
@@ -118,7 +122,7 @@ public final class ExamenForm
     	String groupeId = getValeurChamp(request, CHAMP_GROUPE);
     	String matiereId = getValeurChamp(request, CHAMP_MATIERE);
     	String moyenneGenerale = getValeurChamp(request, CHAMP_MOYENNE_GENERALE);
-    	TreeSet<Examen> listeExamens = new TreeSet<Examen>();
+    	Set<Examen> listeExamens = new TreeSet<Examen>();
     	Examen examen = new Examen();
 
     	traiterId(id, examen);
