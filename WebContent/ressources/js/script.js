@@ -35,10 +35,11 @@ var animColonne = function()
 var centrerFenetreModale = function(largFenetre)
 {
 	var fenetreModale = $('.fenetre-modale');
-    var popMargTop = (fenetreModale.height()) / 2;
-    var popMargLeft = (fenetreModale.width()) / 2;
+    var popMargTop = fenetreModale.height() / 2;
+    var popMargLeft = largFenetre / 2;
     
-    fenetreModale.css({
+    fenetreModale.css
+    ({
         'width'   : largFenetre,
         'position': 'fixed',
         'top'     : '50%',
@@ -178,7 +179,6 @@ var affFormEdition = function(url, id, tailleFenetre)
 	    success: function( data ) 
 	    {
 	    	$('main').append( data );
-	    	alert(data);
 	    	initFenetreModale( tailleFenetre );
 	    	rechFonctEdit();
 	    } 
@@ -689,6 +689,7 @@ var creerExamen = function()
 	$('#creation-examen').submit(function(event)
 	{
 		event.preventDefault();
+		var coefficient = $('#creation-examen input[name=coefficient]').val();
 		var professeur = $('#creation-examen input[name=professeur]').val();
 		var format = $('#creation-examen select[name=format]').val();
 		var nom = $('#creation-examen input[name=nom]').val();
@@ -701,6 +702,7 @@ var creerExamen = function()
 		    url: "http://localhost:8080/ZPareo/pi/examen/creation", 
 		    data: 
 		    {
+		    	coefficient: coefficient,
 		    	professeur: professeur,
 		    	format: format,
 		    	nom: nom,
@@ -740,6 +742,7 @@ var editerExamen = function()
 	$('#creation-examen').submit(function(event)
 	{
 		event.preventDefault();
+		var coefficient = $('#creation-examen input[name=coefficient]').val();
 		var professeur = $('#creation-examen input[name=professeur]').val();
 		var format = $('#creation-examen select[name=format]').val();
 		var nom = $('#creation-examen input[name=nom]').val();
@@ -752,6 +755,7 @@ var editerExamen = function()
 		    url: "http://localhost:8080/ZPareo/pi/examen/edition", 
 		    data: 
 		    {
+		    	coefficient: coefficient,
 		    	professeur: professeur,
 		    	format: format,
 		    	nom: nom,

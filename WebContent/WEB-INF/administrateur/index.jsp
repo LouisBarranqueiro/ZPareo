@@ -8,7 +8,7 @@
         <link type="text/css" rel="stylesheet" href="http://localhost:8080/ZPareo/ressources/css/style.css" />
     </head>
     <body>
-            <div id="site-conteneur">
+           <div id="site-conteneur">
                 <main>
                     <section id="menu-principal">
 						<a href="">Portail ZPareo</a>

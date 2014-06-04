@@ -2,7 +2,7 @@
 <div id="edition-etudiant" class="fenetre-modale">
 	<section class="module">
 		<div class="module-barre">
-			<h1 class="centre">Edition de l'etudiant n°<c:out value="${ etudiant.id }"/></h1>
+			<h1 class="centre">Edition de l'etudiant <c:out value="${ etudiant.id }"/></h1>
 		</div>
 		<!-- formulaire d'ajout d'un etudiant -->
 		<form action="http://localhost:8080/ZPareo/etudiant/edition" method="POST" class="form-horizontal">
