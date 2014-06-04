@@ -18,6 +18,7 @@ public final class ExamenForm
 	private static final String CHAMP_ID               = "id";
 	private static final String CHAMP_FORMAT           = "format";
 	private static final String CHAMP_PROFESSEUR       = "professeur";
+	private static final String CHAMP_COEFFICIENT      = "coefficient";
 	private static final String CHAMP_DATE             = "date";
     private static final String CHAMP_NOM              = "nom";
     private static final String CHAMP_GROUPE           = "groupe";
@@ -57,6 +58,7 @@ public final class ExamenForm
     	String date = getValeurChamp(request, CHAMP_DATE);
     	String format = getValeurChamp(request, CHAMP_FORMAT);
     	String nom = getValeurChamp(request, CHAMP_NOM);
+    	String coefficient = getValeurChamp(request, CHAMP_COEFFICIENT);
     	String professeurId = getValeurChamp(request, CHAMP_PROFESSEUR);
     	String groupeId = getValeurChamp(request, CHAMP_GROUPE);
     	String matiereId = getValeurChamp(request, CHAMP_MATIERE);
@@ -67,6 +69,7 @@ public final class ExamenForm
         	traiterFormat(format, examen);
         	traiterNom(nom, examen);
         	traiterDate(date, examen);
+        	traiterCoefficient(coefficient, examen);
         	traiterGroupeId(groupeId, examen);
         	traiterMatiereId(matiereId, examen);
         	traiterProfesseurId(professeurId, examen);
@@ -186,6 +189,27 @@ public final class ExamenForm
     }
     
     /**
+     *  Traite l'attribut : coefficient
+     *  
+     * @param coefficient
+     * @param examen
+     */
+    private void traiterCoefficient(String coefficient, Examen examen) 
+    {
+    	try
+    	{
+    		validationCoefficient(coefficient);
+    	} 	
+    	catch (Exception e) 
+    	{
+    		e.printStackTrace();
+    	}
+    	
+    	examen.setCoefficient(Float.parseFloat(coefficient.replace(",",".")));
+    }
+    
+    
+    /**
      *  Traite l'attribut : matiereId
      *  
      * @param matiereId
@@ -296,6 +320,20 @@ public final class ExamenForm
         if (date == null) 
         {
             throw new Exception("Veuillez entrer un date au format JJ/MM/AAAA");
+        }
+    }
+    
+    /**
+     * Valide l'attribut : coefficient
+     * 
+     * @param coefficient
+     * @throws Exception
+     */
+    private void validationCoefficient(String coefficient) throws Exception 
+    {
+        if (coefficient == null) 
+        {
+            throw new Exception("Veuillez entrer un nombre");
         }
     }
     

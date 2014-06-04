@@ -20,13 +20,13 @@ import beans.Professeur;
 public class ExamenDaoImpl implements ExamenDao 
 {
 
-    private static final String SQL_INSERT_EXAMEN = "INSERT INTO gnw_examen(format, nom, date, fk_professeur, fk_groupe, fk_matiere) VALUES (?, ?, ?, ?, ?, ?)";
-	public static final String SQL_SELECT_TOUS = "SELECT gnw_examen.id, gnw_examen.nom, gnw_examen.date, gnw_examen.format, gnw_groupe.nom as groupeNom, gnw_matiere.nom as matiereNom, gnw_examen.moyenne_generale FROM gnw_examen, gnw_matiere, gnw_groupe WHERE gnw_examen.date_suppr Is NULL AND gnw_examen.fk_groupe = gnw_groupe.id AND gnw_examen.fk_matiere = gnw_matiere.id AND gnw_examen.fk_professeur = ?";
-	private static final String SQL_SELECT_EXAMEN_PAR_ID = "SELECT gnw_examen.id, gnw_examen.nom, gnw_examen.date, gnw_examen.format, gnw_groupe.nom as groupeNom, gnw_matiere.nom as matiereNom, gnw_examen.moyenne_generale FROM gnw_examen, gnw_matiere, gnw_groupe WHERE gnw_examen.date_suppr IS NULL AND gnw_examen.fk_groupe = gnw_groupe.id AND gnw_examen.fk_matiere = gnw_matiere.id AND gnw_examen.id = ?";
+    private static final String SQL_INSERT_EXAMEN = "INSERT INTO gnw_examen(fk_format, nom, date, coefficient, fk_professeur, fk_groupe, fk_matiere, fk_utilisateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	public static final String SQL_SELECT_TOUS = "SELECT gnw_examen.id, gnw_examen.nom, gnw_examen.date, gnw_examen.fk_format as formatId, gnw_formatexamen.nom as formatNom, gnw_groupe.nom as groupeNom, gnw_matiere.nom as matiereNom, gnw_examen.moyenne, gnw_examen.coefficient FROM gnw_examen, gnw_matiere, gnw_groupe, gnw_formatexamen WHERE gnw_examen.date_suppr Is NULL AND gnw_examen.fk_groupe = gnw_groupe.id AND gnw_examen.fk_matiere = gnw_matiere.id AND gnw_examen.fk_format = gnw_formatexamen.id AND gnw_examen.fk_professeur = ?";
+	private static final String SQL_SELECT_EXAMEN_PAR_ID = "SELECT gnw_examen.id, gnw_examen.nom, gnw_examen.date, gnw_examen.fk_format as formatId, gnw_formatexamen.nom as formatNom, gnw_groupe.nom as groupeNom, gnw_matiere.nom as matiereNom, gnw_examen.moyenne, gnw_examen.coefficient FROM gnw_examen, gnw_matiere, gnw_groupe, gnw_formatexamen WHERE gnw_examen.date_suppr IS NULL AND gnw_examen.fk_groupe = gnw_groupe.id AND gnw_examen.fk_format = gnw_formatexamen.id AND gnw_examen.fk_matiere = gnw_matiere.id AND gnw_examen.id = ?";
 	private DAOFactory daoFactory;
 	
 	/**
-	 * R�Récupère la daoFactory
+	 * RéRécupère la daoFactory
 	 * 
 	 * @param daoFactory
 	 */
@@ -66,7 +66,7 @@ public class ExamenDaoImpl implements ExamenDao
 			connexion = daoFactory.getConnection();
 			
 			// Insertion de l'examen dans la base de données
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_EXAMEN, true, format.getId(), examen.getNom(), examen.getDate(),professeur.getId(), groupe.getId(), matiere.getId() );
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_EXAMEN, true, format.getId(), examen.getNom(), examen.getDate(), examen.getCoefficient(), professeur.getId(), groupe.getId(), matiere.getId(), professeur.getId());
 			preparedStatement.executeUpdate();
 			
 			// Récupération de l'id de l'examen
@@ -75,7 +75,6 @@ public class ExamenDaoImpl implements ExamenDao
 			if (resultSet.next()) 
 			{
 				examen.setId(resultSet.getLong(1));
-				System.out.println("id  : " + examen.getId());
 			}
 
 		} 
@@ -141,11 +140,11 @@ public class ExamenDaoImpl implements ExamenDao
 			
 			if (format.getId() != null)
 			{
-				sqlSelectRecherche += " AND gnw_examen.format = ?";
+				sqlSelectRecherche += " AND gnw_examen.fk_format = ?";
 			}
 			else
 			{
-				sqlSelectRecherche += " AND gnw_examen.format IS NOT ?";	
+				sqlSelectRecherche += " AND gnw_examen.fk_format IS NOT ?";	
 			}
 			
 			if(groupe.getId() != null)
@@ -294,19 +293,12 @@ public class ExamenDaoImpl implements ExamenDao
 		
 		examen.setId(resultSet.getLong("id"));
 		examen.setNom(resultSet.getString("nom"));
+		examen.setCoefficient(resultSet.getFloat("coefficient"));
 		examen.setDate(convertirDateToString(resultSet.getDate("date")));
-		format.setId(resultSet.getLong("format"));
-		if(format.getId() == 1 )
-		{
-			
-			format.setNom("Oral");
-		}
-		else
-		{
-			format.setNom("Ecrit");
-		}
+		format.setId(resultSet.getLong("formatId"));
+		format.setNom(resultSet.getString("formatNom"));
 		examen.setFormat(format);
-		examen.setMoyenneGenerale(resultSet.getFloat("moyenne_generale"));
+		examen.setMoyenneGenerale(resultSet.getFloat("moyenne"));
 		groupe.setNom(resultSet.getString("groupeNom"));
 		matiere.setNom(resultSet.getString("matiereNom"));
 		examen.setGroupe(groupe);

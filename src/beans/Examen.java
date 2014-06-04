@@ -19,6 +19,7 @@ public class Examen implements Comparable<Examen>
 	{
 		
 	}
+	
 	public Long getId() 
 	{
 		return id;
@@ -108,18 +109,22 @@ public class Examen implements Comparable<Examen>
 		this.moyenneGenerale = moyenneGenerale;
 	}
 	
+	public Float getCoefficient()
+	{
+		return coefficient;
+	}
+	
+	public void setCoefficient(Float coefficient) 
+	{
+		this.coefficient = coefficient;
+	}
+	
 	@Override
 	public int compareTo(Examen examen2) 
 	{
 		int compId = this.getId().compareTo(examen2.getId());
         if(compId != 0) return compId;
         return 0;
-	}
-	public Float getCoefficient() {
-		return coefficient;
-	}
-	public void setCoefficient(Float coefficient) {
-		this.coefficient = coefficient;
 	}
 	
 }

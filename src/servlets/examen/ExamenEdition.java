@@ -1,20 +1,13 @@
 package servlets.examen;
 
 import java.io.IOException;
-import java.util.Set;
-import java.util.TreeSet;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import beans.Etudiant;
-import beans.Groupe;
 import dao.DAOFactory;
 import dao.ExamenDao;
-import forms.EtudiantForm;
 import forms.ExamenForm;
 
 @SuppressWarnings("serial")
