@@ -14,7 +14,6 @@ import beans.Professeur;
 
 public final class ExamenForm 
 {
-	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	private static final String CHAMP_ID               = "id";
 	private static final String CHAMP_FORMAT           = "format";
 	private static final String CHAMP_PROFESSEUR       = "professeur";
@@ -86,6 +85,7 @@ public final class ExamenForm
 
         return examen;
     }
+    
     /**
      * Cherche un examen dans la base de données
      * 
@@ -120,7 +120,7 @@ public final class ExamenForm
     	String moyenneGenerale = getValeurChamp(request, CHAMP_MOYENNE_GENERALE);
     	TreeSet<Examen> listeExamens = new TreeSet<Examen>();
     	Examen examen = new Examen();
-    	
+
     	traiterId(id, examen);
     	traiterMatiereId(matiereId, examen);
     	traiterGroupeId(groupeId, examen);
@@ -179,12 +179,17 @@ public final class ExamenForm
     	try
     	{
     		validationDate(date);
+    		
+    		if (date.matches("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)"))
+    		{
+    			date = modifFormatDate("dd/MM/yyyy","yyyy-MM-dd",date);
+    		}
     	} 	
     	catch (Exception e) 
     	{
     		e.printStackTrace();
     	}
-
+    	
     	examen.setDate(date);
     }
     
@@ -207,7 +212,6 @@ public final class ExamenForm
     	
     	examen.setCoefficient(Float.parseFloat(coefficient.replace(",",".")));
     }
-    
     
     /**
      *  Traite l'attribut : matiereId
@@ -264,9 +268,9 @@ public final class ExamenForm
     }
     
     /**
-     *  Traite l'attribut : format
+     *  Traite l'attribut : formatId
      *  
-     * @param format
+     * @param formatId
      * @param examen
      */
     private void traiterFormat(String formatId, Examen examen) 
@@ -317,7 +321,7 @@ public final class ExamenForm
      */
     private void validationDate(String date) throws Exception 
     {
-        if (date == null) 
+        if ((date == null) || ((!date.matches("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)")) && (!date.matches("((19|20)\\d\\d)-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])")))) 
         {
             throw new Exception("Veuillez entrer un date au format JJ/MM/AAAA");
         }
@@ -377,22 +381,22 @@ public final class ExamenForm
      * @param dateString
      * @return
      */
-    @SuppressWarnings("unused")
 	private String modifFormatDate(String ancienFormat, String nouvFormat, String dateString)
     {
-    	final SimpleDateFormat SQL_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    	SimpleDateFormat ANC_FORMAT = new SimpleDateFormat(ancienFormat);
+    	SimpleDateFormat NOUV_FORMAT = new SimpleDateFormat(nouvFormat);
     	java.util.Date dateUtil = new java.util.Date();
     	java.sql.Date dateSQL = null;
     	try
     	{
-    		dateUtil = SQL_FORMAT.parse(dateString);
+    		dateUtil = ANC_FORMAT.parse(dateString);
     		dateSQL = new java.sql.Date(dateUtil.getTime());
     	} 	
     	catch (Exception e) 
     	{
     		e.printStackTrace();
     	}
-    	return SQL_FORMAT.format(dateSQL);
+    	return NOUV_FORMAT.format(dateSQL);
     }
 }
 

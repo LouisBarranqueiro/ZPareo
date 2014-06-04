@@ -39,13 +39,6 @@ public interface ExamenDao
 	Examen trouver(Examen examen) throws DAOException;
 
 	/**
-	 * Compte le nombre d'examens de la base de données
-	 * 
-	 * @throws DAOException
-	 */
-	int compterTous() throws DAOException;
-	
-	/**
 	 * Supprime un examen dans la base de données
 	 * 
 	 * @param examen

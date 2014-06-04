@@ -50,6 +50,7 @@ public class ExamenDaoImpl implements ExamenDao
 	 * Ajoute un examen dans la base de données
 	 * 
 	 * @param examen
+	 * @throws DAOException
 	 */
 	public void ajouterExamen(Examen examen) throws DAOException
 	{
@@ -166,6 +167,7 @@ public class ExamenDaoImpl implements ExamenDao
 			}
 			
 			preparedStatement = initialisationRequetePreparee(connexion, sqlSelectRecherche, true, professeur.getId(), examen.getId(), examen.getNom(), examen.getDate(), format.getId(), groupe.getId(), matiere.getId());
+			System.out.println(preparedStatement.toString());
 			resultSet = preparedStatement.executeQuery();
 			
 			while (resultSet.next()) 
@@ -214,7 +216,6 @@ public class ExamenDaoImpl implements ExamenDao
 		{
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_EXAMEN_PAR_ID, true, examen.getId());
-			System.out.println(preparedStatement.toString());
 			resultSet = preparedStatement.executeQuery();
 			
 			if (resultSet.next()) 
@@ -235,16 +236,6 @@ public class ExamenDaoImpl implements ExamenDao
 	}
 
 	/**
-	 * Compte le nombre d'examens de la base de données
-	 * 
-	 * @throws DAOException
-	 */
-	public int compterTous() throws DAOException
-	{
-		return 1;
-	}
-	
-	/**
 	 * Supprime un examen dans la base de données
 	 * 
 	 * @param examen
@@ -256,7 +247,7 @@ public class ExamenDaoImpl implements ExamenDao
 	}
 	
 	/**
-	 * Pr�pare une r�quete SQL sur mesure
+	 * Prépare une requête SQL sur mesure
 	 * 
 	 * @param connexion
 	 * @param sql
@@ -278,7 +269,7 @@ public class ExamenDaoImpl implements ExamenDao
 	}
 	
 	/**
-	 * Transfère les données du resultSet vers un objet
+	 * Transfère les données du resultSet vers un objet Examen
 	 * 
 	 * @param resultSet
 	 * @return groupe
@@ -306,6 +297,7 @@ public class ExamenDaoImpl implements ExamenDao
 		
 		return examen;
 	}
+	
 	/**
 	 * Converti une Date en chaine de caractères
 	 * 
