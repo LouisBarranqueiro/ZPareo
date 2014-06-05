@@ -7,6 +7,8 @@ public class Groupe implements Comparable<Groupe>
 	
 	public Groupe() 
 	{
+		this.id = null;
+		this.nom = null;
 	}
 	
 	public Groupe(Groupe groupe) 

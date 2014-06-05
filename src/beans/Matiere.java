@@ -1,21 +1,14 @@
 package beans;
 
-import java.sql.Timestamp;
-
-import beans.Professeur;
-
 public class Matiere implements Comparable<Matiere>
 {
 	private Long id;
 	private String nom;
-	private Timestamp dateAjout;
-	private Timestamp dateEdition;
-	private Timestamp dateSuppression;
-	private Professeur Editeur;
 	
 	public Matiere()
 	{
-		
+		this.id = null;
+		this.nom = null;
 	}
 	public Matiere(Matiere matiere)
 	{
@@ -42,46 +35,6 @@ public class Matiere implements Comparable<Matiere>
 		this.nom = nom;
 	}
 	
-	public Timestamp getDateAjout() 
-	{
-		return dateAjout;
-	}
-	
-	public void setDateAjout(Timestamp dateAjout) 
-	{
-		this.dateAjout = dateAjout;
-	}
-	
-	public Timestamp getDateEdition() 
-	{
-		return dateEdition;
-	}
-	
-	public void setDateEdition(Timestamp dateEdition) 
-	{
-		this.dateEdition = dateEdition;
-	}
-	
-	public Timestamp getDateSuppression() 
-	{
-		return dateSuppression;
-	}
-	
-	public void setDateSuppression(Timestamp dateSuppression)
-	{
-		this.dateSuppression = dateSuppression;
-	}
-	
-	public Professeur getEditeur() 
-	{
-		return Editeur;
-	}
-	
-	public void setEditeur(Professeur editeur) 
-	{
-		Editeur = editeur;
-	}
-
 	@Override
 	public int compareTo(Matiere matiere2) 
 	{

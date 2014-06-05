@@ -17,7 +17,29 @@ public class Examen implements Comparable<Examen>
 	
 	public Examen()
 	{
-		
+		this.id = null;
+		this.nom = null;
+		this.date = null;
+		this.format = null;
+		this.professeur = null;
+		this.groupe = null;
+		this.matiere = null;
+		this.listeNotes = null;
+		this.moyenneGenerale = null;
+		this.coefficient = null;
+	}
+	public Examen(Examen examen)
+	{
+		this.setId(examen.getId());
+		this.setNom(examen.getNom());
+		this.setDate(examen.getDate());
+		this.setFormat(examen.getFormat());
+		this.setProfesseur(examen.getProfesseur());
+		this.setGroupe(examen.getGroupe());
+		this.setMatiere(examen.getMatiere());
+		this.setListeNotes(examen.getListeNotes());
+		this.setMoyenneGenerale(examen.getMoyenneGenerale());
+		this.setCoefficient(examen.getCoefficient());
 	}
 	
 	public Long getId() 

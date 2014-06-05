@@ -9,12 +9,22 @@ import beans.Utilisateur;
 public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 {
 	private Groupe groupe;
-	private Set<Note> listeNote;
+	private Set<Note> listeNotes;
 
 	public Etudiant()
 	{
 		super();
+		this.groupe = null;
+		this.listeNotes = null;
 	}
+	
+	public Etudiant(Etudiant etudiant)
+	{
+		super(etudiant);
+		this.setGroupe(etudiant.getGroupe());
+		this.setListeNote(listeNotes);
+	}
+	
 	public Groupe getGroupe() 
 	{
 		return groupe;
@@ -27,12 +37,12 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	
 	public Set<Note> getListeNote() 
 	{
-		return listeNote;
+		return listeNotes;
 	}
 	
 	public void setListeNote(Set<Note> listeNote) 
 	{
-		this.listeNote = listeNote;
+		this.listeNotes = listeNote;
 	}
 	
 	@Override

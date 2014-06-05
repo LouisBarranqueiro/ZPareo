@@ -2,11 +2,25 @@ package beans;
 
 import beans.Etudiant;
 
-public class Note 
+public class Note implements Comparable<Note>
 {
 	private Long id;
-	private String note;
+	private Float note;
 	private Etudiant etudiant;
+	
+	public Note()
+	{
+		this.id = null;
+		this.note = null;
+		this.etudiant = null;
+	}
+	
+	public Note(Note note)
+	{
+		this.setId(note.getId());
+		this.setNote(note.getNote());
+		this.setEtudiant(note.getEtudiant());
+	}
 	
 	public Long getId() 
 	{
@@ -18,12 +32,12 @@ public class Note
 		this.id = id;
 	}
 	
-	public String getNote()
+	public Float getNote()
 	{
 		return note;
 	}
 	
-	public void setNote(String note) 
+	public void setNote(Float note) 
 	{
 		this.note = note;
 	}
@@ -38,4 +52,13 @@ public class Note
 		this.etudiant = etudiant;
 	}
 	
+	@Override
+	public int compareTo(Note note) 
+	{
+		Etudiant etudiant1 = new Etudiant(this.getEtudiant());
+		Etudiant etudiant2 = new Etudiant(note.getEtudiant());
+        int compId = etudiant1.getNom().compareTo(etudiant2.getNom());
+        if(compId != 0) return compId;
+        return 0;
+	}
 }
