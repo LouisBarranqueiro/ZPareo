@@ -201,7 +201,7 @@ public class EtudiantDaoImpl implements EtudiantDao
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		String sqlSelectRecherche = SQL_SELECT_TOUS;
-		
+
 		try 
 		{	
 			connexion = daoFactory.getConnection();
