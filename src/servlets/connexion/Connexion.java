@@ -71,11 +71,11 @@ public class Connexion extends HttpServlet
 		HttpSession session = request.getSession();
 		EtudiantForm etudiantForm = new EtudiantForm(this.etudiantDao);
 		ProfesseurForm professeurForm = new ProfesseurForm(this.professeurDao);
-		AdministrateurForm administrateurDao = new AdministrateurForm(this.administrateurDao);
+		AdministrateurForm administrateurForm = new AdministrateurForm(this.administrateurDao);
 		
 		beans.Etudiant etudiant = etudiantForm.verifIdentifiantEtudiant(request);
 		beans.Professeur professeur = professeurForm.verifIdentifiantProfesseur(request);
-		beans.Administrateur administrateur = administrateurDao.verifIdentifiantAdmin(request);
+		beans.Administrateur administrateur = administrateurForm.verifIdentifiantAdmin(request);
 		
 		if(etudiant.getId() != null)
 		{
