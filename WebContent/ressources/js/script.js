@@ -148,10 +148,10 @@ var affFormCreation = function(url, tailleFenetre)
 	    { 
 	    	alert("erreur !"); 
 	    },
-	    success: function( data ) 
+	    success: function(data) 
 	    {
-	    	$('main').append( data );
-	    	initFenetreModale( tailleFenetre );
+	    	$('main').append(data);
+	    	initFenetreModale(tailleFenetre);
 	    	rechFonctCreat();
 	    } 
 	});
@@ -178,8 +178,8 @@ var affFormEdition = function(url, id, tailleFenetre)
 	    },
 	    success: function( data ) 
 	    {
-	    	$('main').append( data );
-	    	initFenetreModale( tailleFenetre );
+	    	$('main').append(data);
+	    	initFenetreModale(tailleFenetre);
 	    	rechFonctEdit();
 	    } 
 	});
@@ -207,8 +207,8 @@ var affFormDetails = function(url, id, tailleFenetre)
 	    },
 	    success: function( data ) 
 	    {
-	    	$('main').append( data );
-	    	initFenetreModale( tailleFenetre );
+	    	$('main').append(data);
+	    	initFenetreModale(tailleFenetre);
 	    } 
 	});
 };
