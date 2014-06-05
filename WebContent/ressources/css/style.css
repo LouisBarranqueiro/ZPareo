@@ -53,31 +53,26 @@ body {
 #edition-examen #form-examen
 {
 	vertical-align:top;
-	width:40%;
+	width:265px;
 	display:inline-block;
 }
 #edition-examen #form-notes
 {
-	width:59%;
+	width:265px;
 	display:inline-block;
 	overflow:scroll;
 	overflow-x:hidden;
 	max-height:420px;
+	margin:0 0 0 30px;
 }
 #edition-examen #form-notes .form-note
 {
-	display:block;
-	width:100%;
-	margin:5px 0 0 0;
+	margin:10px 0 0 0;
+	
+	width:250px;
 }
-#edition-examen #form-notes .form-note label
+#edition-examen #form-notes .form-note .form-addon
 {
-	display:inline-block;
-	width:60%;
-}
-#edition-examen #form-notes .form-note input
-{
-	display:inline-block;
-	width:60px;
-	margin:0 0 5px 15px;
+	text-align:left;
+	width:160px;
 }

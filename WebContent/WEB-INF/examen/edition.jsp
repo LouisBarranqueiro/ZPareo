@@ -43,24 +43,15 @@
 			   	</select>
 			   	<span class="erreur">${ form.erreurs['matiere'] }</span>
 			</div>
-			<div id="form-notes" class="module-form">
-				<c:forEach begin="0" end="20" step="1">
-				<div class="form-note">
-  					<label for="note">Louis BARRANQUEIRO</label>
-  					<input type="hidden" name="id-" placeholder="Note" class="form-control input-sm">
-  					<input type="text" name="note-" placeholder="Note" class="form-control input-sm">
-  				</div>
-  				<div class="form-note">
-  					<label for="note">Alexandre PARISSENTI</label>
-  					<input type="hidden" name="id-" placeholder="Note" class="form-control input-sm">
-  					<input type="text" name="note-" placeholder="Note" class="form-control input-sm">
-  				</div>
-  				<div class="form-note">
-  					<label for="note">Romain DORET</label>
-  					<input type="hidden" name="id-" placeholder="Note" class="form-control input-sm">
-  					<input type="text" name="note-" placeholder="Note" class="form-control input-sm">
-  				</div>
+			
+			<div id="form-notes">
+				<c:forEach  items="${examen.listeNotes}" var="note">
+  				<div class="input-group input-group-sm form-note">
+  					<span class="input-group-addon form-addon"><c:out value="${note.etudiant.prenom}"/> <c:out value="${note.etudiant.nom}"/></span>
+ 					<input type="text" name="note-<c:out value="${note.id}"/>" class="form-control" placeholder="Note">
+				</div>
   				</c:forEach>
+  				<input type="hidden" name="nbNotes" value="<c:out value="${nbNotes}"/>"/>
 			</div>			
 			<div class="module-control-bas">
 				<button type="submit" class="bouton bouton-primary">ENREGISTRER</button>
