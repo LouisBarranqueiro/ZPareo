@@ -534,7 +534,7 @@ public class ProfesseurForm
     }
 
     /**
-     * Retourne les valeurs des champs du formulaire
+     * Retourne la valeur d'un paramètre de la requête
      * 
      * @param request
      * @param nomChamp
@@ -555,7 +555,7 @@ public class ProfesseurForm
     }
     
     /**
-     * Retourne les valeurs des champs du formulaire de type multiple
+     * Retourne les valeurs d'un paramètre de la requête
      * 
      * @param request
      * @param nomChamp

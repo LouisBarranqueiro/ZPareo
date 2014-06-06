@@ -39,7 +39,7 @@
 								<span>Administrateurs</span>
 							</a>
 					    </nav>
-					    <a href="">Deconnexion</a>
+					    <a href="http://localhost:8080/ZPareo/deconnexion">Deconnexion</a>
 					</section>
                     <!--  Conteneur de module -->
                     <div id='module-conteneur'>
@@ -85,7 +85,7 @@
                                                 <td><c:out value="${ etudiant.id }"/></td>
                                                 <td><c:out value="${ etudiant.nom }"/></td>
                                                 <td><c:out value="${ etudiant.prenom }"/></td>
-                                                 <td><c:out value="${ etudiant.adresseMail }"/></td>
+                                                <td><c:out value="${ etudiant.adresseMail }"/></td>
                                                 <td><c:out value="${ etudiant.groupe.nom }"/></td>
                                                 <td>
                                                     <div class="btn-group">
