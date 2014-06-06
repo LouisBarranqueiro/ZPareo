@@ -57,7 +57,7 @@ public class ExamenDaoImpl implements ExamenDao
 	 * 
 	 * @param examen
 	 */
-	private void recupererListeEtudiants(Examen examen)
+	private void recupererListeEtudiants(Examen examen) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -335,6 +335,64 @@ public class ExamenDaoImpl implements ExamenDao
 	}
 	
 	/**
+	 * Récupère la liste des notes d'un examen
+	 * 
+	 * @param examen
+	 * @throws DAOException
+	 */
+	private void recupererListeNotes(Examen examen) throws DAOException
+	{
+		Set<Note> listeNotes = new TreeSet<Note>(examen.getListeNotes());
+		Object[] notes = listeNotes.toArray();
+		
+		for(Object n : notes)
+		{
+			Note note = (Note) n;
+			recupererNote(examen, note);
+			listeNotes.add(note);
+		}
+		
+		examen.setListeNotes(listeNotes);
+	}
+	
+	/**
+	 * Récupère une note dans la base de données
+	 * 
+	 * @param examen
+	 * @param note
+	 * @throws DAOException
+	 */
+	private void recupererNote(Examen examen, Note note) throws DAOException
+	{
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Etudiant etudiant = new Etudiant(note.getEtudiant());
+		
+		try 
+		{
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_NOTE, true, examen.getId(), etudiant.getId());
+			resultSet = preparedStatement.executeQuery();
+			
+			if (resultSet.next())
+			{
+				note.setId(resultSet.getLong("id"));
+				note.setNote(resultSet.getFloat("note"));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(preparedStatement, connexion);
+		}
+	}
+	
+	
+	/**
 	 * Trouve un examen dans la base de données
 	 * 
 	 * @param examen
@@ -345,7 +403,7 @@ public class ExamenDaoImpl implements ExamenDao
 		examen = recupererExamen(examen);
 		recupererListeEtudiants(examen);
 		verifListeNotes(examen);
-		//recupererListeNotes(examen);
+		recupererListeNotes(examen);
 		
 		return examen;
 	}
