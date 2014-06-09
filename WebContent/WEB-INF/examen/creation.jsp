@@ -18,7 +18,7 @@
                 <span class="erreur">${ form.erreurs['date'] }</span>
                 <input type="text" name="nom" class="form-control input-sm" pattern=".{5,55}" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom correct" required/>
                 <span class="erreur">${ form.erreurs['nom'] }</span>
-                <input type="text" name="coefficient" class="form-control input-sm" pattern="[0-9,]{1,3}" placeholder="Coefficient" x-moz-errormessage="Veuillez entrer un nombre" required/>
+                <input type="text" name="coefficient" class="form-control input-sm" pattern="[0-9,.]{1,3}" placeholder="Coefficient" x-moz-errormessage="Veuillez entrer un nombre" required/>
                 <span class="erreur">${ form.erreurs['coefficient'] }</span>
                 <select name="groupe" class="form-control input-sm" required>
                 	<option disabled="disabled" selected="selected">Sélectionner un groupe</option>

@@ -379,7 +379,7 @@ var editerGroupe = function()
 };
 
 /**
- * Creer un etudiant dans la base de donn�es
+ * Créer un etudiant dans la base de données
  */ 
 var creerEtudiant = function()  
 {
@@ -426,7 +426,7 @@ var creerEtudiant = function()
 };
 
 /**
- * Edite une �tudiant dans la base de donn�es
+ * Edite une étudiant dans la base de données
  */
 var editerEtudiant = function()  
 {
@@ -716,15 +716,14 @@ var creerExamen = function()
 		    },
 		    success: function(data) 
 		    { 
-		    	if(data.match('<tbody>')) 
+		    	if(data.match('Edition de l\'examen')) 
 		    	{
-		    		supprFenetresModales();
-		    		vue = data.substr(data.search("<div id='module-conteneur'>"), data.search("</main>"));
-		    		$('#module-conteneur').replaceWith(vue);
+		    		$('.fenetre-modale').replaceWith(data);
+		    		initFenetreModale(600);
+		    		rechFonctEdit();
 		    	}
 		    	else 
 		    	{
-		    		alert("ok");
 		    		$('.fenetre-modale').replaceWith(data);
 		    		initFenetreModale(300);
 		    		rechFonctCreat();

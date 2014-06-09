@@ -13,6 +13,8 @@ public class Professeur extends Utilisateur implements Comparable<Professeur>
 	public Professeur()
 	{
 		super();
+		this.listeMatieres = null;
+		this.listeGroupes = null;
 	}
 	public Professeur(Professeur professeur)
 	{

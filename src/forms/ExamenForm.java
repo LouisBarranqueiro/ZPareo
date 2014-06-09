@@ -84,7 +84,7 @@ public final class ExamenForm
             
             if (erreurs.isEmpty()) 
             {
-            	examenDao.creer(examen);
+            	examen = examenDao.creer(examen);
             }
         } 
         catch (Exception e) 
@@ -96,8 +96,10 @@ public final class ExamenForm
     }
     
     /**
+     * Edite un examen dans la base de données
      * 
-     * 
+     * @param request
+     * @return examen
      */
     public Examen editerExamen(HttpServletRequest request)
     {
@@ -160,6 +162,7 @@ public final class ExamenForm
     /**
      * Recherche un ou des examen(s) dans la base de données
      * 
+     * @param professeur
      * @param request
      * @return listeExamens
      */
@@ -186,6 +189,26 @@ public final class ExamenForm
     	listeExamens = examenDao.rechercher(examen);
         
     	return listeExamens;
+    }
+    public void supprimerExamen(Professeur professeur, HttpServletRequest request)
+    {
+    	String id = getValeurChamp(request, CHAMP_ID);
+    	Examen examen = new Examen();
+    	
+    	try 
+        {
+    		traiterId(id, examen);
+    		examen.setProfesseur(professeur);
+            
+            if (erreurs.isEmpty()) 
+            {
+            	examenDao.supprimer(examen);
+            }
+        } 
+        catch (Exception e) 
+        {
+        	e.printStackTrace();
+        }
     }
     
     /**

@@ -43,7 +43,7 @@ public class ExamenCreation extends HttpServlet
 		
         if(form.getErreurs().isEmpty())
         {
-        	response.sendRedirect("http://localhost:8080/ZPareo/pi/examen");   
+        	response.sendRedirect("http://localhost:8080/ZPareo/pi/examen/edition?id=" + examen.getId());   
         }
         else
         {
