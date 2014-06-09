@@ -45,10 +45,23 @@ public class ExamenEdition extends HttpServlet
         this.getServletContext().getRequestDispatcher(VUE_EDITION).forward(request, response);   
 	}
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		ExamenForm form = new ExamenForm(this.examenDao);
+		beans.Examen examen = null;
 
+		examen  = form.editerExamen(request);
+		
+		if(form.getErreurs().isEmpty())
+	    {
+	    	response.sendRedirect("http://localhost:8080/ZPareo/pi/examen");   
+	    }
+	    else
+	    {
+	    	request.setAttribute(ATT_FORM, form);
+	        request.setAttribute(ATT_EXAMEN, examen);
+	        this.getServletContext().getRequestDispatcher(VUE_EDITION).forward(request, response);   
+	    }
 	}
 
 }

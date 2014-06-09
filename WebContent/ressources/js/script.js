@@ -739,29 +739,45 @@ var creerExamen = function()
  */ 
 var editerExamen = function()  
 {
-	$('#creation-examen').submit(function(event)
+	$('#edition-examen').submit(function(event)
 	{
 		event.preventDefault();
-		var coefficient = $('#creation-examen input[name=coefficient]').val();
-		var professeur = $('#creation-examen input[name=professeur]').val();
-		var format = $('#creation-examen select[name=format]').val();
-		var nom = $('#creation-examen input[name=nom]').val();
-		var date = $('#creation-examen input[name=date]').val();
-		var matiere = $('#creation-examen select[name=matiere]').val();
-		var groupe = $('#creation-examen select[name=groupe]').val();
+		var etudiantsArray = new Array();
+		var notesArray = new Array();
+		var etudiants;
+		var notes;
+		var id = $('#edition-examen input[name=id]').val();
+		var professeur = $('#edition-examen input[name=professeur]').val();
+		var format = $('#edition-examen select[name=format]').val();
+		var nom = $('#edition-examen input[name=nom]').val();
+		var date = $('#edition-examen input[name=date]').val();
+		var coefficient = $('#edition-examen input[name=coefficient]').val();
+		var matiere = $('#edition-examen select[name=matiere]').val();
 		
+		$('input[name="etudiants[]"]').each(function(){
+			etudiantsArray.push($(this).val());
+		});
+		$('input[name="notes[]"]').each(function(){
+			notesArray.push($(this).val());
+		});
+		
+		etudiants = etudiantsArray.join("-");
+		notes = notesArray.join("-");
+
 		$.ajax({ 
 		    type: "POST", 
 		    url: "http://localhost:8080/ZPareo/pi/examen/edition", 
 		    data: 
 		    {
-		    	coefficient: coefficient,
+		    	id: id,
 		    	professeur: professeur,
 		    	format: format,
 		    	nom: nom,
 		    	date: date,
+		    	coefficient: coefficient,
 		    	matiere: matiere,
-		    	groupe: groupe
+		    	etudiants: etudiants,
+		    	notes: notes
 		    }, 
 		    error: function() 
 		    { 
@@ -777,10 +793,9 @@ var editerExamen = function()
 		    	}
 		    	else 
 		    	{
-		    		alert("ok");
 		    		$('.fenetre-modale').replaceWith(data);
-		    		initFenetreModale(800);
-		    		rechFonctCreat();
+		    		initFenetreModale(600);
+		    		rechFonctEdit();
 		    	}
 		    } 
 		});

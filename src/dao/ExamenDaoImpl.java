@@ -29,6 +29,8 @@ public class ExamenDaoImpl implements ExamenDao
 	private static final String SQL_SELECT_NOTE = "SELECT id, note FROM gnw_examen_note WHERE fk_examen = ? AND fk_etudiant = ? AND date_suppr IS NULL";
 	private static final String SQL_SELECT_COUNT_NOTE = "SELECT COUNT(id) FROM gnw_examen_note WHERE fk_examen = ? AND fk_etudiant = ? AND date_suppr IS NULL";
 	private static final String SQL_SELECT_ETUDIANTS_PAR_GROUPE = "SELECT gnw_utilisateur.id, gnw_utilisateur.nom, gnw_utilisateur.prenom, gnw_utilisateur.adresse_mail FROM gnw_utilisateur, gnw_etudiant_groupe WHERE profil = 0 AND gnw_utilisateur.date_suppr IS NULL AND gnw_utilisateur.id = gnw_etudiant_groupe.fk_etudiant AND gnw_etudiant_groupe.fk_groupe = ?";
+	private static final String SQL_UPDATE_NOTE = "UPDATE gnw_examen_note SET note = ? WHERE fk_examen = ? AND fk_etudiant = ?";
+	private static final String SQL_UPDATE_EXAMEN = "UPDATE gnw_examen SET fk_professeur = ?, fk_format = ?, nom = ?, date = ?, coefficient = ?, fk_matiere = ? WHERE id = ?";
 	private DAOFactory daoFactory;
 	
 	/**
@@ -53,6 +55,65 @@ public class ExamenDaoImpl implements ExamenDao
 	}
 	
 	/**
+	 * Ajoute un examen dans la base de données
+	 * 
+	 * @param examen
+	 * @throws DAOException
+	 */
+	public void ajouterExamen(Examen examen) throws DAOException
+	{
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		Groupe groupe = new Groupe(examen.getGroupe());
+		Matiere matiere = new Matiere(examen.getMatiere());
+		Professeur professeur = new Professeur(examen.getProfesseur());
+		FormatExamen format = new FormatExamen(examen.getFormat());
+		ResultSet resultSet = null;
+		
+		try 
+		{
+			connexion = daoFactory.getConnection();
+			
+			// Insertion de l'examen dans la base de données
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_EXAMEN, true, format.getId(), examen.getNom(), examen.getDate(), examen.getCoefficient(), professeur.getId(), groupe.getId(), matiere.getId(), professeur.getId());
+			preparedStatement.executeUpdate();
+			
+			// Récupération de l'id de l'examen
+			resultSet = preparedStatement.getGeneratedKeys();
+			
+			if (resultSet.next()) 
+			{
+				examen.setId(resultSet.getLong(1));
+			}
+
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(preparedStatement, connexion);
+		}
+	}
+	
+	/**
+	 * Trouve un examen dans la base de données
+	 * 
+	 * @param examen
+	 * @throws DAOException
+	 */
+	public Examen trouver(Examen examen)
+	{
+		examen = recupererExamen(examen);
+		recupererListeEtudiants(examen);
+		verifListeNotes(examen);
+		recupererListeNotes(examen);
+		
+		return examen;
+	}
+	
+	/**
 	 * Récupère la liste des étudiants d'un examen
 	 * 
 	 * @param examen
@@ -70,7 +131,6 @@ public class ExamenDaoImpl implements ExamenDao
 		{
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_ETUDIANTS_PAR_GROUPE, true, groupe.getId());
-			System.out.println(preparedStatement.toString());
 			resultSet = preparedStatement.executeQuery();
 			
 			while(resultSet.next())
@@ -91,6 +151,99 @@ public class ExamenDaoImpl implements ExamenDao
 		}
 		
 		examen.setListeNotes(listeNotes);
+	}
+	
+	/**
+	 * Récupère la liste des notes d'un examen
+	 * 
+	 * @param examen
+	 * @throws DAOException
+	 */
+	private void recupererListeNotes(Examen examen) throws DAOException
+	{
+		Set<Note> listeNotes = new TreeSet<Note>(examen.getListeNotes());
+		Object[] notes = listeNotes.toArray();
+		
+		for(Object n : notes)
+		{
+			Note note = (Note) n;
+			recupererNote(examen, note);
+			listeNotes.add(note);
+		}
+		
+		examen.setListeNotes(listeNotes);
+	}
+	
+	/**
+	 * Récupère une note dans la base de données
+	 * 
+	 * @param examen
+	 * @param note
+	 * @throws DAOException
+	 */
+	private void recupererNote(Examen examen, Note note) throws DAOException
+	{
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Etudiant etudiant = new Etudiant(note.getEtudiant());
+		
+		try 
+		{
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_NOTE, true, examen.getId(), etudiant.getId());
+			resultSet = preparedStatement.executeQuery();
+			
+			if (resultSet.next())
+			{
+				note.setId(resultSet.getLong("id"));
+				note.setNote(resultSet.getFloat("note"));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(preparedStatement, connexion);
+		}
+	}
+
+	/**
+	 * Récupère un examen dans la base de données
+	 * 
+	 * @param examen
+	 * @return examen
+	 * @throws DAOException
+	 */
+	private Examen recupererExamen(Examen examen) throws DAOException
+	{
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try 
+		{
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_EXAMEN_PAR_ID, true, examen.getId());
+			resultSet = preparedStatement.executeQuery();
+			
+			if (resultSet.next()) 
+			{
+				examen = mapExamen(resultSet);
+	        }
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(preparedStatement, connexion);
+		}
+		
+		return examen;
 	}
 	
 	/**
@@ -156,7 +309,7 @@ public class ExamenDaoImpl implements ExamenDao
 	 * Ajoute une note à un étudiant dans la base de données
 	 * 
 	 * @param examen
-	 * @param etudiant
+	 * @param note
 	 * @throws DAOException
 	 */
 	private void ajouterNote(Examen examen, Note note) throws DAOException
@@ -182,37 +335,23 @@ public class ExamenDaoImpl implements ExamenDao
 	}
 	
 	/**
-	 * Ajoute un examen dans la base de données
+	 * Edite la note d'un étudiant dans la base de données
 	 * 
 	 * @param examen
+	 * @param note
 	 * @throws DAOException
 	 */
-	public void ajouterExamen(Examen examen) throws DAOException
+	private void editerNote(Examen examen, Note note) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
-		Groupe groupe = new Groupe(examen.getGroupe());
-		Matiere matiere = new Matiere(examen.getMatiere());
-		Professeur professeur = new Professeur(examen.getProfesseur());
-		FormatExamen format = new FormatExamen(examen.getFormat());
-		ResultSet resultSet = null;
+		Etudiant etudiant = new Etudiant(note.getEtudiant());
 		
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			
-			// Insertion de l'examen dans la base de données
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_EXAMEN, true, format.getId(), examen.getNom(), examen.getDate(), examen.getCoefficient(), professeur.getId(), groupe.getId(), matiere.getId(), professeur.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_NOTE, true, note.getNote(),  examen.getId(), etudiant.getId());
 			preparedStatement.executeUpdate();
-			
-			// Récupération de l'id de l'examen
-			resultSet = preparedStatement.getGeneratedKeys();
-			
-			if (resultSet.next()) 
-			{
-				examen.setId(resultSet.getLong(1));
-			}
-
 		} 
 		catch (SQLException e) 
 		{
@@ -328,120 +467,59 @@ public class ExamenDaoImpl implements ExamenDao
 	 * @param examen
 	 * @throws DAOException
 	 */
-	public Examen editer(Examen examen) throws DAOException
+	public Examen editer(Examen examen)
 	{
-
+		editerExamen(examen);
+		editerListeNotes(examen);
+		
 		return examen;
 	}
 	
 	/**
-	 * Récupère la liste des notes d'un examen
+	 *  Edite les informations générales d'un examen dans la base de données
+	 *  
+	 * @param examen
+	 * @throws DAOException
+	 */
+	private void editerExamen(Examen examen) throws DAOException
+	{
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		Professeur professeur = new Professeur(examen.getProfesseur());
+		FormatExamen format = new FormatExamen(examen.getFormat());
+		Matiere matiere = new Matiere(examen.getMatiere());
+		
+		try 
+		{
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_EXAMEN, true, professeur.getId(), format.getId(), examen.getNom(), examen.getDate(), examen.getCoefficient(), matiere.getId(), examen.getId());
+			preparedStatement.executeUpdate();
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(preparedStatement, connexion);
+		}
+	}
+	
+	/**
+	 * Edite la liste des notes d'un examen dans la base de données
 	 * 
 	 * @param examen
 	 * @throws DAOException
 	 */
-	private void recupererListeNotes(Examen examen) throws DAOException
+	private void editerListeNotes(Examen examen) throws DAOException
 	{
-		Set<Note> listeNotes = new TreeSet<Note>(examen.getListeNotes());
-		Object[] notes = listeNotes.toArray();
+		Object[] notes = examen.getListeNotes().toArray();
 		
 		for(Object n : notes)
 		{
 			Note note = (Note) n;
-			recupererNote(examen, note);
-			listeNotes.add(note);
+			editerNote(examen, note);
 		}
-		
-		examen.setListeNotes(listeNotes);
-	}
-	
-	/**
-	 * Récupère une note dans la base de données
-	 * 
-	 * @param examen
-	 * @param note
-	 * @throws DAOException
-	 */
-	private void recupererNote(Examen examen, Note note) throws DAOException
-	{
-		Connection connexion = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		Etudiant etudiant = new Etudiant(note.getEtudiant());
-		
-		try 
-		{
-			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_NOTE, true, examen.getId(), etudiant.getId());
-			resultSet = preparedStatement.executeQuery();
-			
-			if (resultSet.next())
-			{
-				note.setId(resultSet.getLong("id"));
-				note.setNote(resultSet.getFloat("note"));
-			}
-		} 
-		catch (SQLException e) 
-		{
-			throw new DAOException(e);
-		} 
-		finally 
-		{
-			fermeturesSilencieuses(preparedStatement, connexion);
-		}
-	}
-	
-	
-	/**
-	 * Trouve un examen dans la base de données
-	 * 
-	 * @param examen
-	 * @throws DAOException
-	 */
-	public Examen trouver(Examen examen)
-	{
-		examen = recupererExamen(examen);
-		recupererListeEtudiants(examen);
-		verifListeNotes(examen);
-		recupererListeNotes(examen);
-		
-		return examen;
-	}
-	
-	/**
-	 * Récupère un examen dans la base de données
-	 * 
-	 * @param examen
-	 * @return examen
-	 * @throws DAOException
-	 */
-	private Examen recupererExamen(Examen examen) throws DAOException
-	{
-		Connection connexion = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		
-		try 
-		{
-			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_EXAMEN_PAR_ID, true, examen.getId());
-			resultSet = preparedStatement.executeQuery();
-			
-			if (resultSet.next()) 
-			{
-				examen = mapExamen(resultSet);
-	        }
-		} 
-		catch (SQLException e) 
-		{
-			throw new DAOException(e);
-		} 
-		finally 
-		{
-			fermeturesSilencieuses(preparedStatement, connexion);
-		}
-		
-		return examen;
 	}
 
 	/**
@@ -526,6 +604,8 @@ public class ExamenDaoImpl implements ExamenDao
 		
 		return etudiant;
 	}
+	
+	
 	/**
 	 * Converti une Date en chaine de caractères
 	 * 

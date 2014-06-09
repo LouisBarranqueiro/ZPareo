@@ -2,6 +2,7 @@ package forms;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -10,10 +11,12 @@ import dao.ExamenDao;
 
 import javax.servlet.http.HttpServletRequest;
 
+import beans.Etudiant;
 import beans.Examen;
 import beans.FormatExamen;
 import beans.Groupe;
 import beans.Matiere;
+import beans.Note;
 import beans.Professeur;
 
 public final class ExamenForm 
@@ -23,6 +26,8 @@ public final class ExamenForm
 	private static final String CHAMP_PROFESSEUR       = "professeur";
 	private static final String CHAMP_COEFFICIENT      = "coefficient";
 	private static final String CHAMP_DATE             = "date";
+	private static final String CHAMP_NOTES            = "notes";
+	private static final String CHAMP_ETUDIANTS        = "etudiants";
     private static final String CHAMP_NOM              = "nom";
     private static final String CHAMP_GROUPE           = "groupe";
     private static final String CHAMP_MATIERE          = "matiere";
@@ -80,6 +85,51 @@ public final class ExamenForm
             if (erreurs.isEmpty()) 
             {
             	examenDao.creer(examen);
+            }
+        } 
+        catch (Exception e) 
+        {
+        	e.printStackTrace();
+        }
+
+        return examen;
+    }
+    
+    /**
+     * 
+     * 
+     */
+    public Examen editerExamen(HttpServletRequest request)
+    {
+    	String id = getValeurChamp(request, CHAMP_ID);
+    	String date = getValeurChamp(request, CHAMP_DATE);
+    	String format = getValeurChamp(request, CHAMP_FORMAT);
+    	String nom = getValeurChamp(request, CHAMP_NOM);
+    	String coefficient = getValeurChamp(request, CHAMP_COEFFICIENT);
+    	String professeurId = getValeurChamp(request, CHAMP_PROFESSEUR);
+    	String matiereId = getValeurChamp(request, CHAMP_MATIERE);
+    	String etudiants = getValeurChamp(request, CHAMP_ETUDIANTS);
+    	String notes = getValeurChamp(request, CHAMP_NOTES);
+    	Examen examen = new Examen();
+
+    	try 
+        {
+    		traiterId(id, examen);
+        	traiterFormat(format, examen);
+        	traiterNom(nom, examen);
+        	traiterDate(date, examen);
+        	traiterCoefficient(coefficient, examen);
+        	traiterMatiereId(matiereId, examen);
+        	traiterProfesseurId(professeurId, examen);
+        	traiterNotes(notes, etudiants, examen);
+            
+            if (erreurs.isEmpty()) 
+            {
+            	examenDao.editer(examen);
+            }
+            else
+            {
+            	examen = examenDao.trouver(examen);
             }
         } 
         catch (Exception e) 
@@ -191,7 +241,7 @@ public final class ExamenForm
     	} 	
     	catch (Exception e) 
     	{
-    		e.printStackTrace();
+    		setErreur(CHAMP_DATE, e.getMessage());
     	}
     	
     	examen.setDate(date);
@@ -211,7 +261,7 @@ public final class ExamenForm
     	} 	
     	catch (Exception e) 
     	{
-    		e.printStackTrace();
+    		setErreur(CHAMP_COEFFICIENT, e.getMessage());
     	}
     	
     	examen.setCoefficient(Float.parseFloat(coefficient.replace(",",".")));
@@ -304,6 +354,67 @@ public final class ExamenForm
     }
     
     /**
+     *  Traite l'attribut : etudiantId
+     *  
+     * @param etudiantId
+     * @param note
+     */
+    private void traiterEtudiantId(String etudiantId, Note note)
+    {
+    	Etudiant etudiant = new Etudiant();
+    	
+    	if (etudiantId != null) 
+    	{
+    		etudiant.setId(Long.parseLong(etudiantId));
+    		note.setEtudiant(etudiant);
+    	}
+    }
+    
+    /**
+     * Traite l'attribut : noteString
+     * 
+     * @param noteString
+     * @param note
+     */
+    private void traiterNote(String noteString, Note note)
+    {
+    
+    	try
+    	{
+    		validationNote(noteString);
+    	}
+    	catch(Exception e)
+    	{
+    		setErreur(CHAMP_NOTES, e.getMessage());
+    	}
+    		
+    	note.setNote(Float.parseFloat(noteString.replace(",",".")));
+    }
+    
+    /**
+     * Traite les attributs : notes et etudiants
+     * 
+     * @param notes
+     * @param etudiants
+     * @param examen
+     */
+    private void traiterNotes(String notes, String etudiants, Examen examen)
+    {
+    	String[] tabNotes = notes.split("-");
+    	String[] tabEtudiantsId = etudiants.split("-");
+    	Set<Note> listeNotes = new HashSet<Note>();
+    	
+        for(int i=0;i<tabNotes.length;i++)
+        {
+            Note note = new Note();
+            traiterEtudiantId(tabEtudiantsId[i], note);
+            traiterNote(tabNotes[i], note);
+            listeNotes.add(note);
+        }
+        
+    	examen.setListeNotes(listeNotes);
+    }
+    /**
      * Valide l'attribut : nom
      * 
      * @param nom
@@ -339,7 +450,21 @@ public final class ExamenForm
      */
     private void validationCoefficient(String coefficient) throws Exception 
     {
-        if (coefficient == null) 
+        if ((coefficient == null) || (!coefficient.matches("[0-9,.]{1,5}"))) 
+        {
+            throw new Exception("Veuillez entrer un nombre");
+        }
+    }
+    
+    /**
+     * Valide l'attribut : note
+     * 
+     * @param note
+     * @throws Exception
+     */
+    private void validationNote(String note) throws Exception 
+    {
+        if ((note == null) || (!note.matches("[0-9,.]{1,5}"))) 
         {
             throw new Exception("Veuillez entrer un nombre");
         }
@@ -357,7 +482,7 @@ public final class ExamenForm
     }
     
     /**
-     * Retourne les valeurs des champs du formulaire
+     * Retourne la valeur d'un paramètre de la requête
      * 
      * @param request
      * @param nomChamp
