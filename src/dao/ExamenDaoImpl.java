@@ -390,7 +390,6 @@ public class ExamenDaoImpl implements ExamenDao
 		{
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_NOTE, true, note.getNote(), professeur.getId(), examen.getId(), etudiant.getId());
-			System.out.println(preparedStatement.toString());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -533,7 +532,7 @@ public class ExamenDaoImpl implements ExamenDao
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_EXAMEN, true, professeur.getId(), format.getId(), examen.getNom(), examen.getDate(), examen.getCoefficient(), matiere.getId(), examen.getId(), professeur.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_EXAMEN, true, professeur.getId(), format.getId(), examen.getNom(), examen.getDate(), examen.getCoefficient(), matiere.getId(), professeur.getId(), examen.getId());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 

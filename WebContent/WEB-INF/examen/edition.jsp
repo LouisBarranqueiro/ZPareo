@@ -15,7 +15,7 @@
                 	<option <c:if test="${ examen.format.nom == \"Ecrit\"}"><c:out value="selected=\"selected\""/></c:if> value="1">Ecrit</option>
 			    </select>
 			    <span class="erreur">${ form.erreurs['format'] }</span>
-                <input type="date" name="date" class="form-control input-sm" value="<c:out value="${ examen.date }"/>" placeholder="Date de l'examen" x-moz-errormessage="Veuillez entrer une date correct" required/>
+                <input type="text" name="date" class="form-control input-sm datepicker" value="<c:out value="${ examen.date }"/>" placeholder="Date de l'examen" pattern="(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)\d\d" x-moz-errormessage="Veuillez entrer une date correct" required/>
                 <span class="erreur">${ form.erreurs['date'] }</span>
                 <input type="text" name="nom" class="form-control input-sm" value="<c:out value="${ examen.nom }"/>" pattern=".{5,55}" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom correct" required/>
                 <span class="erreur">${ form.erreurs['nom'] }</span>

@@ -14,7 +14,7 @@
                 	<option value="2">Ecrit</option>
 			    </select>
 			    <span class="erreur">${ form.erreurs['format'] }</span>
-			    <input type="date" name="date" class="form-control input-sm" pattern="(0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[012])[/](19|20)\d\d" placeholder="Date de l'examen (JJ/MM/AAAA)" x-moz-errormessage="Veuillez entrer une date correct" required/>
+			    <input type="text" name="date" class="form-control input-sm datepicker" pattern="(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)\d\d" placeholder="Date de l'examen (JJ/MM/AAAA)" x-moz-errormessage="Veuillez entrer une date correct" required/>
                 <span class="erreur">${ form.erreurs['date'] }</span>
                 <input type="text" name="nom" class="form-control input-sm" pattern=".{5,55}" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom correct" required/>
                 <span class="erreur">${ form.erreurs['nom'] }</span>

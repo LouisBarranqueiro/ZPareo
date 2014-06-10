@@ -7,6 +7,14 @@ var initTableSorter = function()
 };
 
 /**
+ * Initialize le plugin Date Picker
+ */ 
+var initDatepicker = function()
+{
+	$('.datepicker').datepicker(); 
+};
+
+/**
  * Anime les colonnes de tri
  */
 var animColonne = function() 
@@ -120,6 +128,7 @@ var initFenetreModale = function(largeurFenetre)
  */
 var rechFonctCreat = function()
 {
+	initDatepicker(); 
 	creerGroupe();
 	creerEtudiant();
 	creerMatiere();
@@ -133,6 +142,7 @@ var rechFonctCreat = function()
  */
 var rechFonctEdit = function()
 {
+	initDatepicker(); 
 	editerGroupe();
 	editerMatiere();
 	editerEtudiant();
@@ -1004,7 +1014,7 @@ var editerExamen = function()
 		var date = $('#edition-examen input[name=date]').val();
 		var coefficient = $('#edition-examen input[name=coefficient]').val();
 		var matiere = $('#edition-examen select[name=matiere]').val();
-		
+		alert(date);
 		$('input[name="etudiants[]"]').each(function(){
 			etudiantsArray.push($(this).val());
 		});
@@ -1194,6 +1204,7 @@ var verifIdentifiant = function()
  */
 $(function() {
 	initTableSorter();
+	initDatepicker();
 	animColonne();
 	verifIdentifiant();
 });
