@@ -10,6 +10,7 @@ import dao.EtudiantDao;
 
 import javax.servlet.http.HttpServletRequest;
 
+import beans.Administrateur;
 import beans.Etudiant;
 import beans.Groupe;
 
@@ -50,7 +51,7 @@ public final class EtudiantForm
      * @param request
      * @return etudiant
      */
-    public Etudiant creerEtudiant(HttpServletRequest request) 
+    public Etudiant creerEtudiant(Administrateur utilisateur, HttpServletRequest request) 
     {
     	String nom = getValeurChamp(request, CHAMP_NOM);
     	String prenom = getValeurChamp(request, CHAMP_PRENOM);
@@ -69,7 +70,7 @@ public final class EtudiantForm
             
             if (erreurs.isEmpty()) 
             {
-            	etudiantDao.creer(etudiant);
+            	etudiantDao.creer(utilisateur, etudiant);
             }
         } 
         catch (Exception e) 
@@ -122,7 +123,7 @@ public final class EtudiantForm
      * @param request
      * @return etudiant
      */
-    public Etudiant editerEtudiant(HttpServletRequest request) 
+    public Etudiant editerEtudiant(Administrateur utilisateur, HttpServletRequest request) 
     {
     	String id = getValeurChamp(request, CHAMP_ID);
     	String nom = getValeurChamp(request, CHAMP_NOM);
@@ -142,7 +143,7 @@ public final class EtudiantForm
             
             if (erreurs.isEmpty()) 
             {
-            	etudiantDao.editer(etudiant);
+            	etudiantDao.editer(utilisateur, etudiant);
             }
         } 
         catch (Exception e) 
@@ -205,14 +206,14 @@ public final class EtudiantForm
      * @param request
      * @return statut
      */
-    public int supprimerEtudiant(HttpServletRequest request)
+    public int supprimerEtudiant(Administrateur utilisateur, HttpServletRequest request)
     {
     	String id = getValeurChamp(request, CHAMP_ID);
     	Etudiant etudiant = new Etudiant();
     	int statut;
     	
     	etudiant.setId(Long.parseLong(id));
-    	statut = etudiantDao.supprimer(etudiant);
+    	statut = etudiantDao.supprimer(utilisateur, etudiant);
     	
     	return statut;
     }
@@ -390,7 +391,7 @@ public final class EtudiantForm
     /**
      * Valide l'attribut : groupe
      * 
-     * @param prenom
+     * @param groupe
      * @throws Exception
      */
     private void validationGroupe(String groupe) throws Exception 
@@ -402,7 +403,7 @@ public final class EtudiantForm
     }
     
     /**
-     * Valide l'attribut : identifiant
+     * Valide l'attribut : adresseMail
      * 
      * @param adresseMail
      * @throws Exception
@@ -444,7 +445,7 @@ public final class EtudiantForm
     }
     
     /**
-     * Valide l'objet : etudiant
+     * Controle les identifiants d'un étudiant
      * 
      * @param etudiant
      * @throws Exception

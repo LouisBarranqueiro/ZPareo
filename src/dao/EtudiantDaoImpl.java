@@ -11,6 +11,7 @@ import static dao.DAOUtilitaire.*;
 import java.util.TreeSet;
 import java.util.Set;
 
+import beans.Administrateur;
 import beans.Etudiant;
 import beans.Groupe;
 
@@ -18,16 +19,14 @@ public class EtudiantDaoImpl implements EtudiantDao
 {
 	private DAOFactory daoFactory;
 	private static final String SQL_SELECT_COUNT_PAR_ADRESSE_MAIL = "SELECT COUNT(id) FROM gnw_utilisateur WHERE profil = 0 AND gnw_utilisateur.adresse_mail = ?";
-	private static final String SQL_INSERT_ETUDIANT               = "INSERT INTO gnw_utilisateur (nom, prenom, adresse_mail, mot_de_passe, profil) VALUES (?, ?, ?, ?, 0);";
-	private static final String SQL_INSERT_GROUPE	     		  = "INSERT INTO gnw_etudiant_groupe (fk_etudiant, fk_groupe) VALUES ( ?, ? );";
+	private static final String SQL_INSERT_ETUDIANT               = "INSERT INTO gnw_utilisateur (nom, prenom, adresse_mail, mot_de_passe, profil, fk_utilisateur) VALUES (?, ?, ?, ?, 0, ?)";
+	private static final String SQL_INSERT_GROUPE	     		  = "INSERT INTO gnw_etudiant_groupe (fk_etudiant, fk_groupe, fk_utilisateur) VALUES ( ?, ?, ? );";
 	private static final String SQL_SELECT_TOUS                   = "SELECT gnw_utilisateur.id, gnw_utilisateur.nom, gnw_utilisateur.prenom, gnw_utilisateur.adresse_mail, gnw_groupe.id as groupeId, gnw_groupe.nom as groupeNom FROM gnw_utilisateur, gnw_etudiant_groupe, gnw_groupe WHERE profil = 0 AND gnw_utilisateur.date_suppr IS NULL AND gnw_utilisateur.id = gnw_etudiant_groupe.fk_etudiant AND gnw_groupe.id = gnw_etudiant_groupe.fk_groupe";
 	private static final String SQL_SELECT_PAR_ID                 = "SELECT gnw_utilisateur.id, gnw_utilisateur.nom, gnw_utilisateur.prenom, gnw_utilisateur.adresse_mail, gnw_groupe.id as groupeId, gnw_groupe.nom as groupeNom FROM gnw_utilisateur, gnw_etudiant_groupe, gnw_groupe WHERE profil = 0 AND gnw_utilisateur.date_suppr IS NULL AND gnw_utilisateur.id = gnw_etudiant_groupe.fk_etudiant AND gnw_groupe.id = gnw_etudiant_groupe.fk_groupe AND gnw_utilisateur.id = ?";
 	private static final String SQL_SELECT_AUTH                   = "SELECT gnw_utilisateur.id, gnw_utilisateur.nom, gnw_utilisateur.prenom, gnw_utilisateur.adresse_mail, gnw_groupe.id as groupeId, gnw_groupe.nom as groupeNom FROM gnw_utilisateur, gnw_etudiant_groupe, gnw_groupe WHERE profil = 0 AND gnw_utilisateur.date_suppr IS NULL AND gnw_utilisateur.id = gnw_etudiant_groupe.fk_etudiant AND gnw_groupe.id = gnw_etudiant_groupe.fk_groupe AND gnw_utilisateur.adresse_mail = ? AND gnw_utilisateur.mot_de_passe = ?";
-	private static final String SQL_SELECT_ID_PAR_ADRESSE_MAIL    = "SELECT id FROM gnw_utilisateur WHERE profil = 0 AND date_suppr IS NULL AND adresse_mail = ?";
-	private static final String SQL_COUNT_TOUS                    = "SELECT COUNT(id) FROM gnw_utilisateur WHERE profil = 0 AND date_suppr IS NULL";
-	private static final String SQL_UPDATE_ETUDIANT               = "UPDATE gnw_utilisateur SET nom = ?, prenom = ?, adresse_mail = ? WHERE id = ?";
-	private static final String SQL_UPDATE_GROUPE                 = "UPDATE gnw_etudiant_groupe SET fk_groupe = ? WHERE fk_etudiant = ?";
-	private static final String SQL_UPDATE_SUPPR                  = "UPDATE gnw_utilisateur SET date_suppr = now() WHERE id = ?";
+	private static final String SQL_UPDATE_ETUDIANT               = "UPDATE gnw_utilisateur SET nom = ?, prenom = ?, adresse_mail = ?, fk_utilisateur = ? WHERE id = ?";
+	private static final String SQL_UPDATE_GROUPE                 = "UPDATE gnw_etudiant_groupe SET fk_groupe = ?, fk_utilisateur = ? WHERE fk_etudiant = ?";
+	private static final String SQL_UPDATE_SUPPR                  = "UPDATE gnw_utilisateur SET date_suppr = now(), fk_utilisateur = ? WHERE id = ?";
 	
 	
 	/**
@@ -47,14 +46,10 @@ public class EtudiantDaoImpl implements EtudiantDao
      * @throws DAOException
      */
 	@Override 
-	public void creer(Etudiant etudiant) throws DAOException 
-	{
-		Etudiant etudiant1 = new Etudiant();
-		
-		ajouterEtudiant(etudiant);
-		etudiant1 = retrouver(etudiant);
-		etudiant.setId(etudiant1.getId());
-		ajouterGroupe(etudiant);
+	public void creer(Administrateur utilisateur, Etudiant etudiant)
+	{	
+		ajouterEtudiant(utilisateur, etudiant);
+		ajouterGroupe(utilisateur, etudiant);
 	}
 	
 	/**
@@ -63,16 +58,23 @@ public class EtudiantDaoImpl implements EtudiantDao
      * @param etudiant
      * @throws DAOException
      */
-	public void ajouterEtudiant(Etudiant etudiant) throws DAOException 
+	public void ajouterEtudiant(Administrateur utilisateur, Etudiant etudiant) throws DAOException 
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
 		
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_ETUDIANT, true, etudiant.getNom(), etudiant.getPrenom(), etudiant.getAdresseMail(), etudiant.getMotDePasse());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_ETUDIANT, true, etudiant.getNom(), etudiant.getPrenom(), etudiant.getAdresseMail(), etudiant.getMotDePasse(), utilisateur.getId());
 			preparedStatement.executeUpdate();
+			resultSet = preparedStatement.getGeneratedKeys();
+			
+			if(resultSet.next())
+			{
+				etudiant.setId(resultSet.getLong(1));
+			}
 		} 
 		catch (SQLException e) 
 		{
@@ -90,7 +92,7 @@ public class EtudiantDaoImpl implements EtudiantDao
      * @param etudiant
      * @throws DAOException
      */
-	public void ajouterGroupe(Etudiant etudiant) throws DAOException 
+	public void ajouterGroupe(Administrateur utilisateur, Etudiant etudiant) throws DAOException 
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -99,7 +101,7 @@ public class EtudiantDaoImpl implements EtudiantDao
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_GROUPE, true, etudiant.getId(), groupe.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_GROUPE, true, etudiant.getId(), groupe.getId(), utilisateur.getId());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -282,7 +284,7 @@ public class EtudiantDaoImpl implements EtudiantDao
 	 * @return etudiant
 	 * @throws DAOException
 	 */
-	public Etudiant editer(Etudiant etudiant) throws DAOException
+	public Etudiant editer(Administrateur utilisateur, Etudiant etudiant) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -291,9 +293,9 @@ public class EtudiantDaoImpl implements EtudiantDao
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_ETUDIANT, true, etudiant.getNom(), etudiant.getPrenom(), etudiant.getAdresseMail(), etudiant.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_ETUDIANT, true, etudiant.getNom(), etudiant.getPrenom(), etudiant.getAdresseMail(), utilisateur.getId(), etudiant.getId());
 			preparedStatement.executeUpdate();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_GROUPE, true, groupe.getId(), etudiant.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_GROUPE, true, groupe.getId(), utilisateur.getId(), etudiant.getId());
 			preparedStatement.executeUpdate();
 			
 		} 
@@ -344,79 +346,9 @@ public class EtudiantDaoImpl implements EtudiantDao
 		
 		return etudiant;
 	}
-	
+		
 	/**
-	 * Cherche l'id d'un etudiant dans la base de données
-	 * 
-	 * @param etudiant
-	 * @return etudiant
-	 * @throws DAOException
-	 */
-	public Etudiant retrouver(Etudiant etudiant) throws DAOException
-	{
-		Connection connexion = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		
-		try 
-		{
-			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_ID_PAR_ADRESSE_MAIL, true, etudiant.getAdresseMail());
-			resultSet = preparedStatement.executeQuery();
-			
-			if (resultSet.next()) 
-			{
-				etudiant.setId(resultSet.getLong("id"));
-			}
-		} 
-		catch (SQLException e) 
-		{
-			throw new DAOException(e);
-		} 
-		finally 
-		{
-			fermeturesSilencieuses(preparedStatement, connexion);
-		}
-		
-		return etudiant;
-	}
-	
-	
-	/**
-	 * Compte tous les étudiants de la base de données
-	 * 
-	 * @return nbEtudiants
-	 * @throws DAOException
-	 */
-	public int compterTous() throws DAOException 
-	{
-		Connection connexion = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet;
-		int nbEtudiants;
-		
-		try 
-		{
-			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_COUNT_TOUS, true);
-			resultSet = preparedStatement.executeQuery();
-			resultSet.next();
-			nbEtudiants = resultSet.getInt(1);
-		} 
-		catch (SQLException e) 
-		{
-			throw new DAOException(e);
-		} 
-		finally 
-		{
-			fermeturesSilencieuses(preparedStatement, connexion);
-		}
-		
-		return nbEtudiants;
-	}
-	
-	/**
-	 * Verifie l'existance d'un etudiant dans la base de données
+	 * Vérifie l'existance d'un etudiant dans la base de données
 	 * 
 	 * @param etudiant
 	 * @return statut
@@ -467,7 +399,7 @@ public class EtudiantDaoImpl implements EtudiantDao
 	 * @return statut
 	 * @throws DAOException
 	 */
-	public int supprimer(Etudiant etudiant) throws DAOException
+	public int supprimer(Administrateur utilisateur, Etudiant etudiant) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -476,7 +408,7 @@ public class EtudiantDaoImpl implements EtudiantDao
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_SUPPR, true, etudiant.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_SUPPR, true, utilisateur.getId(), etudiant.getId());
 			statut = preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 

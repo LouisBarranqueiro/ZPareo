@@ -9,7 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import beans.Administrateur;
 import beans.Etudiant;
 import beans.Groupe;
 import dao.DAOFactory;
@@ -22,11 +24,12 @@ import forms.EtudiantForm;
 @WebServlet("/ai/etudiant/creation")
 public class EtudiantCreation extends HttpServlet 
 {
-	public static final String CONF_DAO_FACTORY = "daofactory";
-	public static final String ATT_ETUDIANT     = "etudiant";
-	public static final String ATT_GROUPES      = "listeGroupes";
-    public static final String ATT_FORM         = "form";
-	private static final String VUE_CREATION    = "/WEB-INF/etudiant/creation.jsp";
+	private static final String CONF_DAO_FACTORY           = "daofactory";
+	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
+	private static final String ATT_ETUDIANT               = "etudiant";
+	private static final String ATT_GROUPES                = "listeGroupes";
+	private static final String ATT_FORM                   = "form";
+	private static final String VUE_CREATION               = "/WEB-INF/etudiant/creation.jsp";
     private EtudiantDao etudiantDao;
     private GroupeDao groupeDao;
 
@@ -53,11 +56,13 @@ public class EtudiantCreation extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-        EtudiantForm form = new EtudiantForm( this.etudiantDao );
+		HttpSession session = request.getSession();
+		Administrateur sessionAdministrateur = (Administrateur) session.getAttribute(ATT_SESSION_ADMINISTRATEUR);
+        EtudiantForm form = new EtudiantForm(this.etudiantDao);
         Set<Groupe> listeGroupes = new TreeSet<Groupe>();
         Groupe groupe = new Groupe();
         
-        Etudiant etudiant = form.creerEtudiant(request);
+        Etudiant etudiant = form.creerEtudiant(sessionAdministrateur, request);
 		listeGroupes = this.groupeDao.rechercher(groupe);
 		
         if(form.getErreurs().isEmpty())
