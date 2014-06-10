@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import beans.Administrateur;
+import beans.Etudiant;
 import dao.DAOFactory;
 import dao.EtudiantDao;
 import forms.EtudiantForm;
@@ -17,7 +18,9 @@ import forms.EtudiantForm;
 public class EtudiantSuppression extends HttpServlet 
 {
 	private static final String CONF_DAO_FACTORY            = "daofactory";
-	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
+	private static final String ATT_SESSION_ADMINISTRATEUR  = "sessionAdministrateur";
+	private static final String ATT_ETUDIANT                = "etudiant";
+	private static final String VUE_SUPPRESSION             = "/WEB-INF/etudiant/suppression.jsp";
 	private EtudiantDao etudiantDao;
 	
 	public void init() throws ServletException 
@@ -32,16 +35,21 @@ public class EtudiantSuppression extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		HttpSession session = request.getSession();
-		Administrateur sessionAdministrateur = (Administrateur) session.getAttribute(ATT_SESSION_ADMINISTRATEUR);
 		EtudiantForm form = new EtudiantForm(this.etudiantDao);
 		
-		form.supprimerEtudiant(sessionAdministrateur, request);
-		response.sendRedirect("http://localhost:8080/ZPareo/ai/etudiant");  
+		Etudiant etudiant = form.trouverEtudiant(request);
+        request.setAttribute(ATT_ETUDIANT, etudiant);
+        this.getServletContext().getRequestDispatcher(VUE_SUPPRESSION).forward(request, response);   
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		HttpSession session = request.getSession();
+		Administrateur editeur = (Administrateur) session.getAttribute(ATT_SESSION_ADMINISTRATEUR);
+		EtudiantForm form = new EtudiantForm(this.etudiantDao);
+		
+		form.supprimerEtudiant(editeur, request);
+		response.sendRedirect("http://localhost:8080/ZPareo/ai/etudiant");  
 	}
 
 }

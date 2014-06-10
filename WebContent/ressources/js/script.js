@@ -149,7 +149,7 @@ var rechFonctSuppr = function()
 {
 	supprimerGroupe();
 	supprimerMatiere();
-	//supprimerEtudiant();
+	supprimerEtudiant();
 	//supprimerProfesseur();
 	//supprimerAdministrateur();
 	//supprimerExamen();
@@ -604,8 +604,49 @@ var editerEtudiant = function()
 	});
 };
 
+
 /**
- * Creer un professeur dans la base de donn√©es
+ * Supprime un étudiant dans la base de données
+ */
+var supprimerEtudiant = function()  
+{
+	$('#suppression-etudiant').submit(function(event)
+	{
+		event.preventDefault();
+		var id = $('#suppression-etudiant input[name=id]').val();
+		
+		$.ajax({ 
+			type: "POST", 
+		    url: "http://localhost:8080/ZPareo/ai/etudiant/suppression", 
+		    data: 
+		    {
+		    	id: id
+		    }, 
+		    error: function() 
+		    { 
+		    	alert("erreur !"); 
+		    },
+		    success: function(data) 
+		    { 
+		    	if(data.match('<tbody>')) 
+		    	{
+		    		supprFenetresModales();
+		    		vue = data.substr( data.search("<div id='module-conteneur'>"), data.search("</main>"));
+		    		$('#module-conteneur').replaceWith(vue);
+		    	}
+		    	else 
+		    	{
+		    		$('.fenetre-modale').replaceWith(data);
+		    		initFenetreModale('auto');
+		    		rechFonctEdit();
+		    	}
+		    } 
+		});
+	});
+};
+
+/**
+ * Creer un professeur dans la base de données
  */ 
 var creerProfesseur = function()  
 {
