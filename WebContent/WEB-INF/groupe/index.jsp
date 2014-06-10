@@ -4,8 +4,9 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>ZPareo - Liste des groupes</title>
 		<link type="text/css" rel="stylesheet" href="http://localhost:8080/ZPareo/ressources/css/bootstrap.css" />
-		<link type="text/css" rel="stylesheet" href="http://localhost:8080/ZPareo/ressources/css/main.css" />
-		<link type="text/css" rel="stylesheet" href="http://localhost:8080/ZPareo/ressources/css/style.css" />
+        <link type="text/css" rel="stylesheet" href="http://localhost:8080/ZPareo/ressources/css/jquery-ui.custom.min.css" />
+        <link type="text/css" rel="stylesheet" href="http://localhost:8080/ZPareo/ressources/css/main.css" />
+        <link type="text/css" rel="stylesheet" href="http://localhost:8080/ZPareo/ressources/css/style.css" />
 	</head>
 	<body>
 			<div id="site-conteneur">
@@ -86,7 +87,9 @@
 				</main>
 			</div><!-- Fin site-conteneur -->
 	<script type="text/javascript" src="http://localhost:8080/ZPareo/ressources/js/jquery.js"></script>
-	<script type="text/javascript" src="http://localhost:8080/ZPareo/ressources/js/jquery.tablesorter.min.js"></script> 
+    <script type="text/javascript" src="http://localhost:8080/ZPareo/ressources/js/jquery-ui.custom.min.js"></script>
+	<script type="text/javascript" src="http://localhost:8080/ZPareo/ressources/js/jquery.tablesorter.min.js"></script>
+	<script type="text/javascript" src="http://localhost:8080/ZPareo/ressources/js/jquery.ui.datepicker-fr.js"></script> 
 	<script type="text/javascript" src="http://localhost:8080/ZPareo/ressources/js/script.js"></script> 
 	</body>
 	

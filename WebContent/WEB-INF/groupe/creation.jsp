@@ -5,7 +5,7 @@
 		<div class="module-barre">
 			<h1 class="centre">Ajout d'un groupe</h1>
 		</div>
-		<form action="http://localhost:8080/ZPareo/groupe/creation" method="POST" class="form-horizontal">
+		<form action="http://localhost:8080/ZPareo/ai/groupe/creation" method="POST" class="form-horizontal">
 			<div class="module-form">
 				<input type="text" name="nom" class="form-control input-sm" value="<c:out value='${ groupe.nom }'/>" size="30" pattern="(G|g)[A-Za-z]" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom de 2 caractères commencant par G" required/>
 				<span class="erreur">${ form.erreurs['nom'] }</span>
