@@ -134,6 +134,20 @@ var rechFonctEdit = function()
 	editerExamen();
 };
 
+
+/**
+ * Recharge les fonctions AJAX de suppression
+ */
+var rechFonctSuppr = function()
+{
+	supprimerGroupe();
+	//supprimerMatiere();
+	//supprimerEtudiant();
+	//supprimerProfesseur();
+	//supprimerAdministrateur();
+	//supprimerExamen();
+};
+
 /**
  * Affiche le formulaire de création d'un objet
  * 
@@ -210,6 +224,34 @@ var affFormDetails = function(url, id, tailleFenetre)
 	    {
 	    	$('main').append(data);
 	    	initFenetreModale(tailleFenetre);
+	    } 
+	});
+};
+
+/**
+ * Affiche le formulaire de suppression d'un objet
+ * 
+ * @param url
+ * @param id
+ * @param tailleFenetre
+ */
+var affFormSuppr = function(url, id, tailleFenetre) 
+{
+	$.ajax({ 
+		type: "GET", 
+	    url: "http://localhost:8080/ZPareo/" + url + "/suppression?id=" + id, 
+	    data: 
+	    {
+	    }, 
+	    error: function() 
+	    { 
+	    	alert("erreur !"); 
+	    },
+	    success: function(data) 
+	    {
+	    	$('main').append(data);
+	    	initFenetreModale(tailleFenetre);
+	    	rechFonctSuppr();
 	    } 
 	});
 };
@@ -366,6 +408,46 @@ var editerGroupe = function()
 		    	{
 		    		supprFenetresModales();
 		    		vue = data.substr(data.search("<div id='module-conteneur'>"), data.search("</main>"));
+		    		$('#module-conteneur').replaceWith(vue);
+		    	}
+		    	else 
+		    	{
+		    		$('.fenetre-modale').replaceWith(data);
+		    		initFenetreModale(300);
+		    		rechFonctEdit();
+		    	}
+		    } 
+		});
+	});
+};
+
+/**
+ * Edite un groupe dans la base de donn�es
+ */
+var supprimerGroupe = function()  
+{
+	$('#suppression-groupe').submit(function(event)
+	{
+		event.preventDefault();
+		var id = $('#suppression-groupe input[name=id]').val();
+		
+		$.ajax({ 
+			type: "POST", 
+		    url: "http://localhost:8080/ZPareo/ai/groupe/suppression", 
+		    data: 
+		    {
+		    	id: id
+		    }, 
+		    error: function() 
+		    { 
+		    	alert("erreur !"); 
+		    },
+		    success: function(data) 
+		    { 
+		    	if(data.match('<tbody>')) 
+		    	{
+		    		supprFenetresModales();
+		    		vue = data.substr( data.search("<div id='module-conteneur'>"), data.search("</main>"));
 		    		$('#module-conteneur').replaceWith(vue);
 		    	}
 		    	else 

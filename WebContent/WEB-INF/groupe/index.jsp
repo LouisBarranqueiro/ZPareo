@@ -73,7 +73,7 @@
 					                            <td>
 													<div class="btn-group">
 													  	<button type="button" class="bouton bouton-action" onclick="affFormEdition('ai/groupe',<c:out value="${ groupe.id }"/>,300)"><span class="icon-edit"></span></button>
-													  	<a class="unstyled" href="http://localhost:8080/ZPareo/ai/groupe/suppression?id=<c:out value="${ groupe.id }"/>"><button type="button" class="bouton bouton-action" onclick="return(confirm('Etes-vous sur de vouloir supprimer la groupe : <c:out value="${ groupe.nom }"/>?'));"><span class="icon-trashcan"></span></button></a>
+													  	<button type="button" class="bouton bouton-action" onclick="affFormSuppr('ai/groupe',<c:out value="${ groupe.id }"/>,330)"><span class="icon-trashcan"></span></button>
 													</div>
 												</td>
 					                        </tr>

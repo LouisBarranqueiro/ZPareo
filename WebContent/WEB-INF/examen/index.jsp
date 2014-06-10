@@ -46,8 +46,8 @@
                                            		<select name="format" class="form-control input-sm">
                                            			<option disabled="disabled" value="">Format</option>
 			         								<option value="">Tous</option>
-			        								<option value="1">Oral</option>
-			        								<option value="2">Ecrit</option>
+			        								<option value="1">Ecrit</option>
+			        								<option value="2">Oral</option>
 			    								</select>
                                             </th>
                                             <th><input type="text" name="nom" class="form-control input-sm" size="40" pattern=".{5,55}" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom correct"/></th>
