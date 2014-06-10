@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DAOFactory;
 import dao.AdministrateurDao;
@@ -17,10 +18,11 @@ import forms.AdministrateurForm;
 @WebServlet("/ai/administrateur/edition")
 public class AdministrateurEdition extends HttpServlet 
 {
-	public static final String CONF_DAO_FACTORY   = "daofactory";
-	public static final String ATT_ADMINISTRATEUR = "administrateur";
-    public static final String ATT_FORM           = "form";
-	private static final String VUE_EDITION      = "/WEB-INF/administrateur/edition.jsp";
+	private static final String CONF_DAO_FACTORY           = "daofactory";
+	private static final String ATT_ADMINISTRATEUR         = "administrateur";
+	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
+	private static final String ATT_FORM                   = "form";
+	private static final String VUE_EDITION                = "/WEB-INF/administrateur/edition.jsp";
     private AdministrateurDao administrateurDao;
 
     public AdministrateurEdition() 
@@ -45,9 +47,10 @@ public class AdministrateurEdition extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		HttpSession session = request.getSession();
 		AdministrateurForm form = new AdministrateurForm(this.administrateurDao);
-		
-		beans.Administrateur administrateur = form.editerAdministrateur(request);
+		beans.Administrateur sessionAdministrateur = (beans.Administrateur) session.getAttribute(ATT_SESSION_ADMINISTRATEUR);
+		beans.Administrateur administrateur = form.editerAdministrateur(sessionAdministrateur, request);
 		
 		if(form.getErreurs().isEmpty())
 	    {

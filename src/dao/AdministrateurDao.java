@@ -12,7 +12,7 @@ public interface AdministrateurDao
      * @param administrateur
      * @throws DAOException
      */
-	void creer(Administrateur administrateur) throws DAOException;
+	void creer(Administrateur utilisateur, Administrateur administrateur) throws DAOException;
 	
 	/**
      * Recherche une ou des administrateur(s) dans la base de donn�es
@@ -28,7 +28,7 @@ public interface AdministrateurDao
 	 * @param administrateur
 	 * @throws DAOException
 	 */
-	Administrateur editer(Administrateur administrateur) throws DAOException;
+	Administrateur editer(Administrateur utilisateur, Administrateur administrateur) throws DAOException;
 	
 	/**
 	 * Trouve un administrateur dans la base de donn�es
@@ -59,7 +59,7 @@ public interface AdministrateurDao
 	 * @param administrateur
 	 * @throws DAOException
 	 */
-	int supprimer(Administrateur administrateur) throws DAOException;
+	int supprimer(Administrateur utilisateur, Administrateur administrateur) throws DAOException;
 	
 	/**
 	 * Vérifie les identifiants d'un etudiant dans la base de données

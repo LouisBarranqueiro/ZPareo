@@ -7,19 +7,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DAOFactory;
 import dao.AdministrateurDao;
-
 import forms.AdministrateurForm;
 
 @SuppressWarnings("serial")
 @WebServlet("/ai/administrateur/suppression")
 public class AdministrateurSuppression extends HttpServlet 
 {
-	public static final String CONF_DAO_FACTORY   = "daofactory";
-	public static final String ATT_ADMINISTRATEUR = "administrateur";
-    public static final String ATT_FORM           = "form";
+	private static final String CONF_DAO_FACTORY           = "daofactory";
+	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
     private AdministrateurDao administrateurDao;
 
     public AdministrateurSuppression() 
@@ -34,9 +33,11 @@ public class AdministrateurSuppression extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		HttpSession session = request.getSession();
 		AdministrateurForm form = new AdministrateurForm(this.administrateurDao);
 		
-		form.supprimerAdministrateur(request);
+		beans.Administrateur sessionAdministrateur = (beans.Administrateur) session.getAttribute(ATT_SESSION_ADMINISTRATEUR);
+		form.supprimerAdministrateur(sessionAdministrateur, request);
 		response.sendRedirect("http://localhost:8080/ZPareo/ai/administrateur");  	
 	}
 

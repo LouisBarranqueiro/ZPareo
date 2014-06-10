@@ -49,7 +49,7 @@ public class AdministrateurForm
      * @param request
      * @return administrateur
      */
-    public Administrateur creerAdministrateur(HttpServletRequest request) 
+    public Administrateur creerAdministrateur(Administrateur sessionAdministrateur, HttpServletRequest request) 
     {
     	String nom = getValeurChamp(request, CHAMP_NOM);
     	String prenom = getValeurChamp(request, CHAMP_PRENOM);
@@ -69,7 +69,7 @@ public class AdministrateurForm
             
             if (erreurs.isEmpty()) 
             {
-            	administrateurDao.creer(administrateur);
+            	administrateurDao.creer(sessionAdministrateur, administrateur);
             }
         } 
         catch (Exception e) 
@@ -128,10 +128,11 @@ public class AdministrateurForm
     /**
      * Edite un administrateur dans la base de données
      * 
+     * @param utilisateur
      * @param request
      * @return administrateur
      */
-    public Administrateur editerAdministrateur(HttpServletRequest request) 
+    public Administrateur editerAdministrateur(Administrateur utilisateur, HttpServletRequest request) 
     {
     	String id = getValeurChamp(request, CHAMP_ID);
     	String nom = getValeurChamp(request, CHAMP_NOM);
@@ -160,7 +161,7 @@ public class AdministrateurForm
            
             if (erreurs.isEmpty()) 
             {
-            	administrateurDao.editer(administrateur);
+            	administrateurDao.editer(utilisateur, administrateur);
             }
         } 
         catch (Exception e) 
@@ -174,17 +175,18 @@ public class AdministrateurForm
     /**
      * Supprime un administrateur dans la base de données
      * 
+     * @param utilisateur
      * @param request
      * @return statut
      */
-    public int supprimerAdministrateur(HttpServletRequest request)
+    public int supprimerAdministrateur(Administrateur utilisateur, HttpServletRequest request)
     {
     	String id = getValeurChamp(request, CHAMP_ID);
     	Administrateur administrateur = new Administrateur();
     	int statut;
     	
     	administrateur.setId(Long.parseLong(id));
-    	statut = administrateurDao.supprimer(administrateur);
+    	statut = administrateurDao.supprimer(utilisateur, administrateur);
     	
     	return statut;
     }
@@ -222,7 +224,7 @@ public class AdministrateurForm
      *  Traite l'attribut : nom
      *  
      * @param nom
-     * @param professeur
+     * @param administrateur
      */
     private void traiterNom(String nom, Administrateur administrateur)
     {
@@ -242,7 +244,7 @@ public class AdministrateurForm
      *  Traite l'attribut : prenom
      *  
      * @param prenom
-     * @param professeur
+     * @param administrateur
      */
     private void traiterPrenom(String prenom, Administrateur administrateur)
     {
@@ -259,10 +261,10 @@ public class AdministrateurForm
     }
     
     /**
-     *  Traite l'attribut : identifiant
+     *  Traite l'attribut : adresseMail
      *  
-     * @param identifiant
-     * @param professeur
+     * @param adresseMail
+     * @param administrateur
      */
     private void traiterAdresseMail(String adresseMail, Administrateur administrateur)  
     {
@@ -305,7 +307,7 @@ public class AdministrateurForm
     /**
      *  Traite les identifiants
      *  
-     * @param etudiant
+     * @param administrateur
      */
     private void traiterIdentifiant(Administrateur administrateur) 
     {
@@ -365,7 +367,7 @@ public class AdministrateurForm
     }
     
     /**
-     * Valide l'attribut : identifiant
+     * Valide l'attribut : adresseMail
      * 
      * @param adresseMail
      * @throws Exception
@@ -397,9 +399,9 @@ public class AdministrateurForm
     }
     
     /**
-     * Valide l'objet : professeur
+     * Valide l'objet : administrateur
      * 
-     * @param professeur
+     * @param administrateur
      * @throws Exception
      */
     private void validationAdministrateur(Administrateur administrateur) throws Exception 
@@ -425,7 +427,7 @@ public class AdministrateurForm
     }
     
     /**
-     * Crypte un mot de passe
+     * Crypte un mot de passe en SHA-256
      * 
      * @param motDePasse
      * @return motDePasseCrypte

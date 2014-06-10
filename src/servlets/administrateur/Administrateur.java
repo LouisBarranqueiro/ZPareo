@@ -18,11 +18,11 @@ import forms.AdministrateurForm;
 @WebServlet("/ai/administrateur")
 public class Administrateur extends HttpServlet 
 {
-	public static final String CONF_DAO_FACTORY        = "daofactory";
-	public static final String ATT_ADMINISTRATEURS     = "listeAdministrateurs";
-	public static final String ATT_NB_ADMINISTRATEURS  = "nbAdministrateurs";
-    public static final String ATT_FORM                = "form";
-	private static final String VUE                    = "/WEB-INF/administrateur/index.jsp";
+	private static final String CONF_DAO_FACTORY        = "daofactory";
+	private static final String ATT_ADMINISTRATEURS     = "listeAdministrateurs";
+	private static final String ATT_NB_ADMINISTRATEURS  = "nbAdministrateurs";
+	private static final String ATT_FORM                = "form";
+	private static final String VUE                     = "/WEB-INF/administrateur/index.jsp";
 	private AdministrateurDao administrateurDao;
 	
     public Administrateur() 

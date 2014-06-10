@@ -30,6 +30,7 @@ var animColonne = function()
 /**
  * Centre la fenetre Modale
  * 
+ * @param largFenetre
  * @return true
  */
 var centrerFenetreModale = function(largFenetre)
@@ -136,7 +137,7 @@ var rechFonctEdit = function()
 /**
  * Affiche le formulaire de création d'un objet
  * 
- * @param object
+ * @param url
  * @param tailleFenetre
  */
 var affFormCreation = function(url, tailleFenetre) 
@@ -160,7 +161,7 @@ var affFormCreation = function(url, tailleFenetre)
 /**
  * Affiche le formulaire d'edition d'un objet
  * 
- * @param objet
+ * @param url
  * @param id
  * @param tailleFenetre
  */
@@ -188,7 +189,7 @@ var affFormEdition = function(url, id, tailleFenetre)
 /**
  * Affiche le details d'un objet
  * 
- * @param objet
+ * @param url
  * @param id
  * @param tailleFenetre
  */
