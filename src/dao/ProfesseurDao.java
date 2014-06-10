@@ -2,6 +2,7 @@ package dao;
 
 import java.util.Set;
 
+import beans.Administrateur;
 import beans.Professeur;
 
 
@@ -13,7 +14,7 @@ public interface ProfesseurDao
      * @param professeur
      * @throws DAOException
      */
-	void creer(Professeur professeur) throws DAOException;
+	void creer(Administrateur createur, Professeur professeur) throws DAOException;
 	
 	/**
      * Recherche un ou des professeur(s) dans la base de données
@@ -36,7 +37,7 @@ public interface ProfesseurDao
 	 * @param professeur
 	 * @throws DAOException
 	 */
-	Professeur editer(Professeur professeur) throws DAOException;
+	Professeur editer(Administrateur editeur, Professeur professeur) throws DAOException;
 	
 	/**
 	 * Vérifie l'existance d'un professeur dans la base de données
@@ -60,7 +61,7 @@ public interface ProfesseurDao
 	 * @param groupe
 	 * @return
 	 */
-	int supprimer(Professeur professeur);
+	int supprimer(Administrateur editeur, Professeur professeur);
 	
 	/**
 	 * Vérifie les identifiants d'un professeur dans la base de données

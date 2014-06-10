@@ -1,7 +1,6 @@
 package forms;
 
 import java.security.MessageDigest;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -9,10 +8,10 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import beans.Administrateur;
 import beans.Professeur;
 import beans.Groupe;
 import beans.Matiere;
-
 import dao.ProfesseurDao;
 
 public class ProfesseurForm
@@ -54,7 +53,7 @@ public class ProfesseurForm
      * @param request
      * @return professeur
      */
-    public Professeur creerProfesseur(HttpServletRequest request) 
+    public Professeur creerProfesseur(Administrateur createur, HttpServletRequest request) 
     {
     	String nom = getValeurChamp(request, CHAMP_NOM);
     	String prenom = getValeurChamp(request, CHAMP_PRENOM);
@@ -84,7 +83,7 @@ public class ProfesseurForm
             
             if (erreurs.isEmpty()) 
             {
-            	professeurDao.creer(professeur);
+            	professeurDao.creer(createur, professeur);
             }
         } 
         catch (Exception e) 
@@ -146,7 +145,7 @@ public class ProfesseurForm
      * @param request
      * @return professeur
      */
-    public Professeur editerProfesseur(HttpServletRequest request) 
+    public Professeur editerProfesseur(Administrateur editeur, HttpServletRequest request) 
     {
     	String id = getValeurChamp(request, CHAMP_ID);
     	String nom = getValeurChamp(request, CHAMP_NOM);
@@ -186,7 +185,7 @@ public class ProfesseurForm
             
             if (erreurs.isEmpty()) 
             {
-            	professeurDao.editer(professeur);
+            	professeurDao.editer(editeur, professeur);
             }
         } 
         catch (Exception e) 
@@ -203,14 +202,14 @@ public class ProfesseurForm
      * @param request
      * @return statut
      */
-    public int supprimerProfesseur(HttpServletRequest request)
+    public int supprimerProfesseur(Administrateur editeur, HttpServletRequest request)
     {
     	String id = getValeurChamp(request, CHAMP_ID);
     	Professeur professeur = new Professeur();
     	int statut;
     	
     	professeur.setId(Long.parseLong(id));
-    	statut = professeurDao.supprimer(professeur);
+    	statut = professeurDao.supprimer(editeur, professeur);
     	
     	return statut;
     }

@@ -1,7 +1,6 @@
 package dao;
 
 import static dao.DAOUtilitaire.fermeturesSilencieuses;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Set;
 import java.util.TreeSet;
-
+import beans.Administrateur;
 import beans.Professeur;
 import beans.Groupe;
 import beans.Matiere;
@@ -19,22 +18,21 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 	private DAOFactory daoFactory;
 	private static final String SQL_COUNT_TOUS                    = "SELECT COUNT(id) FROM gnw_utilisateur WHERE profil = 1 AND date_suppr IS NULL";
 	private static final String SQL_SELECT_COUNT_PAR_ADRESSE_MAIL = "SELECT COUNT(id) FROM gnw_utilisateur WHERE profil = 1 AND adresse_mail = ?";
-	private static final String SQL_SELECT_PAR_ADRESSE_MAIL       = "SELECT id FROM gnw_utilisateur WHERE profil = 1 AND adresse_mail = ? AND date_suppr IS NULL";
-	private static final String SQL_SELECT_TOUS                   = "SELECT id, nom, prenom, adresse_mail  FROM gnw_utilisateur WHERE profil = 1 AND date_suppr IS NULL";
+    private static final String SQL_SELECT_TOUS                   = "SELECT id, nom, prenom, adresse_mail  FROM gnw_utilisateur WHERE profil = 1 AND date_suppr IS NULL";
 	private static final String SQL_SELECT_MATIERES               = "SELECT gnw_professeur_matiere.fk_matiere as matiereId, gnw_matiere.nom as matiereNom FROM gnw_professeur_matiere, gnw_matiere WHERE gnw_professeur_matiere.date_suppr IS NULL AND gnw_professeur_matiere.fk_professeur = ? AND gnw_professeur_matiere.fk_matiere = gnw_matiere.id";
 	private static final String SQL_SELECT_GROUPES                = "SELECT gnw_professeur_groupe.fk_groupe as groupeId, gnw_groupe.nom as groupeNom FROM gnw_professeur_groupe, gnw_groupe WHERE gnw_professeur_groupe.date_suppr IS NULL AND gnw_professeur_groupe.fk_professeur = ? AND gnw_professeur_groupe.fk_groupe = gnw_groupe.id";
 	private static final String SQL_SELECT_PAR_ID                 = "SELECT id, nom, prenom, adresse_mail FROM gnw_utilisateur WHERE id = ? AND date_suppr IS NULL";
 	private static final String SQL_SELECT_COUNT_MATIERE          = "SELECT COUNT(id) FROM gnw_professeur_matiere WHERE fk_professeur = ? AND fk_groupe = ? AND date_suppr IS NULL";
 	private static final String SQL_SELECT_COUNT_GROUPE           = "SELECT COUNT(id) FROM gnw_professeur_groupe WHERE fk_professeur = ? AND fk_matiere = ? AND date_suppr IS NULL";
 	private static final String SQL_SELECT_AUTH                   = "SELECT gnw_utilisateur.id, gnw_utilisateur.nom, gnw_utilisateur.prenom, gnw_utilisateur.adresse_mail FROM gnw_utilisateur WHERE gnw_utilisateur.profil = 1 AND gnw_utilisateur.adresse_mail = ? AND gnw_utilisateur.mot_de_passe = ?";
-	private static final String SQL_INSERT_PROFESSEUR             = "INSERT INTO gnw_utilisateur ( nom, prenom, adresse_mail, mot_de_passe, profil ) VALUES ( ?, ?, ?, ?, 1 )";
-	private static final String SQL_INSERT_MATIERE                = "INSERT INTO gnw_professeur_matiere ( gnw_professeur_matiere.fk_professeur, gnw_professeur_matiere.fk_matiere ) VALUES ( ?, ? )";
-	private static final String SQL_INSERT_GROUPE                 = "INSERT INTO gnw_professeur_groupe ( gnw_professeur_groupe.fk_professeur, gnw_professeur_groupe.fk_groupe ) VALUES ( ?, ? )";
-	private static final String SQL_UPDATE_PROFESSEUR             = "UPDATE gnw_utilisateur SET nom = ?, prenom = ?, adresse_mail = ? WHERE id = ?";
-	private static final String SQL_UPDATE_MOT_DE_PASSE           = "UPDATE gnw_utilisateur SET mot_de_passe = ? WHERE id = ?"; 
-	private static final String SQL_UPDATE_MATIERE                = "UPDATE gnw_professeur_matiere SET date_suppr = now() WHERE fk_professeur = ?"; 
-	private static final String SQL_UPDATE_GROUPE                 = "UPDATE gnw_professeur_groupe SET date_suppr = now() WHERE fk_professeur = ?"; 
-	private static final String SQL_UPDATE_SUPPR                  = "UPDATE gnw_utilisateur SET date_suppr = now() WHERE id = ?";
+	private static final String SQL_INSERT_PROFESSEUR             = "INSERT INTO gnw_utilisateur ( nom, prenom, adresse_mail, mot_de_passe, profil, fk_utilisateur ) VALUES (?, ?, ?, ?, 1, ?)";
+	private static final String SQL_INSERT_MATIERE                = "INSERT INTO gnw_professeur_matiere ( fk_professeur, fk_matiere, fk_professeur ) VALUES (?, ?, ?)";
+	private static final String SQL_INSERT_GROUPE                 = "INSERT INTO gnw_professeur_groupe ( fk_professeur, fk_groupe, fk_utilisateur ) VALUES (?, ?, ?)";
+	private static final String SQL_UPDATE_PROFESSEUR             = "UPDATE gnw_utilisateur SET nom = ?, prenom = ?, adresse_mail = ?, fk_utilisateur = ? WHERE id = ?";
+	private static final String SQL_UPDATE_MOT_DE_PASSE           = "UPDATE gnw_utilisateur SET mot_de_passe = ?, fk_utilisateur = ? WHERE id = ?"; 
+	private static final String SQL_UPDATE_MATIERE                = "UPDATE gnw_professeur_matiere SET date_suppr = now(), fk_utilisateur = ? WHERE fk_professeur = ?"; 
+	private static final String SQL_UPDATE_GROUPE                 = "UPDATE gnw_professeur_groupe SET date_suppr = now(), fk_utilisateur = ? WHERE fk_professeur = ?"; 
+	private static final String SQL_UPDATE_SUPPR                  = "UPDATE gnw_utilisateur SET date_suppr = now(), fk_utilisateur = ? WHERE id = ?";
 
 	/**
 	 * Récupère la daoFactory
@@ -52,11 +50,11 @@ public class ProfesseurDaoImpl implements ProfesseurDao
      * @param professeur
      * @throws DAOException
      */
-	public void creer(Professeur professeur) throws DAOException 
+	public void creer(Administrateur createur, Professeur professeur) throws DAOException 
 	{
-		ajouterProfesseur(professeur);
-		ajouterMatieres(professeur);
-		ajouterGroupes(professeur);
+		ajouterProfesseur(createur, professeur);
+		ajouterMatieres(createur, professeur);
+		ajouterGroupes(createur, professeur);
 	}
 
 	/**
@@ -65,7 +63,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
      * @param professeur
      * @throws DAOException
      */
-	public void ajouterProfesseur(Professeur professeur) throws DAOException 
+	public void ajouterProfesseur(Administrateur createur, Professeur professeur) throws DAOException 
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -74,16 +72,14 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			
-			// Insertion du professeur dans la base
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_PROFESSEUR, true, professeur.getNom(), professeur.getPrenom(), professeur.getAdresseMail(), professeur.getMotDePasse());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_PROFESSEUR, true, professeur.getNom(), professeur.getPrenom(), professeur.getAdresseMail(), professeur.getMotDePasse(), createur.getId());
 			preparedStatement.executeUpdate();
+			resultSet = preparedStatement.getGeneratedKeys();
 			
-			// Recherche de l'id du professeur
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_PAR_ADRESSE_MAIL, true, professeur.getAdresseMail());
-			resultSet = preparedStatement.executeQuery();
-			resultSet.next();
-			professeur.setId(resultSet.getLong("id"));
+			if(resultSet.next())
+			{
+				professeur.setId(resultSet.getLong(1));
+			}
 
 		} 
 		catch (SQLException e) 
@@ -102,7 +98,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
      * @param professeur
      * @throws DAOException
      */
-	public void ajouterMatieres(Professeur professeur) throws DAOException 
+	public void ajouterMatieres(Administrateur createur, Professeur professeur) throws DAOException 
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -115,7 +111,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 			for(Object m : matieres)
 			{
 				Matiere matiere = (Matiere) m;
-				preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_MATIERE, true, professeur.getId(), matiere.getId());
+				preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_MATIERE, true, professeur.getId(), matiere.getId(), createur.getId());
 				preparedStatement.executeUpdate();
 			}
 		} 
@@ -137,7 +133,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 	 * @return professeur
 	 * @throws DAOException
 	 */
-	public Professeur ajouterMatiere(Professeur professeur, Matiere matiere) throws DAOException
+	public Professeur ajouterMatiere(Administrateur createur, Professeur professeur, Matiere matiere) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -145,7 +141,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee( connexion, SQL_INSERT_MATIERE, true, professeur.getId(), matiere.getId() );
+			preparedStatement = initialisationRequetePreparee( connexion, SQL_INSERT_MATIERE, true, professeur.getId(), matiere.getId(), createur.getId());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -166,7 +162,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
      * @param professeur
      * @throws DAOException
      */
-	public void ajouterGroupes(Professeur professeur) throws DAOException 
+	public void ajouterGroupes(Administrateur createur, Professeur professeur) throws DAOException 
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -179,7 +175,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 			for(Object g : groupes)
 			{
 				Groupe groupe = (Groupe) g;
-				preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_GROUPE, true, professeur.getId(), groupe.getId());
+				preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_GROUPE, true, professeur.getId(), groupe.getId(), createur.getId());
 				preparedStatement.executeUpdate();
 			}
 		} 
@@ -201,7 +197,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 	 * @return professeur
 	 * @throws DAOException
 	 */
-	public Professeur ajouterGroupe(Professeur professeur, Groupe groupe) throws DAOException
+	public Professeur ajouterGroupe(Administrateur createur, Professeur professeur, Groupe groupe) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -209,7 +205,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_GROUPE, true, professeur.getId(), groupe.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_GROUPE, true, professeur.getId(), groupe.getId(), createur.getId());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -342,28 +338,28 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 	 * @return professeur
 	 * @throws DAOException
 	 */
-	public Professeur editer(Professeur professeur) throws DAOException
+	public Professeur editer(Administrateur editeur, Professeur professeur) throws DAOException
 	{
 		// Edite les informations générales du professeur
-		editerInformations(professeur);
+		editerInformations(editeur, professeur);
 		// Edite le mot de passe du professeur
 		if (professeur.getMotDePasse() != null)
 		{
-			editerMotDePasse(professeur);			
+			editerMotDePasse(editeur, professeur);			
 		}
 		
 		// Supprime les matieres et les groupes du professeur
-		supprimerMatieres(professeur);
-		supprimerGroupes(professeur);
+		supprimerMatieres(editeur, professeur);
+		supprimerGroupes(editeur, professeur);
 		
 		// Ajoute les matieres et les groupes du professeur
 		if (professeur.getListeMatieres() != null)
 		{
-			ajouterMatieres( professeur );
+			ajouterMatieres(editeur, professeur);
 		}
 		if (professeur.getListeGroupes() != null)
 		{
-			ajouterGroupes( professeur);
+			ajouterGroupes(editeur, professeur);
 		}
 			
 		return professeur;
@@ -376,7 +372,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 	 * @return professeur
 	 * @throws DAOException
 	 */
-	public Professeur editerInformations(Professeur professeur) throws DAOException
+	public Professeur editerInformations(Administrateur editeur, Professeur professeur) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -384,7 +380,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_PROFESSEUR, true, professeur.getNom(), professeur.getPrenom(), professeur.getAdresseMail(), professeur.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_PROFESSEUR, true, professeur.getNom(), professeur.getPrenom(), professeur.getAdresseMail(), editeur.getId(), professeur.getId());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -406,7 +402,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 	 * @return professeur
 	 * @throws DAOException
 	 */
-	public Professeur editerMotDePasse(Professeur professeur) throws DAOException
+	public Professeur editerMotDePasse(Administrateur editeur, Professeur professeur) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -414,7 +410,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_MOT_DE_PASSE, true, professeur.getMotDePasse(), professeur.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_MOT_DE_PASSE, true, professeur.getMotDePasse(), editeur.getId(), professeur.getId());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -436,7 +432,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 	 * @return professeur
 	 * @throws DAOException
 	 */
-	public void supprimerGroupes(Professeur professeur) throws DAOException
+	public void supprimerGroupes(Administrateur editeur, Professeur professeur) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -444,7 +440,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_GROUPE, true, professeur.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_GROUPE, true, editeur.getId(), professeur.getId());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -464,7 +460,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 	 * @return professeur
 	 * @throws DAOException
 	 */
-	public Professeur supprimerMatieres(Professeur professeur) throws DAOException
+	public Professeur supprimerMatieres(Administrateur editeur, Professeur professeur) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -472,7 +468,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_MATIERE, true, professeur.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_MATIERE, true, editeur.getId(), professeur.getId());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -734,7 +730,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 	 * @return listeGroupes
 	 * @throws DAOException
 	 */
-	public Set<Groupe> trouverGroupes( Professeur professeur ) throws DAOException
+	public Set<Groupe> trouverGroupes(Professeur professeur) throws DAOException
 	{
 		Set<Groupe> listeGroupes = new TreeSet<Groupe>();
 		Connection connexion = null;
@@ -774,7 +770,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 	 * @return statut
 	 * @throws DAOException
 	 */
-	public int supprimer(Professeur professeur) 
+	public int supprimer(Administrateur editeur, Professeur professeur) 
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -783,16 +779,16 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_SUPPR, true, professeur.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_SUPPR, true, editeur.getId(), professeur.getId());
 			statut = preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
 		{
-			throw new DAOException( e );
+			throw new DAOException(e);
 		} 
 		finally 
 		{
-			fermeturesSilencieuses( preparedStatement, connexion );
+			fermeturesSilencieuses(preparedStatement, connexion);
 		}
 		
 		return statut;

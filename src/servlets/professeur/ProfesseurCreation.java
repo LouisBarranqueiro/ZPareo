@@ -9,7 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import beans.Administrateur;
 import beans.Groupe;
 import beans.Matiere;
 import dao.DAOFactory;
@@ -22,12 +24,13 @@ import forms.ProfesseurForm;
 @WebServlet("/ai/professeur/creation")
 public class ProfesseurCreation extends HttpServlet 
 {
-	public static final String CONF_DAO_FACTORY  = "daofactory";
-	public static final String ATT_MATIERES      = "listeMatieres";
-	public static final String ATT_GROUPES       = "listeGroupes";
-	public static final String ATT_PROFESSEUR    = "professeur";
-    public static final String ATT_FORM          = "form";
-	private static final String VUE_CREATION     = "/WEB-INF/professeur/creation.jsp";
+	private static final String CONF_DAO_FACTORY           = "daofactory";
+	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
+	private static final String ATT_MATIERES               = "listeMatieres";
+	private static final String ATT_GROUPES                = "listeGroupes";
+	private static final String ATT_PROFESSEUR             = "professeur";
+	private static final String ATT_FORM                   = "form";
+	private static final String VUE_CREATION               = "/WEB-INF/professeur/creation.jsp";
     private MatiereDao matiereDao;
     private GroupeDao groupeDao;
     private ProfesseurDao professeurDao;
@@ -60,8 +63,10 @@ public class ProfesseurCreation extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+		HttpSession session = request.getSession();
+		Administrateur createur = (Administrateur) session.getAttribute(ATT_SESSION_ADMINISTRATEUR);
         ProfesseurForm form = new ProfesseurForm(this.professeurDao);
-        beans.Professeur professeur = form.creerProfesseur(request);
+        beans.Professeur professeur = form.creerProfesseur(createur, request);
 		
         if(form.getErreurs().isEmpty())
         {
