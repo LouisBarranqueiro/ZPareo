@@ -151,7 +151,7 @@ var rechFonctSuppr = function()
 	supprimerMatiere();
 	supprimerEtudiant();
 	supprimerProfesseur();
-	//supprimerAdministrateur();
+	supprimerAdministrateur();
 	//supprimerExamen();
 };
 
@@ -885,6 +885,47 @@ var editerAdministrateur = function()
 		    	{
 		    		$('.fenetre-modale').replaceWith(data);
 		    		initFenetreModale(300);
+		    		rechFonctEdit();
+		    	}
+		    } 
+		});
+	});
+};
+
+
+/**
+ * Supprime une matière dans la base de données
+ */
+var supprimerAdministrateur = function()  
+{
+	$('#suppression-administrateur').submit(function(event)
+	{
+		event.preventDefault();
+		var id = $('#suppression-administrateur input[name=id]').val();
+		
+		$.ajax({ 
+			type: "POST", 
+		    url: "http://localhost:8080/ZPareo/ai/administrateur/suppression", 
+		    data: 
+		    {
+		    	id: id
+		    }, 
+		    error: function() 
+		    { 
+		    	alert("erreur !"); 
+		    },
+		    success: function(data) 
+		    { 
+		    	if(data.match('<tbody>')) 
+		    	{
+		    		supprFenetresModales();
+		    		vue = data.substr( data.search("<div id='module-conteneur'>"), data.search("</main>"));
+		    		$('#module-conteneur').replaceWith(vue);
+		    	}
+		    	else 
+		    	{
+		    		$('.fenetre-modale').replaceWith(data);
+		    		initFenetreModale('auto');
 		    		rechFonctEdit();
 		    	}
 		    } 

@@ -80,7 +80,7 @@
                                                 <td>
                                                     <div class="btn-group">
                                                         <button type="button" class="bouton bouton-action" onclick="affFormEdition('ai/administrateur',<c:out value="${ administrateur.id }"/>,300)"><span class="icon-edit"></span></button>
-                                                        <a class="unstyled" href="http://localhost:8080/ZPareo/ai/administrateur/suppression?id=<c:out value="${ administrateur.id }"/>"><button type="button" class="bouton bouton-action" onclick="return(confirm('Etes vous sur de vouloir supprimer l\'administrateur : <c:out value="${ administrateur.prenom }"/> <c:out value="${ administrateur.nom }"/> ?'));"><span class="icon-trashcan"></span></button></a>
+                                                        <button type="button" class="bouton bouton-action" onclick="affFormSuppr('ai/administrateur',<c:out value="${ administrateur.id }"/>,'auto')"><span class="icon-trashcan"></span></button>
                                                     </div>
                                                 </td>
                                             </tr>
