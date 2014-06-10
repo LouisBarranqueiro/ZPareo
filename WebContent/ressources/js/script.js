@@ -36,12 +36,19 @@ var animColonne = function()
 var centrerFenetreModale = function(largFenetre)
 {
 	var fenetreModale = $('.fenetre-modale');
-    var popMargTop = fenetreModale.height() / 2;
-    var popMargLeft = largFenetre / 2;
+    var popMargTop = null;
+    var popMargLeft = null;
     
     fenetreModale.css
     ({
-        'width'   : largFenetre,
+        'width'   : largFenetre
+    });
+    
+    popMargTop = fenetreModale.height() / 2;
+    popMargLeft = fenetreModale.width() / 2;
+    
+    fenetreModale.css
+    ({
         'position': 'fixed',
         'top'     : '50%',
         'left'    : '50%',
@@ -141,7 +148,7 @@ var rechFonctEdit = function()
 var rechFonctSuppr = function()
 {
 	supprimerGroupe();
-	//supprimerMatiere();
+	supprimerMatiere();
 	//supprimerEtudiant();
 	//supprimerProfesseur();
 	//supprimerAdministrateur();
@@ -340,6 +347,46 @@ var editerMatiere = function()
 };
 
 /**
+ * Supprime une matière dans la base de données
+ */
+var supprimerMatiere = function()  
+{
+	$('#suppression-matiere').submit(function(event)
+	{
+		event.preventDefault();
+		var id = $('#suppression-matiere input[name=id]').val();
+		
+		$.ajax({ 
+			type: "POST", 
+		    url: "http://localhost:8080/ZPareo/ai/matiere/suppression", 
+		    data: 
+		    {
+		    	id: id
+		    }, 
+		    error: function() 
+		    { 
+		    	alert("erreur !"); 
+		    },
+		    success: function(data) 
+		    { 
+		    	if(data.match('<tbody>')) 
+		    	{
+		    		supprFenetresModales();
+		    		vue = data.substr( data.search("<div id='module-conteneur'>"), data.search("</main>"));
+		    		$('#module-conteneur').replaceWith(vue);
+		    	}
+		    	else 
+		    	{
+		    		$('.fenetre-modale').replaceWith(data);
+		    		initFenetreModale(330);
+		    		rechFonctEdit();
+		    	}
+		    } 
+		});
+	});
+};
+
+/**
  * Creer un groupe dans la base de donnÔøΩes
  */ 
 var creerGroupe = function()  
@@ -422,7 +469,7 @@ var editerGroupe = function()
 };
 
 /**
- * Edite un groupe dans la base de donnÔøΩes
+ * Supprime un groupe dans la base de donnÔøΩes
  */
 var supprimerGroupe = function()  
 {

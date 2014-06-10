@@ -73,7 +73,7 @@
 					                            <td>
 													<div class="btn-group">
 													  	<button type="button" class="bouton bouton-action" onclick="affFormEdition('ai/groupe',<c:out value="${ groupe.id }"/>,300)"><span class="icon-edit"></span></button>
-													  	<button type="button" class="bouton bouton-action" onclick="affFormSuppr('ai/groupe',<c:out value="${ groupe.id }"/>,330)"><span class="icon-trashcan"></span></button>
+													  	<button type="button" class="bouton bouton-action" onclick="affFormSuppr('ai/groupe',<c:out value="${ groupe.id }"/>,'auto')"><span class="icon-trashcan"></span></button>
 													</div>
 												</td>
 					                        </tr>

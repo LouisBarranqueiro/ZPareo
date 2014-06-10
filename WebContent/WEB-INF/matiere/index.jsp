@@ -74,7 +74,7 @@
 					                            <td>
 													<div class="btn-group">
 													  	<button type="button" class="bouton bouton-action" onclick="affFormEdition('ai/matiere',<c:out value="${ matiere.id }"/>,300)"><span class="icon-edit"></span></button>
-													  	<a class="unstyled" href="http://localhost:8080/ZPareo/ai/matiere/suppression?id=<c:out value="${ matiere.id }"/>"><button type="button" class="bouton bouton-action" onclick="return(confirm('Etes-vous sur de vouloir supprimer la matiere : <c:out value="${ matiere.nom }"/>?'));"><span class="icon-trashcan"></span></button></a>
+													  	<button type="button" class="bouton bouton-action" onclick="affFormSuppr('ai/matiere',<c:out value="${ matiere.id }"/>,'auto')"><span class="icon-trashcan"></span></button>
 													</div>
 												</td>
 					                        </tr>
