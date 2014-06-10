@@ -5,10 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import static dao.DAOUtilitaire.*;
+
 import java.util.TreeSet;
 import java.util.Set;
 
+import beans.Administrateur;
 import beans.Groupe;
 
 public class GroupeDaoImpl implements GroupeDao 
@@ -18,9 +21,9 @@ public class GroupeDaoImpl implements GroupeDao
 	private static final String SQL_SELECT_COUNT_PAR_NOM = "SELECT COUNT(id) FROM gnw_groupe WHERE date_suppr IS NULL AND nom = ?";
 	private static final String SQL_SELECT_TOUS          = "SELECT id, nom FROM gnw_groupe WHERE date_suppr IS NULL";
 	private static final String SQL_SELECT_PAR_ID        = "SELECT id, nom FROM gnw_groupe WHERE id = ? AND date_suppr IS NULL";
-	private static final String SQL_INSERT               = "INSERT INTO gnw_groupe (nom) VALUES (?)";
-	private static final String SQL_UPDATE               = "UPDATE gnw_groupe SET nom = ?, date_modif = now() WHERE id = ?"; 
-	private static final String SQL_UPDATE_SUPPR         = "UPDATE gnw_groupe SET date_suppr = now() WHERE id = ?";
+	private static final String SQL_INSERT               = "INSERT INTO gnw_groupe (nom, fk_utilisateur) VALUES (?, ?)";
+	private static final String SQL_UPDATE               = "UPDATE gnw_groupe SET nom = ?, date_modif = now(), fk_utilisateur = ? WHERE id = ?"; 
+	private static final String SQL_UPDATE_SUPPR         = "UPDATE gnw_groupe SET date_suppr = now(), fk_utilisateur = ? WHERE id = ?";
 	
 	/**
 	 * R�cup�re la daoFactory
@@ -39,7 +42,7 @@ public class GroupeDaoImpl implements GroupeDao
      * @throws DAOException
      */
 	@Override 
-	public void creer(Groupe groupe) throws DAOException 
+	public void creer(Administrateur createur, Groupe groupe) throws DAOException 
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -47,7 +50,7 @@ public class GroupeDaoImpl implements GroupeDao
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT, true, groupe.getNom());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT, true, groupe.getNom(), createur.getId());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -161,7 +164,7 @@ public class GroupeDaoImpl implements GroupeDao
 	 * @return groupe
 	 * @throws DAOException
 	 */
-	public Groupe editer(Groupe groupe) throws DAOException
+	public Groupe editer(Administrateur editeur, Groupe groupe) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -169,7 +172,7 @@ public class GroupeDaoImpl implements GroupeDao
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE, true, groupe.getNom(), groupe.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE, true, groupe.getNom(), editeur.getId(), groupe.getId());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -268,11 +271,11 @@ public class GroupeDaoImpl implements GroupeDao
 	/**
 	 * Supprime un groupe dans la base de donn�es
 	 * 
-	 * @param groupe
+	 * @param editeur
 	 * @return statut
 	 * @throws DAOException
 	 */
-	public int supprimer(Groupe groupe) throws DAOException
+	public int supprimer(Administrateur editeur, Groupe groupe) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -281,7 +284,7 @@ public class GroupeDaoImpl implements GroupeDao
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_SUPPR, true, groupe.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_SUPPR, true, editeur.getId(), groupe.getId());
 			statut = preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 

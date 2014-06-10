@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import beans.Administrateur;
 import beans.Groupe;
-
 import dao.GroupeDao;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,7 +44,7 @@ public final class GroupeForm
      * @param request
      * @return groupe
      */
-    public Groupe creerGroupe(HttpServletRequest request) 
+    public Groupe creerGroupe(Administrateur editeur, HttpServletRequest request) 
     {
         String nom = getValeurChamp(request, CHAMP_NOM);
         Groupe groupe = new Groupe();
@@ -56,7 +56,7 @@ public final class GroupeForm
             
             if (erreurs.isEmpty()) 
             {
-            	groupeDao.creer(groupe);
+            	groupeDao.creer(editeur, groupe);
             }
         } 
         catch (Exception e) 
@@ -97,7 +97,7 @@ public final class GroupeForm
      * @param request
      * @return groupe
      */
-    public Groupe editerGroupe(HttpServletRequest request)
+    public Groupe editerGroupe(Administrateur editeur, HttpServletRequest request)
     {
     	String id = getValeurChamp(request, CHAMP_ID);
     	String nom = getValeurChamp(request, CHAMP_NOM);
@@ -109,7 +109,7 @@ public final class GroupeForm
            
     	if (erreurs.isEmpty()) 
        	{
-    		groupeDao.editer(groupe);
+    		groupeDao.editer(editeur, groupe);
        	}
 
     	return groupe;
@@ -138,14 +138,14 @@ public final class GroupeForm
      * @param request
      * @return statut
      */
-    public int supprimerGroupe(HttpServletRequest request)
+    public int supprimerGroupe(Administrateur editeur, HttpServletRequest request)
     {
     	String id = getValeurChamp(request, CHAMP_ID);
     	Groupe groupe = new Groupe();
     	int statut;
     	
     	groupe.setId(Long.parseLong(id));
-    	statut = groupeDao.supprimer(groupe);
+    	statut = groupeDao.supprimer(editeur, groupe);
     	
     	return statut;
     }

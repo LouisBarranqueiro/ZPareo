@@ -2,6 +2,7 @@ package dao;
 
 import java.util.Set;
 
+import beans.Administrateur;
 import beans.Groupe;
 
 public interface GroupeDao 
@@ -12,7 +13,7 @@ public interface GroupeDao
      * @param groupe
      * @throws DAOException
      */
-	void creer(Groupe groupe) throws DAOException;
+	void creer(Administrateur createur, Groupe groupe) throws DAOException;
 	
 	/**
      * Recherche une ou des groupe(s) dans la base de donn�es
@@ -35,7 +36,7 @@ public interface GroupeDao
 	 * @param groupe
 	 * @throws DAOException
 	 */
-	Groupe editer(Groupe groupe) throws DAOException;
+	Groupe editer(Administrateur editeur, Groupe groupe) throws DAOException;
 	
 	/**
 	 * V�rifie l'existance d'un groupe dans la base de donn�es
@@ -59,5 +60,5 @@ public interface GroupeDao
 	 * @param groupe
 	 * @return
 	 */
-	int supprimer(Groupe groupe) throws DAOException;
+	int supprimer(Administrateur editeur, Groupe groupe) throws DAOException;
 }
