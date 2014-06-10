@@ -101,7 +101,7 @@
                                                     <div class="btn-group">
                                                     	<button type="button" class="bouton bouton-action" onclick="affFormDetails('pi/examen',<c:out value="${ examen.id }"/>,600)"><span class="icon-list2"></span></button>
                                                         <button type="button" class="bouton bouton-action" onclick="affFormEdition('pi/examen',<c:out value="${ examen.id }"/>,600)"><span class="icon-edit"></span></button>
-                                                        <a class="unstyled" href="http://localhost:8080/ZPareo/pi/examen/suppression?id=<c:out value="${ examen.id }"/>"><button type="button" class="bouton bouton-action" onclick="return(confirm('Etes vous sur de vouloir supprimer l\'examen : <c:out value="${ examen.nom }"/> ?'));"><span class="icon-trashcan"></span></button></a>
+                                                        <button type="button" class="bouton bouton-action" onclick="affFormSuppr('pi/examen',<c:out value="${ examen.id }"/>,'auto')"><span class="icon-trashcan"></span></button>
                                                     </div>
                                                 </td>
                                             </tr>

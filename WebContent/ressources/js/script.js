@@ -152,7 +152,7 @@ var rechFonctSuppr = function()
 	supprimerEtudiant();
 	supprimerProfesseur();
 	supprimerAdministrateur();
-	//supprimerExamen();
+	supprimerExamen();
 };
 
 /**
@@ -1054,7 +1054,48 @@ var editerExamen = function()
 };
 
 /**
- * Creer un etudiant dans la base de donnï¿½es
+ * Supprime un examen dans la base de donnŽes
+ */
+var supprimerExamen = function()  
+{
+	$('#suppression-examen').submit(function(event)
+	{
+		event.preventDefault();
+		var id = $('#suppression-examen input[name=id]').val();
+		
+		$.ajax({ 
+			type: "POST", 
+		    url: "http://localhost:8080/ZPareo/pi/examen/suppression", 
+		    data: 
+		    {
+		    	id: id
+		    }, 
+		    error: function() 
+		    { 
+		    	alert("erreur !"); 
+		    },
+		    success: function(data) 
+		    { 
+		    	if(data.match('<tbody>')) 
+		    	{
+		    		supprFenetresModales();
+		    		vue = data.substr( data.search("<div id='module-conteneur'>"), data.search("</main>"));
+		    		$('#module-conteneur').replaceWith(vue);
+		    	}
+		    	else 
+		    	{
+		    		$('.fenetre-modale').replaceWith(data);
+		    		initFenetreModale('auto');
+		    		rechFonctEdit();
+		    	}
+		    } 
+		});
+	});
+};
+
+
+/**
+ * VŽrifie les identifiants d'un utilisateur dans la base de donnŽes
  */ 
 var verifIdentifiant = function()  
 {
