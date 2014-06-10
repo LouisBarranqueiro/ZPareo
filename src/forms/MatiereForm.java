@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import beans.Administrateur;
 import beans.Matiere;
-
 import dao.MatiereDao;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,7 +44,7 @@ public final class MatiereForm
      * @param request
      * @return matiere
      */
-    public Matiere creerMatiere(HttpServletRequest request) 
+    public Matiere creerMatiere(Administrateur createur, HttpServletRequest request) 
     {
         String nom = getValeurChamp(request, CHAMP_NOM);
         Matiere matiere = new Matiere();
@@ -56,7 +56,7 @@ public final class MatiereForm
             
             if (erreurs.isEmpty()) 
             {
-            	matiereDao.creer(matiere);
+            	matiereDao.creer(createur, matiere);
             }
         } 
         catch ( Exception e ) 
@@ -97,7 +97,7 @@ public final class MatiereForm
      * @param request
      * @return matiere
      */
-    public Matiere editerMatiere(HttpServletRequest request)
+    public Matiere editerMatiere(Administrateur editeur, HttpServletRequest request)
     {
     	String id = getValeurChamp(request, CHAMP_ID);
     	String nom = getValeurChamp(request, CHAMP_NOM);
@@ -109,7 +109,7 @@ public final class MatiereForm
            
     	if (erreurs.isEmpty()) 
        	{
-           matiereDao.editer(matiere);
+           matiereDao.editer(editeur, matiere);
        	}
 
     	return matiere;
@@ -138,14 +138,14 @@ public final class MatiereForm
      * @param request
      * @return statut
      */
-    public int supprimerMatiere(HttpServletRequest request)
+    public int supprimerMatiere(Administrateur editeur, HttpServletRequest request)
     {
     	String id = getValeurChamp(request, CHAMP_ID);
     	Matiere matiere = new Matiere();
     	int statut;
     	
     	matiere.setId(Long.parseLong(id));
-    	statut = matiereDao.supprimer(matiere);
+    	statut = matiereDao.supprimer(editeur, matiere);
     	
     	return statut;
     }

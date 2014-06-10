@@ -11,6 +11,7 @@ import static dao.DAOUtilitaire.*;
 import java.util.Set;
 import java.util.TreeSet;
 
+import beans.Administrateur;
 import beans.Matiere;
 
 public class MatiereDaoImpl implements MatiereDao 
@@ -20,9 +21,9 @@ public class MatiereDaoImpl implements MatiereDao
 	private static final String SQL_SELECT_COUNT_PAR_NOM = "SELECT COUNT(id) FROM gnw_matiere WHERE date_suppr IS NULL AND nom = ?";
 	private static final String SQL_SELECT_TOUS          = "SELECT id, nom FROM gnw_matiere WHERE date_suppr IS NULL";
 	private static final String SQL_SELECT_PAR_ID        = "SELECT id, nom FROM gnw_matiere WHERE id = ? AND date_suppr IS NULL ORDER BY id ASC";
-	private static final String SQL_INSERT               = "INSERT INTO gnw_matiere (nom) VALUES (?)";
-	private static final String SQL_UPDATE               = "UPDATE gnw_matiere SET nom = ?, date_modif = now() WHERE id = ?"; 
-	private static final String SQL_UPDATE_SUPPR         = "UPDATE gnw_matiere SET date_suppr = now() WHERE id = ?";
+	private static final String SQL_INSERT               = "INSERT INTO gnw_matiere (nom, fk_utilisateur) VALUES (?, ?)";
+	private static final String SQL_UPDATE               = "UPDATE gnw_matiere SET nom = ?, fk_utilisateur = ? WHERE id = ?"; 
+	private static final String SQL_UPDATE_SUPPR         = "UPDATE gnw_matiere SET date_suppr = now(), fk_utilisateur = ? WHERE id = ?";
 	
 	/**
 	 * Récupère la daoFactory
@@ -41,7 +42,7 @@ public class MatiereDaoImpl implements MatiereDao
      * @throws DAOException
      */
 	@Override 
-	public void creer(Matiere matiere) throws DAOException 
+	public void creer(Administrateur createur, Matiere matiere) throws DAOException 
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -49,7 +50,7 @@ public class MatiereDaoImpl implements MatiereDao
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT, true, matiere.getNom());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT, true, matiere.getNom(), createur.getId());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -162,7 +163,7 @@ public class MatiereDaoImpl implements MatiereDao
 	 * @return matiere
 	 * @throws DAOException
 	 */
-	public Matiere editer(Matiere matiere)  throws DAOException
+	public Matiere editer(Administrateur editeur, Matiere matiere)  throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -170,7 +171,7 @@ public class MatiereDaoImpl implements MatiereDao
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE, true, matiere.getNom(), matiere.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE, true, matiere.getNom(), editeur.getId(), matiere.getId());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -272,7 +273,7 @@ public class MatiereDaoImpl implements MatiereDao
 	 * @return statut
 	 * @throws DAOException
 	 */
-	public int supprimer(Matiere matiere) throws DAOException
+	public int supprimer(Administrateur editeur, Matiere matiere) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -281,7 +282,7 @@ public class MatiereDaoImpl implements MatiereDao
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_SUPPR, true, matiere.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_SUPPR, true, editeur.getId(), matiere.getId());
 			statut = preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 

@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+import javax.servlet.http.HttpSession;
+
+import beans.Administrateur;
 import dao.DAOFactory;
 import dao.MatiereDao;
 import forms.MatiereForm;
@@ -19,7 +22,8 @@ import forms.MatiereForm;
 @WebServlet("/ai/matiere/suppression")
 public class MatiereSuppression extends HttpServlet
 {
-	public static final String CONF_DAO_FACTORY = "daofactory";
+	private static final String CONF_DAO_FACTORY           = "daofactory";
+	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
 	private MatiereDao matiereDao;
 	
 	public void init() throws ServletException 
@@ -34,9 +38,11 @@ public class MatiereSuppression extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		HttpSession session = request.getSession();
+		Administrateur editeur = (Administrateur) session.getAttribute(ATT_SESSION_ADMINISTRATEUR);
 		MatiereForm form = new MatiereForm(this.matiereDao);
 		
-		form.supprimerMatiere(request);
+		form.supprimerMatiere(editeur, request);
 		response.sendRedirect("http://localhost:8080/ZPareo/ai/matiere");  
 	}
 

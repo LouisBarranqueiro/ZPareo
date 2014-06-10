@@ -2,6 +2,7 @@ package dao;
 
 import java.util.Set;
 
+import beans.Administrateur;
 import beans.Matiere;
 
 public interface MatiereDao 
@@ -12,7 +13,7 @@ public interface MatiereDao
      * @param matiere
      * @throws DAOException
      */
-	void creer(Matiere matiere) throws DAOException;
+	void creer(Administrateur createur, Matiere matiere) throws DAOException;
 	
 	/**
      * Recherche une ou des mati�re(s) dans la base de donn�es
@@ -35,7 +36,7 @@ public interface MatiereDao
 	 * @param matiere
 	 * @throws DAOException
 	 */
-	Matiere editer (Matiere matiere) throws DAOException;
+	Matiere editer (Administrateur editeur, Matiere matiere) throws DAOException;
 	
 	/**
 	 * V�rifie l'existance d'une mati�re dans la base de donn�es
@@ -59,5 +60,5 @@ public interface MatiereDao
 	 * @param matiere
 	 * @throws DAOException
 	 */
-	int supprimer(Matiere matiere) throws DAOException;	
+	int supprimer(Administrateur editeur, Matiere matiere) throws DAOException;	
 }
