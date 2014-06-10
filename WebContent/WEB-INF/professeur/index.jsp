@@ -81,7 +81,7 @@
 													<div class="btn-group">
 														<button type="button" class="bouton bouton-action" onclick="affFormDetails('ai/professeur',<c:out value="${ professeur.id }"/>,400)"><span class="icon-list2" ></span></button>
 													  	<button type="button" class="bouton bouton-action" onclick="affFormEdition('ai/professeur',<c:out value="${ professeur.id }"/>,600)"><span class="icon-edit"></span></button>
-													  	<a class="unstyled" href="http://localhost:8080/ZPareo/ai/professeur/suppression?id=<c:out value="${ professeur.id }"/>"><button type="button" class="bouton bouton-action" onclick="return(confirm('Etes-vous sur de vouloir supprimer le professeur : <c:out value="${ professeur.prenom }"/> <c:out value="${ professeur.nom }"/>?'));"><span class="icon-trashcan"></span></button></a>
+													  	<button type="button" class="bouton bouton-action" onclick="affFormSuppr('ai/professeur',<c:out value="${ professeur.id }"/>,'auto')"><span class="icon-trashcan"></span></button>
 													</div>
 												</td>
 					                        </tr>
