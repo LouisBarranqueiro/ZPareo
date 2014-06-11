@@ -157,6 +157,7 @@ var rechFonctEdit = function()
  */
 var rechFonctSuppr = function()
 {
+	initDatepicker(); 
 	supprimerGroupe();
 	supprimerMatiere();
 	supprimerEtudiant();
@@ -389,7 +390,7 @@ var supprimerMatiere = function()
 		    	{
 		    		$('.fenetre-modale').replaceWith(data);
 		    		initFenetreModale(330);
-		    		rechFonctEdit();
+		    		rechFonctSuppr();
 		    	}
 		    } 
 		});
@@ -511,7 +512,7 @@ var supprimerGroupe = function()
 		    	{
 		    		$('.fenetre-modale').replaceWith(data);
 		    		initFenetreModale(300);
-		    		rechFonctEdit();
+		    		rechFonctSuppr();
 		    	}
 		    } 
 		});
@@ -648,7 +649,7 @@ var supprimerEtudiant = function()
 		    	{
 		    		$('.fenetre-modale').replaceWith(data);
 		    		initFenetreModale('auto');
-		    		rechFonctEdit();
+		    		rechFonctSuppr();
 		    	}
 		    } 
 		});
@@ -797,7 +798,7 @@ var supprimerProfesseur = function()
 		    	{
 		    		$('.fenetre-modale').replaceWith(data);
 		    		initFenetreModale('auto');
-		    		rechFonctEdit();
+		    		rechFonctSuppr();
 		    	}
 		    } 
 		});
@@ -936,7 +937,7 @@ var supprimerAdministrateur = function()
 		    	{
 		    		$('.fenetre-modale').replaceWith(data);
 		    		initFenetreModale('auto');
-		    		rechFonctEdit();
+		    		rechFonctSuppr();
 		    	}
 		    } 
 		});
@@ -1014,7 +1015,7 @@ var editerExamen = function()
 		var date = $('#edition-examen input[name=date]').val();
 		var coefficient = $('#edition-examen input[name=coefficient]').val();
 		var matiere = $('#edition-examen select[name=matiere]').val();
-		alert(date);
+		
 		$('input[name="etudiants[]"]').each(function(){
 			etudiantsArray.push($(this).val());
 		});
@@ -1096,7 +1097,7 @@ var supprimerExamen = function()
 		    	{
 		    		$('.fenetre-modale').replaceWith(data);
 		    		initFenetreModale('auto');
-		    		rechFonctEdit();
+		    		rechFonctSuppr();
 		    	}
 		    } 
 		});

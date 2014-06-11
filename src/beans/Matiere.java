@@ -10,11 +10,13 @@ public class Matiere implements Comparable<Matiere>
 		this.id = null;
 		this.nom = null;
 	}
+		
 	public Matiere(Matiere matiere)
 	{
 		this.setId(matiere.getId());
 		this.setNom(matiere.getNom());
 	}
+	
 	public Long getId() 
 	{
 		return id;

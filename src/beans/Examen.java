@@ -28,6 +28,7 @@ public class Examen implements Comparable<Examen>
 		this.moyenneGenerale = null;
 		this.coefficient = null;
 	}
+	
 	public Examen(Examen examen)
 	{
 		this.setId(examen.getId());
