@@ -18,7 +18,9 @@ public class InitialisationDaoFactory implements ServletContextListener
     }
 
     /**
-     * @param event
+     * Initialise le contexte de la servlet
+     * 
+     * @param event 
      */
     @Override
     public void contextInitialized(ServletContextEvent event) 
@@ -28,9 +30,6 @@ public class InitialisationDaoFactory implements ServletContextListener
         servletContext.setAttribute( ATT_DAO_FACTORY, this.daoFactory );
     }
 	
-    /**
-     * @param arg0
-     */
     public void contextDestroyed(ServletContextEvent arg0) 
     {
     }

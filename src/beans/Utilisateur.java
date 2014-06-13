@@ -21,7 +21,7 @@ public abstract class Utilisateur
 	}
 	
 	/**
-	 * Constrcuteur 
+	 * Constructeur 
 	 * 
 	 * @param utilisateur Un utilisateur.
 	 */

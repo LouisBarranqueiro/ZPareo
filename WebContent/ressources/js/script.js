@@ -275,7 +275,7 @@ var affFormSuppr = function(url, id, tailleFenetre)
 };
 
 /**
- * Creer une matiere dans la base de donnÔøΩes
+ * Creer une matiere dans la base de données
  */ 
 var creerMatiere = function()  
 {
@@ -316,7 +316,7 @@ var creerMatiere = function()
 
 
 /**
- * Edite une matiere dans la base de donnÔøΩes
+ * Edite une matiere dans la base de données
  */
 var editerMatiere = function()  
 {
@@ -398,7 +398,7 @@ var supprimerMatiere = function()
 };
 
 /**
- * Creer un groupe dans la base de donnÔøΩes
+ * Creer un groupe dans la base de données
  */ 
 var creerGroupe = function()  
 {
@@ -438,7 +438,7 @@ var creerGroupe = function()
 };
 
 /**
- * Edite une matiere dans la base de donnÔøΩes
+ * Edite une matiere dans la base de données
  */
 var editerGroupe = function()  
 {
@@ -480,7 +480,7 @@ var editerGroupe = function()
 };
 
 /**
- * Supprime un groupe dans la base de donnÔøΩes
+ * Supprime un groupe dans la base de données
  */
 var supprimerGroupe = function()  
 {
@@ -520,7 +520,7 @@ var supprimerGroupe = function()
 };
 
 /**
- * Cr√©er un etudiant dans la base de donn√©es
+ * Cr√©er un etudiant dans la base de données
  */ 
 var creerEtudiant = function()  
 {
@@ -567,7 +567,7 @@ var creerEtudiant = function()
 };
 
 /**
- * Edite une √©tudiant dans la base de donn√©es
+ * Edite une √©tudiant dans la base de données
  */
 var editerEtudiant = function()  
 {
@@ -710,7 +710,7 @@ var creerProfesseur = function()
 };
 
 /**
- * Editer un professeur dans la base de donn√©es
+ * Editer un professeur dans la base de données
  */ 
 var editerProfesseur = function()  
 {
@@ -806,7 +806,7 @@ var supprimerProfesseur = function()
 };
 
 /**
- * Creer un professeur dans la base de donn√©es
+ * Creer un professeur dans la base de données
  */ 
 var creerAdministrateur = function()  
 {
@@ -854,7 +854,7 @@ var creerAdministrateur = function()
 };
 
 /**
- * Creer un professeur dans la base de donn√©es
+ * Creer un professeur dans la base de données
  */ 
 var editerAdministrateur = function()  
 {
@@ -945,7 +945,7 @@ var supprimerAdministrateur = function()
 };
 
 /**
- * Creer un examen dans la base de donn√©es
+ * Creer un examen dans la base de données
  */ 
 var creerExamen = function()  
 {
@@ -983,7 +983,7 @@ var creerExamen = function()
 		    	{
 		    		$('.fenetre-modale').replaceWith(data);
 		    		initFenetreModale(600);
-		    		rechFonctEdit();
+		    		initDatepicker();
 		    	}
 		    	else 
 		    	{
@@ -997,7 +997,7 @@ var creerExamen = function()
 };
 
 /**
- * edite un examen dans la base de donn√©es
+ * Edite un examen dans la base de données
  */ 
 var editerExamen = function()  
 {
@@ -1052,6 +1052,7 @@ var editerExamen = function()
 		    		supprFenetresModales();
 		    		vue = data.substr(data.search("<div id='module-conteneur'>"), data.search("</main>"));
 		    		$('#module-conteneur').replaceWith(vue);
+		    		initDatepicker();
 		    	}
 		    	else 
 		    	{
@@ -1092,6 +1093,7 @@ var supprimerExamen = function()
 		    		supprFenetresModales();
 		    		vue = data.substr( data.search("<div id='module-conteneur'>"), data.search("</main>"));
 		    		$('#module-conteneur').replaceWith(vue);
+		    		initDatepicker();
 		    	}
 		    	else 
 		    	{
