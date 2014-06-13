@@ -66,7 +66,7 @@ public class Groupe implements Comparable<Groupe>
 	}
 	
 	/**
-	 * Compare le numéro d'identification de deux groupe
+	 * Compare le numéro d'identification de deux groupes
 	 * 
 	 * @param groupe2 Un groupe.
 	 */

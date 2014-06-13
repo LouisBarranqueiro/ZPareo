@@ -2,10 +2,6 @@ package beans;
 
 import java.util.Set;
 
-import beans.Groupe;
-import beans.Note;
-import beans.Utilisateur;
-
 public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 {
 	private Groupe groupe;

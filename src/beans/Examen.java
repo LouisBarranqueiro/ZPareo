@@ -253,7 +253,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Compare le numéro d'identification de deux examens
 	 * 
-	 * @param examen2 Un examen à comparer.
+	 * @param examen2 Un examen.
 	 */
 	@Override
 	public int compareTo(Examen examen2) 

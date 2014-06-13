@@ -5,7 +5,7 @@ public class Administrateur extends Utilisateur implements Comparable<Administra
 	/**
 	 * Compare le numro d'identification de deux administrateurs
 	 * 
-	 * @param administrateur2 L'administrateur ˆ comparer
+	 * @param administrateur2 Un administrateur.
 	 */
 	@Override
 	public int compareTo(Administrateur administrateur2) 
