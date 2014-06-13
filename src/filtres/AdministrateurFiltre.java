@@ -1,7 +1,6 @@
 package filtres;
 
 import java.io.IOException;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -16,18 +15,24 @@ import javax.servlet.http.HttpSession;
 @WebFilter("/ai/*")
 public class AdministrateurFiltre implements Filter 
 {
-	public static final String URL_CONNEXION              = "/connexion";
-    public static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
+	private static final String URL_CONNEXION              = "/connexion";
+	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
     
     public void init(FilterConfig config) throws ServletException
     {
     }
 
+    /**
+     * Filtre l'ensemble des pages commencant par "/ai/*"
+     * 
+     * @param req La requete.
+     * @param rep La réponse.
+     * @param chain Le pattern URL.
+     */
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException 
     {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
-
         HttpSession session = request.getSession();
         String chemin = request.getRequestURI().substring(request.getContextPath().length());
         
