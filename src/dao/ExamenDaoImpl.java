@@ -22,18 +22,18 @@ import beans.Professeur;
 
 public class ExamenDaoImpl implements ExamenDao 
 {
-	private static final String SQL_INSERT_NOTE = "INSERT INTO gnw_examen_note(fk_examen, fk_etudiant, note, fk_utilisateur) VALUES (?, ?, ?, ?)";
-    private static final String SQL_INSERT_EXAMEN = "INSERT INTO gnw_examen(fk_format, nom, date, coefficient, fk_professeur, fk_groupe, fk_matiere, fk_utilisateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String SQL_SELECT_TOUS = "SELECT gnw_examen.id, gnw_examen.nom, gnw_examen.date, gnw_examen.fk_professeur, gnw_examen.fk_format as formatId, gnw_formatexamen.nom as formatNom, gnw_groupe.id as groupeId, gnw_groupe.nom as groupeNom, gnw_matiere.nom as matiereNom, gnw_examen.coefficient FROM gnw_examen, gnw_matiere, gnw_groupe, gnw_formatexamen WHERE gnw_examen.date_suppr Is NULL AND gnw_examen.fk_groupe = gnw_groupe.id AND gnw_examen.fk_matiere = gnw_matiere.id AND gnw_examen.fk_format = gnw_formatexamen.id AND gnw_examen.fk_professeur = ?";
-	private static final String SQL_SELECT_EXAMEN_PAR_ID = "SELECT gnw_examen.id, gnw_examen.nom, gnw_examen.date, gnw_examen.fk_professeur, gnw_examen.fk_format as formatId, gnw_formatexamen.nom as formatNom, gnw_groupe.id as groupeId, gnw_groupe.nom as groupeNom, gnw_matiere.nom as matiereNom, gnw_examen.coefficient FROM gnw_examen, gnw_matiere, gnw_groupe, gnw_formatexamen WHERE gnw_examen.date_suppr IS NULL AND gnw_examen.fk_groupe = gnw_groupe.id AND gnw_examen.fk_format = gnw_formatexamen.id AND gnw_examen.fk_matiere = gnw_matiere.id AND gnw_examen.id = ?";
-	private static final String SQL_SELECT_NOTE = "SELECT id, note FROM gnw_examen_note WHERE fk_examen = ? AND fk_etudiant = ? AND date_suppr IS NULL";
-	private static final String SQL_SELECT_COUNT_NOTE = "SELECT COUNT(id) FROM gnw_examen_note WHERE fk_examen = ? AND fk_etudiant = ? AND date_suppr IS NULL";
+	private static final String SQL_INSERT_NOTE                 = "INSERT INTO gnw_examen_note(fk_examen, fk_etudiant, note, fk_utilisateur) VALUES (?, ?, ?, ?)";
+    private static final String SQL_INSERT_EXAMEN               = "INSERT INTO gnw_examen(fk_format, nom, date, coefficient, fk_professeur, fk_groupe, fk_matiere, fk_utilisateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String SQL_SELECT_TOUS                 = "SELECT gnw_examen.id, gnw_examen.nom, gnw_examen.date, gnw_examen.fk_professeur, gnw_examen.fk_format as formatId, gnw_formatexamen.nom as formatNom, gnw_groupe.id as groupeId, gnw_groupe.nom as groupeNom, gnw_matiere.nom as matiereNom, gnw_examen.coefficient FROM gnw_examen, gnw_matiere, gnw_groupe, gnw_formatexamen WHERE gnw_examen.date_suppr Is NULL AND gnw_examen.fk_groupe = gnw_groupe.id AND gnw_examen.fk_matiere = gnw_matiere.id AND gnw_examen.fk_format = gnw_formatexamen.id AND gnw_examen.fk_professeur = ?";
+	private static final String SQL_SELECT_EXAMEN_PAR_ID        = "SELECT gnw_examen.id, gnw_examen.nom, gnw_examen.date, gnw_examen.fk_professeur, gnw_examen.fk_format as formatId, gnw_formatexamen.nom as formatNom, gnw_groupe.id as groupeId, gnw_groupe.nom as groupeNom, gnw_matiere.nom as matiereNom, gnw_examen.coefficient FROM gnw_examen, gnw_matiere, gnw_groupe, gnw_formatexamen WHERE gnw_examen.date_suppr IS NULL AND gnw_examen.fk_groupe = gnw_groupe.id AND gnw_examen.fk_format = gnw_formatexamen.id AND gnw_examen.fk_matiere = gnw_matiere.id AND gnw_examen.id = ?";
+	private static final String SQL_SELECT_NOTE                 = "SELECT id, note FROM gnw_examen_note WHERE fk_examen = ? AND fk_etudiant = ? AND date_suppr IS NULL";
+	private static final String SQL_SELECT_COUNT_NOTE           = "SELECT COUNT(id) FROM gnw_examen_note WHERE fk_examen = ? AND fk_etudiant = ? AND date_suppr IS NULL";
 	private static final String SQL_SELECT_ETUDIANTS_PAR_GROUPE = "SELECT gnw_utilisateur.id, gnw_utilisateur.nom, gnw_utilisateur.prenom, gnw_utilisateur.adresse_mail FROM gnw_utilisateur, gnw_etudiant_groupe WHERE profil = 0 AND gnw_utilisateur.date_suppr IS NULL AND gnw_utilisateur.id = gnw_etudiant_groupe.fk_etudiant AND gnw_etudiant_groupe.fk_groupe = ?";
-	private static final String SQL_UPDATE_NOTE = "UPDATE gnw_examen_note SET note = ?, fk_utilisateur = ? WHERE fk_examen = ? AND fk_etudiant = ?";
-	private static final String SQL_UPDATE_EXAMEN = "UPDATE gnw_examen SET fk_professeur = ?, fk_format = ?, nom = ?, date = ?, coefficient = ?, fk_matiere = ?, fk_utilisateur = ? WHERE id = ?";
-	private static final String SQL_DELETE_EXAMEN = "UPDATE gnw_examen SET date_suppr = now(), fk_utilisateur = ? WHERE id = ? AND fk_professeur = ?";
-	private static final String SQL_DELETE_NOTES = "UPDATE gnw_examen_note SET date_suppr = now(), fk_utilisateur = ? WHERE fk_examen = ?;";
-	private static final String SQL_SELECT_MOY_EXAMEN = "SELECT AVG(gnw_examen_note.note) as moyenne FROM gnw_examen_note WHERE fk_examen = ?";
+	private static final String SQL_UPDATE_NOTE                 = "UPDATE gnw_examen_note SET note = ?, fk_utilisateur = ? WHERE fk_examen = ? AND fk_etudiant = ?";
+	private static final String SQL_UPDATE_EXAMEN               = "UPDATE gnw_examen SET fk_professeur = ?, fk_format = ?, nom = ?, date = ?, coefficient = ?, fk_matiere = ?, fk_utilisateur = ? WHERE id = ?";
+	private static final String SQL_DELETE_EXAMEN               = "UPDATE gnw_examen SET date_suppr = now(), fk_utilisateur = ? WHERE id = ? AND fk_professeur = ?";
+	private static final String SQL_DELETE_NOTES                = "UPDATE gnw_examen_note SET date_suppr = now(), fk_utilisateur = ? WHERE fk_examen = ?;";
+	private static final String SQL_SELECT_MOY_EXAMEN           = "SELECT AVG(gnw_examen_note.note) as moyenne FROM gnw_examen_note WHERE fk_examen = ?";
 	private DAOFactory daoFactory;
 	
 	/**
