@@ -5,11 +5,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import dao.EtudiantDao;
-
 import javax.servlet.http.HttpServletRequest;
-
 import beans.Administrateur;
 import beans.Etudiant;
 import beans.Groupe;
@@ -26,7 +23,7 @@ public final class EtudiantForm
     private EtudiantDao etudiantDao;
     
     /**
-     * Récupère l'objet : etudiantDao
+     * Constrcuteur
      * 
      * @param etudiantDao
      */
@@ -48,10 +45,11 @@ public final class EtudiantForm
     /**
      * Crée un étudiant dans la base de données
      * 
+     * @param createur
      * @param request
      * @return etudiant
      */
-    public Etudiant creerEtudiant(Administrateur utilisateur, HttpServletRequest request) 
+    public Etudiant creerEtudiant(Administrateur createur, HttpServletRequest request) 
     {
     	String nom = getValeurChamp(request, CHAMP_NOM);
     	String prenom = getValeurChamp(request, CHAMP_PRENOM);
@@ -70,7 +68,7 @@ public final class EtudiantForm
             
             if (erreurs.isEmpty()) 
             {
-            	etudiantDao.creer(utilisateur, etudiant);
+            	etudiantDao.creer(createur, etudiant);
             }
         } 
         catch (Exception e) 
@@ -98,12 +96,12 @@ public final class EtudiantForm
     	Etudiant etudiant = new Etudiant();
     	Groupe groupe = new Groupe();
     	
-    	if(id != null) 
+    	if (id != null) 
     	{
     		etudiant.setId(Long.parseLong(id));
     	}
     	
-    	if( groupeId != null ) 
+    	if (groupeId != null) 
     	{
     		groupe.setId(Long.parseLong(groupeId));
     	}
@@ -120,10 +118,11 @@ public final class EtudiantForm
     /**
      * Edite un étudiant dans la base de données
      * 
+     * @param editeur
      * @param request
      * @return etudiant
      */
-    public Etudiant editerEtudiant(Administrateur utilisateur, HttpServletRequest request) 
+    public Etudiant editerEtudiant(Administrateur editeur, HttpServletRequest request) 
     {
     	String id = getValeurChamp(request, CHAMP_ID);
     	String nom = getValeurChamp(request, CHAMP_NOM);
@@ -143,7 +142,7 @@ public final class EtudiantForm
             
             if (erreurs.isEmpty()) 
             {
-            	etudiantDao.editer(utilisateur, etudiant);
+            	etudiantDao.editer(editeur, etudiant);
             }
         } 
         catch (Exception e) 
@@ -155,7 +154,7 @@ public final class EtudiantForm
     }
    
     /**
-     * Vérifie les identifiants d'un etudiant dans la base de données
+     * Vérifie les identifiants d'un étudiant dans la base de données
      * 
      * @param request
      * @return etudiant
@@ -206,20 +205,17 @@ public final class EtudiantForm
      * @param request
      * @return statut
      */
-    public int supprimerEtudiant(Administrateur utilisateur, HttpServletRequest request)
+    public void supprimerEtudiant(Administrateur editeur, HttpServletRequest request)
     {
     	String id = getValeurChamp(request, CHAMP_ID);
     	Etudiant etudiant = new Etudiant();
-    	int statut;
     	
     	etudiant.setId(Long.parseLong(id));
-    	statut = etudiantDao.supprimer(utilisateur, etudiant);
-    	
-    	return statut;
+        etudiantDao.supprimer(editeur, etudiant);
     }
     
     /**
-     *  Traite l'attribut : nom
+     *  Traite le nom d'un étudiant
      *  
      * @param nom
      * @param etudiant
@@ -239,7 +235,7 @@ public final class EtudiantForm
     }
     
     /**
-     *  Traite l'attribut : prenom
+     *  Traite le prenom d'un étudiant
      *  
      * @param prenom
      * @param etudiant
@@ -259,7 +255,7 @@ public final class EtudiantForm
     }
     
     /**
-     *  Traite l'attribut : groupeId
+     *  Traite l'id du groupe de l'étudiant
      *  
      * @param groupeId
      * @param etudiant
@@ -282,10 +278,10 @@ public final class EtudiantForm
     }
     
     /**
-     *  Traite l'attribut : identifiant
+     *  Traite l'adresse mail de l'étudiant
      *  
-     * @param identifiant
-     * @param professeur
+     * @param adresseMail
+     * @param etudiant
      */
     private void traiterAdresseMail(String adresseMail, Etudiant etudiant)  
     {
@@ -302,12 +298,9 @@ public final class EtudiantForm
     }
     
     /**
-     *  Traite l'attribut : motDePasse
+     *  Traite le mot de passe de l'étudiant
      *  
-     * @param motDePasse
-     * @param confirmation
-     * @param professeur
-     * @throws Exception 
+     * @param etudiant
      */
     private void traiterMotDePasse(Etudiant etudiant)  
     {		
@@ -327,7 +320,7 @@ public final class EtudiantForm
     }
     
     /**
-     *  Traite l'objet : etudiant
+     *  Traite un étudiant
      *  
      * @param etudiant
      */
@@ -344,7 +337,7 @@ public final class EtudiantForm
     }
     
     /**
-     *  Traite les identifiants
+     *  Traite les identifiants d'un étudiant
      *  
      * @param etudiant
      */
@@ -361,7 +354,7 @@ public final class EtudiantForm
     }
     
     /**
-     * Valide l'attribut : nom
+     * Valide le nom d'un étudiant
      * 
      * @param nom
      * @throws Exception
@@ -375,7 +368,7 @@ public final class EtudiantForm
     }
     
     /**
-     * Valide l'attribut : prenom
+     * Valide le prenom d'un étudiant
      * 
      * @param prenom
      * @throws Exception
@@ -389,7 +382,7 @@ public final class EtudiantForm
     }
     
     /**
-     * Valide l'attribut : groupe
+     * Valide le groupe d'un étudiant
      * 
      * @param groupe
      * @throws Exception
@@ -403,7 +396,7 @@ public final class EtudiantForm
     }
     
     /**
-     * Valide l'attribut : adresseMail
+     * Valide l'adresse mail d'un étudiant
      * 
      * @param adresseMail
      * @throws Exception
@@ -417,7 +410,7 @@ public final class EtudiantForm
     }
     
     /**
-     * Valide l'attribut : motDePasse
+     * Valide le mot de passe d'un étudiant
      * 
      * @param motDePasse
      * @throws Exception
@@ -431,7 +424,7 @@ public final class EtudiantForm
     }
     
     /**
-     * Valide l'objet : etudiant
+     * Valide un étudiant
      * 
      * @param etudiant
      * @throws Exception
@@ -445,7 +438,7 @@ public final class EtudiantForm
     }
     
     /**
-     * Controle les identifiants d'un étudiant
+     * Valide les identifiants d'un étudiant
      * 
      * @param etudiant
      * @throws Exception
@@ -520,7 +513,7 @@ public final class EtudiantForm
     }
     
     /**
-     * Retourne les valeurs des champs du formulaire
+     * Retourne la valeur d'un champ du formulaire
      * 
      * @param request
      * @param nomChamp
