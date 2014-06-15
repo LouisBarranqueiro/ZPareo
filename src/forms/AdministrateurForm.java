@@ -1,14 +1,11 @@
 package forms;
 
 import java.security.MessageDigest;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
-
 import beans.Administrateur;
 import dao.AdministrateurDao;
 
@@ -24,7 +21,7 @@ public class AdministrateurForm
 	private AdministrateurDao administrateurDao;
 	 
 	/**
-     * Récupère l'objet : administrateurDao
+     * Constructeur
      * 
      * @param administrateurDao
      */
@@ -46,6 +43,7 @@ public class AdministrateurForm
     /**
      * Crée un administrateur dans la base de données
      * 
+     * @param sessionAdministrateur
      * @param request
      * @return administrateur
      */
@@ -65,7 +63,6 @@ public class AdministrateurForm
             traiterAdresseMail(adresseMail, administrateur);
             traiterMotsDePasse(motDePasse, confirmation, administrateur);
             traiterAdministrateur(administrateur);
-            
             
             if (erreurs.isEmpty()) 
             {
@@ -100,9 +97,9 @@ public class AdministrateurForm
     		administrateur.setId(Long.parseLong(id));
     	}
     	
-    	administrateur.setNom( nom );
-    	administrateur.setPrenom( prenom );
-    	administrateur.setAdresseMail( adresseMail );
+    	administrateur.setNom(nom);
+    	administrateur.setPrenom(prenom);
+    	administrateur.setAdresseMail(adresseMail);
     	listeAdministrateurs = administrateurDao.rechercher(administrateur);
         
     	return listeAdministrateurs;
@@ -177,18 +174,14 @@ public class AdministrateurForm
      * 
      * @param utilisateur
      * @param request
-     * @return statut
      */
-    public int supprimerAdministrateur(Administrateur utilisateur, HttpServletRequest request)
+    public void supprimerAdministrateur(Administrateur utilisateur, HttpServletRequest request)
     {
     	String id = getValeurChamp(request, CHAMP_ID);
     	Administrateur administrateur = new Administrateur();
-    	int statut;
     	
     	administrateur.setId(Long.parseLong(id));
-    	statut = administrateurDao.supprimer(utilisateur, administrateur);
-    	
-    	return statut;
+    	administrateurDao.supprimer(utilisateur, administrateur);
     }
     
     /**
@@ -221,7 +214,7 @@ public class AdministrateurForm
     }
     
     /**
-     *  Traite l'attribut : nom
+     *  Traite le nom de l'administrateur
      *  
      * @param nom
      * @param administrateur
@@ -241,7 +234,7 @@ public class AdministrateurForm
     }
     
     /**
-     *  Traite l'attribut : prenom
+     *  Traite le prenom d'un administrateur
      *  
      * @param prenom
      * @param administrateur
@@ -261,7 +254,7 @@ public class AdministrateurForm
     }
     
     /**
-     *  Traite l'attribut : adresseMail
+     *  Traite l'adresse mail d'un admiinstrateur
      *  
      * @param adresseMail
      * @param administrateur
@@ -281,12 +274,11 @@ public class AdministrateurForm
     }
     
     /**
-     *  Traite l'attribut : motDePasse
+     *  Traite le mot de passe d'un administrateur
      *  
      * @param motDePasse
      * @param confirmation
      * @param administrateur
-     * @throws Exception 
      */
     private void traiterMotsDePasse(String motDePasse, String confirmation, Administrateur administrateur)  
     {		
@@ -305,7 +297,7 @@ public class AdministrateurForm
     }
 
     /**
-     *  Traite les identifiants
+     *  Traite les identifiants d'un administrateur
      *  
      * @param administrateur
      */
@@ -322,7 +314,7 @@ public class AdministrateurForm
     }
     
     /**
-     *  Traiter l'objet : administrateur
+     *  Traiter un administrateur
      *  
      * @param administrateur
      */
@@ -339,7 +331,7 @@ public class AdministrateurForm
     }
     
     /**
-     * Valide l'attribut : nom
+     * Valide le nom d'un administrateur
      * 
      * @param nom
      * @throws Exception
@@ -353,7 +345,7 @@ public class AdministrateurForm
     }
     
     /**
-     * Valide l'attribut : prenom
+     * Valide le prenom d'un administrateur
      * 
      * @param prenom
      * @throws Exception
@@ -367,7 +359,7 @@ public class AdministrateurForm
     }
     
     /**
-     * Valide l'attribut : adresseMail
+     * Valide l'adrese mail d'un administrateur
      * 
      * @param adresseMail
      * @throws Exception
@@ -381,7 +373,7 @@ public class AdministrateurForm
     }
     
     /**
-     * Valide l'attribut : motDePasse
+     * Valide le mot de passe d'un administrateur
      * 
      * @param motDePasse
      * @throws Exception
@@ -399,7 +391,7 @@ public class AdministrateurForm
     }
     
     /**
-     * Valide l'objet : administrateur
+     * Valide l'administrateur
      * 
      * @param administrateur
      * @throws Exception
@@ -413,7 +405,7 @@ public class AdministrateurForm
     }
     
     /**
-     * Valide l'objet : identifiant
+     * Valide les identifiants d'un administrateur
      * 
      * @param administrateur
      * @throws Exception
@@ -467,7 +459,7 @@ public class AdministrateurForm
     }
 
     /**
-     * Retourne les valeurs des champs du formulaire
+     * Retourne la valeur d'un champ du formulaire
      * 
      * @param request
      * @param nomChamp
