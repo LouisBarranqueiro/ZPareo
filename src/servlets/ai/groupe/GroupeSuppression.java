@@ -1,4 +1,4 @@
-package servlets.matiere;
+package servlets.ai.groupe;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,48 +8,48 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import beans.Administrateur;
-import beans.Matiere;
+import beans.Groupe;
 import dao.DAOFactory;
-import dao.MatiereDao;
-import forms.MatiereForm;
+import dao.GroupeDao;
+import forms.GroupeForm;
 
 @SuppressWarnings("serial")
-@WebServlet("/ai/matiere/suppression")
-public class MatiereSuppression extends HttpServlet
+@WebServlet("/ai/groupe/suppression")
+public class GroupeSuppression extends HttpServlet 
 {
 	private static final String CONF_DAO_FACTORY           = "daofactory";
 	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
-	private static final String ATT_MATIERE                = "matiere";
-	private static final String VUE_SUPPRESSION            = "/WEB-INF/matiere/suppression.jsp";
-	private MatiereDao matiereDao;
+	private static final String ATT_GROUPE                 = "groupe";
+	private static final String VUE_SUPPRESSION            = "/WEB-INF/groupe/suppression.jsp";
+	private GroupeDao groupeDao;
 	
 	public void init() throws ServletException 
     {
-        this.matiereDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getMatiereDao();
+        this.groupeDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getGroupeDao();
     }
 
-    public MatiereSuppression() 
+    public GroupeSuppression() 
     {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		MatiereForm form = new MatiereForm(this.matiereDao);
-        Matiere matiere = form.trouverMatiere(request);
+		GroupeForm form = new GroupeForm( this.groupeDao );
+        Groupe groupe = form.trouverGroupe(request);
         
-        request.setAttribute(ATT_MATIERE , matiere);
-        this.getServletContext().getRequestDispatcher(VUE_SUPPRESSION).forward(request, response);   
+        request.setAttribute(ATT_GROUPE , groupe); 
+		this.getServletContext().getRequestDispatcher(VUE_SUPPRESSION).forward( request, response); 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		HttpSession session = request.getSession();
 		Administrateur editeur = (Administrateur) session.getAttribute(ATT_SESSION_ADMINISTRATEUR);
-		MatiereForm form = new MatiereForm(this.matiereDao);
+		GroupeForm form = new GroupeForm(this.groupeDao);
 		
-		form.supprimerMatiere(editeur, request);
-		response.sendRedirect("http://localhost:8080/ZPareo/ai/matiere");  
+		form.supprimerGroupe(editeur, request);
+		response.sendRedirect("http://localhost:8080/ZPareo/ai/groupe");  
 	}
 
 }

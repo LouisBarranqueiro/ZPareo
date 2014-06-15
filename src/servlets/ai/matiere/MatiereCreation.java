@@ -1,4 +1,4 @@
-package servlets.matiere;
+package servlets.ai.matiere;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

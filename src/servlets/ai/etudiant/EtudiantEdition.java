@@ -1,4 +1,4 @@
-package servlets.etudiant;
+package servlets.ai.etudiant;
 
 import java.io.IOException;
 import java.util.Set;

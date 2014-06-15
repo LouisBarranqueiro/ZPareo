@@ -1,4 +1,4 @@
-package servlets.administrateur;
+package servlets.ai.administrateur;
 
 import java.io.IOException;
 import java.util.Set;

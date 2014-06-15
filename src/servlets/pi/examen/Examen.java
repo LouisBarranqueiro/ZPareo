@@ -1,4 +1,4 @@
-package servlets.examen;
+package servlets.pi.examen;
 
 import java.io.IOException;
 import java.util.Set;

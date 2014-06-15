@@ -1,4 +1,4 @@
-package servlets.examen;
+package servlets.pi.examen;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -11,20 +11,20 @@ import dao.ExamenDao;
 import forms.ExamenForm;
 
 @SuppressWarnings("serial")
-@WebServlet("/pi/examen/creation")
-public class ExamenCreation extends HttpServlet 
-{
+@WebServlet("/pi/examen/edition")
+public class ExamenEdition extends HttpServlet 
+{  
 	private static final String CONF_DAO_FACTORY         = "daofactory";
 	private static final String ATT_EXAMEN               = "examen";
 	private static final String ATT_FORM                 = "form";
-    private static final String VUE_CREATION             = "/WEB-INF/examen/creation.jsp";
-	private ExamenDao examenDao;
-	
-    public ExamenCreation() 
+    private static final String VUE_EDITION              = "/WEB-INF/examen/edition.jsp";
+	private ExamenDao examenDao; 
+
+    public ExamenEdition()
     {
         super();
     }
-    
+
     public void init() throws ServletException 
     {
         this.examenDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getExamenDao();
@@ -32,24 +32,29 @@ public class ExamenCreation extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		this.getServletContext().getRequestDispatcher(VUE_CREATION).forward(request, response);
+		ExamenForm form = new ExamenForm(this.examenDao);
+		beans.Examen examen = form.trouverExamen(request);
+		
+		request.setAttribute(ATT_FORM, form);
+		request.setAttribute(ATT_EXAMEN, examen);
+        this.getServletContext().getRequestDispatcher(VUE_EDITION).forward(request, response);   
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		ExamenForm form = new ExamenForm(this.examenDao);
-        beans.Examen examen = form.creerExamen(request);
+		beans.Examen examen = form.editerExamen(request);
 		
-        if (form.getErreurs().isEmpty())
-        {
-        	response.sendRedirect("http://localhost:8080/ZPareo/pi/examen/edition?id=" + examen.getId());   
-        }
-        else
-        {
-        	request.setAttribute(ATT_FORM, form);
-        	request.setAttribute(ATT_EXAMEN, examen);
-        	this.getServletContext().getRequestDispatcher(VUE_CREATION).forward(request, response);   
-        }
+		if (form.getErreurs().isEmpty())
+	    {
+	    	response.sendRedirect("http://localhost:8080/ZPareo/pi/examen");   
+	    }
+	    else
+	    {
+	    	request.setAttribute(ATT_FORM, form);
+	        request.setAttribute(ATT_EXAMEN, examen);
+	        this.getServletContext().getRequestDispatcher(VUE_EDITION).forward(request, response);   
+	    }
 	}
 
 }

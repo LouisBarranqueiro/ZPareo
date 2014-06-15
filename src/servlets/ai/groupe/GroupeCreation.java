@@ -1,4 +1,4 @@
-package servlets.groupe;
+package servlets.ai.groupe;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
