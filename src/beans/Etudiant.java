@@ -20,7 +20,7 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	/**
 	 * Constructeur
 	 * 
-	 * @param etudiant Un Žtudiant.
+	 * @param etudiant Un ï¿½tudiant.
 	 */
 	public Etudiant(Etudiant etudiant)
 	{
@@ -30,9 +30,9 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	}
 	
 	/**
-	 * Retourne le groupe de l'Žtudiant
+	 * Retourne le groupe de l'ï¿½tudiant
 	 * 
-	 * @return groupe Le groupe de l'Žtudiant.
+	 * @return groupe Le groupe de l'ï¿½tudiant.
 	 */
 	public Groupe getGroupe() 
 	{
@@ -40,7 +40,7 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	}
 	
 	/**
-	 * DŽfini le groupe de l'Žtudiant
+	 * Dï¿½fini le groupe de l'ï¿½tudiant
 	 * 
 	 * @param groupe Un groupe.
 	 */
@@ -50,9 +50,9 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	}
 	
 	/**
-	 * Retourne la liste des notes de l'Žtudiant
+	 * Retourne la liste des notes de l'ï¿½tudiant
 	 * 
-	 * @return listeNotes La liste des notes de l'Žtudiant.
+	 * @return listeNotes La liste des notes de l'ï¿½tudiant.
 	 */
 	public Set<Note> getListeNote() 
 	{
@@ -60,7 +60,7 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	}
 	
 	/**
-	 * DŽfini la liste des notes de l'Žtudiant
+	 * Dï¿½fini la liste des notes de l'ï¿½tudiant
 	 * 
 	 * @param listeNote Un liste de notes.
 	 */
@@ -70,16 +70,16 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	}
 	
 	/**
-	 * Compare le numŽro d'identification de deux Žtudiants
+	 * Compare le numï¿½ro d'identification de deux ï¿½tudiants
 	 * 
-	 * @param etudiant2 Un Žtudiant.
+	 * @param etudiant2 Un ï¿½tudiant.
 	 */
 	@Override
 	public int compareTo(Etudiant etudiant2) 
 	{
 		int compId = this.getId().compareTo(etudiant2.getId());
-        if(compId != 0) return compId;
-        return 0;
+        
+		return ((compId != 0) ? compId : 0);
 	}
 	
 }

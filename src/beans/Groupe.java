@@ -26,9 +26,9 @@ public class Groupe implements Comparable<Groupe>
 	}
 	
 	/**
-	 * Retourne le numŽro d'identification du groupe
+	 * Retourne le numï¿½ro d'identification du groupe
 	 * 
-	 * @return id Le numŽro d'identification du groupe.
+	 * @return id Le numï¿½ro d'identification du groupe.
 	 */
 	public Long getId() 
 	{
@@ -36,9 +36,9 @@ public class Groupe implements Comparable<Groupe>
 	}
 	
 	/**
-	 * DŽfini le numŽro d'identification du groupe
+	 * Dï¿½fini le numï¿½ro d'identification du groupe
 	 * 
-	 * @param id Un numŽro d'identification.
+	 * @param id Un numï¿½ro d'identification.
 	 */
 	public void setId(Long id) 
 	{
@@ -56,7 +56,7 @@ public class Groupe implements Comparable<Groupe>
 	}
 	
 	/**
-	 * DŽfini le nom du groupe
+	 * Dï¿½fini le nom du groupe
 	 * 
 	 * @param nom Un nom.
 	 */
@@ -66,7 +66,7 @@ public class Groupe implements Comparable<Groupe>
 	}
 	
 	/**
-	 * Compare le numŽro d'identification de deux groupes
+	 * Compare le numï¿½ro d'identification de deux groupes
 	 * 
 	 * @param groupe2 Un groupe.
 	 */
@@ -74,7 +74,7 @@ public class Groupe implements Comparable<Groupe>
 	public int compareTo(Groupe groupe2) 
 	{
 		int compId = this.getId().compareTo(groupe2.getId());
-        if(compId != 0) return compId;
-        return 0;
+        
+		return ((compId != 0) ? compId : 0);
 	}
 }

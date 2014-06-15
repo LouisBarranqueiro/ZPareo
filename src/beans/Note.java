@@ -29,9 +29,9 @@ public class Note implements Comparable<Note>
 	}
 	
 	/**
-	 * Retourne le numŽro d'identification de la note
+	 * Retourne le numï¿½ro d'identification de la note
 	 * 
-	 * @return id Le numŽro d'identification de la note.
+	 * @return id Le numï¿½ro d'identification de la note.
 	 */
 	public Long getId() 
 	{
@@ -39,9 +39,9 @@ public class Note implements Comparable<Note>
 	}
 	
 	/**
-	 * DŽfini le numŽro d'identification de la note
+	 * Dï¿½fini le numï¿½ro d'identification de la note
 	 * 
-	 * @param id Un numŽro d'identification.
+	 * @param id Un numï¿½ro d'identification.
 	 */
 	public void setId(Long id) 
 	{
@@ -59,7 +59,7 @@ public class Note implements Comparable<Note>
 	}
 	
 	/**
-	 * DŽfini la note de la note
+	 * Dï¿½fini la note de la note
 	 * 
 	 * @param note Une note.
 	 */
@@ -71,7 +71,7 @@ public class Note implements Comparable<Note>
 	/**
 	 * Retoune l'etudiant de la note
 	 * 
-	 * @return etudiant L'Žtudiant de la note.
+	 * @return etudiant L'ï¿½tudiant de la note.
 	 */
 	public Etudiant getEtudiant() 
 	{
@@ -79,9 +79,9 @@ public class Note implements Comparable<Note>
 	}
 	
 	/**
-	 * DŽfini l'Žtudiant de la note
+	 * Dï¿½fini l'ï¿½tudiant de la note
 	 * 
-	 * @param etudiant Un Žtudiant.
+	 * @param etudiant Un ï¿½tudiant.
 	 */
 	public void setEtudiant(Etudiant etudiant) 
 	{
@@ -89,7 +89,7 @@ public class Note implements Comparable<Note>
 	}
 	
 	/**
-	 * Compare le nom des Žtudiants de deux notes
+	 * Compare le nom des ï¿½tudiants de deux notes
 	 * 
 	 * @param note Une note.
 	 */
@@ -99,7 +99,7 @@ public class Note implements Comparable<Note>
 		Etudiant etudiant1 = new Etudiant(this.getEtudiant());
 		Etudiant etudiant2 = new Etudiant(note.getEtudiant());
         int compId = etudiant1.getNom().compareTo(etudiant2.getNom());
-        if(compId != 0) return compId;
-        return 0;
+        
+        return ((compId != 0) ? compId : 0);
 	}
 }

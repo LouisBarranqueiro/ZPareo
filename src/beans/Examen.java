@@ -52,9 +52,9 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * Retourne le numro d'identification de l'examen
+	 * Retourne le numï¿½ro d'identification de l'examen
 	 * 
-	 * @return id Le numro d'identification de l'examen.
+	 * @return id Le numï¿½ro d'identification de l'examen.
 	 */
 	public Long getId() 
 	{
@@ -62,9 +62,9 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * Dfini le numro d'identification de l'examen
+	 * Dï¿½fini le numï¿½ro d'identification de l'examen
 	 * 
-	 * @param id Un numro d'identification.
+	 * @param id Un numï¿½ro d'identification.
 	 */
 	public void setId(Long id) 
 	{
@@ -82,7 +82,7 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * Dfini le nom de l'examen
+	 * Dï¿½fini le nom de l'examen
 	 * 
 	 * @param nom Un nom.
 	 */
@@ -102,7 +102,7 @@ public class Examen implements Comparable<Examen>
 	}
 
 	/**
-	 * Dfini la date de l'examen
+	 * Dï¿½fini la date de l'examen
 	 * 
 	 * @param date Une date.
 	 */
@@ -122,7 +122,7 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * Dfini le format de l'examen
+	 * Dï¿½fini le format de l'examen
 	 * 
 	 * @param format Un format d'examen.
 	 */
@@ -142,7 +142,7 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * Dfini le professeur responsable de l'examen
+	 * Dï¿½fini le professeur responsable de l'examen
 	 * 
 	 * @param professeur Un professeur.
 	 */
@@ -162,7 +162,7 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * Dfini le groupe de l'examen
+	 * Dï¿½fini le groupe de l'examen
 	 * 
 	 * @param groupe Un groupe.
 	 */
@@ -172,9 +172,9 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * Retourne la matire de l'examen
+	 * Retourne la matiï¿½re de l'examen
 	 * 
-	 * @return matiere La matire de l'examen.
+	 * @return matiere La matiï¿½re de l'examen.
 	 */
 	public Matiere getMatiere()
 	{
@@ -182,9 +182,9 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * Dfini la matire de l'examen
+	 * Dï¿½fini la matiï¿½re de l'examen
 	 * 
-	 * @param matiere Une matire.
+	 * @param matiere Une matiï¿½re.
 	 */
 	public void setMatiere(Matiere matiere)
 	{
@@ -202,7 +202,7 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * Dfini la liste de notes de l'examen
+	 * Dï¿½fini la liste de notes de l'examen
 	 * 
 	 * @param listeNotes Une liste de notes.
 	 */
@@ -212,18 +212,18 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * Retourne la moyenne gnrale de l'examen
+	 * Retourne la moyenne gï¿½nï¿½rale de l'examen
 	 * 
-	 * @return moyenneGenerale La moyenne gnrale de l'examen.
+	 * @return moyenneGenerale La moyenne gï¿½nï¿½rale de l'examen.
 	 */
 	public Float getMoyenneGenerale() {
 		return moyenneGenerale;
 	}
 
 	/**
-	 * Dfini la moyenne gnrale de l'examen
+	 * Dï¿½fini la moyenne gï¿½nï¿½rale de l'examen
 	 * 
-	 * @param moyenneGenerale Une moyenne gnrale.
+	 * @param moyenneGenerale Une moyenne gï¿½nï¿½rale.
 	 */
 	public void setMoyenneGenerale(Float moyenneGenerale) 
 	{
@@ -241,7 +241,7 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * Dfini le coefficient de l'examen
+	 * Dï¿½fini le coefficient de l'examen
 	 * 
 	 * @param coefficient Un coefficient.
 	 */
@@ -251,7 +251,7 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * Compare le numro d'identification de deux examens
+	 * Compare le numï¿½ro d'identification de deux examens
 	 * 
 	 * @param examen2 Un examen.
 	 */
@@ -259,8 +259,8 @@ public class Examen implements Comparable<Examen>
 	public int compareTo(Examen examen2) 
 	{
 		int compId = this.getId().compareTo(examen2.getId());
-        if(compId != 0) return compId;
-        return 0;
+        
+		return ((compId != 0) ? compId : 0);
 	}
 	
 }

@@ -26,9 +26,9 @@ public class Matiere implements Comparable<Matiere>
 	}
 	
 	/**
-	 * Retourne le numro d'identification de la matire
+	 * Retourne le numï¿½ro d'identification de la matiï¿½re
 	 * 
-	 * @return id Le numro d'identification de la matire.
+	 * @return id Le numï¿½ro d'identification de la matiï¿½re.
 	 */
 	public Long getId() 
 	{
@@ -36,9 +36,9 @@ public class Matiere implements Comparable<Matiere>
 	}
 	
 	/**
-	 * Dfini le numro d'identification de la matire+
+	 * Dï¿½fini le numï¿½ro d'identification de la matiï¿½re+
 	 * 
-	 * @param id Un numro d'identification.
+	 * @param id Un numï¿½ro d'identification.
 	 */
 	public void setId(Long id) 
 	{
@@ -46,9 +46,9 @@ public class Matiere implements Comparable<Matiere>
 	}
 	
 	/**
-	 * Retourne le nom de la matire
+	 * Retourne le nom de la matiï¿½re
 	 * 
-	 * @return nom Le nom de la matire.
+	 * @return nom Le nom de la matiï¿½re.
 	 */
 	public String getNom() 
 	{
@@ -56,7 +56,7 @@ public class Matiere implements Comparable<Matiere>
 	}
 	
 	/**
-	 * Dfini le nom de la matire
+	 * Dï¿½fini le nom de la matiï¿½re
 	 * 
 	 * @param nom Un nom.
 	 */
@@ -66,16 +66,16 @@ public class Matiere implements Comparable<Matiere>
 	}
 	
 	/**
-	 * Compare le numro d'identification de deux matires
+	 * Compare le numï¿½ro d'identification de deux matiï¿½res
 	 * 
-	 * @param matiere2 Une matire.
+	 * @param matiere2 Une matiï¿½re.
 	 */
 	@Override
 	public int compareTo(Matiere matiere2) 
 	{
         int compId = this.getId().compareTo(matiere2.getId());
-        if(compId != 0) return compId;
-        return 0;
+        
+        return ((compId != 0) ? compId : 0);
 	}
 	
 }
