@@ -16,7 +16,6 @@ public class ExamenEdition extends HttpServlet
 {  
 	private static final String CONF_DAO_FACTORY         = "daofactory";
 	private static final String ATT_EXAMEN               = "examen";
-	private static final String ATT_NB_NOTES             = "nbNotes";
 	private static final String ATT_FORM                 = "form";
     private static final String VUE_EDITION              = "/WEB-INF/examen/edition.jsp";
 	private ExamenDao examenDao; 
@@ -35,11 +34,9 @@ public class ExamenEdition extends HttpServlet
 	{
 		ExamenForm form = new ExamenForm(this.examenDao);
 		beans.Examen examen = form.trouverExamen(request);
-		int nbNotes = examen.getListeNotes().size();
 		
 		request.setAttribute(ATT_FORM, form);
 		request.setAttribute(ATT_EXAMEN, examen);
-		request.setAttribute(ATT_NB_NOTES, nbNotes);
         this.getServletContext().getRequestDispatcher(VUE_EDITION).forward(request, response);   
 	}
 
