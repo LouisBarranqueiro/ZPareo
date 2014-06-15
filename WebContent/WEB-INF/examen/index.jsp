@@ -19,7 +19,7 @@
 						</div>
 						<nav>
 							<h2>MENU PRINCIPAL</h2>
-							<a href="http://localhost:8080/ZPareo/examen">
+							<a href="http://localhost:8080/ZPareo/pi/examen">
 					    		<span class="icon-stats"></span>
 					    		<span>Examens</span>
 					    	</a>
