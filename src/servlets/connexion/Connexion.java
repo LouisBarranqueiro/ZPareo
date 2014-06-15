@@ -1,14 +1,12 @@
 package servlets.connexion;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import dao.AdministrateurDao;
 import dao.DAOFactory;
 import dao.EtudiantDao;
@@ -21,13 +19,13 @@ import forms.ProfesseurForm;
 @WebServlet("/connexion")
 public class Connexion extends HttpServlet 
 {
-	public static final String CONF_DAO_FACTORY           = "daofactory";
-	public static final String ATT_UTILISATEUR            = "utilisateur";
-	public static final String ATT_SESSION_ETUDIANT       = "sessionEtudiant";
-	public static final String ATT_SESSION_PROFESSEUR     = "sessionProfesseur";
-	public static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
-    public static final String ATT_FORM                   = "form";
-	private static final String VUE                       = "/WEB-INF/connexion.jsp";
+	private static final String CONF_DAO_FACTORY           = "daofactory";
+	private static final String ATT_UTILISATEUR            = "utilisateur";
+	private static final String ATT_SESSION_ETUDIANT       = "sessionEtudiant";
+	private static final String ATT_SESSION_PROFESSEUR     = "sessionProfesseur";
+	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
+	private static final String ATT_FORM                   = "form";
+	private static final String VUE                        = "/WEB-INF/connexion.jsp";
 	private AdministrateurDao administrateurDao;
 	private EtudiantDao etudiantDao;
 	private ProfesseurDao professeurDao;
@@ -72,22 +70,21 @@ public class Connexion extends HttpServlet
 		EtudiantForm etudiantForm = new EtudiantForm(this.etudiantDao);
 		ProfesseurForm professeurForm = new ProfesseurForm(this.professeurDao);
 		AdministrateurForm administrateurForm = new AdministrateurForm(this.administrateurDao);
-		
 		beans.Etudiant etudiant = etudiantForm.verifIdentifiantEtudiant(request);
 		beans.Professeur professeur = professeurForm.verifIdentifiantProfesseur(request);
 		beans.Administrateur administrateur = administrateurForm.verifIdentifiantAdmin(request);
 		
-		if(etudiant.getId() != null)
+		if (etudiant.getId() != null)
 		{
 			session.setAttribute(ATT_SESSION_ETUDIANT, etudiant);
 			response.sendRedirect("http://localhost:8080/ZPareo/ei");   
 		}
-		else if(professeur.getId() != null)
+		else if (professeur.getId() != null)
 		{
 			session.setAttribute(ATT_SESSION_PROFESSEUR, professeur);
 			response.sendRedirect("http://localhost:8080/ZPareo/pi/examen");   
 		}
-		else if(administrateur.getId() != null)
+		else if (administrateur.getId() != null)
 		{
 			session.setAttribute(ATT_SESSION_ADMINISTRATEUR, administrateur);
 			response.sendRedirect("http://localhost:8080/ZPareo/ai/administrateur"); 
@@ -99,4 +96,5 @@ public class Connexion extends HttpServlet
 			this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 		}
 	}
+	
 }

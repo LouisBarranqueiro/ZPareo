@@ -14,11 +14,10 @@ import forms.ExamenForm;
 @WebServlet("/pi/examen/creation")
 public class ExamenCreation extends HttpServlet 
 {
-	public static final String CONF_DAO_FACTORY         = "daofactory";
-	public static final String ATT_SESSION_PROFESSEUR   = "sessionProfesseur";
-	public static final String ATT_EXAMEN               = "examen";
-    public static final String ATT_FORM                 = "form";
-	public static final String VUE_CREATION             = "/WEB-INF/examen/creation.jsp";
+	private static final String CONF_DAO_FACTORY         = "daofactory";
+	private static final String ATT_EXAMEN               = "examen";
+	private static final String ATT_FORM                 = "form";
+    private static final String VUE_CREATION             = "/WEB-INF/examen/creation.jsp";
 	private ExamenDao examenDao;
 	
     public ExamenCreation() 
@@ -41,7 +40,7 @@ public class ExamenCreation extends HttpServlet
 		ExamenForm form = new ExamenForm(this.examenDao);
         beans.Examen examen = form.creerExamen(request);
 		
-        if(form.getErreurs().isEmpty())
+        if (form.getErreurs().isEmpty())
         {
         	response.sendRedirect("http://localhost:8080/ZPareo/pi/examen/edition?id=" + examen.getId());   
         }

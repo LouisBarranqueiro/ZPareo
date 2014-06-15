@@ -2,14 +2,11 @@ package servlets.matiere;
 
 import java.io.IOException;
 import java.util.Set;
-import java.util.TreeSet;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import forms.MatiereForm;
 import dao.DAOFactory;
 import dao.MatiereDao;
@@ -18,11 +15,11 @@ import dao.MatiereDao;
 @WebServlet("/ai/matiere")
 public class Matiere extends HttpServlet 
 {
-	public static final String CONF_DAO_FACTORY = "daofactory";
-	public static final String ATT_MATIERES     = "listeMatieres";
-	public static final String ATT_NB_MATIERES  = "nbMatieres";
-    public static final String ATT_FORM         = "form";
-	private static final String VUE             = "/WEB-INF/matiere/index.jsp";
+	private static final String CONF_DAO_FACTORY = "daofactory";
+	private static final String ATT_MATIERES     = "listeMatieres";
+	private static final String ATT_NB_MATIERES  = "nbMatieres";
+	private static final String ATT_FORM         = "form";
+	private static final String VUE              = "/WEB-INF/matiere/index.jsp";
 	private MatiereDao matiereDao;
 	
     public Matiere() 
@@ -38,11 +35,9 @@ public class Matiere extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
         MatiereForm form = new MatiereForm(this.matiereDao);
-        Set<beans.Matiere> listeMatieres = new TreeSet<beans.Matiere>();
-        
-        listeMatieres = form.rechercherMatiere(request);
-        System.out.println( listeMatieres.toString() );
+        Set<beans.Matiere> listeMatieres = form.rechercherMatiere(request);
 		int nbMatieres = listeMatieres.size();
+		
         request.setAttribute(ATT_FORM, form);
         request.setAttribute(ATT_MATIERES, listeMatieres);
         request.setAttribute(ATT_NB_MATIERES, nbMatieres);
@@ -51,6 +46,6 @@ public class Matiere extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-        
 	}
+	
 }

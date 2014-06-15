@@ -1,16 +1,13 @@
 package servlets.professeur;
 
 import java.io.IOException;
-import java.util.TreeSet;
 import java.util.Set;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import beans.Administrateur;
 import beans.Groupe;
 import beans.Matiere;
@@ -49,15 +46,13 @@ public class ProfesseurEdition extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		Set<Groupe> listeGroupes = new TreeSet<Groupe>();
-		Groupe groupe = new Groupe();
-		Set<Matiere> listeMatieres = new TreeSet<Matiere>();
 		Matiere matiere = new Matiere();
-		
-		listeGroupes = this.groupeDao.rechercher(groupe);
-		listeMatieres = this.matiereDao.rechercher(matiere);
+		Groupe groupe = new Groupe();
+		Set<Groupe> listeGroupes = this.groupeDao.rechercher(groupe);
+		Set<Matiere> listeMatieres = this.matiereDao.rechercher(matiere);
 		ProfesseurForm form = new ProfesseurForm(this.professeurDao);
 		beans.Professeur professeur = form.trouverProfesseur(request);
+		
 		request.setAttribute(ATT_FORM, form);
 		request.setAttribute(ATT_PROFESSEUR, professeur);
         request.setAttribute(ATT_MATIERES, listeMatieres);
@@ -68,18 +63,15 @@ public class ProfesseurEdition extends HttpServlet
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		HttpSession session = request.getSession();
+		Matiere matiere = new Matiere();
+		Groupe groupe = new Groupe();
 		Administrateur editeur = (Administrateur) session.getAttribute(ATT_SESSION_ADMINISTRATEUR);
 		ProfesseurForm form = new ProfesseurForm(this.professeurDao);
-		Set<Groupe> listeGroupes = new TreeSet<Groupe>();
-		Groupe groupe = new Groupe();
-		Set<Matiere> listeMatieres = new TreeSet<Matiere>();
-		Matiere matiere = new Matiere();
-		
-		listeGroupes = this.groupeDao.rechercher(groupe);
-		listeMatieres = this.matiereDao.rechercher(matiere);
+		Set<Groupe> listeGroupes = this.groupeDao.rechercher(groupe);
+		Set<Matiere> listeMatieres = this.matiereDao.rechercher(matiere);
 		beans.Professeur professeur = form.editerProfesseur(editeur, request);
 		
-		if(form.getErreurs().isEmpty())
+		if (form.getErreurs().isEmpty())
 	    {
 	    	response.sendRedirect("http://localhost:8080/ZPareo/ai/professeur");   
 	    }

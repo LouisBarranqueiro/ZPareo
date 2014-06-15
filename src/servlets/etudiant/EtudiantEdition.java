@@ -1,16 +1,13 @@
 package servlets.etudiant;
 
 import java.io.IOException;
-import java.util.TreeSet;
 import java.util.Set;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import beans.Administrateur;
 import beans.Etudiant;
 import beans.Groupe;
@@ -45,12 +42,11 @@ public class EtudiantEdition extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		EtudiantForm form = new EtudiantForm(this.etudiantDao);
-		Set<Groupe> listeGroupes = new TreeSet<Groupe>();
 		Groupe groupe = new Groupe();
-		
+		EtudiantForm form = new EtudiantForm(this.etudiantDao);
+		Set<Groupe> listeGroupes = this.groupeDao.rechercher(groupe);
 		Etudiant etudiant = form.trouverEtudiant(request);
-		listeGroupes = this.groupeDao.rechercher(groupe);
+		
 		request.setAttribute(ATT_FORM, form);
         request.setAttribute(ATT_ETUDIANT, etudiant);
         request.setAttribute(ATT_GROUPES, listeGroupes);
@@ -60,13 +56,11 @@ public class EtudiantEdition extends HttpServlet
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		HttpSession session = request.getSession();
+		Groupe groupe = new Groupe();
 		Administrateur sessionAdministrateur = (Administrateur) session.getAttribute(ATT_SESSION_ADMINISTRATEUR);
 		EtudiantForm form = new EtudiantForm(this.etudiantDao);
-		Set<Groupe> listeGroupes = new TreeSet<Groupe>();
-		Groupe groupe = new Groupe();
-		
+		Set<Groupe> listeGroupes = this.groupeDao.rechercher(groupe);
 		Etudiant etudiant = form.editerEtudiant(sessionAdministrateur, request);
-		listeGroupes = this.groupeDao.rechercher(groupe);
 		
 		if(form.getErreurs().isEmpty())
 	    {

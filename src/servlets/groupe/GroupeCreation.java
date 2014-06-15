@@ -1,20 +1,17 @@
 package servlets.groupe;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import beans.Administrateur;
 import beans.Groupe;
 import dao.DAOFactory;
 import dao.GroupeDao;
 import forms.GroupeForm;
-
 
 @SuppressWarnings("serial")
 @WebServlet("/ai/groupe/creation")
@@ -47,10 +44,9 @@ public class GroupeCreation extends HttpServlet
         GroupeForm form = new GroupeForm(this.groupeDao);
         HttpSession session = request.getSession();
 		Administrateur sessionAdministrateur = (Administrateur) session.getAttribute(ATT_SESSION_ADMINISTRATEUR);
-		
         Groupe groupe = form.creerGroupe(sessionAdministrateur, request);
 		
-       if( form.getErreurs().isEmpty() )
+       if (form.getErreurs().isEmpty())
        {
            response.sendRedirect("http://localhost:8080/ZPareo/ai/groupe");   
        }

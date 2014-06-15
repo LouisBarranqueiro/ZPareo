@@ -1,16 +1,13 @@
 package servlets.etudiant;
 
 import java.io.IOException;
-import java.util.TreeSet;
 import java.util.Set;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import beans.Administrateur;
 import beans.Etudiant;
 import beans.Groupe;
@@ -46,10 +43,9 @@ public class EtudiantCreation extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		Set<Groupe> listeGroupes = new TreeSet<Groupe>();
 		Groupe groupe = new Groupe();
+		Set<Groupe> listeGroupes = this.groupeDao.rechercher(groupe);
 		
-		listeGroupes = this.groupeDao.rechercher(groupe);
         request.setAttribute(ATT_GROUPES, listeGroupes);
         this.getServletContext().getRequestDispatcher(VUE_CREATION).forward(request, response); 
 	}
@@ -57,15 +53,13 @@ public class EtudiantCreation extends HttpServlet
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		HttpSession session = request.getSession();
+		Groupe groupe = new Groupe();
 		Administrateur sessionAdministrateur = (Administrateur) session.getAttribute(ATT_SESSION_ADMINISTRATEUR);
         EtudiantForm form = new EtudiantForm(this.etudiantDao);
-        Set<Groupe> listeGroupes = new TreeSet<Groupe>();
-        Groupe groupe = new Groupe();
-        
+        Set<Groupe> listeGroupes = this.groupeDao.rechercher(groupe);
         Etudiant etudiant = form.creerEtudiant(sessionAdministrateur, request);
-		listeGroupes = this.groupeDao.rechercher(groupe);
 		
-        if(form.getErreurs().isEmpty())
+        if (form.getErreurs().isEmpty())
         {
         	response.sendRedirect("http://localhost:8080/ZPareo/ai/etudiant");   
         }

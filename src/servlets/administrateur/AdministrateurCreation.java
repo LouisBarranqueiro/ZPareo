@@ -1,14 +1,12 @@
 package servlets.administrateur;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import dao.DAOFactory;
 import dao.AdministrateurDao;
 import forms.AdministrateurForm;
@@ -46,7 +44,7 @@ public class AdministrateurCreation extends HttpServlet
 		beans.Administrateur sessionAdministrateur = (beans.Administrateur) session.getAttribute(ATT_SESSION_ADMINISTRATEUR);
 		beans.Administrateur administrateur = form.creerAdministrateur(sessionAdministrateur, request);
 
-        if(form.getErreurs().isEmpty())
+        if (form.getErreurs().isEmpty())
         {
         	response.sendRedirect("http://localhost:8080/ZPareo/ai/administrateur");   
         }

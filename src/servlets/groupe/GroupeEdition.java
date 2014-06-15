@@ -1,14 +1,12 @@
 package servlets.groupe;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import beans.Administrateur;
 import beans.Groupe;
 import dao.DAOFactory;
@@ -39,8 +37,8 @@ public class GroupeEdition extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		GroupeForm form = new GroupeForm( this.groupeDao );
-		
         Groupe groupe = form.trouverGroupe(request);
+        
         request.setAttribute(ATT_GROUPE , groupe);
         this.getServletContext().getRequestDispatcher(VUE_EDITION).forward(request, response);   
 	}
@@ -52,7 +50,7 @@ public class GroupeEdition extends HttpServlet
 		GroupeForm form = new GroupeForm(this.groupeDao);
 		Groupe groupe = form.editerGroupe(sessionAdministrateur, request);
 		
-		if(form.getErreurs().isEmpty())
+		if (form.getErreurs().isEmpty())
 	    {
 	    	response.sendRedirect("http://localhost:8080/ZPareo/ai/groupe");   
 	    }

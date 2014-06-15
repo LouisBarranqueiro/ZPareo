@@ -1,14 +1,12 @@
 package servlets.examen;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import beans.Professeur;
 import dao.DAOFactory;
 import dao.ExamenDao;
@@ -37,8 +35,8 @@ public class ExamenSuppression extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		ExamenForm form = new ExamenForm(this.examenDao);
-		
 		beans.Examen examen = form.trouverExamen(request);
+		
 		request.setAttribute(ATT_EXAMEN, examen);
         this.getServletContext().getRequestDispatcher(VUE_SUPPRESSION).forward(request, response);   
 	}

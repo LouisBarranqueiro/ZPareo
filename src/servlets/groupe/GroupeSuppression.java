@@ -1,20 +1,17 @@
 package servlets.groupe;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import beans.Administrateur;
 import beans.Groupe;
 import dao.DAOFactory;
 import dao.GroupeDao;
 import forms.GroupeForm;
-
 
 @SuppressWarnings("serial")
 @WebServlet("/ai/groupe/suppression")
@@ -39,8 +36,8 @@ public class GroupeSuppression extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		GroupeForm form = new GroupeForm( this.groupeDao );
-		
         Groupe groupe = form.trouverGroupe(request);
+        
         request.setAttribute(ATT_GROUPE , groupe); 
 		this.getServletContext().getRequestDispatcher(VUE_SUPPRESSION).forward( request, response); 
 	}

@@ -1,15 +1,12 @@
 package servlets.administrateur;
 
 import java.io.IOException;
-import java.util.TreeSet;
 import java.util.Set;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import dao.DAOFactory;
 import dao.AdministrateurDao;
 import forms.AdministrateurForm;
@@ -38,10 +35,9 @@ public class Administrateur extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		AdministrateurForm form = new AdministrateurForm(this.administrateurDao);
-        Set<beans.Administrateur> listeAdministrateurs = new TreeSet<beans.Administrateur>();
-        
-        listeAdministrateurs = form.rechercherAdministrateur(request);
+        Set<beans.Administrateur> listeAdministrateurs = form.rechercherAdministrateur(request);
 		int nbAdministrateurs = listeAdministrateurs.size();
+		
         request.setAttribute(ATT_FORM, form);
         request.setAttribute(ATT_ADMINISTRATEURS, listeAdministrateurs);
         request.setAttribute(ATT_NB_ADMINISTRATEURS, nbAdministrateurs);
