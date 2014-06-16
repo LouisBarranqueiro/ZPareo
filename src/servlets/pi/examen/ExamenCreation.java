@@ -17,7 +17,7 @@ public class ExamenCreation extends HttpServlet
 	private static final String CONF_DAO_FACTORY         = "daofactory";
 	private static final String ATT_EXAMEN               = "examen";
 	private static final String ATT_FORM                 = "form";
-    private static final String VUE_CREATION             = "/WEB-INF/examen/creation.jsp";
+    private static final String VUE_CREATION             = "/WEB-INF/pi/examen/creation.jsp";
 	private ExamenDao examenDao;
 	
     public ExamenCreation() 

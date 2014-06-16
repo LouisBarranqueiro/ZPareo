@@ -18,7 +18,7 @@ public class ProfesseurSuppression extends HttpServlet
 {
 	private static final String CONF_DAO_FACTORY           = "daofactory";
 	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
-	private static final String VUE_SUPPRESSION            = "/WEB-INF/professeur/suppression.jsp";
+	private static final String VUE_SUPPRESSION            = "/WEB-INF/ai/professeur/suppression.jsp";
 	private static final String ATT_PROFESSEUR             = "professeur";
 	private ProfesseurDao professeurDao;
 	

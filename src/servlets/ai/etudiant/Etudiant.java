@@ -22,7 +22,7 @@ public class Etudiant extends HttpServlet
 	private static final String ATT_GROUPES       = "listeGroupes";
 	private static final String ATT_NB_ETUDIANTS  = "nbEtudiants";
 	private static final String ATT_FORM          = "form";
-	private static final String VUE               = "/WEB-INF/etudiant/index.jsp";
+	private static final String VUE               = "/WEB-INF/ai/etudiant/index.jsp";
 	private EtudiantDao etudiantDao;
 	private GroupeDao groupeDao;
 	

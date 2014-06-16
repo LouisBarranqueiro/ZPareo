@@ -26,7 +26,7 @@ public class EtudiantCreation extends HttpServlet
 	private static final String ATT_ETUDIANT               = "etudiant";
 	private static final String ATT_GROUPES                = "listeGroupes";
 	private static final String ATT_FORM                   = "form";
-	private static final String VUE_CREATION               = "/WEB-INF/etudiant/creation.jsp";
+	private static final String VUE_CREATION               = "/WEB-INF/ai/etudiant/creation.jsp";
     private EtudiantDao etudiantDao;
     private GroupeDao groupeDao;
 

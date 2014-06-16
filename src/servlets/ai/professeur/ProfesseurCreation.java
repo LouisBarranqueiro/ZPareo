@@ -27,7 +27,7 @@ public class ProfesseurCreation extends HttpServlet
 	private static final String ATT_GROUPES                = "listeGroupes";
 	private static final String ATT_PROFESSEUR             = "professeur";
 	private static final String ATT_FORM                   = "form";
-	private static final String VUE_CREATION               = "/WEB-INF/professeur/creation.jsp";
+	private static final String VUE_CREATION               = "/WEB-INF/ai/professeur/creation.jsp";
     private MatiereDao matiereDao;
     private GroupeDao groupeDao;
     private ProfesseurDao professeurDao;

@@ -21,7 +21,7 @@ public class MatiereCreation extends HttpServlet
 	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
 	private static final String ATT_MATIERE                = "matiere";
 	private static final String ATT_FORM                   = "form";
-	private static final String VUE_CREATION               = "/WEB-INF/matiere/creation.jsp";
+	private static final String VUE_CREATION               = "/WEB-INF/ai/matiere/creation.jsp";
     private MatiereDao matiereDao;
 
     public MatiereCreation() 

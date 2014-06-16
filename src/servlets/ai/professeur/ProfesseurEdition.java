@@ -27,7 +27,7 @@ public class ProfesseurEdition extends HttpServlet
 	private static final String ATT_GROUPES                = "listeGroupes";
 	private static final String ATT_PROFESSEUR             = "professeur";
 	private static final String ATT_FORM                   = "form";
-	private static final String VUE_EDITION                = "/WEB-INF/professeur/edition.jsp";
+	private static final String VUE_EDITION                = "/WEB-INF/ai/professeur/edition.jsp";
 	private ProfesseurDao professeurDao;
 	private GroupeDao groupeDao;
 	private MatiereDao matiereDao;

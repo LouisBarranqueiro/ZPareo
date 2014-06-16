@@ -20,7 +20,7 @@ public class MatiereSuppression extends HttpServlet
 	private static final String CONF_DAO_FACTORY           = "daofactory";
 	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
 	private static final String ATT_MATIERE                = "matiere";
-	private static final String VUE_SUPPRESSION            = "/WEB-INF/matiere/suppression.jsp";
+	private static final String VUE_SUPPRESSION            = "/WEB-INF/ai/matiere/suppression.jsp";
 	private MatiereDao matiereDao;
 	
 	public void init() throws ServletException 

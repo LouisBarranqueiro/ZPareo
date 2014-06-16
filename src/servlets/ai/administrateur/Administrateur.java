@@ -19,7 +19,7 @@ public class Administrateur extends HttpServlet
 	private static final String ATT_ADMINISTRATEURS     = "listeAdministrateurs";
 	private static final String ATT_NB_ADMINISTRATEURS  = "nbAdministrateurs";
 	private static final String ATT_FORM                = "form";
-	private static final String VUE                     = "/WEB-INF/administrateur/index.jsp";
+	private static final String VUE                     = "/WEB-INF/ai/administrateur/index.jsp";
 	private AdministrateurDao administrateurDao;
 	
     public Administrateur() 

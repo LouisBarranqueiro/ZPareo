@@ -19,7 +19,7 @@ public class ExamenSuppression extends HttpServlet
 	private static final String ATT_SESSION_PROFESSEUR = "sessionProfesseur";
 	private static final String CONF_DAO_FACTORY       = "daofactory";
 	private static final String ATT_EXAMEN             = "examen";
-	private static final String VUE_SUPPRESSION        = "/WEB-INF/examen/suppression.jsp";
+	private static final String VUE_SUPPRESSION        = "/WEB-INF/pi/examen/suppression.jsp";
 	private ExamenDao examenDao;
 	
 	public void init() throws ServletException 

@@ -19,7 +19,7 @@ public class Professeur extends HttpServlet
 	private static final String ATT_PROFESSEURS    = "listeProfesseurs";
 	private static final String ATT_NB_PROFESSEURS = "nbProfesseurs";
 	private static final String ATT_FORM           = "form";
-	private static final String VUE                = "/WEB-INF/professeur/index.jsp";
+	private static final String VUE                = "/WEB-INF/ai/professeur/index.jsp";
 	private ProfesseurDao professeurDao;
 	
     public Professeur() 

@@ -23,7 +23,7 @@ public class ProfesseurDetails extends HttpServlet
 	private static final String ATT_MATIERES      = "listeMatieres";
 	private static final String ATT_GROUPES       = "listeGroupes";
 	private static final String ATT_PROFESSEUR    = "professeur";
-	private static final String VUE_DETAILS       = "/WEB-INF/professeur/details.jsp";
+	private static final String VUE_DETAILS       = "/WEB-INF/ai/professeur/details.jsp";
 	private ProfesseurDao professeurDao;
 	private GroupeDao groupeDao;
 	private MatiereDao matiereDao;

@@ -25,7 +25,7 @@ public class EtudiantEdition extends HttpServlet
 	private static final String ATT_GROUPES                 = "listeGroupes";
     private static final String ATT_FORM                    = "form";
     private static final String ATT_SESSION_ADMINISTRATEUR  = "sessionAdministrateur";
-	private static final String VUE_EDITION                 = "/WEB-INF/etudiant/edition.jsp";
+	private static final String VUE_EDITION                 = "/WEB-INF/ai/etudiant/edition.jsp";
 	private EtudiantDao etudiantDao;
 	private GroupeDao groupeDao;
 	

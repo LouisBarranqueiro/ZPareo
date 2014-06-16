@@ -21,7 +21,7 @@ public class GroupeCreation extends HttpServlet
 	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
 	private static final String ATT_GROUPE                 = "groupe";
 	private static final String ATT_FORM                   = "form";
-	private static final String VUE_CREATION               = "/WEB-INF/groupe/creation.jsp";
+	private static final String VUE_CREATION               = "/WEB-INF/ai/groupe/creation.jsp";
     private GroupeDao groupeDao;
 
     public GroupeCreation() 

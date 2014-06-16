@@ -21,7 +21,7 @@ public class MatiereEdition extends HttpServlet
 	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
 	private static final String ATT_MATIERE                = "matiere";
 	private static final String ATT_FORM                   = "form";
-	private static final String VUE_EDITION                = "/WEB-INF/matiere/edition.jsp";
+	private static final String VUE_EDITION                = "/WEB-INF/ai/matiere/edition.jsp";
 	private MatiereDao matiereDao;
 	
 	public void init() throws ServletException 

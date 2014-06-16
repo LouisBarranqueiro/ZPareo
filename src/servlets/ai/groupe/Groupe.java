@@ -19,7 +19,7 @@ public class Groupe extends HttpServlet
 	private static final String ATT_GROUPES      = "listeGroupes";
 	private static final String ATT_NB_GROUPES   = "nbGroupes";
 	private static final String ATT_FORM         = "form";
-	private static final String VUE              = "/WEB-INF/groupe/index.jsp";
+	private static final String VUE              = "/WEB-INF/ai/groupe/index.jsp";
 	private GroupeDao groupeDao;
 	
     public Groupe() 

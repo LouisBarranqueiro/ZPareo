@@ -19,7 +19,7 @@ public class AdministrateurCreation extends HttpServlet
 	private static final String ATT_ADMINISTRATEUR         = "administrateur";
 	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
 	private static final String ATT_FORM                   = "form";
-	private static final String VUE_CREATION               = "/WEB-INF/administrateur/creation.jsp";
+	private static final String VUE_CREATION               = "/WEB-INF/ai/administrateur/creation.jsp";
     private AdministrateurDao administrateurDao;
 
     public AdministrateurCreation() 

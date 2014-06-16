@@ -20,7 +20,7 @@ public class GroupeSuppression extends HttpServlet
 	private static final String CONF_DAO_FACTORY           = "daofactory";
 	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
 	private static final String ATT_GROUPE                 = "groupe";
-	private static final String VUE_SUPPRESSION            = "/WEB-INF/groupe/suppression.jsp";
+	private static final String VUE_SUPPRESSION            = "/WEB-INF/ai/groupe/suppression.jsp";
 	private GroupeDao groupeDao;
 	
 	public void init() throws ServletException 

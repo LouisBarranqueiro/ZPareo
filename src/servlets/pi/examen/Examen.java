@@ -22,7 +22,7 @@ public class Examen extends HttpServlet
 	private static final String ATT_EXAMENS            = "listeExamens";
 	private static final String ATT_NB_EXAMENS         = "nbExamens";
 	private static final String ATT_FORM               = "form";
-    private static final String VUE                    = "/WEB-INF/examen/index.jsp";
+    private static final String VUE                    = "/WEB-INF/pi/examen/index.jsp";
 	private ExamenDao examenDao;
 	
 	public Examen() 

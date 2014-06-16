@@ -16,7 +16,7 @@ public class ExamenDetails extends HttpServlet
 {
 	private static final String CONF_DAO_FACTORY = "daofactory";
 	private static final String ATT_EXAMEN       = "examen";
-    private static final String VUE_DETAILS      = "/WEB-INF/examen/details.jsp";
+    private static final String VUE_DETAILS      = "/WEB-INF/pi/examen/details.jsp";
 	private ExamenDao examenDao; 
 
     public ExamenDetails()

@@ -18,7 +18,7 @@ public class AdministrateurSuppression extends HttpServlet
 	private static final String CONF_DAO_FACTORY           = "daofactory";
 	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
 	private static final String ATT_ADMINISTRATEUR         = "administrateur";
-	private static final String VUE_SUPPRESSION            = "/WEB-INF/administrateur/suppression.jsp";
+	private static final String VUE_SUPPRESSION            = "/WEB-INF/ai/administrateur/suppression.jsp";
     private AdministrateurDao administrateurDao;
 
     public AdministrateurSuppression() 

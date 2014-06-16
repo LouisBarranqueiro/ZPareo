@@ -21,7 +21,7 @@ public class GroupeEdition extends HttpServlet
 	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
 	private static final String ATT_GROUPE                 = "groupe";
 	private static final String ATT_FORM                   = "form";
-	private static final String VUE_EDITION                = "/WEB-INF/groupe/edition.jsp";
+	private static final String VUE_EDITION                = "/WEB-INF/ai/groupe/edition.jsp";
 	private GroupeDao groupeDao;
 	
 	public void init() throws ServletException 

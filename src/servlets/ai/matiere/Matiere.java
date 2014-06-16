@@ -19,7 +19,7 @@ public class Matiere extends HttpServlet
 	private static final String ATT_MATIERES     = "listeMatieres";
 	private static final String ATT_NB_MATIERES  = "nbMatieres";
 	private static final String ATT_FORM         = "form";
-	private static final String VUE              = "/WEB-INF/matiere/index.jsp";
+	private static final String VUE              = "/WEB-INF/ai/matiere/index.jsp";
 	private MatiereDao matiereDao;
 	
     public Matiere() 
