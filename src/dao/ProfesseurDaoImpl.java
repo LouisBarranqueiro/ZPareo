@@ -26,7 +26,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 	private static final String SQL_SELECT_COUNT_GROUPE           = "SELECT COUNT(id) FROM gnw_professeur_groupe WHERE fk_professeur = ? AND fk_matiere = ? AND date_suppr IS NULL";
 	private static final String SQL_SELECT_AUTH                   = "SELECT gnw_utilisateur.id, gnw_utilisateur.nom, gnw_utilisateur.prenom, gnw_utilisateur.adresse_mail FROM gnw_utilisateur WHERE gnw_utilisateur.profil = 1 AND gnw_utilisateur.adresse_mail = ? AND gnw_utilisateur.mot_de_passe = ?";
 	private static final String SQL_INSERT_PROFESSEUR             = "INSERT INTO gnw_utilisateur ( nom, prenom, adresse_mail, mot_de_passe, profil, fk_utilisateur ) VALUES (?, ?, ?, ?, 1, ?)";
-	private static final String SQL_INSERT_MATIERE                = "INSERT INTO gnw_professeur_matiere ( fk_professeur, fk_matiere, fk_professeur ) VALUES (?, ?, ?)";
+	private static final String SQL_INSERT_MATIERE                = "INSERT INTO gnw_professeur_matiere ( fk_professeur, fk_matiere, fk_utilisateur ) VALUES (?, ?, ?)";
 	private static final String SQL_INSERT_GROUPE                 = "INSERT INTO gnw_professeur_groupe ( fk_professeur, fk_groupe, fk_utilisateur ) VALUES (?, ?, ?)";
 	private static final String SQL_UPDATE_PROFESSEUR             = "UPDATE gnw_utilisateur SET nom = ?, prenom = ?, adresse_mail = ?, fk_utilisateur = ? WHERE id = ?";
 	private static final String SQL_UPDATE_MOT_DE_PASSE           = "UPDATE gnw_utilisateur SET mot_de_passe = ?, fk_utilisateur = ? WHERE id = ?"; 
