@@ -6,6 +6,7 @@ public class MatiereNote implements Comparable<MatiereNote>
 {
 	private Long id;
 	private Matiere matiere;
+	private Float moyenne;
 	private Set<Examen> listeExamens;
 	
 	/**
@@ -67,6 +68,26 @@ public class MatiereNote implements Comparable<MatiereNote>
 	public void setMatiere(Matiere matiere) 
 	{
 		this.matiere = matiere;
+	}
+	
+	/**
+	 * Retourne la moyenne de l'objet
+	 * 
+	 * @return matiere La moyenne de l'objet.
+	 */
+	public Float getMoyenne() 
+	{
+		return moyenne;
+	}
+	
+	/**
+	 * Défini la moyenne de l'objet
+	 * 
+	 * @param matiere Une moyenne.
+	 */
+	public void setMoyenne(Float moyenne) 
+	{
+		this.moyenne = moyenne;
 	}
 	
 	/**
