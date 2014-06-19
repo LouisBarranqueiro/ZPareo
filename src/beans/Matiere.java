@@ -15,6 +15,15 @@ public class Matiere implements Comparable<Matiere>
 	}
 	
 	/**
+	 * Consutructeur
+	 */
+	public Matiere(Long id)
+	{
+		this.id = id;
+		this.nom = null;
+	}
+	
+	/**
 	 * Constructeur
 	 * 
 	 * @param matiere Une matiere.
