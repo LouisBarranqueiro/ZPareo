@@ -6,6 +6,7 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 {
 	private Groupe groupe;
 	private Set<Note> listeNotes;
+	private Bulletin bulletin;
 
 	/**
 	 * Constructeur
@@ -15,6 +16,7 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 		super();
 		this.groupe = null;
 		this.listeNotes = null;
+		this.bulletin = null;
 	}
 	
 	/**
@@ -27,6 +29,7 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 		super(etudiant);
 		this.setGroupe(etudiant.getGroupe());
 		this.setListeNote(listeNotes);
+		this.setBulletin(etudiant.getBulletin());
 	}
 	
 	/**
@@ -67,6 +70,26 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	public void setListeNote(Set<Note> listeNote) 
 	{
 		this.listeNotes = listeNote;
+	}
+	
+	/**
+	 * Retourne la liste des notes de l'�tudiant
+	 * 
+	 * @return bulletin Le bulletin de l'�tudiant.
+	 */
+	public Bulletin getBulletin() 
+	{
+		return bulletin;
+	}
+	
+	/**
+	 * Défini le bulletin de l'etudiant
+	 * 
+	 * @param bulletin Un bulletin.
+	 */
+	public void setBulletin(Bulletin bulletin) 
+	{
+		this.bulletin = bulletin;
 	}
 	
 	/**
