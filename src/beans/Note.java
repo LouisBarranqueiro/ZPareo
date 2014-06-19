@@ -29,6 +29,18 @@ public class Note implements Comparable<Note>
 	}
 	
 	/**
+	 * Constructeur
+	 * 
+	 * @param etudiant Un etudiant.
+	 */
+	public Note(Etudiant etudiant)
+	{
+		this.id = null;
+		this.note = null;
+		this.setEtudiant(etudiant);
+	}
+	
+	/**
 	 * Retourne le num�ro d'identification de la note
 	 * 
 	 * @return id Le num�ro d'identification de la note.
