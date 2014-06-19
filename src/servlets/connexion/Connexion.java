@@ -56,7 +56,7 @@ public class Connexion extends HttpServlet
 	    } 
 		else if (session.getAttribute(ATT_SESSION_ETUDIANT) != null)
         {
-			response.sendRedirect("http://localhost:8080/ZPareo/ei");
+			response.sendRedirect("http://localhost:8080/ZPareo/ei/mon-bulletin");
         }
 		else
 		{
@@ -77,7 +77,7 @@ public class Connexion extends HttpServlet
 		if (etudiant.getId() != null)
 		{
 			session.setAttribute(ATT_SESSION_ETUDIANT, etudiant);
-			response.sendRedirect("http://localhost:8080/ZPareo/ei");   
+			response.sendRedirect("http://localhost:8080/ZPareo/ei/mon-bulletin");   
 		}
 		else if (professeur.getId() != null)
 		{
