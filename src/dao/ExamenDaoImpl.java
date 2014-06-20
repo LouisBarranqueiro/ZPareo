@@ -12,11 +12,13 @@ import java.text.SimpleDateFormat;
 import java.util.Set;
 import java.util.TreeSet;
 
+import beans.Bulletin;
 import beans.Etudiant;
 import beans.Examen;
 import beans.FormatExamen;
 import beans.Groupe;
 import beans.Matiere;
+import beans.MatiereNote;
 import beans.Note;
 import beans.Professeur;
 
@@ -29,6 +31,9 @@ public class ExamenDaoImpl implements ExamenDao
 	private static final String SQL_SELECT_NOTE                 = "SELECT id, note FROM gnw_examen_note WHERE fk_examen = ? AND fk_etudiant = ? AND date_suppr IS NULL";
 	private static final String SQL_SELECT_COUNT_NOTE           = "SELECT COUNT(id) FROM gnw_examen_note WHERE fk_examen = ? AND fk_etudiant = ? AND date_suppr IS NULL";
 	private static final String SQL_SELECT_ETUDIANTS_PAR_GROUPE = "SELECT gnw_utilisateur.id, gnw_utilisateur.nom, gnw_utilisateur.prenom, gnw_utilisateur.adresse_mail FROM gnw_utilisateur, gnw_etudiant_groupe WHERE profil = 0 AND gnw_utilisateur.date_suppr IS NULL AND gnw_utilisateur.id = gnw_etudiant_groupe.fk_etudiant AND gnw_etudiant_groupe.fk_groupe = ?";
+	private static final String SQL_EXAMEN_MATIERE_GROUPE       = "SELECT gnw_examen.id, gnw_examen.nom, gnw_examen.date, gnw_examen.fk_professeur, gnw_examen.fk_format as formatId, gnw_formatexamen.nom as formatNom, gnw_groupe.id as groupeId, gnw_groupe.nom as groupeNom, gnw_matiere.nom as matiereNom, AVG(gnw_examen_note.note) as moyenne, gnw_examen.coefficient FROM gnw_examen, gnw_matiere, gnw_groupe, gnw_formatexamen, gnw_examen_note WHERE gnw_examen.date_suppr IS NULL AND gnw_examen.fk_groupe = gnw_groupe.id AND gnw_examen.fk_format = gnw_formatexamen.id AND gnw_examen.fk_matiere = gnw_matiere.id AND gnw_examen.fk_matiere = ? AND gnw_examen.fk_groupe = ? GROUP BY gnw_examen.id";
+	private static final String SQL_MATIERES_ETUDIANT           = "SELECT DISTINCT gnw_examen.fk_matiere FROM gnw_examen, gnw_examen_note WHERE gnw_examen.date_suppr IS NULL AND gnw_examen_note.date_suppr IS NULL AND gnw_examen.id = gnw_examen_note.fk_examen AND gnw_examen_note.fk_etudiant = ?";
+	private static final String SQL_MOYENNE_MATIERE             = "SELECT SUM(gnw_examen_note.note * gnw_examen.coefficient) / SUM(gnw_examen.coefficient) as moyenne FROM gnw_examen, gnw_examen_note WHERE gnw_examen_note.fk_etudiant = ? AND gnw_examen.fk_matiere = ? AND gnw_examen_note.fk_examen = gnw_examen.id";
 	private static final String SQL_UPDATE_NOTE                 = "UPDATE gnw_examen_note SET note = ?, fk_utilisateur = ? WHERE fk_examen = ? AND fk_etudiant = ?";
 	private static final String SQL_UPDATE_EXAMEN               = "UPDATE gnw_examen SET fk_professeur = ?, fk_format = ?, nom = ?, date = ?, coefficient = ?, fk_matiere = ?, fk_utilisateur = ? WHERE id = ?";
 	private static final String SQL_DELETE_EXAMEN               = "UPDATE gnw_examen SET date_suppr = now(), fk_utilisateur = ? WHERE id = ? AND fk_professeur = ?";
@@ -109,11 +114,11 @@ public class ExamenDaoImpl implements ExamenDao
 	 */
 	public Examen trouver(Examen examen)
 	{
-		examen = recupererExamen(examen);
-		recupererListeEtudiants(examen);
+		examen = recupExamen(examen);
+		recupListeEtudiants(examen);
 		verifListeNotes(examen);
-		recupererListeNotes(examen);
-		recupererMoyenne(examen);
+		recupListeNotes(examen);
+		recupMoyenne(examen);
 		return examen;
 	}
 	
@@ -122,7 +127,7 @@ public class ExamenDaoImpl implements ExamenDao
 	 * 
 	 * @param examen
 	 */
-	private void recupererListeEtudiants(Examen examen) throws DAOException
+	private void recupListeEtudiants(Examen examen) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -163,15 +168,14 @@ public class ExamenDaoImpl implements ExamenDao
 	 * @param examen
 	 * @throws DAOException
 	 */
-	private void recupererListeNotes(Examen examen) throws DAOException
+	private void recupListeNotes(Examen examen) throws DAOException
 	{
 		Set<Note> listeNotes = new TreeSet<Note>(examen.getListeNotes());
 		Object[] notes = listeNotes.toArray();
-		
 		for(Object n : notes)
 		{
 			Note note = (Note) n;
-			recupererNote(examen, note);
+			recupNote(examen, note);
 			listeNotes.add(note);
 		}
 		
@@ -184,7 +188,7 @@ public class ExamenDaoImpl implements ExamenDao
 	 * @param examen
 	 * @throws DAOException
 	 */
-	private void recupererMoyenne(Examen examen) throws DAOException
+	private void recupMoyenne(Examen examen) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -195,10 +199,10 @@ public class ExamenDaoImpl implements ExamenDao
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_MOY_EXAMEN, true, examen.getId());
 			resultSet = preparedStatement.executeQuery();
-			
+
 			if (resultSet.next())
 			{
-				examen.setMoyenneGenerale(resultSet.getFloat("moyenne"));
+				examen.setMoyenne(resultSet.getFloat("moyenne"));
 			}
 		} 
 		catch (SQLException e) 
@@ -218,7 +222,7 @@ public class ExamenDaoImpl implements ExamenDao
 	 * @param note
 	 * @throws DAOException
 	 */
-	private void recupererNote(Examen examen, Note note) throws DAOException
+	private void recupNote(Examen examen, Note note) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -246,6 +250,47 @@ public class ExamenDaoImpl implements ExamenDao
 			fermeturesSilencieuses(preparedStatement, connexion);
 		}
 	}
+	
+	/**
+	 * Récupère une note dans la base de données
+	 * 
+	 * @param examen
+	 * @param etudiant
+	 * @throws DAOException
+	 */
+	private Examen recupNote(Examen examen, Etudiant etudiant) throws DAOException
+	{
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Set<Note> listeNotes = new TreeSet<Note>();
+		Note note = new Note(etudiant);
+		
+		try 
+		{
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_NOTE, true, examen.getId(), etudiant.getId());
+			resultSet = preparedStatement.executeQuery();
+			
+			if (resultSet.next())
+			{
+				note.setId(resultSet.getLong("id"));
+				note.setNote(resultSet.getFloat("note"));
+				listeNotes.add(note);
+				examen.setListeNotes(listeNotes);
+			}
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(preparedStatement, connexion);
+		}
+		
+		return examen;
+	}
 
 	/**
 	 * Récupère un examen dans la base de données
@@ -254,7 +299,7 @@ public class ExamenDaoImpl implements ExamenDao
 	 * @return examen
 	 * @throws DAOException
 	 */
-	private Examen recupererExamen(Examen examen) throws DAOException
+	private Examen recupExamen(Examen examen) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -283,6 +328,145 @@ public class ExamenDaoImpl implements ExamenDao
 		return examen;
 	}
 	
+	/* Récupère un examen dans la base de données
+	 * 
+	 * @param examen
+	 * @return examen
+	 * @throws DAOException
+	 */
+	private MatiereNote recupListeExamen(MatiereNote matiereNote, Etudiant etudiant)
+	{
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Matiere matiere = new Matiere(matiereNote.getMatiere());
+		Groupe groupe = new Groupe(etudiant.getGroupe());
+		Set<Examen> listeExamens = new TreeSet<Examen>();
+		
+		try 
+		{
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_EXAMEN_MATIERE_GROUPE, true, matiere.getId(), groupe.getId());
+			resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				Examen examen = new Examen();
+				examen = mapExamen(resultSet);
+				examen = recupNote(examen, etudiant);
+				listeExamens.add(examen);
+			}
+			
+			matiereNote.setListeExamens(listeExamens);
+
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(preparedStatement, connexion);
+		}
+		
+		return matiereNote;
+	}
+	
+	/**
+	 * Récupère la liste des matières d'un élève
+	 * 
+	 * @param etudiant
+	 * @throws DAOException
+	 */
+	public Set<MatiereNote> recupNotesMatieres(Etudiant etudiant) throws DAOException
+	{
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Set<MatiereNote> listeMatiereNotes = new TreeSet<MatiereNote>();
+		MatiereDaoImpl matiereDao = new MatiereDaoImpl(daoFactory);
+		
+		try 
+		{
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_MATIERES_ETUDIANT, true, etudiant.getId());
+			System.out.println(preparedStatement.toString());
+			resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				MatiereNote matiereNote = new MatiereNote();
+				matiereNote.setId(resultSet.getLong("fk_matiere"));
+				Matiere matiere = new Matiere(matiereNote.getId());
+				matiere = matiereDao.trouver(matiere);
+				
+				matiereNote.setMatiere(matiere);
+				matiereNote = recupMoyenneMatiere(matiereNote, etudiant);
+				matiereNote = recupListeExamen(matiereNote, etudiant);
+				listeMatiereNotes.add(matiereNote);
+			}
+
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(preparedStatement, connexion);
+		}
+		
+		return listeMatiereNotes;
+	}
+	
+	/**
+	 * Récupère la moyenne d'une matière d'un élève
+	 * 
+	 * @param matiereNote
+	 */
+	public MatiereNote recupMoyenneMatiere(MatiereNote matiereNote, Etudiant etudiant)
+	{
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try 
+		{
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_MOYENNE_MATIERE, true, etudiant.getId(), matiereNote.getId());
+			resultSet = preparedStatement.executeQuery();
+			
+			resultSet.next();
+			matiereNote.setMoyenne(resultSet.getFloat("moyenne"));
+
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(preparedStatement, connexion);
+		}
+		return matiereNote;
+	}
+	
+	/**
+	 * Recupere le buletin d'un élève
+	 * 
+	 * @param etudiant Un étudiant.
+	 * @return Etudiant
+	 */
+	public Bulletin recupBulletin(Etudiant etudiant)
+	{
+		Bulletin bulletin = new Bulletin();
+		
+		bulletin.setListeMatiereNote(recupNotesMatieres(etudiant));
+		
+		return bulletin;
+	}
+	
+	
 	/**
 	 *  Met a jour la liste des notes dans la base de données
 	 *  
@@ -292,7 +476,7 @@ public class ExamenDaoImpl implements ExamenDao
 	{
 		Object[] notes = examen.getListeNotes().toArray();
 		
-		for(Object n : notes)
+		for (Object n : notes)
 		{
 			Note note = (Note) n;
 			
@@ -485,7 +669,7 @@ public class ExamenDaoImpl implements ExamenDao
 			while (resultSet.next()) 
 			{
 				examen = mapExamen(resultSet);
-				recupererMoyenne(examen);
+				recupMoyenne(examen);
 				listeExamens.add(examen);
 	        }
 		} 

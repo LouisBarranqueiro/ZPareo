@@ -5,14 +5,19 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
 import dao.EtudiantDao;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import beans.Administrateur;
 import beans.Etudiant;
 import beans.Groupe;
 
 public final class EtudiantForm 
 {
+	private static final String SESSION_ETUDIANT      = "sessionEtudiant";
 	private static final String CHAMP_ID              = "id";
     private static final String CHAMP_NOM             = "nom";
     private static final String CHAMP_PRENOM          = "prenom";
@@ -212,6 +217,20 @@ public final class EtudiantForm
     	
     	etudiant.setId(Long.parseLong(id));
         etudiantDao.supprimer(editeur, etudiant);
+    }
+    
+    /**
+     * Récupère toutes les informations et le bulletin de l'étudiant
+     * 
+     * @param request
+     * @return etudiant
+     */
+    public Etudiant recupTout(HttpServletRequest request)
+    {
+    	Etudiant etudiant = (Etudiant) getValeurSession(request, SESSION_ETUDIANT);
+    	etudiant = etudiantDao.recupTout(etudiant);
+    	
+    	return etudiant;
     }
     
     /**
@@ -531,6 +550,21 @@ public final class EtudiantForm
         {
             return valeur.trim();
         }
+    }
+    
+    /**
+     * Retourne la valeur d'un parametre de session
+     * 
+     * @param request
+     * @param nomSession
+     * @return objet
+     */
+    private static Object getValeurSession(HttpServletRequest request, String nomSession) 
+    {
+    	HttpSession session = request.getSession();
+    	Object objet = session.getAttribute(nomSession);
+    	
+        return((objet == null) ? null : objet);
     }
 }
 

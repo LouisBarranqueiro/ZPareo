@@ -62,4 +62,13 @@ public interface EtudiantDao
 	 * @throws DAOException
 	 */
 	Etudiant verifIdentifiant(Etudiant etudiant) throws DAOException;
+
+	/**
+	 * Récupère toutes les informations et le bulletin de l'etudiant
+	 * 
+	 * @param etudiant
+	 * @return Etudiant
+	 * @throws DAOException
+	 */
+	Etudiant recupTout(Etudiant etudiant) throws DAOException;
 }

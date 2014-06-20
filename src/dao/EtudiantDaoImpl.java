@@ -5,12 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import static dao.DAOUtilitaire.*;
-
 import java.util.TreeSet;
 import java.util.Set;
-
 import beans.Administrateur;
 import beans.Etudiant;
 import beans.Groupe;
@@ -64,7 +61,7 @@ public class EtudiantDaoImpl implements EtudiantDao
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		
-		try 
+		try
 		{
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_ETUDIANT, true, etudiant.getNom(), etudiant.getPrenom(), etudiant.getAdresseMail(), etudiant.getMotDePasse(), utilisateur.getId());
@@ -75,11 +72,11 @@ public class EtudiantDaoImpl implements EtudiantDao
 			{
 				etudiant.setId(resultSet.getLong(1));
 			}
-		} 
-		catch (SQLException e) 
+		}
+		catch (SQLException e)
 		{
 			throw new DAOException(e);
-		} 
+		}
 		finally 
 		{
 			fermeturesSilencieuses(preparedStatement, connexion);
@@ -393,6 +390,22 @@ public class EtudiantDaoImpl implements EtudiantDao
 	}
 
 	/**
+	 * Récupère toutes les informations et le bulletin de l'etudiant
+	 * 
+	 * @param etudiant
+	 * @return etudiant
+	 */
+	@Override
+	public Etudiant recupTout(Etudiant etudiant) 
+	{
+		ExamenDaoImpl examenDao = new ExamenDaoImpl(daoFactory);
+		
+		etudiant.setBulletin(examenDao.recupBulletin(etudiant));
+		
+		return etudiant;
+	}
+	
+	/**
 	 * Supprime un groupe dans la base de données
 	 * 
 	 * @param etudiant
@@ -467,4 +480,5 @@ public class EtudiantDaoImpl implements EtudiantDao
 		
 		return etudiant;
 	}
+	
 }
