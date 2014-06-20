@@ -24,14 +24,14 @@ public class Professeur extends Utilisateur implements Comparable<Professeur>
 	public Professeur(Professeur professeur)
 	{
 		super(professeur);
-		this.setListeMatieres(professeur.getListeMatieres());
-		this.setListeGroupes(professeur.getListeGroupes());
+		this.listeMatieres = professeur.getListeMatieres();
+		this.listeGroupes = professeur.getListeGroupes();
 	}
 	
 	/**
-	 * Retourne la liste des mati�res du professeur
+	 * Retourne la liste des matières du professeur
 	 * 
-	 * @return listeMatieres La liste des mati�res du professeur.
+	 * @return listeMatieres La liste des matières du professeur.
 	 */
 	public Set<Matiere> getListeMatieres()
 	{
@@ -39,9 +39,9 @@ public class Professeur extends Utilisateur implements Comparable<Professeur>
 	}
 	
 	/**
-	 * D�fini la liste des mai�res du professeu
+	 * Défini la liste des matières du professeur
 	 * 
-	 * @param listeMatieres Une liste de mati�res.
+	 * @param listeMatieres Une liste de matières.
 	 */
 	public void setListeMatieres(Set<Matiere> listeMatieres) 
 	{
@@ -59,7 +59,7 @@ public class Professeur extends Utilisateur implements Comparable<Professeur>
 	}
 	
 	/**
-	 * D�fini la liste des groupes du professeu
+	 * Défini la liste des groupes du professeur
 	 * 
 	 * @param listeGroupes Une liste de groupes.
 	 */
@@ -69,7 +69,7 @@ public class Professeur extends Utilisateur implements Comparable<Professeur>
 	}
 	
 	/**
-	 * Compare le num�ro d'identification de deux professeurs
+	 * Compare le numéro d'identification de deux professeurs
 	 * 
 	 * @param professeur2 Un professeur.
 	 */
