@@ -21,14 +21,14 @@ public class Groupe implements Comparable<Groupe>
 	 */
 	public Groupe(Groupe groupe) 
 	{
-		this.setId(groupe.getId());
-		this.setNom(groupe.getNom());
+		this.id = groupe.getId();
+		this.nom = groupe.getNom();
 	}
 	
 	/**
-	 * Retourne le num�ro d'identification du groupe
+	 * Retourne le numéro d'identification du groupe
 	 * 
-	 * @return id Le num�ro d'identification du groupe.
+	 * @return id Le numéro d'identification du groupe.
 	 */
 	public Long getId() 
 	{
@@ -36,9 +36,9 @@ public class Groupe implements Comparable<Groupe>
 	}
 	
 	/**
-	 * D�fini le num�ro d'identification du groupe
+	 * Défini le numéro d'identification du groupe
 	 * 
-	 * @param id Un num�ro d'identification.
+	 * @param id Un numéro d'identification.
 	 */
 	public void setId(Long id) 
 	{
@@ -56,7 +56,7 @@ public class Groupe implements Comparable<Groupe>
 	}
 	
 	/**
-	 * D�fini le nom du groupe
+	 * Défini le nom du groupe
 	 * 
 	 * @param nom Un nom.
 	 */
@@ -66,7 +66,7 @@ public class Groupe implements Comparable<Groupe>
 	}
 	
 	/**
-	 * Compare le num�ro d'identification de deux groupes
+	 * Compare le numéro d'identification de deux groupes
 	 * 
 	 * @param groupe2 Un groupe.
 	 */

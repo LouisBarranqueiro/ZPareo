@@ -27,17 +27,17 @@ public abstract class Utilisateur
 	 */
 	public Utilisateur(Utilisateur utilisateur)
 	{
-		this.setId(utilisateur.getId());
-		this.setNom(utilisateur.getNom());
-		this.setPrenom(utilisateur.getPrenom());
-		this.setAdresseMail(utilisateur.getAdresseMail());
-		this.setMotDePasse(utilisateur.getMotDePasse());
+		this.id = utilisateur.getId();
+		this.nom = utilisateur.getNom();
+		this.prenom = utilisateur.getPrenom();
+		this.adresseMail = utilisateur.getAdresseMail();
+		this.motDePasse = utilisateur.getMotDePasse();
 	}
 	
 	/**
-	 * Retourne le numro d'identification de l'utilisateur
+	 * Retourne le numÃ©ro d'identification de l'utilisateur
 	 * 
-	 * @return id Le numro d'identification.
+	 * @return id Le numÃ©ro d'identification.
 	 */
 	public Long getId() 
 	{
@@ -45,9 +45,9 @@ public abstract class Utilisateur
 	}
 	
 	/**
-	 * Dfini le numro d'identification de l'utilisateur
+	 * DÃ©fini le numÃ©ro d'identification de l'utilisateur
 	 * 
-	 * @return id Un numro d'identification.
+	 * @return id Un numÃ©ro d'identification.
 	 */
 	public void setId(Long id) 
 	{
@@ -65,7 +65,7 @@ public abstract class Utilisateur
 	}
 	
 	/**
-	 * Dfini le nom de l'utilisateur
+	 * DÃ©fini le nom de l'utilisateur
 	 * 
 	 * @return id Un nom.
 	 */
@@ -85,7 +85,7 @@ public abstract class Utilisateur
 	}
 	
 	/**
-	 * Dfini le prenom de l'utilisateur
+	 * DÃ©fini le prenom de l'utilisateur
 	 * 
 	 * @param prenom Un prenom.
 	 */
@@ -104,7 +104,7 @@ public abstract class Utilisateur
 		return adresseMail;
 	}
 	 /**
-	  * Dfini l'adresse mail de l'utilisateur
+	  * DÃ©fini l'adresse mail de l'utilisateur
 	  * 
 	  * @param adresseMail Une adresse mail.
 	  */
@@ -124,7 +124,7 @@ public abstract class Utilisateur
 	}
 	
 	/**
-	 * Dfini le mot de passe de l'utilisateur
+	 * DÃ©fini le mot de passe de l'utilisateur
 	 * 
 	 * @param motDePasse Un mot de passe.
 	 */

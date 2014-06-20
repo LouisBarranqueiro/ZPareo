@@ -21,13 +21,13 @@ public class Bulletin
 	/**
 	 * Constructeur
 	 * 
-	 * @param bulletin Une bulletin.
+	 * @param bulletin Un bulletin.
 	 */
 	public Bulletin(Bulletin bulletin)
 	{
-		this.setId(bulletin.getId());
-		this.setMoyenne(bulletin.getMoyenne());
-		this.setListeMatiereNote(bulletin.getListeMatiereNote());
+		this.id = bulletin.getId();
+		this.moyenne = bulletin.getMoyenne();
+		this.listeMatiereNote = bulletin.getListeMatiereNote();
 	}
 	
 	/**

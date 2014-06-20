@@ -26,9 +26,9 @@ public class MatiereNote implements Comparable<MatiereNote>
 	 */
 	public MatiereNote(MatiereNote matiereNote)
 	{
-		this.setId(matiereNote.getId());
-		this.setMatiere(matiereNote.getMatiere());
-		this.setListeExamens(matiereNote.getListeExamens());
+		this.id = matiereNote.getId();
+		this.matiere = matiereNote.getMatiere();
+		this.listeExamens = matiereNote.getListeExamens();
 	}
 	/**
 	 * Retourne le numéro d'identification de l'objet

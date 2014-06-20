@@ -1,11 +1,12 @@
 package beans;
 
-import java.util.Set;
-
 public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 {
 	private Groupe groupe;
+<<<<<<< HEAD
+=======
 	private Set<Note> listeNotes;
+>>>>>>> bd663d8416c4ae10605929587e6a0762138f4060
 	private Bulletin bulletin;
 
 	/**
@@ -15,27 +16,35 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	{
 		super();
 		this.groupe = null;
+<<<<<<< HEAD
+=======
 		this.listeNotes = null;
+>>>>>>> bd663d8416c4ae10605929587e6a0762138f4060
 		this.bulletin = null;
 	}
 	
 	/**
 	 * Constructeur
 	 * 
-	 * @param etudiant Un �tudiant.
+	 * @param etudiant Un étudiant.
 	 */
 	public Etudiant(Etudiant etudiant)
 	{
 		super(etudiant);
+<<<<<<< HEAD
+		this.groupe = etudiant.getGroupe();
+		this.bulletin = etudiant.getBulletin();
+=======
 		this.setGroupe(etudiant.getGroupe());
 		this.setListeNote(listeNotes);
 		this.setBulletin(etudiant.getBulletin());
+>>>>>>> bd663d8416c4ae10605929587e6a0762138f4060
 	}
 	
 	/**
-	 * Retourne le groupe de l'�tudiant
+	 * Retourne le groupe de l'étudiant
 	 * 
-	 * @return groupe Le groupe de l'�tudiant.
+	 * @return groupe Le groupe de l'étudiant.
 	 */
 	public Groupe getGroupe() 
 	{
@@ -43,7 +52,7 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	}
 	
 	/**
-	 * D�fini le groupe de l'�tudiant
+	 * Défini le groupe de l'étudiant
 	 * 
 	 * @param groupe Un groupe.
 	 */
@@ -51,28 +60,31 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	{
 		this.groupe = groupe;
 	}
-	
+
 	/**
-	 * Retourne la liste des notes de l'�tudiant
+	 * Retourne la liste des notes de l'etudiant
 	 * 
-	 * @return listeNotes La liste des notes de l'�tudiant.
+	 * @return bulletin Le bulletin de l'etudiant.
 	 */
-	public Set<Note> getListeNote() 
+	public Bulletin getBulletin() 
 	{
-		return listeNotes;
+		return bulletin;
 	}
 	
 	/**
-	 * D�fini la liste des notes de l'�tudiant
+	 * Défini le bulletin de l'étudiant
 	 * 
-	 * @param listeNote Un liste de notes.
+	 * @param bulletin Un bulletin.
 	 */
-	public void setListeNote(Set<Note> listeNote) 
+	public void setBulletin(Bulletin bulletin) 
 	{
-		this.listeNotes = listeNote;
+		this.bulletin = bulletin;
 	}
 	
 	/**
+<<<<<<< HEAD
+	 * Compare le numéro d'identification de deux étudiants
+=======
 	 * Retourne la liste des notes de l'�tudiant
 	 * 
 	 * @return bulletin Le bulletin de l'�tudiant.
@@ -94,8 +106,9 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	
 	/**
 	 * Compare le num�ro d'identification de deux �tudiants
+>>>>>>> bd663d8416c4ae10605929587e6a0762138f4060
 	 * 
-	 * @param etudiant2 Un �tudiant.
+	 * @param etudiant2 Un étudiant.
 	 */
 	@Override
 	public int compareTo(Etudiant etudiant2) 

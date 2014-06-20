@@ -12,7 +12,7 @@ public class Examen implements Comparable<Examen>
 	private Groupe groupe;
 	private Matiere matiere;
 	private Set<Note> listeNotes;
-	private Float moyenneGenerale;
+	private Float moyenne;
 	private Float coefficient;
 	
 	/**
@@ -28,7 +28,7 @@ public class Examen implements Comparable<Examen>
 		this.groupe = null;
 		this.matiere = null;
 		this.listeNotes = null;
-		this.moyenneGenerale = null;
+		this.moyenne = null;
 		this.coefficient = null;
 	}
 	
@@ -39,22 +39,22 @@ public class Examen implements Comparable<Examen>
 	 */
 	public Examen(Examen examen)
 	{
-		this.setId(examen.getId());
-		this.setNom(examen.getNom());
-		this.setDate(examen.getDate());
-		this.setFormat(examen.getFormat());
-		this.setProfesseur(examen.getProfesseur());
-		this.setGroupe(examen.getGroupe());
-		this.setMatiere(examen.getMatiere());
-		this.setListeNotes(examen.getListeNotes());
-		this.setMoyenneGenerale(examen.getMoyenneGenerale());
-		this.setCoefficient(examen.getCoefficient());
+		this.id = examen.getId();
+		this.nom = examen.getNom();
+		this.date = examen.getDate();
+		this.format = examen.getFormat();
+		this.professeur = examen.getProfesseur();
+		this.groupe = examen.getGroupe();
+		this.matiere = examen.getMatiere();
+		this.listeNotes = examen.getListeNotes();
+		this.moyenne = examen.getMoyenne();
+		this.coefficient = examen.getCoefficient();
 	}
 	
 	/**
-	 * Retourne le num�ro d'identification de l'examen
+	 * Retourne le numéro d'identification de l'examen
 	 * 
-	 * @return id Le num�ro d'identification de l'examen.
+	 * @return id Le numéro d'identification de l'examen.
 	 */
 	public Long getId() 
 	{
@@ -62,9 +62,9 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * D�fini le num�ro d'identification de l'examen
+	 * Défini le numéro d'identification de l'examen
 	 * 
-	 * @param id Un num�ro d'identification.
+	 * @param id Un numéro d'identification.
 	 */
 	public void setId(Long id) 
 	{
@@ -82,7 +82,7 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * D�fini le nom de l'examen
+	 * Défini le nom de l'examen
 	 * 
 	 * @param nom Un nom.
 	 */
@@ -102,7 +102,7 @@ public class Examen implements Comparable<Examen>
 	}
 
 	/**
-	 * D�fini la date de l'examen
+	 * Défini la date de l'examen
 	 * 
 	 * @param date Une date.
 	 */
@@ -122,7 +122,7 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * D�fini le format de l'examen
+	 * Défini le format de l'examen
 	 * 
 	 * @param format Un format d'examen.
 	 */
@@ -142,7 +142,7 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * D�fini le professeur responsable de l'examen
+	 * Défini le professeur responsable de l'examen
 	 * 
 	 * @param professeur Un professeur.
 	 */
@@ -162,7 +162,7 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * D�fini le groupe de l'examen
+	 * Défini le groupe de l'examen
 	 * 
 	 * @param groupe Un groupe.
 	 */
@@ -172,9 +172,9 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * Retourne la mati�re de l'examen
+	 * Retourne la matiére de l'examen
 	 * 
-	 * @return matiere La mati�re de l'examen.
+	 * @return matiere La matiére de l'examen.
 	 */
 	public Matiere getMatiere()
 	{
@@ -182,9 +182,9 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * D�fini la mati�re de l'examen
+	 * Défini la matiére de l'examen
 	 * 
-	 * @param matiere Une mati�re.
+	 * @param matiere Une matiére.
 	 */
 	public void setMatiere(Matiere matiere)
 	{
@@ -202,7 +202,7 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * D�fini la liste de notes de l'examen
+	 * Défini la liste de notes de l'examen
 	 * 
 	 * @param listeNotes Une liste de notes.
 	 */
@@ -212,22 +212,22 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * Retourne la moyenne g�n�rale de l'examen
+	 * Retourne la moyenne générale de l'examen
 	 * 
-	 * @return moyenneGenerale La moyenne g�n�rale de l'examen.
+	 * @return moyenneGenerale La moyenne générale de l'examen.
 	 */
-	public Float getMoyenneGenerale() {
-		return moyenneGenerale;
+	public Float getMoyenne() {
+		return moyenne;
 	}
 
 	/**
-	 * D�fini la moyenne g�n�rale de l'examen
+	 * Défini la moyenne générale de l'examen
 	 * 
-	 * @param moyenneGenerale Une moyenne g�n�rale.
+	 * @param moyenneGenerale Une moyenne générale.
 	 */
-	public void setMoyenneGenerale(Float moyenneGenerale) 
+	public void setMoyenne(Float moyenne) 
 	{
-		this.moyenneGenerale = moyenneGenerale;
+		this.moyenne = moyenne;
 	}
 
 	/**
@@ -241,7 +241,7 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * D�fini le coefficient de l'examen
+	 * Défini le coefficient de l'examen
 	 * 
 	 * @param coefficient Un coefficient.
 	 */
@@ -251,7 +251,7 @@ public class Examen implements Comparable<Examen>
 	}
 	
 	/**
-	 * Compare le num�ro d'identification de deux examens
+	 * Compare le numéro d'identification de deux examens
 	 * 
 	 * @param examen2 Un examen.
 	 */

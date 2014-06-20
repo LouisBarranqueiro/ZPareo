@@ -23,9 +23,9 @@ public class Note implements Comparable<Note>
 	 */
 	public Note(Note note)
 	{
-		this.setId(note.getId());
-		this.setNote(note.getNote());
-		this.setEtudiant(note.getEtudiant());
+		this.id = note.getId();
+		this.note = note.getNote();
+		this.etudiant = note.getEtudiant();
 	}
 	
 	/**
@@ -37,13 +37,21 @@ public class Note implements Comparable<Note>
 	{
 		this.id = null;
 		this.note = null;
+<<<<<<< HEAD
+		this.etudiant = etudiant;
+	}
+	
+	/**
+	 * Retourne le numéro d'identification de la note
+=======
 		this.setEtudiant(etudiant);
 	}
 	
 	/**
 	 * Retourne le num�ro d'identification de la note
+>>>>>>> bd663d8416c4ae10605929587e6a0762138f4060
 	 * 
-	 * @return id Le num�ro d'identification de la note.
+	 * @return id Le numéro d'identification de la note.
 	 */
 	public Long getId() 
 	{
@@ -51,9 +59,9 @@ public class Note implements Comparable<Note>
 	}
 	
 	/**
-	 * D�fini le num�ro d'identification de la note
+	 * Défini le numéro d'identification de la note
 	 * 
-	 * @param id Un num�ro d'identification.
+	 * @param id Un numéro d'identification.
 	 */
 	public void setId(Long id) 
 	{
@@ -71,7 +79,7 @@ public class Note implements Comparable<Note>
 	}
 	
 	/**
-	 * D�fini la note de la note
+	 * Défini la note de la note
 	 * 
 	 * @param note Une note.
 	 */
@@ -83,7 +91,7 @@ public class Note implements Comparable<Note>
 	/**
 	 * Retoune l'etudiant de la note
 	 * 
-	 * @return etudiant L'�tudiant de la note.
+	 * @return etudiant L'étudiant de la note.
 	 */
 	public Etudiant getEtudiant() 
 	{
@@ -91,9 +99,9 @@ public class Note implements Comparable<Note>
 	}
 	
 	/**
-	 * D�fini l'�tudiant de la note
+	 * Défini l'étudiant de la note
 	 * 
-	 * @param etudiant Un �tudiant.
+	 * @param etudiant Un étudiant.
 	 */
 	public void setEtudiant(Etudiant etudiant) 
 	{
@@ -101,7 +109,7 @@ public class Note implements Comparable<Note>
 	}
 	
 	/**
-	 * Compare le nom des �tudiants de deux notes
+	 * Compare le nom des étudiants de deux notes
 	 * 
 	 * @param note Une note.
 	 */

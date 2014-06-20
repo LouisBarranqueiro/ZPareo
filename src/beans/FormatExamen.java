@@ -21,14 +21,14 @@ public class FormatExamen
 	 */
 	public FormatExamen(FormatExamen format) 
 	{
-		this.setId(format.getId());
-		this.setNom(format.getNom());
+		this.id = format.getId();
+		this.nom = format.getNom();
 	}
 	
 	/**
-	 * Retourne le numéro d'identification du format d'examen
+	 * Retourne le num√©ro d'identification du format d'examen
 	 * 
-	 * @return id Le numéro d'identification du format d'examen.
+	 * @return id Le num√©ro d'identification du format d'examen.
 	 */
 	public Long getId() 
 	{
@@ -36,9 +36,9 @@ public class FormatExamen
 	}
 	
 	/**
-	 * Défini le numéro d'identification du format d'examen
+	 * D√©fini le num√©ro d'identification du format d'examen
 	 * 
-	 * @param id Un numéro d'identification.
+	 * @param id Un num√©ro d'identification.
 	 */
 	public void setId(Long id)
 	{
@@ -56,7 +56,7 @@ public class FormatExamen
 	}
 	
 	/**
-	 * Défini le nom du format d'examen
+	 * D√©fini le nom du format d'examen
 	 * 
 	 * @param nom Un nom.
 	 */

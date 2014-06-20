@@ -30,14 +30,14 @@ public class Matiere implements Comparable<Matiere>
 	 */
 	public Matiere(Matiere matiere)
 	{
-		this.setId(matiere.getId());
-		this.setNom(matiere.getNom());
+		this.id = matiere.getId();
+		this.nom = matiere.getNom();
 	}
 	
 	/**
-	 * Retourne le num�ro d'identification de la mati�re
+	 * Retourne le numéro d'identification de la matiére
 	 * 
-	 * @return id Le num�ro d'identification de la mati�re.
+	 * @return id Le numéro d'identification de la matiére.
 	 */
 	public Long getId() 
 	{
@@ -45,9 +45,9 @@ public class Matiere implements Comparable<Matiere>
 	}
 	
 	/**
-	 * D�fini le num�ro d'identification de la mati�re+
+	 * Défini le numéro d'identification de la matiére+
 	 * 
-	 * @param id Un num�ro d'identification.
+	 * @param id Un numéro d'identification.
 	 */
 	public void setId(Long id) 
 	{
@@ -55,9 +55,9 @@ public class Matiere implements Comparable<Matiere>
 	}
 	
 	/**
-	 * Retourne le nom de la mati�re
+	 * Retourne le nom de la matiére
 	 * 
-	 * @return nom Le nom de la mati�re.
+	 * @return nom Le nom de la matiére.
 	 */
 	public String getNom() 
 	{
@@ -65,7 +65,7 @@ public class Matiere implements Comparable<Matiere>
 	}
 	
 	/**
-	 * D�fini le nom de la mati�re
+	 * Défini le nom de la matiére
 	 * 
 	 * @param nom Un nom.
 	 */
@@ -75,9 +75,9 @@ public class Matiere implements Comparable<Matiere>
 	}
 	
 	/**
-	 * Compare le num�ro d'identification de deux mati�res
+	 * Compare le numéro d'identification de deux matiéres
 	 * 
-	 * @param matiere2 Une mati�re.
+	 * @param matiere2 Une matiére.
 	 */
 	@Override
 	public int compareTo(Matiere matiere2) 
