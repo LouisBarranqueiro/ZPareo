@@ -3,10 +3,6 @@ package beans;
 public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 {
 	private Groupe groupe;
-<<<<<<< HEAD
-=======
-	private Set<Note> listeNotes;
->>>>>>> bd663d8416c4ae10605929587e6a0762138f4060
 	private Bulletin bulletin;
 
 	/**
@@ -16,10 +12,6 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	{
 		super();
 		this.groupe = null;
-<<<<<<< HEAD
-=======
-		this.listeNotes = null;
->>>>>>> bd663d8416c4ae10605929587e6a0762138f4060
 		this.bulletin = null;
 	}
 	
@@ -31,14 +23,8 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	public Etudiant(Etudiant etudiant)
 	{
 		super(etudiant);
-<<<<<<< HEAD
 		this.groupe = etudiant.getGroupe();
 		this.bulletin = etudiant.getBulletin();
-=======
-		this.setGroupe(etudiant.getGroupe());
-		this.setListeNote(listeNotes);
-		this.setBulletin(etudiant.getBulletin());
->>>>>>> bd663d8416c4ae10605929587e6a0762138f4060
 	}
 	
 	/**
@@ -82,31 +68,7 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * Compare le numéro d'identification de deux étudiants
-=======
-	 * Retourne la liste des notes de l'�tudiant
-	 * 
-	 * @return bulletin Le bulletin de l'�tudiant.
-	 */
-	public Bulletin getBulletin() 
-	{
-		return bulletin;
-	}
-	
-	/**
-	 * Défini le bulletin de l'etudiant
-	 * 
-	 * @param bulletin Un bulletin.
-	 */
-	public void setBulletin(Bulletin bulletin) 
-	{
-		this.bulletin = bulletin;
-	}
-	
-	/**
-	 * Compare le num�ro d'identification de deux �tudiants
->>>>>>> bd663d8416c4ae10605929587e6a0762138f4060
 	 * 
 	 * @param etudiant2 Un étudiant.
 	 */

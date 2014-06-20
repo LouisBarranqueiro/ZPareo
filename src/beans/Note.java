@@ -37,19 +37,11 @@ public class Note implements Comparable<Note>
 	{
 		this.id = null;
 		this.note = null;
-<<<<<<< HEAD
 		this.etudiant = etudiant;
 	}
 	
 	/**
 	 * Retourne le numéro d'identification de la note
-=======
-		this.setEtudiant(etudiant);
-	}
-	
-	/**
-	 * Retourne le num�ro d'identification de la note
->>>>>>> bd663d8416c4ae10605929587e6a0762138f4060
 	 * 
 	 * @return id Le numéro d'identification de la note.
 	 */
