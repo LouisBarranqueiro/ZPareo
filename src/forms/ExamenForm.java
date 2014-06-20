@@ -368,11 +368,11 @@ public final class ExamenForm
      * @param moyenneGenerale
      * @param examen
      */
-    private void traiterMoyenneGenerale(String moyenneGenerale, Examen examen) 
+    private void traiterMoyenneGenerale(String moyenne, Examen examen) 
     {
-    	if (moyenneGenerale != null) 
+    	if (moyenne != null) 
     	{
-    		examen.setMoyenneGenerale(Float.parseFloat(moyenneGenerale));
+    		examen.setMoyenne(Float.parseFloat(moyenne));
     	}
     }
     
