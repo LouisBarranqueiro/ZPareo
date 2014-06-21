@@ -22,13 +22,6 @@ public class AdministrateurFiltre implements Filter
     {
     }
 
-    /**
-     * Filtre l'ensemble des pages commencant par "/ai/*"
-     * 
-     * @param req La requete.
-     * @param rep La réponse.
-     * @param chain Le pattern URL.
-     */
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException 
     {
         HttpServletRequest request = (HttpServletRequest) req;

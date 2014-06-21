@@ -22,13 +22,6 @@ public class EtudiantFiltre implements Filter
     {
     }
 
-    /**
-     * Filtre l'ensemble des pages commencant par "/ei/*"
-     * 
-     * @param req La requete.
-     * @param rep La réponse.
-     * @param chain Le pattern URL.
-     */
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException 
     {
         HttpServletRequest request = (HttpServletRequest) req;

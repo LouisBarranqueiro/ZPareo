@@ -24,13 +24,6 @@ public class ZPareoFiltre implements Filter
     {
     }
 
-    /**
-     * Filtre l'ensemble de l'application web
-     * 
-     * @param req La requete.
-     * @param rep La réponse.
-     * @param chain Le pattern URL.
-     */
     public void doFilter(ServletRequest req, ServletResponse rep, FilterChain chain) throws IOException, ServletException 
     {
         HttpServletRequest request = (HttpServletRequest) req;

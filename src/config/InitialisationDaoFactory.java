@@ -17,11 +17,6 @@ public class InitialisationDaoFactory implements ServletContextListener
     {
     }
 
-    /**
-     * Initialise le contexte de la servlet
-     * 
-     * @param event 
-     */
     @Override
     public void contextInitialized(ServletContextEvent event) 
     {

@@ -22,13 +22,6 @@ public class ProfesseurFiltre implements Filter
     {
     }
 
-    /**
-     * Filtre l'ensemble des pages commencant par "/pi/*"
-     * 
-     * @param req La requete.
-     * @param rep La réponse.
-     * @param chain Le pattern URL.
-     */
     public void doFilter(ServletRequest req, ServletResponse rep, FilterChain chain) throws IOException, ServletException 
     {
         HttpServletRequest request = (HttpServletRequest) req;
