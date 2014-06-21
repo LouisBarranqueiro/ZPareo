@@ -7,31 +7,31 @@ import beans.Administrateur;
 public interface AdministrateurDao
 {
 	/**
-     * Ajoute un administrateur dans la base de donn�es
+     * Ajoute un administrateur dans la base de données
      * 
      * @param administrateur
      * @throws DAOException
      */
-	void creer(Administrateur utilisateur, Administrateur administrateur) throws DAOException;
+	void creer(Administrateur administrateur) throws DAOException;
 	
 	/**
-     * Recherche une ou des administrateur(s) dans la base de donn�es
+     * Recherche une ou des administrateur(s) dans la base de données
      * 
      * @param administrateur
      * @throws DAOException
      */
-	Set<Administrateur> rechercher(Administrateur etudiant) throws DAOException;
+	Set<Administrateur> rechercher(Administrateur administrateur) throws DAOException;
 	
 	/**
-	 * Edite un administrateur dans la base de donn�es
+	 * Edite un administrateur dans la base de données
 	 * 
 	 * @param administrateur
 	 * @throws DAOException
 	 */
-	Administrateur editer(Administrateur utilisateur, Administrateur administrateur) throws DAOException;
+	Administrateur editer(Administrateur administrateur) throws DAOException;
 	
 	/**
-	 * Trouve un administrateur dans la base de donn�es
+	 * Trouve un administrateur dans la base de données
 	 * 
 	 * @param administrateur
 	 * @throws DAOException
@@ -39,14 +39,7 @@ public interface AdministrateurDao
 	Administrateur trouver(Administrateur administrateur) throws DAOException;
 
 	/**
-	 * Compte le nombre d'administrateurs de la base de donn�es
-	 * 
-	 * @throws DAOException
-	 */
-	int compterTous() throws DAOException;
-	
-	/**
-	 * V�rifie l'existance d'un administrateur dans la base de donn�es
+	 * Vérifie l'existance d'un administrateur dans la base de données
 	 * 
 	 * @param administrateur
 	 * @throws DAOException
@@ -54,15 +47,15 @@ public interface AdministrateurDao
 	int verifExistance(Administrateur administrateur) throws DAOException;
 
 	/**
-	 * Supprime un administrateur dans la base de donn�es
+	 * Supprime un administrateur dans la base de données
 	 * 
 	 * @param administrateur
 	 * @throws DAOException
 	 */
-	int supprimer(Administrateur utilisateur, Administrateur administrateur) throws DAOException;
+	void supprimer(Administrateur administrateur) throws DAOException;
 	
 	/**
-	 * Vérifie les identifiants d'un etudiant dans la base de données
+	 * Vérifie les identifiants d'un administrateur dans la base de données
 	 * 
 	 * @param administrateur
 	 * @throws DAOException

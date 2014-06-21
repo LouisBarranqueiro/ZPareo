@@ -16,7 +16,6 @@ import beans.Administrateur;
 public class AdministrateurDaoImpl implements AdministrateurDao
 {
 	private DAOFactory daoFactory;
-	private static final String SQL_COUNT_TOUS                    = "SELECT COUNT(id) FROM gnw_utilisateur WHERE profil = 2 AND date_suppr IS NULL";
 	private static final String SQL_SELECT_COUNT_PAR_ADRESSE_MAIL = "SELECT COUNT(id) FROM gnw_utilisateur WHERE adresse_mail = ?";
 	private static final String SQL_SELECT_TOUS                   = "SELECT id, nom, prenom, adresse_mail  FROM gnw_utilisateur WHERE profil = 2 AND date_suppr IS NULL";
 	private static final String SQL_SELECT_PAR_ID                 = "SELECT id, nom, prenom, adresse_mail FROM gnw_utilisateur WHERE id = ? AND date_suppr IS NULL";;
@@ -42,15 +41,16 @@ public class AdministrateurDaoImpl implements AdministrateurDao
      * @param administrateur
      * @throws DAOException
      */
-	public void creer(Administrateur utilisateur, Administrateur administrateur) throws DAOException 
+	public void creer(Administrateur administrateur) throws DAOException 
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
+		Administrateur createur = new Administrateur(administrateur.getCreateur());
 		
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_PROFESSEUR, true, administrateur.getNom(), administrateur.getPrenom(), administrateur.getAdresseMail(), administrateur.getMotDePasse(), utilisateur.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_PROFESSEUR, true, administrateur.getNom(), administrateur.getPrenom(), administrateur.getAdresseMail(), administrateur.getMotDePasse(), createur.getId());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -141,39 +141,7 @@ public class AdministrateurDaoImpl implements AdministrateurDao
 		
 		return listeAdministrateurs;
 	}
-	
-	/**
-	 * Compte tous les administrateurs de la base de données
-	 * 
-	 * @return nbAdministrateurs
-	 */
-	public int compterTous() throws DAOException
-	{
-		Connection connexion = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet;
-		int nbAdministrateurs;
-		
-		try 
-		{
-			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_COUNT_TOUS, true);
-			resultSet = preparedStatement.executeQuery();
-			resultSet.next();
-			nbAdministrateurs = resultSet.getInt(1);
-		} 
-		catch (SQLException e) 
-		{
-			throw new DAOException(e);
-		} 
-		finally 
-		{
-			fermeturesSilencieuses(preparedStatement, connexion);
-		}
-		
-		return nbAdministrateurs;
-	}
-	
+
 	/**
 	 * Edite un administrateur dans la base de données
 	 * 
@@ -181,15 +149,15 @@ public class AdministrateurDaoImpl implements AdministrateurDao
 	 * @return administrateur
 	 * @throws DAOException
 	 */
-	public Administrateur editer(Administrateur utilisateur, Administrateur administrateur) throws DAOException
+	public Administrateur editer(Administrateur administrateur) throws DAOException
 	{
-		// Edite les informations générales du professeur
-		editerInformations(utilisateur, administrateur);
+		// Edite les informations générales de l'administrateur
+		editerInformations(administrateur);
 		
-		// Edite le mot de passe du professeur
+		// Edite le mot de passe de l'administrateur
 		if (administrateur.getMotDePasse() != null)
 		{
-			editerMotDePasse(utilisateur, administrateur);			
+			editerMotDePasse(administrateur);			
 		}
 			
 		return administrateur;
@@ -202,15 +170,16 @@ public class AdministrateurDaoImpl implements AdministrateurDao
 	 * @return administrateur
 	 * @throws DAOException
 	 */
-	public Administrateur editerInformations(Administrateur utilisateur, Administrateur administrateur) throws DAOException
+	public Administrateur editerInformations(Administrateur administrateur) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
+		Administrateur editeur = new Administrateur(administrateur.getEditeur());
 		
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_PROFESSEUR, true, administrateur.getNom(), administrateur.getPrenom(), administrateur.getAdresseMail(), utilisateur.getId(), administrateur.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_PROFESSEUR, true, administrateur.getNom(), administrateur.getPrenom(), administrateur.getAdresseMail(), editeur.getId(), administrateur.getId());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -232,15 +201,16 @@ public class AdministrateurDaoImpl implements AdministrateurDao
 	 * @return administrateur
 	 * @throws DAOException
 	 */
-	public Administrateur editerMotDePasse(Administrateur utilisateur, Administrateur administrateur) throws DAOException
+	public Administrateur editerMotDePasse(Administrateur administrateur) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
+		Administrateur editeur = new Administrateur(administrateur.getEditeur());
 		
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_MOT_DE_PASSE, true, administrateur.getMotDePasse(), utilisateur.getId(), administrateur.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_MOT_DE_PASSE, true, administrateur.getMotDePasse(), editeur.getId(), administrateur.getId());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -320,10 +290,7 @@ public class AdministrateurDaoImpl implements AdministrateurDao
 			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_PAR_ID, true, administrateur.getId());
 			resultSet = preparedStatement.executeQuery();
 			
-			if (resultSet.next()) 
-			{
-				administrateur = map(resultSet);
-	        }
+			if (resultSet.next()) administrateur = map(resultSet);
 		} 
 		catch (SQLException e) 
 		{
@@ -338,23 +305,22 @@ public class AdministrateurDaoImpl implements AdministrateurDao
 	}
 	
 	/**
-	 * Supprime un administrateur dans la base de donn�es
+	 * Supprime un administrateur dans la base de données
 	 * 
 	 * @param administrateur
-	 * @return statut
 	 * @throws DAOException
 	 */
-	public int supprimer(Administrateur utilisateur, Administrateur administrateur) 
+	public void supprimer(Administrateur administrateur) 
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
-		int statut = 0;
+		Administrateur editeur = new Administrateur(administrateur.getEditeur());
 		
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_SUPPR, true, utilisateur.getId(), administrateur.getId());
-			statut = preparedStatement.executeUpdate();
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_SUPPR, true, editeur.getId(), administrateur.getId());
+			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
 		{
@@ -364,12 +330,10 @@ public class AdministrateurDaoImpl implements AdministrateurDao
 		{
 			fermeturesSilencieuses( preparedStatement, connexion );
 		}
-		
-		return statut;
 	}
 	
 	/**
-	 * Vérifie les identifiants d'un etudiant dans la base de données
+	 * Vérifie les identifiants d'un administrateur dans la base de données
 	 * 
 	 * @param administrateur
 	 * @throws DAOException
@@ -417,7 +381,7 @@ public class AdministrateurDaoImpl implements AdministrateurDao
 	 */
 	public static PreparedStatement initialisationRequetePreparee(Connection connexion, String sql, boolean returnGeneratedKeys, Object... objets) throws SQLException 
 	{
-		PreparedStatement preparedStatement = connexion.prepareStatement(sql, returnGeneratedKeys ?Statement.RETURN_GENERATED_KEYS : Statement.NO_GENERATED_KEYS);
+		PreparedStatement preparedStatement = connexion.prepareStatement(sql, returnGeneratedKeys ? Statement.RETURN_GENERATED_KEYS : Statement.NO_GENERATED_KEYS);
 		
 		for (int i = 0; i < objets.length; i++) 
 		{
@@ -428,10 +392,10 @@ public class AdministrateurDaoImpl implements AdministrateurDao
 	}
 	
 	/**
-	 * Transfère les données du resultSet vers un objet Professeur
+	 * Transfère les données du resultSet vers un objet Adminsitrateur
 	 * 
 	 * @param resultSet
-	 * @return professeur
+	 * @return adminsitrateur
 	 * @throws SQLException
 	 */
 	private static Administrateur map(ResultSet resultSet) throws SQLException 

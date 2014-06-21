@@ -16,7 +16,6 @@ import forms.AdministrateurForm;
 public class AdministrateurSuppression extends HttpServlet 
 {
 	private static final String CONF_DAO_FACTORY           = "daofactory";
-	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
 	private static final String ATT_ADMINISTRATEUR         = "administrateur";
 	private static final String VUE_SUPPRESSION            = "/WEB-INF/ai/administrateur/suppression.jsp";
     private AdministrateurDao administrateurDao;
@@ -42,11 +41,9 @@ public class AdministrateurSuppression extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		HttpSession session = request.getSession();
 		AdministrateurForm form = new AdministrateurForm(this.administrateurDao);
-		beans.Administrateur sessionAdministrateur = (beans.Administrateur) session.getAttribute(ATT_SESSION_ADMINISTRATEUR);
 		
-		form.supprimerAdministrateur(sessionAdministrateur, request);
+		form.supprimerAdministrateur(request);
 		response.sendRedirect("http://localhost:8080/ZPareo/ai/administrateur");  
 	}
 

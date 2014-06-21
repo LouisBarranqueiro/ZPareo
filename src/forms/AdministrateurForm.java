@@ -5,19 +5,23 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import beans.Administrateur;
 import dao.AdministrateurDao;
 
 public class AdministrateurForm
 {
-	private static final String CHAMP_ID           = "id";
-    private static final String CHAMP_NOM          = "nom";
-    private static final String CHAMP_PRENOM       = "prenom";
-    private static final String CHAMP_ADRESSE_MAIL = "adresseMail";
-    private static final String CHAMP_MOT_DE_PASSE = "motDePasse";
-    private static final String CHAMP_CONFIRMATION = "confirmation";
-    private Map<String, String> erreurs            = new HashMap<String, String>();
+	private static final String SESSION_ADMINISTRATEUR = "sessionAdministrateur";
+	private static final String CHAMP_ID               = "id";
+    private static final String CHAMP_NOM              = "nom";
+    private static final String CHAMP_PRENOM           = "prenom";
+    private static final String CHAMP_ADRESSE_MAIL     = "adresseMail";
+    private static final String CHAMP_MOT_DE_PASSE     = "motDePasse";
+    private static final String CHAMP_CONFIRMATION     = "confirmation";
+    private Map<String, String> erreurs                = new HashMap<String, String>();
 	private AdministrateurDao administrateurDao;
 	 
 	/**
@@ -43,17 +47,17 @@ public class AdministrateurForm
     /**
      * Crée un administrateur dans la base de données
      * 
-     * @param sessionAdministrateur
      * @param request
      * @return administrateur
      */
-    public Administrateur creerAdministrateur(Administrateur sessionAdministrateur, HttpServletRequest request) 
+    public Administrateur creerAdministrateur(HttpServletRequest request) 
     {
     	String nom = getValeurChamp(request, CHAMP_NOM);
     	String prenom = getValeurChamp(request, CHAMP_PRENOM);
     	String adresseMail = getValeurChamp(request, CHAMP_ADRESSE_MAIL);
     	String motDePasse = getValeurChamp(request, CHAMP_MOT_DE_PASSE);
     	String confirmation = getValeurChamp(request, CHAMP_CONFIRMATION);
+    	Administrateur createur = (Administrateur) getValeurSession(request, SESSION_ADMINISTRATEUR);
     	Administrateur administrateur = new Administrateur();
     	
         try 
@@ -63,10 +67,11 @@ public class AdministrateurForm
             traiterAdresseMail(adresseMail, administrateur);
             traiterMotsDePasse(motDePasse, confirmation, administrateur);
             traiterAdministrateur(administrateur);
+            traiterCreateur(createur, administrateur);
             
             if (erreurs.isEmpty()) 
             {
-            	administrateurDao.creer(sessionAdministrateur, administrateur);
+            	administrateurDao.creer(administrateur);
             }
         } 
         catch (Exception e) 
@@ -116,7 +121,7 @@ public class AdministrateurForm
     	String id = getValeurChamp(request, CHAMP_ID);
     	Administrateur administrateur = new Administrateur();
     	
-    	administrateur.setId( Long.parseLong(id));
+    	traiterId(id, administrateur);
     	administrateur = administrateurDao.trouver(administrateur);
     	
     	return administrateur;
@@ -125,11 +130,10 @@ public class AdministrateurForm
     /**
      * Edite un administrateur dans la base de données
      * 
-     * @param utilisateur
      * @param request
      * @return administrateur
      */
-    public Administrateur editerAdministrateur(Administrateur utilisateur, HttpServletRequest request) 
+    public Administrateur editerAdministrateur(HttpServletRequest request) 
     {
     	String id = getValeurChamp(request, CHAMP_ID);
     	String nom = getValeurChamp(request, CHAMP_NOM);
@@ -137,19 +141,17 @@ public class AdministrateurForm
     	String adresseMail = getValeurChamp(request, CHAMP_ADRESSE_MAIL);
     	String motDePasse = getValeurChamp(request, CHAMP_MOT_DE_PASSE);
     	String confirmation = getValeurChamp(request, CHAMP_CONFIRMATION);
+    	Administrateur editeur = (Administrateur) getValeurSession(request, SESSION_ADMINISTRATEUR);
     	Administrateur administrateur = new Administrateur();
     	
         try 
         {
-        	if (id != null) 
-        	{
-        		administrateur.setId(Long.parseLong(id));
-        	}
-        	
+        	traiterId(id, administrateur);
             traiterNom(nom, administrateur);
             traiterPrenom(prenom, administrateur);
             traiterAdresseMail(adresseMail, administrateur);
             traiterAdministrateur(administrateur);
+            traiterEditeur(editeur, administrateur);
             
             if ((motDePasse != null) || (confirmation != null))
             {
@@ -158,7 +160,7 @@ public class AdministrateurForm
            
             if (erreurs.isEmpty()) 
             {
-            	administrateurDao.editer(utilisateur, administrateur);
+            	administrateurDao.editer(administrateur);
             }
         } 
         catch (Exception e) 
@@ -172,16 +174,28 @@ public class AdministrateurForm
     /**
      * Supprime un administrateur dans la base de données
      * 
-     * @param utilisateur
      * @param request
      */
-    public void supprimerAdministrateur(Administrateur utilisateur, HttpServletRequest request)
+    public void supprimerAdministrateur(HttpServletRequest request)
     {
     	String id = getValeurChamp(request, CHAMP_ID);
+    	Administrateur editeur = (Administrateur) getValeurSession(request, SESSION_ADMINISTRATEUR);
     	Administrateur administrateur = new Administrateur();
     	
-    	administrateur.setId(Long.parseLong(id));
-    	administrateurDao.supprimer(utilisateur, administrateur);
+    	try
+    	{
+    		traiterId(id, administrateur);
+    		traiterEditeur(editeur, administrateur);
+    		
+    		if (erreurs.isEmpty()) 
+            {
+            	administrateurDao.supprimer(administrateur);
+            }
+    	}
+    	catch (Exception e) 
+        {
+        	e.printStackTrace();
+        }	
     }
     
     /**
@@ -211,6 +225,26 @@ public class AdministrateurForm
         }
 
         return administrateur;
+    }
+
+    /**
+     *  Traite le numéro d'identification de l'administrateur
+     *  
+     * @param id
+     * @param administrateur
+     */
+    private void traiterId(String id, Administrateur administrateur)
+    {
+    	try
+    	{
+    		validationId(id);
+    	}
+    	catch (Exception e) 
+    	{
+            setErreur(CHAMP_ID, e.getMessage());
+        }
+    	
+    	administrateur.setId(Long.parseLong(id));
     }
     
     /**
@@ -331,6 +365,60 @@ public class AdministrateurForm
     }
     
     /**
+     *  Traite le créateur de l'administrateur
+     *  
+     * @param createur
+     */
+    private void traiterCreateur(Administrateur createur, Administrateur administrateur) 
+    {
+    	try 
+    	{
+    		validationCreateur(createur);
+        } 
+    	catch (Exception e) 
+    	{
+            setErreur("administrateur", e.getMessage());
+        }
+    	
+    	administrateur.setCreateur(createur);
+    	
+    }
+    
+    /**
+     *  Traite le créateur de l'administrateur
+     *  
+     * @param createur
+     */
+    private void traiterEditeur(Administrateur editeur, Administrateur administrateur) 
+    {
+    	try 
+    	{
+    		validationCreateur(editeur);
+        } 
+    	catch (Exception e) 
+    	{
+            setErreur("administrateur", e.getMessage());
+        }
+    	
+    	administrateur.setEditeur(editeur);
+    	
+    }
+    
+    /**
+     * Valide le numéro d'identification d'un administrateur
+     * 
+     * @param id
+     * @throws Exception
+     */
+    private void validationId(String id) throws Exception 
+    {
+        if ((id == null)) 
+        {
+            throw new Exception("Le numéro d'identification est nul");
+        }
+    }
+    
+    /**
      * Valide le nom d'un administrateur
      * 
      * @param nom
@@ -419,6 +507,20 @@ public class AdministrateurForm
     }
     
     /**
+     * Valide le créateur de l'administrateur
+     * 
+     * @param createur
+     * @throws Exception
+     */
+    private void validationCreateur(Administrateur createur) throws Exception 
+    {
+        if (createur.getId() == null) 
+        {
+            throw new Exception("Administrateur inconnu");
+        }
+    }
+    
+    /**
      * Crypte un mot de passe en SHA-256
      * 
      * @param motDePasse
@@ -477,6 +579,21 @@ public class AdministrateurForm
         {
             return valeur.trim();
         }
+    }
+    
+    /**
+     * Retourne la valeur d'un parametre de session
+     * 
+     * @param request
+     * @param nomSession
+     * @return objet
+     */
+    private static Object getValeurSession(HttpServletRequest request, String nomSession) 
+    {
+    	HttpSession session = request.getSession();
+    	Object objet = session.getAttribute(nomSession);
+    	
+        return((objet == null) ? null : objet);
     }
     
 }

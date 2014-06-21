@@ -17,7 +17,6 @@ public class AdministrateurCreation extends HttpServlet
 {
 	private static final String CONF_DAO_FACTORY           = "daofactory";
 	private static final String ATT_ADMINISTRATEUR         = "administrateur";
-	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
 	private static final String ATT_FORM                   = "form";
 	private static final String VUE_CREATION               = "/WEB-INF/ai/administrateur/creation.jsp";
     private AdministrateurDao administrateurDao;
@@ -39,10 +38,8 @@ public class AdministrateurCreation extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		HttpSession session = request.getSession();
 		AdministrateurForm form = new AdministrateurForm(this.administrateurDao);
-		beans.Administrateur sessionAdministrateur = (beans.Administrateur) session.getAttribute(ATT_SESSION_ADMINISTRATEUR);
-		beans.Administrateur administrateur = form.creerAdministrateur(sessionAdministrateur, request);
+		beans.Administrateur administrateur = form.creerAdministrateur(request);
 
         if (form.getErreurs().isEmpty())
         {
