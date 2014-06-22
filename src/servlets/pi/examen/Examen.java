@@ -7,8 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import beans.Professeur;
 import dao.DAOFactory;
 import dao.ExamenDao;
 import forms.ExamenForm;
@@ -17,12 +15,11 @@ import forms.ExamenForm;
 @WebServlet("/pi/examen")
 public class Examen extends HttpServlet 
 {	
-	private static final String CONF_DAO_FACTORY       = "daofactory";
-	private static final String ATT_SESSION_PROFESSEUR = "sessionProfesseur";
-	private static final String ATT_EXAMENS            = "listeExamens";
-	private static final String ATT_NB_EXAMENS         = "nbExamens";
-	private static final String ATT_FORM               = "form";
-    private static final String VUE                    = "/WEB-INF/pi/examen/index.jsp";
+	private static final String CONF_DAO_FACTORY = "daofactory";
+	private static final String ATT_EXAMENS      = "listeExamens";
+	private static final String ATT_NB_EXAMENS   = "nbExamens";
+	private static final String ATT_FORM         = "form";
+    private static final String VUE              = "/WEB-INF/pi/examen/index.jsp";
 	private ExamenDao examenDao;
 	
 	public Examen() 
@@ -37,11 +34,8 @@ public class Examen extends HttpServlet
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-	
-		HttpSession session = request.getSession();
 		ExamenForm form = new ExamenForm(examenDao);
-		Professeur professeur = (Professeur) session.getAttribute(ATT_SESSION_PROFESSEUR);
-		Set<beans.Examen> listeExamens = form.rechercherExamen(professeur, request);
+		Set<beans.Examen> listeExamens = form.rechercherExamen(request);
 		long nbExamens = listeExamens.size();
 		
         request.setAttribute(ATT_FORM, form);

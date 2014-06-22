@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!-- Fenetre modale d'edition d'un examen -->
 <div class="fenetre-modale">
 	<section class="module">
@@ -50,7 +51,7 @@
   				<div class="input-group input-group-sm form-note">
   					<span class="input-group-addon form-addon"><c:out value="${note.etudiant.prenom}"/> <c:out value="${note.etudiant.nom}"/></span>
  					<input type="hidden" name="etudiants[]" value="<c:out value="${note.etudiant.id}"/>" class="form-control" readonly="readonly"/>
- 					<input type="text" name="notes[]" value="<c:out value="${note.note}"/>" class="form-control" placeholder="Note" pattern="[0-9,.]{1,5}" x-moz-errormessage="Veuillez entrer un nombre avec ou sans virgule">		
+ 					<input type="text" name="notes[]" value="<fmt:formatNumber type="number" maxFractionDigits="1" value="${note.note}" />" class="form-control" placeholder="Note" pattern="[0-9,.]{1,5}" x-moz-errormessage="Veuillez entrer un nombre avec ou sans virgule">		
 				</div>
   				</c:forEach>
   				<span class="erreur">${ form.erreurs['notes'] }</span>

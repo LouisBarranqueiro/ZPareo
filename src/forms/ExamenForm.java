@@ -6,11 +6,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-
 import dao.ExamenDao;
-
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpSession;
 import beans.Etudiant;
 import beans.Examen;
 import beans.FormatExamen;
@@ -21,18 +19,19 @@ import beans.Professeur;
 
 public final class ExamenForm 
 {
-	private static final String CHAMP_ID               = "id";
-	private static final String CHAMP_FORMAT           = "format";
-	private static final String CHAMP_PROFESSEUR       = "professeur";
-	private static final String CHAMP_COEFFICIENT      = "coefficient";
-	private static final String CHAMP_DATE             = "date";
-	private static final String CHAMP_NOTES            = "notes";
-	private static final String CHAMP_ETUDIANTS        = "etudiants";
-    private static final String CHAMP_NOM              = "nom";
-    private static final String CHAMP_GROUPE           = "groupe";
-    private static final String CHAMP_MATIERE          = "matiere";
-    private static final String CHAMP_MOYENNE_GENERALE = "moyenneGenerale";
-    private Map<String, String> erreurs                = new HashMap<String, String>();
+	private static final String SESSION_PROFESSEUR = "sessionProfesseur";
+	private static final String CHAMP_ID           = "id";
+	private static final String CHAMP_FORMAT       = "format";
+	private static final String CHAMP_PROFESSEUR   = "professeur";
+	private static final String CHAMP_COEFFICIENT  = "coefficient";
+	private static final String CHAMP_DATE         = "date";
+	private static final String CHAMP_NOTES        = "notes";
+	private static final String CHAMP_ETUDIANTS    = "etudiants";
+    private static final String CHAMP_NOM          = "nom";
+    private static final String CHAMP_GROUPE       = "groupe";
+    private static final String CHAMP_MATIERE      = "matiere";
+    private static final String CHAMP_MOYENNE      = "moyenneGenerale";
+    private Map<String, String> erreurs            = new HashMap<String, String>();
     private ExamenDao examenDao;
     
     /**
@@ -58,8 +57,8 @@ public final class ExamenForm
     /**
      * Créer un examen dans la base de données
      * 
-     * @param examen
-     * @return listeExamens
+     * @param request
+     * @return examen
      */
     public Examen creerExamen(HttpServletRequest request) 
     {
@@ -67,25 +66,23 @@ public final class ExamenForm
     	String format = getValeurChamp(request, CHAMP_FORMAT);
     	String nom = getValeurChamp(request, CHAMP_NOM);
     	String coefficient = getValeurChamp(request, CHAMP_COEFFICIENT);
-    	String professeurId = getValeurChamp(request, CHAMP_PROFESSEUR);
     	String groupeId = getValeurChamp(request, CHAMP_GROUPE);
     	String matiereId = getValeurChamp(request, CHAMP_MATIERE);
+    	Professeur professeur = (Professeur) getValeurSession(request, SESSION_PROFESSEUR);
     	Examen examen = new Examen();
     	
         try 
         {
-        	traiterFormat(format, examen);
+        	traiterFormatId(format, examen);
         	traiterNom(nom, examen);
         	traiterDate(date, examen);
         	traiterCoefficient(coefficient, examen);
         	traiterGroupeId(groupeId, examen);
         	traiterMatiereId(matiereId, examen);
-        	traiterProfesseurId(professeurId, examen);
+        	traiterProfesseur(professeur, examen);
             
-            if (erreurs.isEmpty()) 
-            {
-            	examen = examenDao.creer(examen);
-            }
+            if (erreurs.isEmpty()) examenDao.ajouter(examen);
+            
         } 
         catch (Exception e) 
         {
@@ -108,31 +105,26 @@ public final class ExamenForm
     	String format = getValeurChamp(request, CHAMP_FORMAT);
     	String nom = getValeurChamp(request, CHAMP_NOM);
     	String coefficient = getValeurChamp(request, CHAMP_COEFFICIENT);
-    	String professeurId = getValeurChamp(request, CHAMP_PROFESSEUR);
     	String matiereId = getValeurChamp(request, CHAMP_MATIERE);
     	String etudiants = getValeurChamp(request, CHAMP_ETUDIANTS);
     	String notes = getValeurChamp(request, CHAMP_NOTES);
+    	Professeur professeur = (Professeur) getValeurSession(request, SESSION_PROFESSEUR);
     	Examen examen = new Examen();
 
     	try 
         {
     		traiterId(id, examen);
-        	traiterFormat(format, examen);
+        	traiterFormatId(format, examen);
         	traiterNom(nom, examen);
         	traiterDate(date, examen);
         	traiterCoefficient(coefficient, examen);
         	traiterMatiereId(matiereId, examen);
-        	traiterProfesseurId(professeurId, examen);
+        	traiterProfesseur(professeur, examen);
         	traiterNotes(notes, etudiants, examen);
             
-            if (erreurs.isEmpty()) 
-            {
-            	examenDao.editer(examen);
-            }
-            else
-            {
-            	examen = examenDao.trouver(examen);
-            }
+            if (erreurs.isEmpty()) examenDao.editer(examen);
+            else examen = examenDao.trouver(examen);
+            
         } 
         catch (Exception e) 
         {
@@ -145,8 +137,8 @@ public final class ExamenForm
     /**
      * Cherche un examen dans la base de données
      * 
-     * @param examen
-     * @return
+     * @param request
+     * @return examen
      */
     public Examen trouverExamen(HttpServletRequest request)
     {
@@ -161,12 +153,11 @@ public final class ExamenForm
     
     /**
      * Recherche un ou des examen(s) dans la base de données
-     * 
-     * @param professeur
+     *
      * @param request
      * @return listeExamens
      */
-    public Set<Examen> rechercherExamen(Professeur professeur, HttpServletRequest request) 
+    public Set<Examen> rechercherExamen(HttpServletRequest request) 
     {
     	String id = getValeurChamp(request, CHAMP_ID);
     	String date = getValeurChamp(request, CHAMP_DATE);
@@ -174,36 +165,42 @@ public final class ExamenForm
     	String nom = getValeurChamp(request, CHAMP_NOM);
     	String groupeId = getValeurChamp(request, CHAMP_GROUPE);
     	String matiereId = getValeurChamp(request, CHAMP_MATIERE);
-    	String moyenneGenerale = getValeurChamp(request, CHAMP_MOYENNE_GENERALE);
+    	String moyenne = getValeurChamp(request, CHAMP_MOYENNE);
     	Set<Examen> listeExamens = new TreeSet<Examen>();
+    	Professeur professeur = (Professeur) getValeurSession(request, SESSION_PROFESSEUR);
     	Examen examen = new Examen();
 
     	traiterId(id, examen);
     	traiterMatiereId(matiereId, examen);
     	traiterGroupeId(groupeId, examen);
-    	traiterMoyenneGenerale(moyenneGenerale, examen);
-    	traiterFormat(format, examen);
-    	examen.setDate(date);
+    	traiterMoyenne(moyenne, examen);
+    	traiterFormatId(format, examen);
+    	traiterDate(date, examen);
     	examen.setNom(nom);
     	examen.setProfesseur(professeur);
     	listeExamens = examenDao.rechercher(examen);
         
     	return listeExamens;
     }
-    public void supprimerExamen(Professeur professeur, HttpServletRequest request)
+    
+    /**
+     * Supprime un examen dans la base de données
+     * 
+     * @param request
+     */
+    public void supprimerExamen(HttpServletRequest request)
     {
     	String id = getValeurChamp(request, CHAMP_ID);
     	Examen examen = new Examen();
+    	Professeur professeur = (Professeur) getValeurSession(request, SESSION_PROFESSEUR);
     	
     	try 
         {
     		traiterId(id, examen);
-    		examen.setProfesseur(professeur);
+    		traiterProfesseur(professeur, examen);
             
-            if (erreurs.isEmpty()) 
-            {
-            	examenDao.supprimer(examen);
-            }
+            if (erreurs.isEmpty()) examenDao.supprimer(examen);
+            
         } 
         catch (Exception e) 
         {
@@ -212,21 +209,26 @@ public final class ExamenForm
     }
     
     /**
-     *  Traite l'attribut : id
+     *  Traite le numéro d'identification de l'examen
      *  
      * @param id
      * @param examen
      */
-    private void traiterId(String id, Examen examen) 
+    private void traiterId(String id, Examen examen)
     {
-    	if (id != null) 
+    	try
     	{
-			examen.setId(Long.parseLong(id));
+    		validationId(id);
+    		examen.setId(Long.parseLong(id));
     	}
+    	catch (Exception e) 
+    	{
+            setErreur(CHAMP_ID, e.getMessage());
+        }
     }
     
     /**
-     *  Traite l'attribut : nom
+     *  Traite le nom de l'examen
      *  
      * @param nom
      * @param examen
@@ -246,7 +248,7 @@ public final class ExamenForm
     }
     
     /**
-     *  Traite l'attribut : date
+     *  Traite la date de l'examen
      *  
      * @param date
      * @param examen
@@ -259,7 +261,7 @@ public final class ExamenForm
     		
     		if (date.matches("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)"))
     		{
-    			date = modifFormatDate("dd/MM/yyyy","yyyy-MM-dd",date);
+    			date = modifFormatDate("dd/MM/yyyy","yyyy-MM-dd", date);
     		}
     	} 	
     	catch (Exception e) 
@@ -271,7 +273,7 @@ public final class ExamenForm
     }
     
     /**
-     *  Traite l'attribut : coefficient
+     *  Traite le coefficient de l'examen
      *  
      * @param coefficient
      * @param examen
@@ -281,17 +283,16 @@ public final class ExamenForm
     	try
     	{
     		validationCoefficient(coefficient);
+    		examen.setCoefficient(Float.parseFloat(coefficient.replace(",",".")));
     	} 	
     	catch (Exception e) 
     	{
     		setErreur(CHAMP_COEFFICIENT, e.getMessage());
     	}
-    	
-    	examen.setCoefficient(Float.parseFloat(coefficient.replace(",",".")));
     }
     
     /**
-     *  Traite l'attribut : matiereId
+     *  Traite le numéro d'identification de la matière de l'examen
      *  
      * @param matiereId
      * @param examen
@@ -300,16 +301,21 @@ public final class ExamenForm
     {
     	Matiere matiere = new Matiere();
     	
-    	if (matiereId != null) 
+    	try
     	{
+    		validationMatiereId(matiereId);
     		matiere.setId(Long.parseLong(matiereId));
+    	}
+    	catch (Exception e) 
+    	{
+    		setErreur(CHAMP_MATIERE, e.getMessage());
     	}
     	
     	examen.setMatiere(matiere);
     }
     
     /**
-     *  Traite l'attribut : groupeId
+     *  Traite le numéro d'identification de la groupe de l'examen
      *  
      * @param groupeId
      * @param examen
@@ -318,66 +324,83 @@ public final class ExamenForm
     {
     	Groupe groupe = new Groupe();
     	
-    	if (groupeId != null) 
+    	try
     	{
+    		validationGroupeId(groupeId);
     		groupe.setId(Long.parseLong(groupeId));
+    	}
+    	catch (Exception e) 
+    	{
+    		setErreur(CHAMP_GROUPE, e.getMessage());
     	}
     	
     	examen.setGroupe(groupe);
     }
     
     /**
-     *  Traite l'attribut : professeurId
+     *  Traite le professeur de l'examen
      *  
-     * @param professeurId
+     * @param professeur
      * @param examen
      */
-    private void traiterProfesseurId(String professeurId, Examen examen) 
+    private void traiterProfesseur(Professeur professeur, Examen examen) 
     {
-    	Professeur professeur = new Professeur();
-    	
-    	if (professeurId != null) 
+    	try
     	{
-    		professeur.setId(Long.parseLong(professeurId));
+    		validationProfesseur(professeur);
     	}
-    	
+    	catch (Exception e) 
+    	{
+    		setErreur(CHAMP_PROFESSEUR, e.getMessage());
+    	}
+   
     	examen.setProfesseur(professeur);
     }
     
     /**
-     *  Traite l'attribut : formatId
+     *  Traite le numéro d'identification du format de l'examen
      *  
      * @param formatId
      * @param examen
      */
-    private void traiterFormat(String formatId, Examen examen) 
+    private void traiterFormatId(String formatId, Examen examen) 
     {
     	FormatExamen format = new FormatExamen();
     	
-    	if (formatId != null) 
+    	try
     	{
+    		validationFormatId(formatId);
     		format.setId(Long.parseLong(formatId));
+    	}
+    	catch (Exception e) 
+    	{
+    		setErreur(CHAMP_FORMAT, e.getMessage());
     	}
     	
     	examen.setFormat(format);
     }
 
     /**
-     *  Traite l'attribut : moyenneGenerale
+     *  Traite la moyenne de l'examen
      *  
      * @param moyenneGenerale
      * @param examen
      */
-    private void traiterMoyenneGenerale(String moyenne, Examen examen) 
+    private void traiterMoyenne(String moyenne, Examen examen) 
     {
-    	if (moyenne != null) 
+    	try
     	{
+    		validationMoyenne(moyenne);
     		examen.setMoyenne(Float.parseFloat(moyenne));
+    	}
+    	catch (Exception e) 
+    	{
+    		setErreur(CHAMP_MOYENNE, e.getMessage());
     	}
     }
     
     /**
-     *  Traite l'attribut : etudiantId
+     *  Traite le numéro d'identification d'un étudiant
      *  
      * @param etudiantId
      * @param note
@@ -386,36 +409,40 @@ public final class ExamenForm
     {
     	Etudiant etudiant = new Etudiant();
     	
-    	if (etudiantId != null) 
+    	try
     	{
+    		validationEtudiantId(etudiantId);
     		etudiant.setId(Long.parseLong(etudiantId));
-    		note.setEtudiant(etudiant);
     	}
+    	catch (Exception e) 
+    	{
+    		setErreur(CHAMP_ETUDIANTS, e.getMessage());
+    	}
+ 
+    	note.setEtudiant(etudiant);
     }
     
     /**
-     * Traite l'attribut : noteString
+     * Traite une note de l'examen
      * 
      * @param noteString
      * @param note
      */
     private void traiterNote(String noteString, Note note)
     {
-    
     	try
     	{
     		validationNote(noteString);
+    		note.setNote(Float.parseFloat(noteString.replace(",",".")));
     	}
     	catch(Exception e)
     	{
     		setErreur(CHAMP_NOTES, e.getMessage());
     	}
-    		
-    	note.setNote(Float.parseFloat(noteString.replace(",",".")));
     }
     
     /**
-     * Traite les attributs : notes et etudiants
+     * Traite les notes de l'examen
      * 
      * @param notes
      * @param etudiants
@@ -427,7 +454,7 @@ public final class ExamenForm
     	String[] tabEtudiantsId = etudiants.split("-");
     	Set<Note> listeNotes = new HashSet<Note>();
     	
-        for(int i=0;i<tabNotes.length;i++)
+        for (int i=0;i<tabNotes.length;i++)
         {
             Note note = new Note();
             traiterEtudiantId(tabEtudiantsId[i], note);
@@ -437,8 +464,20 @@ public final class ExamenForm
         
     	examen.setListeNotes(listeNotes);
     }
+
     /**
-     * Valide l'attribut : nom
+     * Valide le numéro d'identification d'un examen
+     * 
+     * @param id
+     * @throws Exception
+     */
+    private void validationId(String id) throws Exception 
+    {
+        if ((id == null)) throw new Exception("Le numéro d'identification est nul");
+    }
+    
+    /**
+     * Valide le nom de l'examen
      * 
      * @param nom
      * @throws Exception
@@ -452,21 +491,94 @@ public final class ExamenForm
     }
     
     /**
-     * Valide l'attribut : date
+     * Valide la date de l'examen
      * 
      * @param date
      * @throws Exception
      */
     private void validationDate(String date) throws Exception 
     {
-        if ((date == null) || ((!date.matches("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)")) && (!date.matches("((19|20)\\d\\d)-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])")))) 
+        if ((date == null) || ((!date.matches("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)")) 
+        		&& (!date.matches("((19|20)\\d\\d)-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])")))) 
         {
             throw new Exception("Veuillez entrer un date au format JJ/MM/AAAA");
         }
     }
     
     /**
-     * Valide l'attribut : coefficient
+     * Valide le numéro d'identification de la matière de l'examen
+     * 
+     * @param matiereId
+     * @throws Exception
+     */
+    private void validationMatiereId(String matiereId) throws Exception 
+    {
+        if (matiereId == null) throw new Exception("Veuillez sélectionner une matière");
+        
+    }
+    
+    /**
+     * Valide le professeur de l'examen
+     * 
+     * @param professeur
+     * @throws Exception
+     */
+    private void validationProfesseur(Professeur professeur) throws Exception 
+    {
+        if (professeur == null) throw new Exception("Professeur inconnu");
+        
+    }
+    
+    /**
+     * Valide le numéro d'identification du groupe de l'examen
+     * 
+     * @param groupeId
+     * @throws Exception
+     */
+    private void validationGroupeId(String groupeId) throws Exception 
+    {
+        if (groupeId == null) throw new Exception("Veuillez sélectionner un groupe");
+        
+    }
+    
+    /**
+     * Valide le numéro d'identification d'un étudiant
+     * 
+     * @param etudiantId
+     * @throws Exception
+     */
+    private void validationEtudiantId(String etudiantId) throws Exception 
+    {
+        if (etudiantId == null) throw new Exception("Etudiant inconnu");
+        
+    }
+    
+    /**
+     * Valide le numéro d'identification du format de l'examen
+     * 
+     * @param formatId
+     * @throws Exception
+     */
+    private void validationFormatId(String formatId) throws Exception 
+    {
+        if (formatId == null) throw new Exception("format d'examen inconnu");
+        
+    }
+    
+    /**
+     * Valide la moyenne de l'examen
+     * 
+     * @param moyenne
+     * @throws Exception
+     */
+    private void validationMoyenne(String moyenne) throws Exception 
+    {
+        if (moyenne == null) throw new Exception("Veuillez entrez un nombre décimal");
+        
+    }
+    
+    /**
+     * Valide le coefficient de l'examen
      * 
      * @param coefficient
      * @throws Exception
@@ -478,19 +590,17 @@ public final class ExamenForm
             throw new Exception("Veuillez entrer un nombre");
         }
     }
-    
+
     /**
-     * Valide l'attribut : note
+     * Valide une note de l'examen
      * 
      * @param note
      * @throws Exception
      */
     private void validationNote(String note) throws Exception 
     {
-        if ((note == null) || (!note.matches("[0-9,.]{1,5}"))) 
-        {
-            throw new Exception("Veuillez entrer un nombre");
-        }
+        if ((note == null) || (!note.matches("[0-9,.]{1,5}"))) throw new Exception("Veuillez entrer un nombre");
+        
     }
     
     /**
@@ -515,14 +625,22 @@ public final class ExamenForm
     {
         String valeur = request.getParameter(nomChamp);
         
-        if ((valeur == null) || (valeur.trim().length() == 0)) 
-        {
-            return null;
-        }
-        else 
-        {
-            return valeur.trim();
-        }
+        return ((valeur == null) || (valeur.trim().length() == 0) ? null : valeur.trim());
+    }
+    
+    /**
+     * Retourne la valeur d'un paramètre de session
+     * 
+     * @param request
+     * @param nomSession
+     * @return objet
+     */
+    private static Object getValeurSession(HttpServletRequest request, String nomSession) 
+    {
+    	HttpSession session = request.getSession();
+    	Object objet = session.getAttribute(nomSession);
+    	
+        return ((objet == null) ? null : objet);
     }
     
     /**
@@ -548,6 +666,7 @@ public final class ExamenForm
     	{
     		e.printStackTrace();
     	}
+    	
     	return NOUV_FORMAT.format(dateSQL);
     }
 }

@@ -983,6 +983,7 @@ var creerExamen = function()
 		    	{
 		    		$('.fenetre-modale').replaceWith(data);
 		    		initFenetreModale(600);
+		    		editerExamen();
 		    		initDatepicker();
 		    	}
 		    	else 

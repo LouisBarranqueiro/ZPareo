@@ -10,10 +10,9 @@ public interface ExamenDao
      * Ajoute un examen dans la base de données
      * 
      * @param examen
-	 * @return 
      * @throws DAOException
      */
-	Examen creer(Examen examen) throws DAOException;
+	void ajouter(Examen examen) throws DAOException;
 	
 	/**
      * Recherche une ou des examen(s) dans la base de données
@@ -45,5 +44,5 @@ public interface ExamenDao
 	 * @param examen
 	 * @throws DAOException
 	 */
-	int supprimer(Examen examen) throws DAOException;
+	void supprimer(Examen examen) throws DAOException;
 }

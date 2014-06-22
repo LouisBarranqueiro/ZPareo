@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -97,7 +98,7 @@
                                                 <td><c:out value="${ examen.nom }"/></td>
                                                 <td><c:out value="${ examen.groupe.nom }"/></td>
                                                 <td><c:out value="${ examen.matiere.nom }"/></td>
-                                                <td><c:out value="${ examen.moyenneGenerale }"/></td>
+                                                <td><fmt:formatNumber type="number" maxFractionDigits="1" value="${examen.moyenne}" /></td>
                                                 <td>
                                                     <div class="btn-group">
                                                     	<button type="button" class="bouton bouton-action" onclick="affFormDetails('pi/examen',<c:out value="${ examen.id }"/>,600)"><span class="icon-list2"></span></button>
