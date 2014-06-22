@@ -162,6 +162,7 @@ public final class MatiereForm
             setErreur(CHAMP_ID, e.getMessage());
         }
     }
+    
     /**
      *  Traite le nom d'une matière
      *  

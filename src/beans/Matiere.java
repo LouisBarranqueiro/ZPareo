@@ -14,6 +14,8 @@ public class Matiere implements Comparable<Matiere>
 	{
 		this.id = null;
 		this.nom = null;
+		this.createur = null;
+		this.editeur = null;
 	}
 	
 	/**
@@ -23,6 +25,8 @@ public class Matiere implements Comparable<Matiere>
 	{
 		this.id = id;
 		this.nom = null;
+		this.createur = null;
+		this.editeur = null;
 	}
 	
 	/**
@@ -34,6 +38,8 @@ public class Matiere implements Comparable<Matiere>
 	{
 		this.id = matiere.getId();
 		this.nom = matiere.getNom();
+		this.createur = matiere.getCreateur();
+		this.editeur = matiere.getEditeur();
 	}
 	
 	/**
