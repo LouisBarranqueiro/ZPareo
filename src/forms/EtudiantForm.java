@@ -17,14 +17,15 @@ import beans.Groupe;
 
 public final class EtudiantForm 
 {
-	private static final String SESSION_ETUDIANT      = "sessionEtudiant";
-	private static final String CHAMP_ID              = "id";
-    private static final String CHAMP_NOM             = "nom";
-    private static final String CHAMP_PRENOM          = "prenom";
-    private static final String CHAMP_ADRESSE_MAIL    = "adresseMail";
-    private static final String CHAMP_GROUPE          = "groupe";
-    private static final String CHAMP_MOT_DE_PASSE    = "motDePasse";
-    private Map<String, String> erreurs               = new HashMap<String, String>();
+	private static final String SESSION_ETUDIANT       = "sessionEtudiant";
+	private static final String SESSION_ADMINISTRATEUR = "sessionAdministrateur";
+	private static final String CHAMP_ID               = "id";
+    private static final String CHAMP_NOM              = "nom";
+    private static final String CHAMP_PRENOM           = "prenom";
+    private static final String CHAMP_ADRESSE_MAIL     = "adresseMail";
+    private static final String CHAMP_GROUPE           = "groupe";
+    private static final String CHAMP_MOT_DE_PASSE     = "motDePasse";
+    private Map<String, String> erreurs                = new HashMap<String, String>();
     private EtudiantDao etudiantDao;
     
     /**
@@ -50,16 +51,16 @@ public final class EtudiantForm
     /**
      * Crée un étudiant dans la base de données
      * 
-     * @param createur
      * @param request
      * @return etudiant
      */
-    public Etudiant creerEtudiant(Administrateur createur, HttpServletRequest request) 
+    public Etudiant creerEtudiant(HttpServletRequest request) 
     {
     	String nom = getValeurChamp(request, CHAMP_NOM);
     	String prenom = getValeurChamp(request, CHAMP_PRENOM);
     	String adresseMail = getValeurChamp(request, CHAMP_ADRESSE_MAIL);
     	String groupeId = getValeurChamp(request, CHAMP_GROUPE);
+    	Administrateur createur = (Administrateur) getValeurSession(request, SESSION_ADMINISTRATEUR);
     	Etudiant etudiant = new Etudiant();
    
         try 
@@ -70,11 +71,10 @@ public final class EtudiantForm
             traiterMotDePasse(etudiant);
             traiterGroupe(groupeId, etudiant);
             traiterEtudiant(etudiant);
+            traiterCreateur(createur, etudiant);
             
-            if (erreurs.isEmpty()) 
-            {
-            	etudiantDao.creer(createur, etudiant);
-            }
+            if (erreurs.isEmpty()) etudiantDao.creer(etudiant);
+            
         } 
         catch (Exception e) 
         {
@@ -101,15 +101,9 @@ public final class EtudiantForm
     	Etudiant etudiant = new Etudiant();
     	Groupe groupe = new Groupe();
     	
-    	if (id != null) 
-    	{
-    		etudiant.setId(Long.parseLong(id));
-    	}
+    	if (id != null) etudiant.setId(Long.parseLong(id));
     	
-    	if (groupeId != null) 
-    	{
-    		groupe.setId(Long.parseLong(groupeId));
-    	}
+    	if (groupeId != null) groupe.setId(Long.parseLong(groupeId));
     	
     	etudiant.setNom(nom);
     	etudiant.setPrenom(prenom);
@@ -123,32 +117,31 @@ public final class EtudiantForm
     /**
      * Edite un étudiant dans la base de données
      * 
-     * @param editeur
      * @param request
      * @return etudiant
      */
-    public Etudiant editerEtudiant(Administrateur editeur, HttpServletRequest request) 
+    public Etudiant editerEtudiant(HttpServletRequest request) 
     {
     	String id = getValeurChamp(request, CHAMP_ID);
     	String nom = getValeurChamp(request, CHAMP_NOM);
     	String prenom = getValeurChamp(request, CHAMP_PRENOM);
     	String adresseMail = getValeurChamp(request, CHAMP_ADRESSE_MAIL);
     	String groupeId = getValeurChamp(request, CHAMP_GROUPE);
+    	Administrateur editeur = (Administrateur) getValeurSession(request, SESSION_ADMINISTRATEUR);
     	Etudiant etudiant = new Etudiant();
     	
         try 
         {
-        	etudiant.setId(Long.parseLong(id));
+        	traiterId(id, etudiant);
             traiterNom(nom, etudiant);
             traiterPrenom(prenom, etudiant);
             traiterAdresseMail(adresseMail, etudiant);
             traiterGroupe(groupeId, etudiant);
             traiterEtudiant(etudiant);
+            traiterEditeur(editeur, etudiant);
             
-            if (erreurs.isEmpty()) 
-            {
-            	etudiantDao.editer(editeur, etudiant);
-            }
+            if (erreurs.isEmpty()) etudiantDao.editer(etudiant);
+            
         } 
         catch (Exception e) 
         {
@@ -174,7 +167,7 @@ public final class EtudiantForm
         {
         	traiterAdresseMail(adresseMail, etudiant);
         	etudiant.setMotDePasse(crypterMotDePasse(motDePasse));
-        	etudiant  = etudiantDao.verifIdentifiant(etudiant);
+        	etudiant = etudiantDao.verifIdentifiant(etudiant);
         	traiterIdentifiant(etudiant);
         	etudiant.setMotDePasse(crypterMotDePasse(motDePasse));
             etudiant.setAdresseMail(adresseMail);
@@ -210,13 +203,15 @@ public final class EtudiantForm
      * @param request
      * @return statut
      */
-    public void supprimerEtudiant(Administrateur editeur, HttpServletRequest request)
+    public void supprimerEtudiant(HttpServletRequest request)
     {
     	String id = getValeurChamp(request, CHAMP_ID);
+    	Administrateur editeur = (Administrateur) getValeurSession(request, SESSION_ADMINISTRATEUR);
     	Etudiant etudiant = new Etudiant();
     	
-    	etudiant.setId(Long.parseLong(id));
-        etudiantDao.supprimer(editeur, etudiant);
+    	traiterId(id, etudiant);
+    	traiterEditeur(editeur, etudiant);
+        etudiantDao.supprimer(etudiant);
     }
     
     /**
@@ -231,6 +226,26 @@ public final class EtudiantForm
     	etudiant = etudiantDao.recupTout(etudiant);
     	
     	return etudiant;
+    }
+    
+    /**
+     *  Traite le numéro d'identification de l'étudiant
+     *  
+     * @param id
+     * @param etudiant
+     */
+    private void traiterId(String id, Etudiant etudiant)
+    {
+    	try
+    	{
+    		validationId(id);
+    	}
+    	catch (Exception e) 
+    	{
+            setErreur(CHAMP_ID, e.getMessage());
+        }
+    	
+    	etudiant.setId(Long.parseLong(id));
     }
     
     /**
@@ -373,6 +388,56 @@ public final class EtudiantForm
     }
     
     /**
+     *  Traite le créateur de l'étudiant
+     *  
+     * @param createur
+     * @param etudiant
+     */
+    private void traiterCreateur(Administrateur createur, Etudiant etudiant) 
+    {
+    	try 
+    	{
+    		validationCreateur(createur);
+        } 
+    	catch (Exception e) 
+    	{
+            setErreur("administrateur", e.getMessage());
+        }
+    	
+    	etudiant.setCreateur(createur);
+    }
+    
+    /**
+     *  Traite l'éditeur de l'étudiant
+     *  
+     * @param editeur
+     * @param etudiant
+     */
+    private void traiterEditeur(Administrateur editeur, Etudiant etudiant) 
+    {
+    	try 
+    	{
+    		validationCreateur(editeur);
+        } 
+    	catch (Exception e) 
+    	{
+            setErreur("administrateur", e.getMessage());
+        }
+    	
+    	etudiant.setEditeur(editeur);
+    }
+    
+    /**
+     * Valide le numéro d'identification d'un étudiant
+     * 
+     * @param id
+     * @throws Exception
+     */
+    private void validationId(String id) throws Exception 
+    {
+        if ((id == null)) throw new Exception("Le numéro d'identification est nul");
+    }
+    /**
      * Valide le nom d'un étudiant
      * 
      * @param nom
@@ -380,10 +445,8 @@ public final class EtudiantForm
      */
     private void validationNom(String nom) throws Exception 
     {
-        if ((nom == null) || (nom.length() < 2) || (nom.length() > 50)) 
-        {
-            throw new Exception("Veuillez entrer un nom de 2 à 50 caractères");
-        }
+        if ((nom == null) || (nom.length() < 2) || (nom.length() > 50)) throw new Exception("Veuillez entrer un nom de 2 à 50 caractères");
+        
     }
     
     /**
@@ -394,10 +457,8 @@ public final class EtudiantForm
      */
     private void validationPrenom(String prenom) throws Exception 
     {
-        if ((prenom == null) || (prenom.length() < 2) || (prenom.length() > 50)) 
-        {
-            throw new Exception( "Veuillez entrer un prenom de 2 à 50 caractères" );
-        }
+        if ((prenom == null) || (prenom.length() < 2) || (prenom.length() > 50)) throw new Exception( "Veuillez entrer un prenom de 2 à 50 caractères" );
+        
     }
     
     /**
@@ -408,10 +469,8 @@ public final class EtudiantForm
      */
     private void validationGroupe(String groupe) throws Exception 
     {
-        if (groupe == null) 
-        {
-            throw new Exception("Veuillez sélectionner un groupe de la liste");
-        }
+        if (groupe == null) throw new Exception("Veuillez sélectionner un groupe de la liste");
+        
     }
     
     /**
@@ -436,10 +495,8 @@ public final class EtudiantForm
      */
     private void validationMotsDePasse(String motDePasse) throws Exception 
     {
-        if ((motDePasse == null) || (motDePasse.length() != 8)) 
-        {
-            throw new Exception("Veuillez entrez un mot de passe plus fort");
-        } 
+        if ((motDePasse == null) || (motDePasse.length() != 8)) throw new Exception("Veuillez entrez un mot de passe plus fort");
+        
     }
     
     /**
@@ -450,10 +507,8 @@ public final class EtudiantForm
      */
     private void validationEtudiant(Etudiant etudiant) throws Exception 
     {
-        if (etudiantDao.verifExistance(etudiant) != 0) 
-        {
-            throw new Exception("Cet étudiant existe déja");
-        }
+        if (etudiantDao.verifExistance(etudiant) != 0) throw new Exception("Cet étudiant existe déja");
+        
     }
     
     /**
@@ -464,10 +519,20 @@ public final class EtudiantForm
      */
     private void validationIdentifiant(Etudiant etudiant) throws Exception 
     {
-        if (etudiant.getId() == null) 
-        {
-            throw new Exception("Votre adresse mail ou votre mot de passe est incorrect");
-        }
+        if (etudiant.getId() == null) throw new Exception("Votre adresse mail ou votre mot de passe est incorrect");
+        
+    }
+    
+    /**
+     * Valide le créateur de l'étudiant
+     * 
+     * @param createur
+     * @throws Exception
+     */
+    private void validationCreateur(Administrateur createur) throws Exception 
+    {
+        if (createur.getId() == null) throw new Exception("Administrateur inconnu");
+        
     }
     
     /**
@@ -498,7 +563,9 @@ public final class EtudiantForm
             int y = (int) (Math.random() * caracteresTaille);
             motDePasse.append(caracteres.charAt(y));
         }
+        
         System.out.println(motDePasse.toString());
+        
         return motDePasse.toString();
     }
 
@@ -524,8 +591,7 @@ public final class EtudiantForm
             }
     	} 
     	catch (Exception e)
-    	{
-    		
+    	{	
     	} 
 
     	return motDePasseCrypte.toString();
@@ -542,14 +608,7 @@ public final class EtudiantForm
     {
         String valeur = request.getParameter(nomChamp);
         
-        if ((valeur == null) || (valeur.trim().length() == 0)) 
-        {
-            return null;
-        }
-        else 
-        {
-            return valeur.trim();
-        }
+        return ((valeur == null) || (valeur.trim().length() == 0) ? null : valeur.trim());
     }
     
     /**
@@ -564,7 +623,7 @@ public final class EtudiantForm
     	HttpSession session = request.getSession();
     	Object objet = session.getAttribute(nomSession);
     	
-        return((objet == null) ? null : objet);
+        return ((objet == null) ? null : objet);
     }
 }
 

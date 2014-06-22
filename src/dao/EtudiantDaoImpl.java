@@ -43,10 +43,10 @@ public class EtudiantDaoImpl implements EtudiantDao
      * @throws DAOException
      */
 	@Override 
-	public void creer(Administrateur utilisateur, Etudiant etudiant)
+	public void creer(Etudiant etudiant)
 	{	
-		ajouterEtudiant(utilisateur, etudiant);
-		ajouterGroupe(utilisateur, etudiant);
+		ajouterEtudiant(etudiant);
+		ajouterGroupe(etudiant);
 	}
 	
 	/**
@@ -55,23 +55,22 @@ public class EtudiantDaoImpl implements EtudiantDao
      * @param etudiant
      * @throws DAOException
      */
-	public void ajouterEtudiant(Administrateur utilisateur, Etudiant etudiant) throws DAOException 
+	public void ajouterEtudiant(Etudiant etudiant) throws DAOException 
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
+		Administrateur createur = new Administrateur(etudiant.getCreateur());
 		
 		try
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_ETUDIANT, true, etudiant.getNom(), etudiant.getPrenom(), etudiant.getAdresseMail(), etudiant.getMotDePasse(), utilisateur.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_ETUDIANT, true, etudiant.getNom(), etudiant.getPrenom(), etudiant.getAdresseMail(), etudiant.getMotDePasse(), createur.getId());
 			preparedStatement.executeUpdate();
 			resultSet = preparedStatement.getGeneratedKeys();
 			
-			if(resultSet.next())
-			{
-				etudiant.setId(resultSet.getLong(1));
-			}
+			if(resultSet.next()) etudiant.setId(resultSet.getLong(1));
+			
 		}
 		catch (SQLException e)
 		{
@@ -89,16 +88,17 @@ public class EtudiantDaoImpl implements EtudiantDao
      * @param etudiant
      * @throws DAOException
      */
-	public void ajouterGroupe(Administrateur utilisateur, Etudiant etudiant) throws DAOException 
+	public void ajouterGroupe(Etudiant etudiant) throws DAOException 
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
+		Administrateur createur = new Administrateur(etudiant.getCreateur());
 		Groupe groupe = new Groupe(etudiant.getGroupe());
 		
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_GROUPE, true, etudiant.getId(), groupe.getId(), utilisateur.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_GROUPE, true, etudiant.getId(), groupe.getId(), createur.getId());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -149,44 +149,6 @@ public class EtudiantDaoImpl implements EtudiantDao
 	}
 	
 	/**
-	 * Sélectionne tous les étudiants de la base de données
-	 * 
-	 * @return listeEtudiants
-	 * @throws DAOException
-	 */
-	public Set<Etudiant> selectTous() throws DAOException 
-	{
-		Set<Etudiant> listeEtudiants = new TreeSet<Etudiant>();
-		Etudiant etudiant = new Etudiant();
-		Connection connexion = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet;
-		
-		try 
-		{
-			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_TOUS, true);
-			resultSet = preparedStatement.executeQuery();
-			
-			while (resultSet.next()) 
-			{
-				etudiant = map(resultSet);
-				listeEtudiants.add(etudiant);
-			}
-		} 
-		catch (SQLException e) 
-		{
-			throw new DAOException(e);
-		} 
-		finally 
-		{
-			fermeturesSilencieuses(preparedStatement, connexion);
-		}
-		
-		return listeEtudiants;
-	}
-	
-	/**
 	 * Recherche un ou des étudiant(s) dans la base de données
 	 * 
 	 * @param etudiant
@@ -205,53 +167,36 @@ public class EtudiantDaoImpl implements EtudiantDao
 		{	
 			connexion = daoFactory.getConnection();
 			
-			if (etudiant.getId() != null) 
-			{
-				sqlSelectRecherche += " AND gnw_utilisateur.id = ?";
-			}
-			else
-			{
-				sqlSelectRecherche += " AND gnw_utilisateur.id IS NOT ?";	
-			}
+			if (etudiant.getId() != null) sqlSelectRecherche += " AND gnw_utilisateur.id = ?";
+			else sqlSelectRecherche += " AND gnw_utilisateur.id IS NOT ?";	
+			
 			
 			if (etudiant.getNom() != null )
 			{
 				sqlSelectRecherche += " AND gnw_utilisateur.nom LIKE ?";
 				etudiant.setNom("%" + etudiant.getNom() + "%");
 			}
-			else
-			{
-				sqlSelectRecherche += " AND gnw_utilisateur.nom IS NOT ?";	
-			}
+			else sqlSelectRecherche += " AND gnw_utilisateur.nom IS NOT ?";	
 			
-			if(etudiant.getPrenom() != null)
+			if (etudiant.getPrenom() != null)
 			{
 				sqlSelectRecherche += " AND gnw_utilisateur.prenom LIKE ?";
 				etudiant.setPrenom("%" + etudiant.getPrenom() + "%");
 			}
-			else
-			{
-				sqlSelectRecherche += " AND gnw_utilisateur.prenom IS NOT ?";	
-			}
+			else sqlSelectRecherche += " AND gnw_utilisateur.prenom IS NOT ?";	
 			
-			if(etudiant.getAdresseMail() != null)
+			
+			if (etudiant.getAdresseMail() != null)
 			{
 				sqlSelectRecherche += " AND gnw_utilisateur.adresse_mail LIKE ?";
 				etudiant.setAdresseMail("%" + etudiant.getAdresseMail() + "%");
 			}
-			else
-			{
-				sqlSelectRecherche += " AND gnw_utilisateur.adresse_mail IS NOT ?";	
-			}
+			else sqlSelectRecherche += " AND gnw_utilisateur.adresse_mail IS NOT ?";	
 			
-			if (groupe.getId() != null) 
-			{
-				sqlSelectRecherche += " AND gnw_groupe.id = ?";
-			}
-			else
-			{
-				sqlSelectRecherche += " AND gnw_groupe.id IS NOT ?";	
-			}
+			
+			if (groupe.getId() != null) sqlSelectRecherche += " AND gnw_groupe.id = ?";
+			else sqlSelectRecherche += " AND gnw_groupe.id IS NOT ?";	
+			
 			
 			preparedStatement = initialisationRequetePreparee(connexion, sqlSelectRecherche, true, etudiant.getId(), etudiant.getNom(), etudiant.getPrenom(), etudiant.getAdresseMail(), groupe.getId());
 			resultSet = preparedStatement.executeQuery();
@@ -281,18 +226,19 @@ public class EtudiantDaoImpl implements EtudiantDao
 	 * @return etudiant
 	 * @throws DAOException
 	 */
-	public Etudiant editer(Administrateur utilisateur, Etudiant etudiant) throws DAOException
+	public Etudiant editer(Etudiant etudiant) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
+		Administrateur editeur = new Administrateur(etudiant.getEditeur());
 		Groupe groupe = new Groupe(etudiant.getGroupe());
 		
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_ETUDIANT, true, etudiant.getNom(), etudiant.getPrenom(), etudiant.getAdresseMail(), utilisateur.getId(), etudiant.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_ETUDIANT, true, etudiant.getNom(), etudiant.getPrenom(), etudiant.getAdresseMail(), editeur.getId(), etudiant.getId());
 			preparedStatement.executeUpdate();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_GROUPE, true, groupe.getId(), utilisateur.getId(), etudiant.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_GROUPE, true, groupe.getId(), editeur.getId(), etudiant.getId());
 			preparedStatement.executeUpdate();
 			
 		} 
@@ -327,10 +273,8 @@ public class EtudiantDaoImpl implements EtudiantDao
 			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_PAR_ID, true, etudiant.getId());
 			resultSet = preparedStatement.executeQuery();
 			
-			if (resultSet.next()) 
-			{
-				etudiant = map(resultSet);
-	        }
+			if (resultSet.next()) etudiant = map(resultSet);
+	        
 		} 
 		catch (SQLException e) 
 		{
@@ -363,14 +307,8 @@ public class EtudiantDaoImpl implements EtudiantDao
 		{
 			connexion = daoFactory.getConnection();
 			
-			if (etudiant.getId() == null) 
-			{
-				sqlSelectRecherche += " AND gnw_utilisateur.id IS NOT ?";
-			}
-			else
-			{
-				sqlSelectRecherche += " AND gnw_utilisateur.id != ?";
-			}
+			if (etudiant.getId() == null) sqlSelectRecherche += " AND gnw_utilisateur.id IS NOT ?";
+			else sqlSelectRecherche += " AND gnw_utilisateur.id != ?";
 
 			preparedStatement = initialisationRequetePreparee(connexion, sqlSelectRecherche, true, etudiant.getAdresseMail(), etudiant.getId());
 			resultSet = preparedStatement.executeQuery();
@@ -412,17 +350,17 @@ public class EtudiantDaoImpl implements EtudiantDao
 	 * @return statut
 	 * @throws DAOException
 	 */
-	public int supprimer(Administrateur utilisateur, Etudiant etudiant) throws DAOException
+	public void supprimer(Etudiant etudiant) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
-		int statut = 0;
+		Administrateur editeur = new Administrateur(etudiant.getEditeur());
 		
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_SUPPR, true, utilisateur.getId(), etudiant.getId());
-			statut = preparedStatement.executeUpdate();
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_SUPPR, true, editeur.getId(), etudiant.getId());
+		    preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
 		{
@@ -432,8 +370,6 @@ public class EtudiantDaoImpl implements EtudiantDao
 		{
 			fermeturesSilencieuses(preparedStatement, connexion);
 		}
-		
-		return statut;
 	}
 	
 	/**

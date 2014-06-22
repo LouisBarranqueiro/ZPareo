@@ -7,8 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import beans.Administrateur;
 import beans.Etudiant;
 import beans.Groupe;
 import dao.DAOFactory;
@@ -24,7 +22,6 @@ public class EtudiantEdition extends HttpServlet
 	private static final String ATT_ETUDIANT                = "etudiant";
 	private static final String ATT_GROUPES                 = "listeGroupes";
     private static final String ATT_FORM                    = "form";
-    private static final String ATT_SESSION_ADMINISTRATEUR  = "sessionAdministrateur";
 	private static final String VUE_EDITION                 = "/WEB-INF/ai/etudiant/edition.jsp";
 	private EtudiantDao etudiantDao;
 	private GroupeDao groupeDao;
@@ -55,12 +52,10 @@ public class EtudiantEdition extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		HttpSession session = request.getSession();
 		Groupe groupe = new Groupe();
-		Administrateur sessionAdministrateur = (Administrateur) session.getAttribute(ATT_SESSION_ADMINISTRATEUR);
 		EtudiantForm form = new EtudiantForm(this.etudiantDao);
 		Set<Groupe> listeGroupes = this.groupeDao.rechercher(groupe);
-		Etudiant etudiant = form.editerEtudiant(sessionAdministrateur, request);
+		Etudiant etudiant = form.editerEtudiant(request);
 		
 		if(form.getErreurs().isEmpty())
 	    {

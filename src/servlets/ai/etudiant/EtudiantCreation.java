@@ -7,8 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import beans.Administrateur;
 import beans.Etudiant;
 import beans.Groupe;
 import dao.DAOFactory;
@@ -22,7 +20,6 @@ import forms.EtudiantForm;
 public class EtudiantCreation extends HttpServlet 
 {
 	private static final String CONF_DAO_FACTORY           = "daofactory";
-	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
 	private static final String ATT_ETUDIANT               = "etudiant";
 	private static final String ATT_GROUPES                = "listeGroupes";
 	private static final String ATT_FORM                   = "form";
@@ -52,12 +49,10 @@ public class EtudiantCreation extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		HttpSession session = request.getSession();
 		Groupe groupe = new Groupe();
-		Administrateur sessionAdministrateur = (Administrateur) session.getAttribute(ATT_SESSION_ADMINISTRATEUR);
         EtudiantForm form = new EtudiantForm(this.etudiantDao);
         Set<Groupe> listeGroupes = this.groupeDao.rechercher(groupe);
-        Etudiant etudiant = form.creerEtudiant(sessionAdministrateur, request);
+        Etudiant etudiant = form.creerEtudiant(request);
 		
         if (form.getErreurs().isEmpty())
         {
