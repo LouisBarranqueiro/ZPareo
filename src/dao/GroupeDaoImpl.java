@@ -17,7 +17,6 @@ import beans.Groupe;
 public class GroupeDaoImpl implements GroupeDao 
 {
 	private DAOFactory daoFactory;
-	private static final String SQL_COUNT_TOUS           = "SELECT COUNT(id) FROM gnw_groupe WHERE date_suppr IS NULL";
 	private static final String SQL_SELECT_COUNT_PAR_NOM = "SELECT COUNT(id) FROM gnw_groupe WHERE date_suppr IS NULL AND nom = ?";
 	private static final String SQL_SELECT_TOUS          = "SELECT id, nom FROM gnw_groupe WHERE date_suppr IS NULL";
 	private static final String SQL_SELECT_PAR_ID        = "SELECT id, nom FROM gnw_groupe WHERE id = ? AND date_suppr IS NULL";
@@ -36,16 +35,17 @@ public class GroupeDaoImpl implements GroupeDao
     }
     
 	/**
-     * Ajoute un groupe dans la base de donn�es
+     * Ajoute un groupe dans la base de données
      * 
      * @param groupe
      * @throws DAOException
      */
 	@Override 
-	public void creer(Administrateur createur, Groupe groupe) throws DAOException 
+	public void ajouter(Groupe groupe) throws DAOException 
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
+		Administrateur createur = new Administrateur(groupe.getCreateur());
 		
 		try 
 		{
@@ -64,7 +64,7 @@ public class GroupeDaoImpl implements GroupeDao
 	}
 	
     /**
-     * Recherche une ou des groupe(s) dans la base de donn�es
+     * Recherche une ou des groupe(s) dans la base de données
      * 
      * @param groupe
      * @return listeGroupes
@@ -83,24 +83,16 @@ public class GroupeDaoImpl implements GroupeDao
 		{	
 			connexion = daoFactory.getConnection();
 			
-			if (groupe.getId() != null) 
-			{
-				sqlSelectRecherche += " AND gnw_groupe.id = ?";
-			}
-			else
-			{
-				sqlSelectRecherche += " AND gnw_groupe.id IS NOT ?";	
-			}
+			if (groupe.getId() != null) sqlSelectRecherche += " AND gnw_groupe.id = ?";
+			else sqlSelectRecherche += " AND gnw_groupe.id IS NOT ?";	
 			
 			if (groupe.getNom() != null )
 			{
 				sqlSelectRecherche += " AND gnw_groupe.nom LIKE ?";
 				groupe.setNom("%" + groupe.getNom() + "%");
 			}
-			else
-			{
-				sqlSelectRecherche += " AND gnw_groupe.nom IS NOT ?";	
-			}
+			else sqlSelectRecherche += " AND gnw_groupe.nom IS NOT ?";	
+			
 			
 			preparedStatement = initialisationRequetePreparee(connexion, sqlSelectRecherche, true, groupe.getId(), groupe.getNom());
 			resultSet = preparedStatement.executeQuery();
@@ -122,52 +114,19 @@ public class GroupeDaoImpl implements GroupeDao
 		
 		return listeGroupes;
 	}
-	
-	/**
-	 * Renvoie le nombre de groupes de la base de donn�es
-	 * 
-	 * @return nbGroupes
-	 * @throws DAOException
-	 */
-	@Override
-	public int compterTous() throws DAOException
-	{
-		Connection connexion = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet;
-		int nbGroupes;
-		
-		try 
-		{
-			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_COUNT_TOUS, true);
-			resultSet = preparedStatement.executeQuery();
-			resultSet.next();
-			nbGroupes = resultSet.getInt(1);
-		} 
-		catch (SQLException e) 
-		{
-			throw new DAOException(e);
-		} 
-		finally 
-		{
-			fermeturesSilencieuses(preparedStatement, connexion);
-		}
-		
-		return nbGroupes;
-	}
 
 	/**
-	 * Edite un groupe dans la base de donn�es
+	 * Edite un groupe dans la base de données
 	 * 
 	 * @param groupe
 	 * @return groupe
 	 * @throws DAOException
 	 */
-	public Groupe editer(Administrateur editeur, Groupe groupe) throws DAOException
+	public Groupe editer(Groupe groupe) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
+		Administrateur editeur = new Administrateur(groupe.getEditeur());
 		
 		try 
 		{
@@ -188,7 +147,7 @@ public class GroupeDaoImpl implements GroupeDao
 	}
 	
 	/**
-	 * Verifie l'existance d'un groupe dans la base de donn�es
+	 * Vérifie l'existance d'un groupe dans la base de données
 	 * 
 	 * @param groupe
 	 * @return statut
@@ -200,21 +159,15 @@ public class GroupeDaoImpl implements GroupeDao
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		String sqlSelectRecherche = SQL_SELECT_COUNT_PAR_NOM;
-		int statut;
+		int statut = 0;
 		
 		try 
 		{
 			connexion = daoFactory.getConnection();
 			
-			if (groupe.getId() == null) 
-			{
-				sqlSelectRecherche += " AND id IS NOT ?";
-			}
-			else
-			{
-				sqlSelectRecherche += " AND id != ?";
-			}
-
+			if (groupe.getId() == null) sqlSelectRecherche += " AND id IS NOT ?";
+			else sqlSelectRecherche += " AND id != ?";
+		
 			preparedStatement = initialisationRequetePreparee(connexion, sqlSelectRecherche, true, groupe.getNom(), groupe.getId());
 			resultSet = preparedStatement.executeQuery();
 			resultSet.next();
@@ -233,7 +186,7 @@ public class GroupeDaoImpl implements GroupeDao
 	}
 	
 	/**
-	 * Cherche un groupe dans la base de donn�es
+	 * Cherche un groupe dans la base de données
 	 * 
 	 * @param groupe
 	 * @return groupe
@@ -251,10 +204,8 @@ public class GroupeDaoImpl implements GroupeDao
 			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_PAR_ID, true, groupe.getId());
 			resultSet = preparedStatement.executeQuery();
 			
-			if (resultSet.next()) 
-			{
-				groupe = map(resultSet);
-	        }
+			if (resultSet.next()) groupe = map(resultSet);
+	        
 		} 
 		catch (SQLException e) 
 		{
@@ -269,23 +220,22 @@ public class GroupeDaoImpl implements GroupeDao
 	}
 	
 	/**
-	 * Supprime un groupe dans la base de donn�es
+	 * Supprime un groupe dans la base de données
 	 * 
-	 * @param editeur
-	 * @return statut
+	 * @param groupe 
 	 * @throws DAOException
 	 */
-	public int supprimer(Administrateur editeur, Groupe groupe) throws DAOException
+	public void supprimer(Groupe groupe) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
-		int statut = 0;
+		Administrateur editeur = new Administrateur(groupe.getEditeur());
 		
 		try 
 		{
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_SUPPR, true, editeur.getId(), groupe.getId());
-			statut = preparedStatement.executeUpdate();
+			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
 		{
@@ -295,12 +245,10 @@ public class GroupeDaoImpl implements GroupeDao
 		{
 			fermeturesSilencieuses(preparedStatement, connexion);
 		}
-		
-		return statut;
 	}
 	
 	/**
-	 * Pr�pare une r�quete SQL sur mesure
+	 * Prépare une requete SQL sur mesure
 	 * 
 	 * @param connexion
 	 * @param sql
@@ -311,9 +259,9 @@ public class GroupeDaoImpl implements GroupeDao
 	 */
 	public static PreparedStatement initialisationRequetePreparee(Connection connexion, String sql, boolean returnGeneratedKeys, Object... objets) throws SQLException 
 	{
-		PreparedStatement preparedStatement = connexion.prepareStatement(sql, returnGeneratedKeys ?Statement.RETURN_GENERATED_KEYS : Statement.NO_GENERATED_KEYS);
+		PreparedStatement preparedStatement = connexion.prepareStatement(sql, returnGeneratedKeys ? Statement.RETURN_GENERATED_KEYS : Statement.NO_GENERATED_KEYS);
 		
-		for ( int i = 0; i < objets.length; i++ ) 
+		for (int i = 0; i < objets.length; i++) 
 		{
 			preparedStatement.setObject( i + 1, objets[i] );
 		}
@@ -322,7 +270,7 @@ public class GroupeDaoImpl implements GroupeDao
 	}
 	
 	/**
-	 * Transf�re les donn�es du resultSet vers un objet
+	 * Transfère les données du resultSet vers un objet Groupe
 	 * 
 	 * @param resultSet
 	 * @return groupe

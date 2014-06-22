@@ -4,18 +4,18 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import beans.Administrateur;
 import beans.Groupe;
 import dao.GroupeDao;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public final class GroupeForm 
 {
-	private static final String CHAMP_ID        = "id";
-    private static final String CHAMP_NOM       = "nom";
-    private Map<String, String> erreurs         = new HashMap<String, String>();
+	private static final String SESSION_ADMINISTRATEUR = "sessionAdministrateur";
+	private static final String CHAMP_ID               = "id";
+    private static final String CHAMP_NOM              = "nom";
+    private Map<String, String> erreurs                = new HashMap<String, String>();
     private GroupeDao groupeDao;
 
     /**
@@ -44,20 +44,20 @@ public final class GroupeForm
      * @param request
      * @return groupe
      */
-    public Groupe creerGroupe(Administrateur editeur, HttpServletRequest request) 
+    public Groupe creerGroupe(HttpServletRequest request) 
     {
         String nom = getValeurChamp(request, CHAMP_NOM);
+        Administrateur createur = (Administrateur) getValeurSession(request, SESSION_ADMINISTRATEUR);
         Groupe groupe = new Groupe();
         
         try 
         {
             traiterNom(nom, groupe);
             traiterGroupe(groupe);
+            traiterCreateur(createur, groupe);
             
-            if (erreurs.isEmpty()) 
-            {
-            	groupeDao.creer(editeur, groupe);
-            }
+            if (erreurs.isEmpty()) groupeDao.ajouter(groupe);
+          
         } 
         catch (Exception e) 
         {
@@ -68,7 +68,7 @@ public final class GroupeForm
     }
     
     /**
-     * Retourne la liste des groupes correspondantes
+     * Cherche un ou plusieurs groupe(s) dans la base de données
      * 
      * @param request
      * @return listeGroupes
@@ -80,11 +80,8 @@ public final class GroupeForm
     	Set<Groupe> listeGroupes = new HashSet<Groupe>();
     	Groupe groupe = new Groupe();
     	
-    	if(id != null) 
-    	{
-    		groupe.setId(Long.parseLong(id));
-    	}
     	
+    	traiterId(id, groupe);
     	groupe.setNom(nom);
     	listeGroupes = groupeDao.rechercher(groupe);
         
@@ -97,20 +94,19 @@ public final class GroupeForm
      * @param request
      * @return groupe
      */
-    public Groupe editerGroupe(Administrateur editeur, HttpServletRequest request)
+    public Groupe editerGroupe(HttpServletRequest request)
     {
     	String id = getValeurChamp(request, CHAMP_ID);
     	String nom = getValeurChamp(request, CHAMP_NOM);
+    	Administrateur editeur = (Administrateur) getValeurSession(request, SESSION_ADMINISTRATEUR);
     	Groupe groupe = new Groupe();
     	
-    	groupe.setId(Long.parseLong(id));
+    	traiterId(id, groupe);
     	traiterNom(nom, groupe);
     	traiterGroupe(groupe);
+    	traiterEditeur(editeur, groupe);
            
-    	if (erreurs.isEmpty()) 
-       	{
-    		groupeDao.editer(editeur, groupe);
-       	}
+    	if (erreurs.isEmpty()) groupeDao.editer(groupe);
 
     	return groupe;
     }
@@ -126,7 +122,7 @@ public final class GroupeForm
     	String id = getValeurChamp(request, CHAMP_ID);
     	Groupe groupe = new Groupe();
     	
-    	groupe.setId(Long.parseLong(id));
+    	traiterId(id, groupe);
     	groupe = groupeDao.trouver(groupe);
     	
     	return groupe;
@@ -136,22 +132,39 @@ public final class GroupeForm
      * Supprime un groupe dans la base de données
      * 
      * @param request
-     * @return statut
      */
-    public int supprimerGroupe(Administrateur editeur, HttpServletRequest request)
+    public void supprimerGroupe(HttpServletRequest request)
     {
     	String id = getValeurChamp(request, CHAMP_ID);
+    	Administrateur editeur = (Administrateur) getValeurSession(request, SESSION_ADMINISTRATEUR);
     	Groupe groupe = new Groupe();
-    	int statut;
     	
-    	groupe.setId(Long.parseLong(id));
-    	statut = groupeDao.supprimer(editeur, groupe);
-    	
-    	return statut;
+    	traiterId(id, groupe);
+    	traiterEditeur(editeur, groupe);
+        groupeDao.supprimer(groupe);
     }
     
     /**
-     *  Traite l'attribut : nom
+     *  Traite le numéro d'identification d'un groupe
+     *  
+     * @param id
+     * @param groupe
+     */
+    private void traiterId(String id, Groupe groupe)
+    {
+    	try
+    	{
+    		validationId(id);
+    		groupe.setId(Long.parseLong(id));
+    	}
+    	catch (Exception e) 
+    	{
+            setErreur(CHAMP_ID, e.getMessage());
+        }
+    }
+    
+    /**
+     *  Traite le nom d'un groupe
      *  
      * @param nom
      * @param groupe
@@ -171,7 +184,7 @@ public final class GroupeForm
     }
 
     /**
-     *  Traite l'objet : groupe
+     *  Traite un groupe
      *  
      * @param groupe
      */
@@ -185,6 +198,57 @@ public final class GroupeForm
     	{
             setErreur("groupe", e.getMessage());
         }
+    }
+    
+    /**
+     *  Traite le créateur d'un groupe
+     *  
+     * @param createur
+     * @param matiere
+     */
+    private void traiterCreateur(Administrateur createur, Groupe groupe) 
+    {
+    	try 
+    	{
+    		validationCreateur(createur);
+        } 
+    	catch (Exception e) 
+    	{
+            setErreur("administrateur", e.getMessage());
+        }
+    	
+    	groupe.setCreateur(createur);
+    }
+    
+    /**
+     *  Traite l'éditeur d'un groupe
+     *  
+     * @param editeur
+     * @param matiere
+     */
+    private void traiterEditeur(Administrateur editeur, Groupe groupe) 
+    {
+    	try 
+    	{
+    		validationCreateur(editeur);
+        } 
+    	catch (Exception e) 
+    	{
+            setErreur("administrateur", e.getMessage());
+        }
+    	
+    	groupe.setEditeur(editeur);
+    }
+    
+    /**
+     * Valide le numéro d'identification d'un groupe
+     * 
+     * @param id
+     * @throws Exception
+     */
+    private void validationId(String id) throws Exception 
+    {
+        if ((id == null)) throw new Exception("Le numéro d'identification est nul");
     }
     
     /**
@@ -202,17 +266,25 @@ public final class GroupeForm
     }
     
     /**
-     * Valide l'objet : groupe
+     * Valide un groupe
      * 
      * @param groupe
      * @throws Exception
      */
     private void validationGroupe(Groupe groupe) throws Exception 
     {
-        if (groupeDao.verifExistance(groupe) != 0) 
-        {
-            throw new Exception("Ce groupe existe déja");
-        }
+        if (groupeDao.verifExistance(groupe) != 0) throw new Exception("Ce groupe existe déja");  
+    }
+    
+    /**
+     * Valide le créateur ou éditeur d'un groupe
+     * 
+     * @param createur
+     * @throws Exception
+     */
+    private void validationCreateur(Administrateur createur) throws Exception 
+    {
+        if (createur.getId() == null) throw new Exception("Administrateur inconnu");  
     }
     
     /**
@@ -236,15 +308,23 @@ public final class GroupeForm
     private static String getValeurChamp(HttpServletRequest request, String nomChamp) 
     {
         String valeur = request.getParameter(nomChamp);
-        
-        if ((valeur == null) || (valeur.trim().length() == 0)) 
-        {
-            return null;
-        }
-        else 
-        {
-            return valeur.trim();
-        }
+   
+        return (((valeur == null) || (valeur.trim().length() == 0)) ? null : valeur.trim());
+    }
+    
+    /**
+     * Retourne la valeur d'un paramètre de session
+     * 
+     * @param request
+     * @param nomSession
+     * @return objet
+     */
+    private static Object getValeurSession(HttpServletRequest request, String nomSession) 
+    {
+    	HttpSession session = request.getSession();
+    	Object objet = session.getAttribute(nomSession);
+    	
+        return ((objet == null) ? null : objet);
     }
 }
 

@@ -6,8 +6,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import beans.Administrateur;
 import beans.Groupe;
 import dao.DAOFactory;
 import dao.GroupeDao;
@@ -18,7 +16,6 @@ import forms.GroupeForm;
 public class GroupeEdition extends HttpServlet 
 {
 	private static final String CONF_DAO_FACTORY           = "daofactory";
-	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
 	private static final String ATT_GROUPE                 = "groupe";
 	private static final String ATT_FORM                   = "form";
 	private static final String VUE_EDITION                = "/WEB-INF/ai/groupe/edition.jsp";
@@ -45,15 +42,10 @@ public class GroupeEdition extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		HttpSession session = request.getSession();
-		Administrateur sessionAdministrateur = (Administrateur) session.getAttribute(ATT_SESSION_ADMINISTRATEUR);
 		GroupeForm form = new GroupeForm(this.groupeDao);
-		Groupe groupe = form.editerGroupe(sessionAdministrateur, request);
+		Groupe groupe = form.editerGroupe(request);
 		
-		if (form.getErreurs().isEmpty())
-	    {
-	    	response.sendRedirect("http://localhost:8080/ZPareo/ai/groupe");   
-	    }
+		if (form.getErreurs().isEmpty()) response.sendRedirect("http://localhost:8080/ZPareo/ai/groupe");   
 	    else
 	    {
 	    	request.setAttribute(ATT_FORM, form);

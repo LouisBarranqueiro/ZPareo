@@ -4,6 +4,8 @@ public class Groupe implements Comparable<Groupe>
 {
 	private Long id;
 	private String nom;
+	private Administrateur createur;
+	private Administrateur editeur;
 	
 	/**
 	 * Constructeur
@@ -12,6 +14,8 @@ public class Groupe implements Comparable<Groupe>
 	{
 		this.id = null;
 		this.nom = null;
+		this.createur = null;
+		this.editeur = null;
 	}
 	
 	/**
@@ -23,6 +27,8 @@ public class Groupe implements Comparable<Groupe>
 	{
 		this.id = groupe.getId();
 		this.nom = groupe.getNom();
+		this.createur = groupe.getCreateur();
+		this.createur = groupe.getEditeur();
 	}
 	
 	/**
@@ -63,6 +69,46 @@ public class Groupe implements Comparable<Groupe>
 	public void setNom(String nom) 
 	{
 		this.nom = nom;
+	}
+	
+	/**
+	 * Retourne le créateur du groupe
+	 * 
+	 * @return createur Le créateur du groupe.
+	 */
+	public Administrateur getCreateur() 
+	{
+		return createur;
+	}
+
+	/**
+	 * Défini le créateur du groupe
+	 * 
+	 * @param createur Un administrateur.
+	 */
+	public void setCreateur(Administrateur createur) 
+	{
+		this.createur = createur;
+	}
+
+	/**
+	 * Retourne l'éditeur du groupe
+	 * 
+	 * @return editeur L'éditeur du groupe.
+	 */
+	public Administrateur getEditeur() 
+	{
+		return editeur;
+	}
+
+	/**
+	 * Défini l'éditeur du groupe
+	 * 
+	 * @param editeur Un administrateur.
+	 */
+	public void setEditeur(Administrateur editeur)
+	{
+		this.editeur = editeur;
 	}
 	
 	/**
