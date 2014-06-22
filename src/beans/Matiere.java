@@ -4,6 +4,8 @@ public class Matiere implements Comparable<Matiere>
 {
 	private Long id;
 	private String nom;
+	private Administrateur createur;
+	private Administrateur editeur;
 	
 	/**
 	 * Consutructeur
@@ -72,6 +74,46 @@ public class Matiere implements Comparable<Matiere>
 	public void setNom(String nom) 
 	{
 		this.nom = nom;
+	}
+	
+	/**
+	 * Retourne le créateur de la matière
+	 * 
+	 * @return createur Le créateur de la matière.
+	 */
+	public Administrateur getCreateur() 
+	{
+		return createur;
+	}
+
+	/**
+	 * Défini le créateur de la matière
+	 * 
+	 * @param createur Un administrateur.
+	 */
+	public void setCreateur(Administrateur createur) 
+	{
+		this.createur = createur;
+	}
+
+	/**
+	 * Retourne l'éditeur de la matière
+	 * 
+	 * @return editeur L'éditeur de la matière.
+	 */
+	public Administrateur getEditeur() 
+	{
+		return editeur;
+	}
+
+	/**
+	 * Défini l'éditeur de la matière
+	 * 
+	 * @param editeur Un administrateur.
+	 */
+	public void setEditeur(Administrateur editeur)
+	{
+		this.editeur = editeur;
 	}
 	
 	/**

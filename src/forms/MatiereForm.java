@@ -4,22 +4,22 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import beans.Administrateur;
 import beans.Matiere;
 import dao.MatiereDao;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public final class MatiereForm 
 {
-	private static final String CHAMP_ID     = "id";
-    private static final String CHAMP_NOM    = "nom";
-    private Map<String, String> erreurs      = new HashMap<String, String>();
+	private static final String SESSION_ADMINISTRATEUR = "sessionAdministrateur";
+	private static final String CHAMP_ID               = "id";
+    private static final String CHAMP_NOM              = "nom";
+    private Map<String, String> erreurs                = new HashMap<String, String>();
     private MatiereDao matiereDao;
 
     /**
-     * R�cup�re l'objet : matiereDao
+     * Récupère l'objet : matiereDao
      * 
      * @param matiereDao
      */
@@ -39,25 +39,25 @@ public final class MatiereForm
     }
     
     /**
-     * Ajoute une mati�re dans la base de donn�es
+     * Ajoute une matière dans la base de données
      * 
      * @param request
      * @return matiere
      */
-    public Matiere creerMatiere(Administrateur createur, HttpServletRequest request) 
+    public Matiere creerMatiere(HttpServletRequest request) 
     {
         String nom = getValeurChamp(request, CHAMP_NOM);
+        Administrateur createur = (Administrateur) getValeurSession(request, SESSION_ADMINISTRATEUR);
         Matiere matiere = new Matiere();
         
         try 
         {
             traiterNom(nom, matiere);
             traiterMatiere(matiere);
+            traiterCreateur(createur, matiere);
             
-            if (erreurs.isEmpty()) 
-            {
-            	matiereDao.creer(createur, matiere);
-            }
+            if (erreurs.isEmpty()) matiereDao.ajouter(matiere);
+            
         } 
         catch ( Exception e ) 
         {
@@ -68,7 +68,7 @@ public final class MatiereForm
     }
     
     /**
-     * Chercher une ou des mati�re(s) dans la base de donn�es
+     * Chercher une ou des matière(s) dans la base de donn�es
      * 
      * @param request
      * @return listeMatiere
@@ -80,11 +80,7 @@ public final class MatiereForm
     	Set<Matiere> listeMatiere = new HashSet<Matiere>();
     	Matiere matiere = new Matiere();
     	
-    	if(id != null) 
-    	{
-    		matiere.setId(Long.parseLong(id));
-    	}
-    	
+    	traiterId(id, matiere);
     	matiere.setNom(nom);
         listeMatiere = matiereDao.rechercher(matiere);
         
@@ -92,31 +88,31 @@ public final class MatiereForm
     }
    
     /**
-     * Edite une matiere dans la base de donn�es
+     * Edite une matière dans la base de données
      * 
      * @param request
      * @return matiere
      */
-    public Matiere editerMatiere(Administrateur editeur, HttpServletRequest request)
+    public Matiere editerMatiere(HttpServletRequest request)
     {
     	String id = getValeurChamp(request, CHAMP_ID);
     	String nom = getValeurChamp(request, CHAMP_NOM);
+    	Administrateur editeur = (Administrateur) getValeurSession(request, SESSION_ADMINISTRATEUR);
     	Matiere matiere = new Matiere();
     	
-    	matiere.setId(Long.parseLong(id));
+    	traiterId(id, matiere);
     	traiterNom(nom, matiere);
     	traiterMatiere(matiere);
-           
-    	if (erreurs.isEmpty()) 
-       	{
-           matiereDao.editer(editeur, matiere);
-       	}
+        traiterEditeur(editeur, matiere);
+        
+    	if (erreurs.isEmpty()) matiereDao.editer(matiere);
+       	
 
     	return matiere;
     }
     
     /**
-     * Cherche une mati�re dans la base de donn�es
+     * Retourne une matière dans la base de données
      * 
      * @param request
      * @return matiere
@@ -126,32 +122,48 @@ public final class MatiereForm
     	String id = getValeurChamp(request, CHAMP_ID);
     	Matiere matiere = new Matiere();
     	
-    	matiere.setId(Long.parseLong(id));
+    	traiterId(id, matiere);
     	matiere = matiereDao.trouver( matiere);
     	
     	return matiere;
     }
     
     /**
-     * Supprime une matiere dans la base de donn�es
+     * Supprime une matière dans la base de données
      * 
      * @param request
-     * @return statut
      */
-    public int supprimerMatiere(Administrateur editeur, HttpServletRequest request)
+    public void supprimerMatiere(HttpServletRequest request)
     {
     	String id = getValeurChamp(request, CHAMP_ID);
+    	Administrateur editeur = (Administrateur) getValeurSession(request, SESSION_ADMINISTRATEUR);
     	Matiere matiere = new Matiere();
-    	int statut;
     	
-    	matiere.setId(Long.parseLong(id));
-    	statut = matiereDao.supprimer(editeur, matiere);
-    	
-    	return statut;
+    	traiterId(id, matiere);
+    	traiterEditeur(editeur, matiere);
+    	matiereDao.supprimer(matiere);
     }
    
     /**
-     *  Traite l'attribut : nom
+     *  Traite le numéro d'identification d'une matière
+     *  
+     * @param id
+     * @param matiere
+     */
+    private void traiterId(String id, Matiere matiere)
+    {
+    	try
+    	{
+    		validationId(id);
+    		matiere.setId(Long.parseLong(id));
+    	}
+    	catch (Exception e) 
+    	{
+            setErreur(CHAMP_ID, e.getMessage());
+        }
+    }
+    /**
+     *  Traite le nom d'une matière
      *  
      * @param nom
      * @param matiere
@@ -171,7 +183,7 @@ public final class MatiereForm
     }
     
     /**
-     *  Traite l'objet : matiere
+     *  Traite une matière
      *  
      * @param matiere
      */
@@ -188,31 +200,90 @@ public final class MatiereForm
     }
     
     /**
-     * Valide l'attribut : nom
+     *  Traite le créateur d'une matière
+     *  
+     * @param createur
+     * @param matiere
+     */
+    private void traiterCreateur(Administrateur createur, Matiere matiere) 
+    {
+    	try 
+    	{
+    		validationCreateur(createur);
+        } 
+    	catch (Exception e) 
+    	{
+            setErreur("administrateur", e.getMessage());
+        }
+    	
+    	matiere.setCreateur(createur);
+    }
+    
+    /**
+     *  Traite l'éditeur d'une matière
+     *  
+     * @param editeur
+     * @param matiere
+     */
+    private void traiterEditeur(Administrateur editeur, Matiere matiere) 
+    {
+    	try 
+    	{
+    		validationCreateur(editeur);
+        } 
+    	catch (Exception e) 
+    	{
+            setErreur("administrateur", e.getMessage());
+        }
+    	
+    	matiere.setEditeur(editeur);
+    }
+    
+    /**
+     * Valide le numéro d'identification d'une matière
+     * 
+     * @param id
+     * @throws Exception
+     */
+    private void validationId(String id) throws Exception 
+    {
+        if ((id == null)) throw new Exception("Le numéro d'identification est nul");
+    }
+    
+    /**
+     * Valide le nom d'une matière
      * 
      * @param nom
      * @throws Exception
      */
     private void validationNom(String nom) throws Exception 
     {
-        if ((nom == null) || (nom.length() < 3) || (nom.length() > 55)) 
-        {
-            throw new Exception("Veuillez entrer un nom de 3 � 55 caract�res");
-        }
+        if ((nom == null) || (nom.length() < 3) || (nom.length() > 55)) throw new Exception("Veuillez entrer un nom de 3 à 55 caractères");
+        
     }
     
     /**
-     * Valide l'objet : matiere
+     * Valide une matière
      * 
      * @param matiere
      * @throws Exception
      */
     private void validationMatiere(Matiere matiere) throws Exception 
     {
-        if (matiereDao.verifExistance(matiere) != 0) 
-        {
-            throw new Exception("Cette mati�re existe d�ja");
-        }
+        if (matiereDao.verifExistance(matiere) != 0) throw new Exception("Cette matière existe déja");
+        
+    }
+    
+    /**
+     * Valide le créateur ou éditeur d'une matière
+     * 
+     * @param createur
+     * @throws Exception
+     */
+    private void validationCreateur(Administrateur createur) throws Exception 
+    {
+        if (createur.getId() == null) throw new Exception("Administrateur inconnu");
+        
     }
  
     /**
@@ -236,15 +307,23 @@ public final class MatiereForm
     private static String getValeurChamp(HttpServletRequest request, String nomChamp) 
     {
         String valeur = request.getParameter(nomChamp);
-        
-        if ((valeur == null) || (valeur.trim().length() == 0)) 
-        {
-            return null;
-        }
-        else 
-        {
-            return valeur.trim();
-        }
+   
+        return (((valeur == null) || (valeur.trim().length() == 0)) ? null : valeur.trim());
+    }
+    
+    /**
+     * Retourne la valeur d'un paramètre de session
+     * 
+     * @param request
+     * @param nomSession
+     * @return objet
+     */
+    private static Object getValeurSession(HttpServletRequest request, String nomSession) 
+    {
+    	HttpSession session = request.getSession();
+    	Object objet = session.getAttribute(nomSession);
+    	
+        return ((objet == null) ? null : objet);
     }
 }
 

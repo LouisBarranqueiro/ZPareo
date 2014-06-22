@@ -17,7 +17,6 @@ import beans.Matiere;
 public class MatiereDaoImpl implements MatiereDao 
 {
 	private DAOFactory daoFactory;
-	private static final String SQL_COUNT_TOUS           = "SELECT COUNT(id) FROM gnw_matiere WHERE date_suppr IS NULL";
 	private static final String SQL_SELECT_COUNT_PAR_NOM = "SELECT COUNT(id) FROM gnw_matiere WHERE date_suppr IS NULL AND nom = ?";
 	private static final String SQL_SELECT_TOUS          = "SELECT id, nom FROM gnw_matiere WHERE date_suppr IS NULL";
 	private static final String SQL_SELECT_PAR_ID        = "SELECT id, nom FROM gnw_matiere WHERE id = ? AND date_suppr IS NULL ORDER BY id ASC";
@@ -42,10 +41,11 @@ public class MatiereDaoImpl implements MatiereDao
      * @throws DAOException
      */
 	@Override 
-	public void creer(Administrateur createur, Matiere matiere) throws DAOException 
+	public void ajouter(Matiere matiere) throws DAOException 
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
+		Administrateur createur = new Administrateur(matiere.getCreateur());
 		
 		try 
 		{
@@ -83,24 +83,17 @@ public class MatiereDaoImpl implements MatiereDao
 		{	
 			connexion = daoFactory.getConnection();
 			
-			if (matiere.getId() != null) 
-			{
-				sqlSelectRecherche += " AND gnw_matiere.id = ?";
-			}
-			else
-			{
-				sqlSelectRecherche += " AND gnw_matiere.id IS NOT ?";	
-			}
+			if (matiere.getId() != null) sqlSelectRecherche += " AND gnw_matiere.id = ?";
+			else sqlSelectRecherche += " AND gnw_matiere.id IS NOT ?";	
+			
 			
 			if (matiere.getNom() != null)
 			{
 				sqlSelectRecherche += " AND gnw_matiere.nom LIKE ?";
 				matiere.setNom("%" + matiere.getNom() + "%");
 			}
-			else
-			{
-				sqlSelectRecherche += " AND gnw_matiere.nom IS NOT ?";	
-			}
+			else sqlSelectRecherche += " AND gnw_matiere.nom IS NOT ?";	
+			
 			preparedStatement = initialisationRequetePreparee(connexion, sqlSelectRecherche, true, matiere.getId(), matiere.getNom());
 			resultSet = preparedStatement.executeQuery();
 			
@@ -123,50 +116,17 @@ public class MatiereDaoImpl implements MatiereDao
 	}
 	
 	/**
-	 * Renvoie le nombre de matière de la base de données
-	 * 
-	 * @return nbMatiere
-	 * @throws DAOException
-	 */
-	@Override
-	public int compterTous() throws DAOException
-	{
-		Connection connexion = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet;
-		int nbMatiere;
-		
-		try 
-		{
-			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_COUNT_TOUS, true);
-			resultSet = preparedStatement.executeQuery();
-			resultSet.next();
-			nbMatiere = resultSet.getInt(1);
-		} 
-		catch (SQLException e) 
-		{
-			throw new DAOException(e);
-		} 
-		finally 
-		{
-			fermeturesSilencieuses(preparedStatement, connexion);
-		}
-		
-		return nbMatiere;
-	}
-
-	/**
-	 * Edite une matiere dans la base de données
+	 * Edite une matière dans la base de données
 	 * 
 	 * @param matiere
 	 * @return matiere
 	 * @throws DAOException
 	 */
-	public Matiere editer(Administrateur editeur, Matiere matiere)  throws DAOException
+	public Matiere editer(Matiere matiere)  throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
+		Administrateur editeur = new Administrateur(matiere.getEditeur());
 		
 		try 
 		{
@@ -187,7 +147,7 @@ public class MatiereDaoImpl implements MatiereDao
 	}
 	
 	/**
-	 * Verifie l'existance d'une matière dans la base de données
+	 * Vérifie l'existance d'une matière dans la base de données
 	 * 
 	 * @param matiere
 	 * @return statut
@@ -198,22 +158,15 @@ public class MatiereDaoImpl implements MatiereDao
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		String sqlSelectRecherche = SQL_SELECT_COUNT_PAR_NOM;
-		int statut;
+		int statut = 0;
 		
 		try 
 		{
-			
 			connexion = daoFactory.getConnection();
 			
-			if (matiere.getId() == null) 
-			{
-				sqlSelectRecherche += " AND id IS NOT ?";
-			}
-			else
-			{
-				sqlSelectRecherche += " AND id != ?";
-			}
-
+			if (matiere.getId() == null)  sqlSelectRecherche += " AND id IS NOT ?";
+			else sqlSelectRecherche += " AND id != ?";
+		
 			preparedStatement = initialisationRequetePreparee(connexion, sqlSelectRecherche, true, matiere.getNom(), matiere.getId());
 			resultSet = preparedStatement.executeQuery();
 			resultSet.next();
@@ -232,7 +185,7 @@ public class MatiereDaoImpl implements MatiereDao
 	}
 	
 	/**
-	 * Cherche une matiere dans la base de données
+	 * Cherche une matière dans la base de données
 	 * 
 	 * @param matiere
 	 * @return matiere
@@ -250,10 +203,8 @@ public class MatiereDaoImpl implements MatiereDao
 			preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_PAR_ID, true, matiere.getId());
 			resultSet = preparedStatement.executeQuery();
 			
-			if (resultSet.next()) 
-			{
-				matiere = map(resultSet);
-	        }
+			if (resultSet.next()) matiere = map(resultSet);
+	        
 		} 
 		catch (SQLException e) 
 		{
@@ -273,17 +224,17 @@ public class MatiereDaoImpl implements MatiereDao
 	 * @return statut
 	 * @throws DAOException
 	 */
-	public int supprimer(Administrateur editeur, Matiere matiere) throws DAOException
+	public void supprimer(Matiere matiere) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
-		int statut = 0;
+		Administrateur editeur = new Administrateur(matiere.getEditeur());
 		
 		try 
 		{
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_SUPPR, true, editeur.getId(), matiere.getId());
-			statut = preparedStatement.executeUpdate();
+			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
 		{
@@ -293,8 +244,6 @@ public class MatiereDaoImpl implements MatiereDao
 		{
 			fermeturesSilencieuses(preparedStatement, connexion);
 		}
-		
-		return statut;
 	}
 	
 	/**
@@ -320,7 +269,7 @@ public class MatiereDaoImpl implements MatiereDao
 	}
 
 	/**
-	 * Transfère les données du resultSet vers un objet
+	 * Transfère les données du resultSet vers un objet Matiere
 	 * 
 	 * @param resultSet
 	 * @return matiere
