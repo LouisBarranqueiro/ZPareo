@@ -69,10 +69,8 @@ public class AdministrateurForm
             traiterAdministrateur(administrateur);
             traiterCreateur(createur, administrateur);
             
-            if (erreurs.isEmpty()) 
-            {
-            	administrateurDao.creer(administrateur);
-            }
+            if (erreurs.isEmpty()) administrateurDao.creer(administrateur);
+            
         } 
         catch (Exception e) 
         {
@@ -97,10 +95,7 @@ public class AdministrateurForm
     	Set<Administrateur> listeAdministrateurs = new HashSet<Administrateur>();
     	Administrateur administrateur = new Administrateur();
     	
-    	if (id != null) 
-    	{
-    		administrateur.setId(Long.parseLong(id));
-    	}
+    	if (id != null) administrateur.setId(Long.parseLong(id));
     	
     	administrateur.setNom(nom);
     	administrateur.setPrenom(prenom);
@@ -368,6 +363,7 @@ public class AdministrateurForm
      *  Traite le créateur de l'administrateur
      *  
      * @param createur
+     * @param administrateur
      */
     private void traiterCreateur(Administrateur createur, Administrateur administrateur) 
     {
@@ -380,14 +376,14 @@ public class AdministrateurForm
             setErreur("administrateur", e.getMessage());
         }
     	
-    	administrateur.setCreateur(createur);
-    	
+    	administrateur.setCreateur(createur);	
     }
     
     /**
      *  Traite le créateur de l'administrateur
      *  
      * @param createur
+     * @param administrateur
      */
     private void traiterEditeur(Administrateur editeur, Administrateur administrateur) 
     {
@@ -401,7 +397,6 @@ public class AdministrateurForm
         }
     	
     	administrateur.setEditeur(editeur);
-    	
     }
     
     /**
@@ -412,10 +407,7 @@ public class AdministrateurForm
      */
     private void validationId(String id) throws Exception 
     {
-        if ((id == null)) 
-        {
-            throw new Exception("Le numéro d'identification est nul");
-        }
+        if ((id == null)) throw new Exception("Le numéro d'identification est nul");  
     }
     
     /**
