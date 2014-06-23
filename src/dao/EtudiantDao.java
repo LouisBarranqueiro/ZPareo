@@ -6,7 +6,7 @@ import beans.Etudiant;
 public interface EtudiantDao 
 {
 	/**
-     * Ajoute un etudiant dans la base de données
+     * Ajoute un étudiant dans la base de données
      * 
      * @param etudiant
      * @throws DAOException
@@ -14,9 +14,10 @@ public interface EtudiantDao
 	void creer(Etudiant etudiant) throws DAOException;
 	
 	/**
-     * Recherche une ou des etudiant(s) dans la base de données
+     * Recherche une ou des étudiant(s) dans la base de données
      * 
      * @param etudiant
+     * @return Set<Etudiant>
      * @throws DAOException
      */
 	Set<Etudiant> rechercher(Etudiant etudiant) throws DAOException;
@@ -37,23 +38,25 @@ public interface EtudiantDao
 	void editerMotDePasse(Etudiant etudiant) throws DAOException;
 	
 	/**
-	 * Trouve un etudiant dans la base de données
+	 * Trouve un étudiant dans la base de données
 	 * 
 	 * @param etudiant
+	 * @return Etudiant
 	 * @throws DAOException
 	 */
 	Etudiant trouver(Etudiant etudiant) throws DAOException;
 
 	/**
-	 * Vérifie l'existance d'un etudiant dans la base de données
+	 * Vérifie l'éxistance d'un étudiant dans la base de données
 	 * 
 	 * @param etudiant
+	 * @return int
 	 * @throws DAOException
 	 */
 	int verifExistance(Etudiant etudiant) throws DAOException;
 
 	/**
-	 * Supprime un etudiant dans la base de données
+	 * Supprime un étudiant dans la base de données
 	 * 
 	 * @param etudiant
 	 * @throws DAOException
@@ -61,15 +64,16 @@ public interface EtudiantDao
 	void supprimer(Etudiant etudiant) throws DAOException;
 	
 	/**
-	 * Vérifie les identifiants d'un etudiant dans la base de données
+	 * Vérifie les identifiants d'un étudiant dans la base de données
 	 * 
 	 * @param etudiant
+	 * @return Etudiant
 	 * @throws DAOException
 	 */
 	Etudiant verifIdentifiant(Etudiant etudiant) throws DAOException;
 
 	/**
-	 * Récupère toutes les informations et le bulletin de l'etudiant
+	 * Récupère toutes les informations et le bulletin de l'étudiant
 	 * 
 	 * @param etudiant
 	 * @return Etudiant

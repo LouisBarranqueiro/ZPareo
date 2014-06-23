@@ -70,7 +70,7 @@ public class EtudiantDaoImpl implements EtudiantDao
 			preparedStatement.executeUpdate();
 			resultSet = preparedStatement.getGeneratedKeys();
 			
-			if(resultSet.next()) etudiant.setId(resultSet.getLong(1));
+			if (resultSet.next()) etudiant.setId(resultSet.getLong(1));
 			
 		}
 		catch (SQLException e)
@@ -113,7 +113,7 @@ public class EtudiantDaoImpl implements EtudiantDao
 	}
 	
 	/**
-	 * Vérifie les identifiants d'un etudiant dans la base de données
+	 * Vérifie les identifiants d'un étudiant dans la base de données
 	 * 
 	 * @return etudiant
 	 * @throws DAOException
@@ -171,7 +171,6 @@ public class EtudiantDaoImpl implements EtudiantDao
 			if (etudiant.getId() != null) sqlSelectRecherche += " AND gnw_utilisateur.id = ?";
 			else sqlSelectRecherche += " AND gnw_utilisateur.id IS NOT ?";	
 			
-			
 			if (etudiant.getNom() != null )
 			{
 				sqlSelectRecherche += " AND gnw_utilisateur.nom LIKE ?";
@@ -185,7 +184,6 @@ public class EtudiantDaoImpl implements EtudiantDao
 				etudiant.setPrenom("%" + etudiant.getPrenom() + "%");
 			}
 			else sqlSelectRecherche += " AND gnw_utilisateur.prenom IS NOT ?";	
-			
 			
 			if (etudiant.getAdresseMail() != null)
 			{
@@ -323,7 +321,7 @@ public class EtudiantDaoImpl implements EtudiantDao
 	}
 		
 	/**
-	 * Vérifie l'existance d'un etudiant dans la base de données
+	 * Vérifie l'éxistance d'un étudiant dans la base de données
 	 * 
 	 * @param etudiant
 	 * @return statut

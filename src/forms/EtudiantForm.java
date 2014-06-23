@@ -248,7 +248,7 @@ public final class EtudiantForm
     }
     
     /**
-     *  Traite le numéro d'identification de l'étudiant
+     *  Traite le numéro d'identification d'un étudiant
      *  
      * @param id
      * @param etudiant
@@ -308,7 +308,7 @@ public final class EtudiantForm
     }
     
     /**
-     *  Traite l'id du groupe de l'étudiant
+     *  Traite l'id du groupe d'un étudiant
      *  
      * @param groupeId
      * @param etudiant
@@ -331,7 +331,7 @@ public final class EtudiantForm
     }
     
     /**
-     *  Traite l'adresse mail de l'étudiant
+     *  Traite l'adresse mail d'un étudiant
      *  
      * @param adresseMail
      * @param etudiant
@@ -351,7 +351,7 @@ public final class EtudiantForm
     }
     
     /**
-     *  Traite le mot de passe de l'étudiant
+     *  Traite le mot de passe d'un étudiant
      *  
      * @param etudiant
      */
@@ -408,7 +408,7 @@ public final class EtudiantForm
     }
     
     /**
-     *  Traite le créateur de l'étudiant
+     *  Traite le créateur d'un étudiant
      *  
      * @param createur
      * @param etudiant
@@ -428,7 +428,7 @@ public final class EtudiantForm
     }
     
     /**
-     *  Traite l'éditeur de l'étudiant
+     *  Traite l'éditeur d'un étudiant
      *  
      * @param editeur
      * @param etudiant
@@ -544,7 +544,7 @@ public final class EtudiantForm
     }
     
     /**
-     * Valide le créateur de l'étudiant
+     * Valide le créateur d'un étudiant
      * 
      * @param createur
      * @throws Exception
@@ -619,6 +619,7 @@ public final class EtudiantForm
     
     /**
      * Envoie les identifiants de connexion à un étudiant
+     * 
      * @param etudian
      * @param motDePasse
      */
