@@ -1,8 +1,6 @@
 package dao;
 
 import java.util.Set;
-
-import beans.Administrateur;
 import beans.Professeur;
 
 
@@ -12,37 +10,32 @@ public interface ProfesseurDao
      * Ajoute un professeur dans la base de données
      * 
      * @param professeur
-     * @throws DAOException
      */
-	void creer(Administrateur createur, Professeur professeur) throws DAOException;
+	void creer(Professeur professeur);
 	
 	/**
      * Recherche un ou des professeur(s) dans la base de données
      * 
-     * @param professeur
+     * @param professeu
+     * @return Set<Professeur>
      * @throws DAOException
      */
 	Set<Professeur> rechercher(Professeur professeur) throws DAOException;
 	
 	/**
-	 * Compte le nombre de professeurs de la base de données
-	 * 
-	 * @throws DAOException
-	 */
-	int compterTous() throws DAOException;
-	
-	/**
-	 * Edite un professeur dans la base de donn�es
+	 * Edite un professeur dans la base de données
 	 * 
 	 * @param professeur
+	 * @return Professeur
 	 * @throws DAOException
 	 */
-	Professeur editer(Administrateur editeur, Professeur professeur) throws DAOException;
+	Professeur editer(Professeur professeur) throws DAOException;
 	
 	/**
 	 * Vérifie l'existance d'un professeur dans la base de données
 	 * 
 	 * @param professeur
+	 * @return int
 	 * @throws DAOException
 	 */
 	int verifExistance(Professeur professeur) throws DAOException;
@@ -51,6 +44,7 @@ public interface ProfesseurDao
 	 * Cherche un professeur dans la base de données
 	 * 
 	 * @param professeur
+	 * @return Professeur
 	 * @throws DAOException
 	 */
 	Professeur trouver(Professeur professeur) throws DAOException;
@@ -58,15 +52,16 @@ public interface ProfesseurDao
 	/**
 	 * Supprime un professeur dans la base de données
 	 * 
-	 * @param groupe
-	 * @return
+	 * @param professeur
+	 * @throws DAOException
 	 */
-	int supprimer(Administrateur editeur, Professeur professeur);
+	void supprimer(Professeur professeur) throws DAOException;
 	
 	/**
 	 * Vérifie les identifiants d'un professeur dans la base de données
 	 * 
 	 * @param professeur
+	 * @return Professeur
 	 * @throws DAOException
 	 */
 	Professeur verifIdentifiant(Professeur professeur) throws DAOException;

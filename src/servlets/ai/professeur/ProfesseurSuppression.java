@@ -43,11 +43,9 @@ public class ProfesseurSuppression extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		HttpSession session = request.getSession();
-		Administrateur editeur = (Administrateur) session.getAttribute(ATT_SESSION_ADMINISTRATEUR);
 		ProfesseurForm form = new ProfesseurForm(this.professeurDao);
 		
-		form.supprimerProfesseur(editeur, request);
+		form.supprimerProfesseur(request);
 		response.sendRedirect("http://localhost:8080/ZPareo/ai/professeur");  
 	}
 

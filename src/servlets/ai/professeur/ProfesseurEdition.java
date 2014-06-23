@@ -62,19 +62,14 @@ public class ProfesseurEdition extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		HttpSession session = request.getSession();
 		Matiere matiere = new Matiere();
 		Groupe groupe = new Groupe();
-		Administrateur editeur = (Administrateur) session.getAttribute(ATT_SESSION_ADMINISTRATEUR);
 		ProfesseurForm form = new ProfesseurForm(this.professeurDao);
 		Set<Groupe> listeGroupes = this.groupeDao.rechercher(groupe);
 		Set<Matiere> listeMatieres = this.matiereDao.rechercher(matiere);
-		beans.Professeur professeur = form.editerProfesseur(editeur, request);
+		beans.Professeur professeur = form.editerProfesseur(request);
 		
-		if (form.getErreurs().isEmpty())
-	    {
-	    	response.sendRedirect("http://localhost:8080/ZPareo/ai/professeur");   
-	    }
+		if (form.getErreurs().isEmpty()) response.sendRedirect("http://localhost:8080/ZPareo/ai/professeur");   
 	    else
 	    {
 	    	request.setAttribute(ATT_FORM, form);
