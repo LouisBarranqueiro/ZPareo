@@ -7,8 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import beans.Administrateur;
 import beans.Groupe;
 import beans.Matiere;
 import dao.DAOFactory;
@@ -22,7 +20,6 @@ import forms.ProfesseurForm;
 public class ProfesseurEdition extends HttpServlet 
 {
 	private static final String CONF_DAO_FACTORY           = "daofactory";
-	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
 	private static final String ATT_MATIERES               = "listeMatieres";
 	private static final String ATT_GROUPES                = "listeGroupes";
 	private static final String ATT_PROFESSEUR             = "professeur";

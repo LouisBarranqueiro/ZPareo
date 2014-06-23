@@ -342,7 +342,7 @@ public class EtudiantDaoImpl implements EtudiantDao
 		
 		return etudiant;
 	}
-	
+
 	/**
 	 * Supprime un groupe dans la base de données
 	 * 

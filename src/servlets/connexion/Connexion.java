@@ -46,22 +46,10 @@ public class Connexion extends HttpServlet
 	{
 		HttpSession session = request.getSession();
 		
-		if (session.getAttribute(ATT_SESSION_ADMINISTRATEUR) != null)
-	    {
-			response.sendRedirect("http://localhost:8080/ZPareo/ai/administrateur"); 
-	    } 
-		else if (session.getAttribute(ATT_SESSION_PROFESSEUR) != null)
-	    {
-			response.sendRedirect("http://localhost:8080/ZPareo/pi/examen");  
-	    } 
-		else if (session.getAttribute(ATT_SESSION_ETUDIANT) != null)
-        {
-			response.sendRedirect("http://localhost:8080/ZPareo/ei/mon-bulletin");
-        }
-		else
-		{
-			this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
-		}
+		if (session.getAttribute(ATT_SESSION_ADMINISTRATEUR) != null) response.sendRedirect("http://localhost:8080/ZPareo/ai/administrateur");  
+		else if (session.getAttribute(ATT_SESSION_PROFESSEUR) != null) response.sendRedirect("http://localhost:8080/ZPareo/pi/examen");  
+		else if (session.getAttribute(ATT_SESSION_ETUDIANT) != null) response.sendRedirect("http://localhost:8080/ZPareo/ei/mon-bulletin");
+		else this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
@@ -77,7 +65,7 @@ public class Connexion extends HttpServlet
 		if (etudiant.getId() != null)
 		{
 			session.setAttribute(ATT_SESSION_ETUDIANT, etudiant);
-			response.sendRedirect("http://localhost:8080/ZPareo/ei/mon-bulletin");   
+			response.sendRedirect("http://localhost:8080/ZPareo/ei/mon-bulletin"); 
 		}
 		else if (professeur.getId() != null)
 		{
@@ -95,6 +83,9 @@ public class Connexion extends HttpServlet
         	request.setAttribute(ATT_FORM, etudiantForm);
 			this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 		}
+		
+	
+
 	}
 	
 }
