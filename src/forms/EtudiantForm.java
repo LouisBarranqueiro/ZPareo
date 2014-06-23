@@ -11,6 +11,7 @@ import dao.EtudiantDao;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import utilitaires.Mail;
 import beans.Administrateur;
 import beans.Etudiant;
 import beans.Groupe;
@@ -343,6 +344,7 @@ public final class EtudiantForm
     	try 
     	{
     		validationMotsDePasse(motDePasse);
+    		envoyerMotDePasse(etudiant, motDePasse);
     		motDePasse = crypterMotDePasse(motDePasse);
     	} 
     	catch (Exception e)
@@ -481,7 +483,7 @@ public final class EtudiantForm
      */
     private void validationAdresseMail(String adresseMail) throws Exception 
     {
-        if ((adresseMail == null) || (adresseMail.length() < 8) || (adresseMail.length() > 100 ) || (!adresseMail.matches("[a-zA-Z0-9@.-_]+@[a-zA-Z]{2,20}.[a-zA-Z]{2,3}"))) 
+        if ((adresseMail == null) || (adresseMail.length() < 8) || (adresseMail.length() > 100 ) || (!adresseMail.matches("[a-zA-Z0-9@.-_]+@[a-zA-Z.]{2,20}.[a-zA-Z]{2,3}"))) 
         {
             throw new Exception("Veuillez entrer une adresse mail correcte");
         }
@@ -597,6 +599,15 @@ public final class EtudiantForm
     	return motDePasseCrypte.toString();
     }
     
+    /**
+     * Envoie les identifiants de connexion à un étudiant
+     * @param etudian
+     * @param motDePasse
+     */
+    private static void envoyerMotDePasse(Etudiant etudiant, String motDePasse)
+    {
+    	Mail.envoyerMotDePasseEtudiant(etudiant, motDePasse);
+    }
     /**
      * Retourne la valeur d'un champ du formulaire
      * 
