@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>ZPareo - Authentification</title>
 		<link type="text/css" rel="stylesheet" href="http://localhost:8080/ZPareo/ressources/css/bootstrap.css" />
         <link type="text/css" rel="stylesheet" href="http://localhost:8080/ZPareo/ressources/css/jquery-ui.custom.min.css" />
@@ -28,8 +28,8 @@
 							<span class="erreur">${ form.erreurs['connexion'] }</span>
 							<button type="submit" class="form-control  bouton bouton-primary">CONNEXION</button>
 						</div>
-						<div id="connexion-loader-conteneur">
-							<img id="connexion-loader"src="<c:url value="/ressources/img/ajax-loader.gif"/>"/>
+						<div class="loader-conteneur">
+							<img class="loader"src="<c:url value="/ressources/img/ajax-loader.gif"/>"/>
 						</div>
 						</form>
 					</div>
