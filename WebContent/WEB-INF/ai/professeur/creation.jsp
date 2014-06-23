@@ -12,7 +12,7 @@
 				<span class="erreur">${ form.erreurs['nom'] }</span>
 				<input type="text" name="prenom" class="form-control input-sm" size="39" value="<c:out value='${ professeur.prenom }'/>" pattern="[a-zA-Z ]{2,50}" placeholder="Prenom" x-moz-error-message="Veuillez entrez un prenom correct composer de 2 à 50 caractères" required/>
 				<span class="erreur">${ form.erreurs['prenom'] }</span>
-				<input type="text" name="adresseMail" class="form-control input-sm" size="39" value="<c:out value='${ professeur.adresseMail }'/>" pattern="[a-zA-Z0-9@.-_]+@[a-zA-Z]{2,20}.[a-zA-Z]{2,3}" placeholder="Adresse Mail" x-moz-error-message="Veuillez entrez une adresse mail correcte" required/>
+				<input type="text" name="adresseMail" class="form-control input-sm" size="39" value="<c:out value='${ professeur.adresseMail }'/>" pattern="[a-zA-Z0-9@.-_]+@[a-zA-Z.]{2,20}.[a-zA-Z]{2,3}" placeholder="Adresse Mail" x-moz-error-message="Veuillez entrez une adresse mail correcte" required/>
 				<span class="erreur">${ form.erreurs['professeur'] }</span>
 				<span class="erreur">${ form.erreurs['adresseMail'] }</span>
 				<input type="password" name="motDePasse" class="form-control input-sm" size="39" pattern=".{8,}" placeholder="Mot de passe" x-moz-error-message="Veuillez entrez un mot de passe composer de 8 caractères avec au moins une minucule, une majuscule, un chiffre et un caractère spéciale" required/>

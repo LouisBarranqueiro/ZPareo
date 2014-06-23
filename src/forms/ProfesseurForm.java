@@ -486,7 +486,7 @@ public class ProfesseurForm
      */
     private void validationAdresseMail(String adresseMail) throws Exception 
     {
-        if ((adresseMail == null) || (adresseMail.length() < 8) || (adresseMail.length() > 100 ) || (!adresseMail.matches("[a-zA-Z0-9@.-_]+@[a-zA-Z]{2,20}.[a-zA-Z]{2,3}"))) 
+        if ((adresseMail == null) || (adresseMail.length() < 8) || (adresseMail.length() > 100 ) || (!adresseMail.matches("[a-zA-Z0-9@.-_]+@[a-zA-Z.]{2,20}.[a-zA-Z]{2,3}"))) 
         {
             throw new Exception("Veuillez entrer une adresse mail correcte");
         }

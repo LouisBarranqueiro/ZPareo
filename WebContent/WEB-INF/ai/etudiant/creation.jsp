@@ -13,10 +13,10 @@
 			                             <span class="erreur">${ form.erreurs['nom'] }</span>
 			                             <input type="text" name="prenom" class="form-control input-sm" value="<c:out value='${ etudiant.prenom }'/>" size="30" pattern="[A-Za-z ]{2,50}" placeholder="Prenom" x-moz-errormessage="Veuillez entrer un prenom de 2 à 50 caractères" required/>
 			                             <span class="erreur">${ form.erreurs['prenom'] }</span>
-			                             <input type="text" name="adresseMail" class="form-control input-sm" value="<c:out value='${ etudiant.adresseMail }'/>" size="30"  pattern="[a-zA-Z0-9@.-_]+@[a-zA-Z]{2,20}.[a-zA-Z]{2,3}" placeholder="Adresse mail" x-moz-errormessage="Veuillez entrer une adresse mail correcte" required/>
+			                             <input type="text" name="adresseMail" class="form-control input-sm" value="<c:out value='${ etudiant.adresseMail }'/>" size="30"  pattern="[a-zA-Z0-9@.-_]+@[a-zA-Z.]{2,20}.[a-zA-Z]{2,3}" placeholder="Adresse mail" x-moz-errormessage="Veuillez entrer une adresse mail correcte" required/>
 			                             <span class="erreur">${ form.erreurs['adresseMail'] }</span>
 			                             <select name="groupe" class="form-control input-sm" required>
-			                                <option disabled="disabled" selected="selected">S�lectionnez un groupe</option>
+			                                <option disabled="disabled" selected="selected">Sélectionnez un groupe</option>
 			                                <c:forEach items="${ listeGroupes }" var="groupe">
 			                                    <option value="${ groupe.id }"<c:if test="${ etudiant.groupe.id == groupe.id }"><c:out value="selected='selected'"/></c:if>><c:out value="${ groupe.nom }"/></option>
 			                                </c:forEach>
