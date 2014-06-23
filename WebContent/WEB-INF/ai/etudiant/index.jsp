@@ -90,8 +90,9 @@
                                                 <td><c:out value="${ etudiant.groupe.nom }"/></td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button type="button" class="bouton bouton-action" onclick="affFormEdition('ai/etudiant',<c:out value="${ etudiant.id }"/>,500)"><span class="icon-edit"></span></button>
-                                                        <button type="button" class="bouton bouton-action" onclick="affFormSuppr('ai/etudiant',<c:out value="${ etudiant.id }"/>,'auto')"><span class="icon-trashcan"></span></button>
+                                                        <button type="button" class="bouton bouton-action" onclick="affForm('ai/etudiant/edition',<c:out value="${ etudiant.id }"/>,500)"><span class="icon-edit"></span></button>
+                                                        <button type="button" class="bouton bouton-action" onclick="affForm('ai/etudiant/suppression',<c:out value="${ etudiant.id }"/>,'auto')"><span class="icon-trashcan"></span></button>
+                                                        <button type="button" class="bouton bouton-action" onclick="affForm('ai/etudiant/reinit-mot-de-passe',<c:out value="${ etudiant.id }"/>,'auto')"><span class="icon-rotate"></span></button>
                                                     </div>
                                                 </td>
                                             </tr>

@@ -146,6 +146,7 @@ var rechFonctEdit = function()
 	editerGroupe();
 	editerMatiere();
 	editerEtudiant();
+	reinitMDPEtudiant();
 	editerProfesseur();
 	editerAdministrateur();
 	editerExamen();
@@ -270,6 +271,34 @@ var affFormSuppr = function(url, id, tailleFenetre)
 	    	$('main').append(data);
 	    	initFenetreModale(tailleFenetre);
 	    	rechFonctSuppr();
+	    } 
+	});
+};
+
+/**
+ * Affiche le formulaire de reinitialisation du mot de passe d'un etudiant
+ * 
+ * @param url
+ * @param id
+ * @param tailleFenetre
+ */
+var affForm = function(url, id, tailleFenetre) 
+{
+	$.ajax({ 
+		type: "GET", 
+	    url: "http://localhost:8080/ZPareo/" + url + "?id=" + id, 
+	    data: 
+	    {
+	    }, 
+	    error: function() 
+	    { 
+	    	alert("erreur !"); 
+	    },
+	    success: function(data) 
+	    {
+	    	$('main').append(data);
+	    	initFenetreModale(tailleFenetre);
+	    	rechFonctEdit();
 	    } 
 	});
 };
@@ -651,6 +680,36 @@ var supprimerEtudiant = function()
 		    		initFenetreModale('auto');
 		    		rechFonctSuppr();
 		    	}
+		    } 
+		});
+	});
+};
+
+/**
+ * Réinitialise le mot de passe et envoye par mail le nouveau mot de passe d'un étudiant
+ */
+var reinitMDPEtudiant = function()  
+{
+	$('#reinitmdp-etudiant').submit(function(event)
+	{
+		event.preventDefault();
+		var id = $('#reinitmdp-etudiant input[name=id]').val();
+		
+		$.ajax({ 
+			type: "POST", 
+		    url: "http://localhost:8080/ZPareo/ai/etudiant/reinit-mot-de-passe", 
+		    data: 
+		    {
+		    	id: id
+		    }, 
+		    error: function() 
+		    { 
+		    	alert("erreur !"); 
+		    },
+		    success: function(data) 
+		    { 
+		   		supprFenetresModales();
+		    	supprMasque();
 		    } 
 		});
 	});
@@ -1122,7 +1181,7 @@ var verifIdentifiant = function()
 		
 		// Animation 
 		$('.module-form').fadeOut(300);
-		$('#connexion-loader-conteneur').delay(300).fadeIn(1500, function()
+		$('.loader-conteneur').delay(300).fadeIn(1500, function()
 		{
 			$.ajax({ 
 			    type: "POST", 

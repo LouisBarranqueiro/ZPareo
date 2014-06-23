@@ -69,7 +69,7 @@ public final class EtudiantForm
             traiterNom(nom, etudiant);
             traiterPrenom(prenom, etudiant);
             traiterAdresseMail(adresseMail, etudiant);
-            traiterMotDePasse(etudiant);
+            traiterMotDePasse(etudiant, false);
             traiterGroupe(groupeId, etudiant);
             traiterEtudiant(etudiant);
             traiterCreateur(createur, etudiant);
@@ -230,6 +230,24 @@ public final class EtudiantForm
     }
     
     /**
+     * Réinitialise le mot de passe d'un étudiant et lui envoie par mail
+     * 
+     * @param request
+     */
+    public void reinitMDPEtudiant(HttpServletRequest request)
+    {
+    	String id = getValeurChamp(request, CHAMP_ID);
+    	Administrateur editeur = (Administrateur) getValeurSession(request, SESSION_ADMINISTRATEUR);
+    	Etudiant etudiant = new Etudiant();
+    	
+    	traiterId(id, etudiant);
+    	etudiant = etudiantDao.trouver(etudiant);
+    	traiterMotDePasse(etudiant, true);
+    	traiterEditeur(editeur, etudiant);
+        etudiantDao.editerMotDePasse(etudiant);
+    }
+    
+    /**
      *  Traite le numéro d'identification de l'étudiant
      *  
      * @param id
@@ -337,14 +355,14 @@ public final class EtudiantForm
      *  
      * @param etudiant
      */
-    private void traiterMotDePasse(Etudiant etudiant)  
+    private void traiterMotDePasse(Etudiant etudiant, boolean reinitialisation)  
     {		
     	String motDePasse = genererMotDePasse(8);
 
     	try 
     	{
     		validationMotsDePasse(motDePasse);
-    		envoyerMotDePasse(etudiant, motDePasse);
+    		envoyerMotDePasse(etudiant, motDePasse, reinitialisation);
     		motDePasse = crypterMotDePasse(motDePasse);
     	} 
     	catch (Exception e)
@@ -604,10 +622,12 @@ public final class EtudiantForm
      * @param etudian
      * @param motDePasse
      */
-    private static void envoyerMotDePasse(Etudiant etudiant, String motDePasse)
+    private static void envoyerMotDePasse(Etudiant etudiant, String motDePasse, boolean reinitialisation)
     {
-    	Mail.envoyerMotDePasseEtudiant(etudiant, motDePasse);
+    	if (reinitialisation) Mail.renvoyerMotDePasseEtudiant(etudiant, motDePasse);
+    	else Mail.envoyerMotDePasseEtudiant(etudiant, motDePasse);
     }
+    
     /**
      * Retourne la valeur d'un champ du formulaire
      * 

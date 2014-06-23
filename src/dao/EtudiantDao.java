@@ -22,12 +22,19 @@ public interface EtudiantDao
 	Set<Etudiant> rechercher(Etudiant etudiant) throws DAOException;
 	
 	/**
-	 * Edite un etudiant dans la base de données
+	 * Edite les informations d'un étudiant dans la base de données
+	 * 
+	 * @param etudiant
+	 */
+	void editer(Etudiant etudiant);
+	
+	/**
+	 * Edite le mot de passe d'un étudiant dans la base de données
 	 * 
 	 * @param etudiant
 	 * @throws DAOException
 	 */
-	Etudiant editer(Etudiant etudiant) throws DAOException;
+	void editerMotDePasse(Etudiant etudiant) throws DAOException;
 	
 	/**
 	 * Trouve un etudiant dans la base de données

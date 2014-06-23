@@ -22,7 +22,8 @@ public class EtudiantDaoImpl implements EtudiantDao
 	private static final String SQL_SELECT_PAR_ID                 = "SELECT gnw_utilisateur.id, gnw_utilisateur.nom, gnw_utilisateur.prenom, gnw_utilisateur.adresse_mail, gnw_groupe.id as groupeId, gnw_groupe.nom as groupeNom FROM gnw_utilisateur, gnw_etudiant_groupe, gnw_groupe WHERE profil = 0 AND gnw_utilisateur.date_suppr IS NULL AND gnw_utilisateur.id = gnw_etudiant_groupe.fk_etudiant AND gnw_groupe.id = gnw_etudiant_groupe.fk_groupe AND gnw_utilisateur.id = ?";
 	private static final String SQL_SELECT_AUTH                   = "SELECT gnw_utilisateur.id, gnw_utilisateur.nom, gnw_utilisateur.prenom, gnw_utilisateur.adresse_mail, gnw_groupe.id as groupeId, gnw_groupe.nom as groupeNom FROM gnw_utilisateur, gnw_etudiant_groupe, gnw_groupe WHERE profil = 0 AND gnw_utilisateur.date_suppr IS NULL AND gnw_utilisateur.id = gnw_etudiant_groupe.fk_etudiant AND gnw_groupe.id = gnw_etudiant_groupe.fk_groupe AND gnw_utilisateur.adresse_mail = ? AND gnw_utilisateur.mot_de_passe = ?";
 	private static final String SQL_UPDATE_ETUDIANT               = "UPDATE gnw_utilisateur SET nom = ?, prenom = ?, adresse_mail = ?, fk_utilisateur = ? WHERE id = ?";
-	private static final String SQL_UPDATE_GROUPE                 = "UPDATE gnw_etudiant_groupe SET fk_groupe = ?, fk_utilisateur = ? WHERE fk_etudiant = ?";
+	private static final String SQL_UPDATE_ETUDIANT_MDP           = "UPDATE gnw_utilisateur SET mot_de_passe = ?, fk_utilisateur = ? WHERE id = ?";
+	private static final String SQL_UPDATE_ETUDIANT_GROUPE        = "UPDATE gnw_etudiant_groupe SET fk_groupe = ?, fk_utilisateur = ? WHERE fk_etudiant = ?";
 	private static final String SQL_UPDATE_SUPPR                  = "UPDATE gnw_utilisateur SET date_suppr = now(), fk_utilisateur = ? WHERE id = ?";
 	
 	
@@ -220,27 +221,34 @@ public class EtudiantDaoImpl implements EtudiantDao
 	}
 	
 	/**
-	 * Edite un etudiant dans la base de données
+	 * Edite un étudiant dans la base de données
 	 * 
 	 * @param etudiant
-	 * @return etudiant
+	 */
+	public void editer(Etudiant etudiant)
+	{
+		editerInformations(etudiant);
+	}
+	
+	/**
+	 * Edite les inforamtions d'un étudiant dans la base de données
+	 * 
+	 * @param etudiant
 	 * @throws DAOException
 	 */
-	public Etudiant editer(Etudiant etudiant) throws DAOException
+	private void editerInformations(Etudiant etudiant) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		Administrateur editeur = new Administrateur(etudiant.getEditeur());
 		Groupe groupe = new Groupe(etudiant.getGroupe());
-		
 		try 
 		{
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_ETUDIANT, true, etudiant.getNom(), etudiant.getPrenom(), etudiant.getAdresseMail(), editeur.getId(), etudiant.getId());
 			preparedStatement.executeUpdate();
-			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_GROUPE, true, groupe.getId(), editeur.getId(), etudiant.getId());
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_ETUDIANT_GROUPE, true, groupe.getId(), editeur.getId(), etudiant.getId());
 			preparedStatement.executeUpdate();
-			
 		} 
 		catch (SQLException e) 
 		{
@@ -250,8 +258,34 @@ public class EtudiantDaoImpl implements EtudiantDao
 		{
 			fermeturesSilencieuses(preparedStatement, connexion);
 		}
+	}
+	
+	/**
+	 * Edite le mot de passe d'un étudiant dans la base de données
+	 * 
+	 * @param etudiant
+	 * @throws DAOException
+	 */
+	public void editerMotDePasse(Etudiant etudiant) throws DAOException
+	{
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		Administrateur editeur = new Administrateur(etudiant.getEditeur());
 		
-		return etudiant;
+		try 
+		{
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion, SQL_UPDATE_ETUDIANT_MDP, true, etudiant.getMotDePasse(), editeur.getId(), etudiant.getId());
+			preparedStatement.executeUpdate();
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(preparedStatement, connexion);
+		}
 	}
 	
 	/**

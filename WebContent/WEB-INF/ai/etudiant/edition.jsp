@@ -25,7 +25,6 @@
 			</div>				
 			<div class="module-control-bas">
 				<button type="submit" class="bouton bouton-primary">ENREGISTRER</button>
-				<button type="button" class="bouton bouton-primary" onclick="envoyezMotDePasse()">ENVOYER MOT DE PASSE</button>
 				<button type="button" class="bouton bouton-default" onclick="supprFenetresModales()">ANNULER</button>
 			</div>
 		</form>

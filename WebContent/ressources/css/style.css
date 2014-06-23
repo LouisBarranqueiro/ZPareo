@@ -31,7 +31,7 @@ body {
 {
 	margin:10px 0 0 0;
 }
-#connexion-loader-conteneur
+.loader-conteneur
 {
 	width:100%;
 	display:none;
@@ -39,7 +39,7 @@ body {
 	line-height:140px;
 	padding:50px 0;
 }
-#connexion-loader 
+.loader 
 {
 	display:block;
 	margin:0 auto;

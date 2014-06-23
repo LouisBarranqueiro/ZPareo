@@ -103,12 +103,26 @@ public class Mail
      * Envoie les identifiants de connexion d'un étudiant par mail
      * 
      * @param etudiant
-     * @
+     * @param motDePasse
      */
     public static void envoyerMotDePasseEtudiant(Etudiant etudiant, String motDePasse)
     {
     	String sujet = "Bienvenue sur ZPareo";
-    	String contenu = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'></head><style type='text/css'>body, .content{	margin:0 auto; 	background:#ffffff; 	letter-spacing: 0pt; 	width:100%;	max-width:650px; 	font-family:'Helvetica Neue'; 	font:'Helvetica Neue'; 	font-size:13px; 	color:#707277;}body h4{ 	display:block;    font:'helvetica Neue'; 	font-size:16px;	color:#454545; 	height:30px;	margin:0 15px;	border-bottom:1px solid #e3e3e3; }a{ 	text-decoration:none; 	text-align: center; 	color:#39F;}.content{	width:auto;	margin:0 15px;	line-height:20px;}.gras{	color:#26282b;}</style><body>	<br/>	<h4>Bienvenue sur ZPareo</h4>	<div class='content'>	<p>Bonjour <span class='gras'>Marc</span>,<br/><br/> Un compte étudiant a été crée pour vous sur ZPareo. Vous pouvez dés maintenant vous connecter dessus pour consulter vos notes en cliquant sur : <a href='http://localhost:8080/ZPareo/connexion'>Accéder à mon compte</a><br/><br/>identifiant : <span class='gras'>" + etudiant.getAdresseMail() + "</span><br>mot de passe : <span class='gras'> " + motDePasse + "</span><br/><br/>Cordialement,<br/>Administration ZPareo</div></p></body></html";
+    	String contenu = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'></head><style type='text/css'>body, .content{	margin:0 auto; 	background:#ffffff; 	letter-spacing: 0pt; 	width:100%;	max-width:650px; 	font-family:'Helvetica Neue'; 	font:'Helvetica Neue'; 	font-size:13px; 	color:#707277;}body h4{ 	display:block;    font:'helvetica Neue'; 	font-size:16px;	color:#454545; 	height:30px;	margin:0 15px;	border-bottom:1px solid #e3e3e3; }a{ 	text-decoration:none; 	text-align: center; 	color:#39F;}.content{	width:auto;	margin:0 15px;	line-height:20px;}.gras{	color:#26282b;}</style><body>	<br/>	<h4>Bienvenue sur ZPareo</h4>	<div class='content'>	<p>Bonjour <span class='gras'>Marc</span>,<br/><br/> Un compte étudiant a été crée pour vous sur ZPareo. Vous pouvez dés maintenant vous connecter dessus pour consulter vos notes en cliquant sur : <a href='http://localhost:8080/ZPareo/connexion'>Accéder à mon compte</a><br/><br/>Identifiant : <span class='gras'>" + etudiant.getAdresseMail() + "</span><br>Mot de passe : <span class='gras'> " + motDePasse + "</span><br/><br/>Cordialement,<br/>Administration ZPareo</div></p></body></html";
+    	
+    	envoyerMail(etudiant.getAdresseMail(), sujet, contenu);
+    }
+    
+    /**
+     * Renvoie les identifiants de connexion d'un étudiant par mail
+     * 
+     * @param etudiant
+     * @param motDePasse
+     */
+    public static void renvoyerMotDePasseEtudiant(Etudiant etudiant, String motDePasse)
+    {
+    	String sujet = "Votre nouveau mot de passe sur ZPareo";
+    	String contenu = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'></head><style type='text/css'>body, .content{	margin:0 auto; 	background:#ffffff; 	letter-spacing: 0pt; 	width:100%;	max-width:650px; 	font-family:'Helvetica Neue'; 	font:'Helvetica Neue'; 	font-size:13px; 	color:#707277;}body h4{ 	display:block;    font:'helvetica Neue'; 	font-size:16px;	color:#454545; 	height:30px;	margin:0 15px;	border-bottom:1px solid #e3e3e3; }a{ 	text-decoration:none; 	text-align: center; 	color:#39F;}.content{	width:auto;	margin:0 15px;	line-height:20px;}.gras{	color:#26282b;}</style><body>	<br/>	<h4>ZPareo</h4>	<div class='content'>	<p>Bonjour <span class='gras'>Marc</span>,<br/><br/> Le mot de passe de votre compte ZPareo a été réinitialisé. Vous pouvez de nouveau consulter vos informations et vos notes ici : <a href='http://localhost:8080/ZPareo/connexion'>Accéder à mon compte</a><br/><br/>Identifiant : <span class='gras'>" + etudiant.getAdresseMail() + "</span><br>Mot de passe : <span class='gras'> " + motDePasse + "</span><br/><br/>Cordialement,<br/>Administration ZPareo</div></p></body></html";
     	
     	envoyerMail(etudiant.getAdresseMail(), sujet, contenu);
     }
