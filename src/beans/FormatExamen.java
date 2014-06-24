@@ -17,7 +17,7 @@ public class FormatExamen
 	/**
 	 * Constructeur
 	 * 
-	 * @param format Un format d'examen.
+	 * @param format 
 	 */
 	public FormatExamen(FormatExamen format) 
 	{
@@ -28,7 +28,7 @@ public class FormatExamen
 	/**
 	 * Retourne le numéro d'identification du format d'examen
 	 * 
-	 * @return id Le numéro d'identification du format d'examen.
+	 * @return id 
 	 */
 	public Long getId() 
 	{
@@ -38,7 +38,7 @@ public class FormatExamen
 	/**
 	 * Défini le numéro d'identification du format d'examen
 	 * 
-	 * @param id Un numéro d'identification.
+	 * @param id 
 	 */
 	public void setId(Long id)
 	{
@@ -48,7 +48,7 @@ public class FormatExamen
 	/**
 	 *  Retourne le nom du format d'examen
 	 *  
-	 * @return nom Le nom du format d'examen.
+	 * @return nom 
 	 */
 	public String getNom()
 	{
@@ -58,7 +58,7 @@ public class FormatExamen
 	/**
 	 * Défini le nom du format d'examen
 	 * 
-	 * @param nom Un nom.
+	 * @param nom 
 	 */
 	public void setNom(String nom) 
 	{

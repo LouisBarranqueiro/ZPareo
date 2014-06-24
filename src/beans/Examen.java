@@ -35,7 +35,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Constructeur
 	 * 
-	 * @param examen Un examen.
+	 * @param examen 
 	 */
 	public Examen(Examen examen)
 	{
@@ -54,7 +54,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Retourne le numéro d'identification de l'examen
 	 * 
-	 * @return id Le numéro d'identification de l'examen.
+	 * @return id 
 	 */
 	public Long getId() 
 	{
@@ -64,7 +64,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Défini le numéro d'identification de l'examen
 	 * 
-	 * @param id Un numéro d'identification.
+	 * @param id 
 	 */
 	public void setId(Long id) 
 	{
@@ -74,7 +74,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Retourne le nom de l'examen
 	 * 
-	 * @return nom Le nom de l'examen.
+	 * @return nom 
 	 */
 	public String getNom()
 	{
@@ -84,7 +84,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Défini le nom de l'examen
 	 * 
-	 * @param nom Un nom.
+	 * @param nom
 	 */
 	public void setNom(String nom) 
 	{
@@ -94,7 +94,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Retourne la date de l'examen
 	 * 
-	 * @return date La date de l'examen.
+	 * @return date
 	 */
 	public String getDate() 
 	{
@@ -104,7 +104,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Défini la date de l'examen
 	 * 
-	 * @param date Une date.
+	 * @param date 
 	 */
 	public void setDate(String date) 
 	{
@@ -114,7 +114,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Retourne le format de l'examen
 	 * 
-	 * @return format Le format de l'examen.
+	 * @return format 
 	 */
 	public FormatExamen getFormat() 
 	{
@@ -124,7 +124,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Défini le format de l'examen
 	 * 
-	 * @param format Un format d'examen.
+	 * @param format 
 	 */
 	public void setFormat(FormatExamen format) 
 	{
@@ -134,7 +134,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Retourne le professeur responsable de l'examen
 	 * 
-	 * @return professeur Le professeur responsable de l'examen.
+	 * @return professeur 
 	 */
 	public Professeur getProfesseur()
 	{
@@ -144,7 +144,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Défini le professeur responsable de l'examen
 	 * 
-	 * @param professeur Un professeur.
+	 * @param professeur 
 	 */
 	public void setProfesseur(Professeur professeur) 
 	{
@@ -154,7 +154,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Retourne le groupe de l'examen
 	 * 
-	 * @return groupe Le groupe de l'examen.
+	 * @return groupe 
 	 */
 	public Groupe getGroupe()
 	{
@@ -164,7 +164,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Défini le groupe de l'examen
 	 * 
-	 * @param groupe Un groupe.
+	 * @param groupe 
 	 */
 	public void setGroupe(Groupe groupe)
 	{
@@ -174,7 +174,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Retourne la matiére de l'examen
 	 * 
-	 * @return matiere La matiére de l'examen.
+	 * @return matiere 
 	 */
 	public Matiere getMatiere()
 	{
@@ -184,7 +184,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Défini la matiére de l'examen
 	 * 
-	 * @param matiere Une matiére.
+	 * @param matiere 
 	 */
 	public void setMatiere(Matiere matiere)
 	{
@@ -194,7 +194,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Retourne la liste de notes de l'examen
 	 * 
-	 * @return listeNotes La liste des notes de l'examen
+	 * @return listeNotes 
 	 */
 	public Set<Note> getListeNotes()
 	{
@@ -204,7 +204,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Défini la liste de notes de l'examen
 	 * 
-	 * @param listeNotes Une liste de notes.
+	 * @param listeNotes 
 	 */
 	public void setListeNotes(Set<Note> listeNotes) 
 	{
@@ -214,7 +214,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Retourne la moyenne générale de l'examen
 	 * 
-	 * @return moyenneGenerale La moyenne générale de l'examen.
+	 * @return moyenneGenerale 
 	 */
 	public Float getMoyenne() {
 		return moyenne;
@@ -223,7 +223,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Défini la moyenne générale de l'examen
 	 * 
-	 * @param moyenneGenerale Une moyenne générale.
+	 * @param moyenneGenerale 
 	 */
 	public void setMoyenne(Float moyenne) 
 	{
@@ -233,7 +233,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Retourne le coefficient de l'examen
 	 * 
-	 * @return coefficient Le coefficient de l'examen.
+	 * @return coefficient 
 	 */
 	public Float getCoefficient()
 	{
@@ -243,7 +243,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Défini le coefficient de l'examen
 	 * 
-	 * @param coefficient Un coefficient.
+	 * @param coefficient 
 	 */
 	public void setCoefficient(Float coefficient) 
 	{
@@ -253,7 +253,7 @@ public class Examen implements Comparable<Examen>
 	/**
 	 * Compare le numéro d'identification de deux examens
 	 * 
-	 * @param examen2 Un examen.
+	 * @param examen2 
 	 */
 	@Override
 	public int compareTo(Examen examen2) 

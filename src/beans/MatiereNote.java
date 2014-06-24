@@ -22,7 +22,7 @@ public class MatiereNote implements Comparable<MatiereNote>
 	/**
 	 * Constructeur
 	 * 
-	 * @param matiereNote Un objet MatiereNote.
+	 * @param matiereNote
 	 */
 	public MatiereNote(MatiereNote matiereNote)
 	{
@@ -33,7 +33,7 @@ public class MatiereNote implements Comparable<MatiereNote>
 	/**
 	 * Retourne le numéro d'identification de l'objet
 	 * 
-	 * @return id Le numéro d'identification de l'objet.
+	 * @return id 
 	 */
 	public Long getId() 
 	{
@@ -43,7 +43,7 @@ public class MatiereNote implements Comparable<MatiereNote>
 	/**
 	 * Défini le numéro d'identification de l'objet.
 	 * 
-	 * @return id Un numéro d'identification.
+	 * @return id 
 	 */
 	public void setId(Long id) 
 	{
@@ -53,7 +53,7 @@ public class MatiereNote implements Comparable<MatiereNote>
 	/**
 	 * Retourne la matière de l'objet
 	 * 
-	 * @return matiere La matiere de l'objet.
+	 * @return matiere 
 	 */
 	public Matiere getMatiere() 
 	{
@@ -63,7 +63,7 @@ public class MatiereNote implements Comparable<MatiereNote>
 	/**
 	 * Défini la matière de l'objet
 	 * 
-	 * @param matiere Une matiere.
+	 * @param matiere 
 	 */
 	public void setMatiere(Matiere matiere) 
 	{
@@ -73,7 +73,7 @@ public class MatiereNote implements Comparable<MatiereNote>
 	/**
 	 * Retourne la moyenne de l'objet
 	 * 
-	 * @return matiere La moyenne de l'objet.
+	 * @return matiere 
 	 */
 	public Float getMoyenne() 
 	{
@@ -83,7 +83,7 @@ public class MatiereNote implements Comparable<MatiereNote>
 	/**
 	 * Défini la moyenne de l'objet
 	 * 
-	 * @param matiere Une moyenne.
+	 * @param matiere 
 	 */
 	public void setMoyenne(Float moyenne) 
 	{
@@ -93,7 +93,7 @@ public class MatiereNote implements Comparable<MatiereNote>
 	/**
 	 * Retourne la liste des examens de l'objet
 	 * 
-	 * @return listeExamens La liste d'examens de l'objet.
+	 * @return listeExamens 
 	 */
 	public Set<Examen> getListeExamens()
 	{
@@ -103,7 +103,7 @@ public class MatiereNote implements Comparable<MatiereNote>
 	/**
 	 * Défini la liste d'examens de l'objet
 	 * 
-	 * @param listeExamens Une liste d'examens.
+	 * @param listeExamens 
 	 */
 	public void setListeExamens(Set<Examen> listeExamens) 
 	{
@@ -113,7 +113,7 @@ public class MatiereNote implements Comparable<MatiereNote>
 	/**
 	 * Compare le nom de la matière de deux objets MatiereNote
 	 * 
-	 * @param matiereNote2 Un objet MatiereNote.
+	 * @param matiereNote2 
 	 */
 	@Override
 	public int compareTo(MatiereNote matiereNote2)

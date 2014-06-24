@@ -13,7 +13,7 @@ public class Administrateur extends Utilisateur implements Comparable<Administra
 	/**
 	 * Constructeur
 	 * 
-	 * @param administrateur Un administrateur.
+	 * @param administrateur 
 	 */
 	public Administrateur(Administrateur administrateur)
 	{
@@ -23,7 +23,7 @@ public class Administrateur extends Utilisateur implements Comparable<Administra
 	/**
 	 * Compare le numéro d'identification de deux administrateurs
 	 * 
-	 * @param administrateur2 Un administrateur.
+	 * @param administrateur2 
 	 */
 	@Override
 	public int compareTo(Administrateur administrateur2) 

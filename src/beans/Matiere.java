@@ -32,7 +32,7 @@ public class Matiere implements Comparable<Matiere>
 	/**
 	 * Constructeur
 	 * 
-	 * @param matiere Une matiere.
+	 * @param matiere 
 	 */
 	public Matiere(Matiere matiere)
 	{
@@ -45,7 +45,7 @@ public class Matiere implements Comparable<Matiere>
 	/**
 	 * Retourne le numéro d'identification de la matiére
 	 * 
-	 * @return id Le numéro d'identification de la matiére.
+	 * @return id 
 	 */
 	public Long getId() 
 	{
@@ -55,7 +55,7 @@ public class Matiere implements Comparable<Matiere>
 	/**
 	 * Défini le numéro d'identification de la matiére+
 	 * 
-	 * @param id Un numéro d'identification.
+	 * @param id 
 	 */
 	public void setId(Long id) 
 	{
@@ -65,7 +65,7 @@ public class Matiere implements Comparable<Matiere>
 	/**
 	 * Retourne le nom de la matiére
 	 * 
-	 * @return nom Le nom de la matiére.
+	 * @return nom 
 	 */
 	public String getNom() 
 	{
@@ -75,7 +75,7 @@ public class Matiere implements Comparable<Matiere>
 	/**
 	 * Défini le nom de la matiére
 	 * 
-	 * @param nom Un nom.
+	 * @param nom 
 	 */
 	public void setNom(String nom) 
 	{
@@ -85,7 +85,7 @@ public class Matiere implements Comparable<Matiere>
 	/**
 	 * Retourne le créateur de la matière
 	 * 
-	 * @return createur Le créateur de la matière.
+	 * @return createur 
 	 */
 	public Administrateur getCreateur() 
 	{
@@ -95,7 +95,7 @@ public class Matiere implements Comparable<Matiere>
 	/**
 	 * Défini le créateur de la matière
 	 * 
-	 * @param createur Un administrateur.
+	 * @param createur 
 	 */
 	public void setCreateur(Administrateur createur) 
 	{
@@ -105,7 +105,7 @@ public class Matiere implements Comparable<Matiere>
 	/**
 	 * Retourne l'éditeur de la matière
 	 * 
-	 * @return editeur L'éditeur de la matière.
+	 * @return editeur 
 	 */
 	public Administrateur getEditeur() 
 	{
@@ -115,7 +115,7 @@ public class Matiere implements Comparable<Matiere>
 	/**
 	 * Défini l'éditeur de la matière
 	 * 
-	 * @param editeur Un administrateur.
+	 * @param editeur 
 	 */
 	public void setEditeur(Administrateur editeur)
 	{
@@ -125,7 +125,7 @@ public class Matiere implements Comparable<Matiere>
 	/**
 	 * Compare le numéro d'identification de deux matiéres
 	 * 
-	 * @param matiere2 Une matiére.
+	 * @param matiere2 
 	 */
 	@Override
 	public int compareTo(Matiere matiere2) 

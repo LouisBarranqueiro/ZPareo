@@ -19,7 +19,7 @@ public class Professeur extends Utilisateur implements Comparable<Professeur>
 	/**
 	 * Constructeur
 	 * 
-	 * @param professeur Un professeur.
+	 * @param professeur 
 	 */
 	public Professeur(Professeur professeur)
 	{
@@ -31,7 +31,7 @@ public class Professeur extends Utilisateur implements Comparable<Professeur>
 	/**
 	 * Retourne la liste des matières du professeur
 	 * 
-	 * @return listeMatieres La liste des matières du professeur.
+	 * @return listeMatieres
 	 */
 	public Set<Matiere> getListeMatieres()
 	{
@@ -41,7 +41,7 @@ public class Professeur extends Utilisateur implements Comparable<Professeur>
 	/**
 	 * Défini la liste des matières du professeur
 	 * 
-	 * @param listeMatieres Une liste de matières.
+	 * @param listeMatieres 
 	 */
 	public void setListeMatieres(Set<Matiere> listeMatieres) 
 	{
@@ -51,7 +51,7 @@ public class Professeur extends Utilisateur implements Comparable<Professeur>
 	/**
 	 * Retourne la liste des groupes du professeur
 	 * 
-	 * @return listeGroupes La liste des groupes du professeur.
+	 * @return listeGroupes 
 	 */
 	public Set<Groupe> getListeGroupes() 
 	{
@@ -61,7 +61,7 @@ public class Professeur extends Utilisateur implements Comparable<Professeur>
 	/**
 	 * Défini la liste des groupes du professeur
 	 * 
-	 * @param listeGroupes Une liste de groupes.
+	 * @param listeGroupes 
 	 */
 	public void setListeGroupes(Set<Groupe> listeGroupes) 
 	{
@@ -71,7 +71,7 @@ public class Professeur extends Utilisateur implements Comparable<Professeur>
 	/**
 	 * Compare le numéro d'identification de deux professeurs
 	 * 
-	 * @param professeur2 Un professeur.
+	 * @param professeur2 
 	 */
 	@Override
 	public int compareTo(Professeur professeur2) 

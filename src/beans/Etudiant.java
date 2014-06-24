@@ -18,7 +18,7 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	/**
 	 * Constructeur
 	 * 
-	 * @param etudiant Un étudiant.
+	 * @param etudiant 
 	 */
 	public Etudiant(Etudiant etudiant)
 	{
@@ -30,7 +30,7 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	/**
 	 * Retourne le groupe de l'étudiant
 	 * 
-	 * @return groupe Le groupe de l'étudiant.
+	 * @return groupe 
 	 */
 	public Groupe getGroupe() 
 	{
@@ -40,7 +40,7 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	/**
 	 * Défini le groupe de l'étudiant
 	 * 
-	 * @param groupe Un groupe.
+	 * @param groupe 
 	 */
 	public void setGroupe(Groupe groupe) 
 	{
@@ -50,7 +50,7 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	/**
 	 * Retourne la liste des notes de l'etudiant
 	 * 
-	 * @return bulletin Le bulletin de l'etudiant.
+	 * @return bulletin 
 	 */
 	public Bulletin getBulletin() 
 	{
@@ -60,7 +60,7 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	/**
 	 * Défini le bulletin de l'étudiant
 	 * 
-	 * @param bulletin Un bulletin.
+	 * @param bulletin
 	 */
 	public void setBulletin(Bulletin bulletin) 
 	{
@@ -70,7 +70,7 @@ public class Etudiant extends Utilisateur implements Comparable<Etudiant>
 	/**
 	 * Compare le numéro d'identification de deux étudiants
 	 * 
-	 * @param etudiant2 Un étudiant.
+	 * @param etudiant2 
 	 */
 	@Override
 	public int compareTo(Etudiant etudiant2) 

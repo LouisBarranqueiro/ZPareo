@@ -27,7 +27,7 @@ public abstract class Utilisateur
 	/**
 	 * Constructeur 
 	 * 
-	 * @param utilisateur Un utilisateur.
+	 * @param utilisateur
 	 */
 	public Utilisateur(Utilisateur utilisateur)
 	{
@@ -43,7 +43,7 @@ public abstract class Utilisateur
 	/**
 	 * Constructeur 
 	 * 
-	 * @param administrateur Un administrateur.
+	 * @param administrateur 
 	 */
 	public Utilisateur(Administrateur administrateur)
 	{
@@ -59,7 +59,7 @@ public abstract class Utilisateur
 	/**
 	 * Retourne le numéro d'identification de l'utilisateur
 	 * 
-	 * @return id Le numéro d'identification.
+	 * @return id 
 	 */
 	public Long getId() 
 	{
@@ -69,7 +69,7 @@ public abstract class Utilisateur
 	/**
 	 * Défini le numéro d'identification de l'utilisateur
 	 * 
-	 * @return id Un numéro d'identification.
+	 * @return id 
 	 */
 	public void setId(Long id) 
 	{
@@ -79,7 +79,7 @@ public abstract class Utilisateur
 	/**
 	 * Retourne le nom de l'utilisateur
 	 * 
-	 * @return id Le nom de l'utilisateur.
+	 * @return id
 	 */
 	public String getNom() 
 	{
@@ -89,7 +89,7 @@ public abstract class Utilisateur
 	/**
 	 * Défini le nom de l'utilisateur
 	 * 
-	 * @return id Un nom.
+	 * @return id
 	 */
 	public void setNom(String nom) 
 	{
@@ -99,7 +99,7 @@ public abstract class Utilisateur
 	/**
 	 * Retourne le prenom de l'utilisateur
 	 * 
-	 * @return prenom Le prenom de l'utilisateur.
+	 * @return prenom
 	 */
 	public String getPrenom() 
 	{
@@ -109,7 +109,7 @@ public abstract class Utilisateur
 	/**
 	 * Défini le prenom de l'utilisateur
 	 * 
-	 * @param prenom Un prenom.
+	 * @param prenom 
 	 */
 	public void setPrenom(String prenom) 
 	{
@@ -119,7 +119,7 @@ public abstract class Utilisateur
 	/**
 	 * Retourne l'adresse mail de l'utilisateur
 	 * 
-	 * @return adresseMail Une adresse mail.
+	 * @return adresseMail 
 	 */
 	public String getAdresseMail() 
 	{
@@ -128,7 +128,7 @@ public abstract class Utilisateur
 	 /**
 	  * Défini l'adresse mail de l'utilisateur
 	  * 
-	  * @param adresseMail Une adresse mail.
+	  * @param adresseMail 
 	  */
 	public void setAdresseMail(String adresseMail)
 	{
@@ -138,7 +138,7 @@ public abstract class Utilisateur
 	/**
 	 * Retourne le mot de passe de l'utilisateur
 	 * 
-	 * @return motDePasse Le mot de passe de l'utilisateur.
+	 * @return motDePasse 
 	 */
 	public String getMotDePasse()
 	{
@@ -148,7 +148,7 @@ public abstract class Utilisateur
 	/**
 	 * Défini le mot de passe de l'utilisateur
 	 * 
-	 * @param motDePasse Un mot de passe.
+	 * @param motDePasse 
 	 */
 	public void setMotDePasse(String motDePasse) 
 	{
@@ -158,7 +158,7 @@ public abstract class Utilisateur
 	/**
 	 * Retourne le créateur de l'utilisateur
 	 * 
-	 * @return createur Le créateur de l'utilisateur.
+	 * @return createur 
 	 */
 	public Administrateur getCreateur() 
 	{
@@ -168,7 +168,7 @@ public abstract class Utilisateur
 	/**
 	 * Défini le créateur de l'utilisateur
 	 * 
-	 * @param createur Un utilisateur.
+	 * @param createur 
 	 */
 	public void setCreateur(Administrateur createur) 
 	{
@@ -178,7 +178,7 @@ public abstract class Utilisateur
 	/**
 	 * Retourne l'éditeur de l'utilisateur
 	 * 
-	 * @return editeur L'éditeur de l'utilisateur.
+	 * @return editeur 
 	 */
 	public Administrateur getEditeur() 
 	{
@@ -188,7 +188,7 @@ public abstract class Utilisateur
 	/**
 	 * Retourne l'éditeur de l'utilisateur
 	 * 
-	 * param editeur Un utilisateur.
+	 * param editeur
 	 */
 	public void setEditeur(Administrateur editeur) 
 	{

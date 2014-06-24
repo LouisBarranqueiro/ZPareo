@@ -21,7 +21,7 @@ public class Groupe implements Comparable<Groupe>
 	/**
 	 * Constructeur
 	 * 
-	 * @param groupe un groupe.
+	 * @param groupe 
 	 */
 	public Groupe(Groupe groupe) 
 	{
@@ -34,7 +34,7 @@ public class Groupe implements Comparable<Groupe>
 	/**
 	 * Retourne le numéro d'identification du groupe
 	 * 
-	 * @return id Le numéro d'identification du groupe.
+	 * @return id 
 	 */
 	public Long getId() 
 	{
@@ -44,7 +44,7 @@ public class Groupe implements Comparable<Groupe>
 	/**
 	 * Défini le numéro d'identification du groupe
 	 * 
-	 * @param id Un numéro d'identification.
+	 * @param id 
 	 */
 	public void setId(Long id) 
 	{
@@ -54,7 +54,7 @@ public class Groupe implements Comparable<Groupe>
 	/**
 	 * Retourne le nom du groupe
 	 * 
-	 * @return nom Le nom du groupe.
+	 * @return nom 
 	 */
 	public String getNom() 
 	{
@@ -64,7 +64,7 @@ public class Groupe implements Comparable<Groupe>
 	/**
 	 * Défini le nom du groupe
 	 * 
-	 * @param nom Un nom.
+	 * @param nom 
 	 */
 	public void setNom(String nom) 
 	{
@@ -84,7 +84,7 @@ public class Groupe implements Comparable<Groupe>
 	/**
 	 * Défini le créateur du groupe
 	 * 
-	 * @param createur Un administrateur.
+	 * @param createur 
 	 */
 	public void setCreateur(Administrateur createur) 
 	{
@@ -94,7 +94,7 @@ public class Groupe implements Comparable<Groupe>
 	/**
 	 * Retourne l'éditeur du groupe
 	 * 
-	 * @return editeur L'éditeur du groupe.
+	 * @return editeur 
 	 */
 	public Administrateur getEditeur() 
 	{
@@ -104,7 +104,7 @@ public class Groupe implements Comparable<Groupe>
 	/**
 	 * Défini l'éditeur du groupe
 	 * 
-	 * @param editeur Un administrateur.
+	 * @param editeur 
 	 */
 	public void setEditeur(Administrateur editeur)
 	{
@@ -114,7 +114,7 @@ public class Groupe implements Comparable<Groupe>
 	/**
 	 * Compare le numéro d'identification de deux groupes
 	 * 
-	 * @param groupe2 Un groupe.
+	 * @param groupe2 
 	 */
 	@Override
 	public int compareTo(Groupe groupe2) 

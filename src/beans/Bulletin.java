@@ -21,7 +21,7 @@ public class Bulletin
 	/**
 	 * Constructeur
 	 * 
-	 * @param bulletin Un bulletin.
+	 * @param bulletin 
 	 */
 	public Bulletin(Bulletin bulletin)
 	{
@@ -33,7 +33,7 @@ public class Bulletin
 	/**
 	 * Retourne le numéro d'identification du bulletin
 	 * 
-	 * @return id Le numéro d'identification du bulletin.
+	 * @return id 
 	 */
 	public Long getId() 
 	{
@@ -43,7 +43,7 @@ public class Bulletin
 	/**
 	 * Défini le numéro d'identification du bulletin
 	 * 
-	 * @param id Un numéro d'identification.
+	 * @param id 
 	 */
 	public void setId(Long id) 
 	{
@@ -53,7 +53,7 @@ public class Bulletin
 	/**
 	 * Retourne la moyenne générale du bulletin
 	 * 
-	 * @return moyenne La moyenne générale du bulletin.
+	 * @return moyenne 
 	 */
 	public Float getMoyenne() 
 	{
@@ -62,7 +62,7 @@ public class Bulletin
 	/**
 	 * Retourne la moyenne générale du bulletin
 	 * 
-	 * @param moyenne Une moyenne.
+	 * @param moyenne 
 	 */
 	public void setMoyenne(Float moyenne) 
 	{
@@ -72,7 +72,7 @@ public class Bulletin
 	/**
 	 * Retourne la liste des résultats des matieres du bulletin
 	 * 
-	 * @return listeMatiereNotes La liste des résultats des matières du bulletin.
+	 * @return listeMatiereNotes 
 	 */
 	public Set<MatiereNote> getListeMatiereNote()
 	{
@@ -82,7 +82,7 @@ public class Bulletin
 	/**
 	 * Défini la liste des résultats des matières du bulletin
 	 * 
-	 * @param listeMatiereNote Une liste de MatiereNotes.
+	 * @param listeMatiereNote
 	 */
 	public void setListeMatiereNote(Set<MatiereNote> listeMatiereNote)
 	{

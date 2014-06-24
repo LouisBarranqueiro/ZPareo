@@ -19,7 +19,7 @@ public class Note implements Comparable<Note>
 	/**
 	 * Constructeur
 	 * 
-	 * @param note Une note.
+	 * @param note
 	 */
 	public Note(Note note)
 	{
@@ -31,7 +31,7 @@ public class Note implements Comparable<Note>
 	/**
 	 * Constructeur
 	 * 
-	 * @param etudiant Un etudiant.
+	 * @param etudiant
 	 */
 	public Note(Etudiant etudiant)
 	{
@@ -43,7 +43,7 @@ public class Note implements Comparable<Note>
 	/**
 	 * Retourne le numéro d'identification de la note
 	 * 
-	 * @return id Le numéro d'identification de la note.
+	 * @return id 
 	 */
 	public Long getId() 
 	{
@@ -53,7 +53,7 @@ public class Note implements Comparable<Note>
 	/**
 	 * Défini le numéro d'identification de la note
 	 * 
-	 * @param id Un numéro d'identification.
+	 * @param id 
 	 */
 	public void setId(Long id) 
 	{
@@ -63,7 +63,7 @@ public class Note implements Comparable<Note>
 	/**
 	 * Retourne la note de la note
 	 * 
-	 * @return note La note de la note.
+	 * @return note 
 	 */
 	public Float getNote()
 	{
@@ -73,7 +73,7 @@ public class Note implements Comparable<Note>
 	/**
 	 * Défini la note de la note
 	 * 
-	 * @param note Une note.
+	 * @param note 
 	 */
 	public void setNote(Float note) 
 	{
@@ -83,7 +83,7 @@ public class Note implements Comparable<Note>
 	/**
 	 * Retoune l'etudiant de la note
 	 * 
-	 * @return etudiant L'étudiant de la note.
+	 * @return etudiant 
 	 */
 	public Etudiant getEtudiant() 
 	{
@@ -93,7 +93,7 @@ public class Note implements Comparable<Note>
 	/**
 	 * Défini l'étudiant de la note
 	 * 
-	 * @param etudiant Un étudiant.
+	 * @param etudiant 
 	 */
 	public void setEtudiant(Etudiant etudiant) 
 	{
@@ -103,7 +103,7 @@ public class Note implements Comparable<Note>
 	/**
 	 * Compare le nom des étudiants de deux notes
 	 * 
-	 * @param note Une note.
+	 * @param note 
 	 */
 	@Override
 	public int compareTo(Note note) 
