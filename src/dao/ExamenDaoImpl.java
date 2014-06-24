@@ -344,7 +344,7 @@ public class ExamenDaoImpl implements ExamenDao
 	 * @return matiereNote
 	 * @throws DAOException
 	 */
-	private MatiereNote recupListeExamen(MatiereNote matiereNote, Etudiant etudiant)
+	private void recupListeExamen(MatiereNote matiereNote, Etudiant etudiant)
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -378,8 +378,6 @@ public class ExamenDaoImpl implements ExamenDao
 		{
 			fermeturesSilencieuses(preparedStatement, connexion);
 		}
-		
-		return matiereNote;
 	}
 	
 	/**
@@ -410,8 +408,8 @@ public class ExamenDaoImpl implements ExamenDao
 				Matiere matiere = new Matiere(matiereNote.getId());
 				matiere = matiereDao.trouver(matiere);
 				matiereNote.setMatiere(matiere);
-				matiereNote = recupMoyenneMatiere(matiereNote, etudiant);
-				matiereNote = recupListeExamen(matiereNote, etudiant);
+				recupMoyenneMatiere(matiereNote, etudiant);
+				recupListeExamen(matiereNote, etudiant);
 				listeMatiereNotes.add(matiereNote);
 			}
 
@@ -436,7 +434,7 @@ public class ExamenDaoImpl implements ExamenDao
 	 * @return matiereNote
 	 * @throws DAOException
 	 */
-	public MatiereNote recupMoyenneMatiere(MatiereNote matiereNote, Etudiant etudiant) throws DAOException
+	public void recupMoyenneMatiere(MatiereNote matiereNote, Etudiant etudiant) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -460,7 +458,7 @@ public class ExamenDaoImpl implements ExamenDao
 		{
 			fermeturesSilencieuses(preparedStatement, connexion);
 		}
-		return matiereNote;
+
 	}
 	
 	/**
@@ -554,15 +552,14 @@ public class ExamenDaoImpl implements ExamenDao
 	 * Edite un examen dans la base de données
 	 * 
 	 * @param examen
-	 * @return examen
-	 * @throws DAOException
 	 */
-	public Examen editer(Examen examen)
+	public void editer(Examen examen)
 	{
+		// Edite les informations de l'examen
 		editerExamen(examen);
-		editerListeNotes(examen);
 		
-		return examen;
+		// Edite la liste des notes de l'examen
+		editerListeNotes(examen);
 	}
 	
 	/**
@@ -625,10 +622,7 @@ public class ExamenDaoImpl implements ExamenDao
 		{
 			Note note = (Note) n;
 			
-			if (verifierNote(examen, note))
-			{
-				ajouterNote(examen, note);
-			}
+			if (verifierNote(examen, note)) ajouterNote(examen, note);
 		}
 	}
 	

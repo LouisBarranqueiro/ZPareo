@@ -27,7 +27,7 @@ public interface MatiereDao
 	 * @param matiere
 	 * @throws DAOException
 	 */
-	Matiere editer(Matiere matiere) throws DAOException;
+	void editer(Matiere matiere) throws DAOException;
 	
 	/**
 	 * Vérifie l'existance d'une matière dans la base de données

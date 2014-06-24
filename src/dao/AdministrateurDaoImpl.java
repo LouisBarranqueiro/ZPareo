@@ -82,44 +82,30 @@ public class AdministrateurDaoImpl implements AdministrateurDao
 		{	
 			connexion = daoFactory.getConnection();
 			
-			if (administrateur.getId() != null) 
-			{
-				sqlSelectRecherche += " AND gnw_utilisateur.id = ?";
-			}
-			else
-			{
-				sqlSelectRecherche += " AND gnw_utilisateur.id IS NOT ?";	
-			}
+			if (administrateur.getId() != null) sqlSelectRecherche += " AND gnw_utilisateur.id = ?";
+			else sqlSelectRecherche += " AND gnw_utilisateur.id IS NOT ?";	
 			
 			if (administrateur.getNom() != null)
 			{
 				sqlSelectRecherche += " AND gnw_utilisateur.nom LIKE ?";
 				administrateur.setNom("%" + administrateur.getNom() + "%");
 			}
-			else
-			{
-				sqlSelectRecherche += " AND gnw_utilisateur.nom IS NOT ?";	
-			}
+			else sqlSelectRecherche += " AND gnw_utilisateur.nom IS NOT ?";	
 			
 			if (administrateur.getPrenom() != null)
 			{
 				sqlSelectRecherche += " AND gnw_utilisateur.prenom LIKE ?";
 				administrateur.setPrenom("%" + administrateur.getPrenom() + "%");
 			}
-			else
-			{
-				sqlSelectRecherche += " AND gnw_utilisateur.prenom IS NOT ?";	
-			}
+			else sqlSelectRecherche += " AND gnw_utilisateur.prenom IS NOT ?";	
+			
 			
 			if (administrateur.getAdresseMail() != null) 
 			{
 				sqlSelectRecherche += " AND gnw_utilisateur.adresse_mail LIKE ?";
 				administrateur.setAdresseMail("%" + administrateur.getAdresseMail() + "%");
 			}
-			else
-			{
-				sqlSelectRecherche += " AND gnw_utilisateur.adresse_mail IS NOT ?";	
-			}
+			else sqlSelectRecherche += " AND gnw_utilisateur.adresse_mail IS NOT ?";	
 			
 			preparedStatement = initialisationRequetePreparee(connexion, sqlSelectRecherche, true, administrateur.getId(), administrateur.getNom(), administrateur.getPrenom(), administrateur.getAdresseMail());
 			resultSet = preparedStatement.executeQuery();
@@ -146,31 +132,25 @@ public class AdministrateurDaoImpl implements AdministrateurDao
 	 * Edite un administrateur dans la base de données
 	 * 
 	 * @param administrateur
-	 * @return administrateur
 	 * @throws DAOException
 	 */
-	public Administrateur editer(Administrateur administrateur) throws DAOException
+	public void editer(Administrateur administrateur)
 	{
 		// Edite les informations générales de l'administrateur
 		editerInformations(administrateur);
 		
 		// Edite le mot de passe de l'administrateur
-		if (administrateur.getMotDePasse() != null)
-		{
-			editerMotDePasse(administrateur);			
-		}
-			
-		return administrateur;
+		if (administrateur.getMotDePasse() != null) editerMotDePasse(administrateur);			
+		
 	}
 	
 	/**
 	 * Edite les informations principales d'un administrateur dans la base de données
 	 * 
 	 * @param administrateur
-	 * @return administrateur
 	 * @throws DAOException
 	 */
-	public Administrateur editerInformations(Administrateur administrateur) throws DAOException
+	public void editerInformations(Administrateur administrateur) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -190,8 +170,6 @@ public class AdministrateurDaoImpl implements AdministrateurDao
 		{
 			fermeturesSilencieuses(preparedStatement, connexion);
 		}
-		
-		return administrateur;
 	}
 	
 	/**
@@ -201,7 +179,7 @@ public class AdministrateurDaoImpl implements AdministrateurDao
 	 * @return administrateur
 	 * @throws DAOException
 	 */
-	public Administrateur editerMotDePasse(Administrateur administrateur) throws DAOException
+	public void editerMotDePasse(Administrateur administrateur) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -221,8 +199,7 @@ public class AdministrateurDaoImpl implements AdministrateurDao
 		{
 			fermeturesSilencieuses(preparedStatement, connexion);
 		}
-		
-		return administrateur;
+
 	}
 	
 	/**
@@ -238,22 +215,15 @@ public class AdministrateurDaoImpl implements AdministrateurDao
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		String sqlSelectRecherche = SQL_SELECT_COUNT_PAR_ADRESSE_MAIL;
-		int statut;
+		int statut = 0;
 		
 		try 
 		{
-			
 			connexion = daoFactory.getConnection();
 			
-			if (administrateur.getId() == null) 
-			{
-				sqlSelectRecherche += " AND gnw_utilisateur.id IS NOT ?";
-			}
-			else
-			{
-				sqlSelectRecherche += " AND gnw_utilisateur.id != ?";
-			}
-
+			if (administrateur.getId() == null) sqlSelectRecherche += " AND gnw_utilisateur.id IS NOT ?";
+			else sqlSelectRecherche += " AND gnw_utilisateur.id != ?";
+		
 			preparedStatement = initialisationRequetePreparee(connexion, sqlSelectRecherche, true, administrateur.getAdresseMail(), administrateur.getId());
 			resultSet = preparedStatement.executeQuery();
 			resultSet.next();
@@ -392,7 +362,7 @@ public class AdministrateurDaoImpl implements AdministrateurDao
 	}
 	
 	/**
-	 * Transfère les données du resultSet vers un objet Adminsitrateur
+	 * Transfère les données du resultSet vers un objet Administrateur
 	 * 
 	 * @param resultSet
 	 * @return adminsitrateur

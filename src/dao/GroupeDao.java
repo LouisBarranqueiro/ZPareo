@@ -26,10 +26,9 @@ public interface GroupeDao
 	 * Edite une matiere dans la base de données
 	 * 
 	 * @param groupe
-	 * @return Groupe
 	 * @throws DAOException
 	 */
-	Groupe editer(Groupe groupe) throws DAOException;
+	void editer(Groupe groupe) throws DAOException;
 	
 	/**
 	 * Vérifie l'existance d'un groupe dans la base de données

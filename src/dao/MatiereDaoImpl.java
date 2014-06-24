@@ -119,10 +119,9 @@ public class MatiereDaoImpl implements MatiereDao
 	 * Edite une matière dans la base de données
 	 * 
 	 * @param matiere
-	 * @return matiere
 	 * @throws DAOException
 	 */
-	public Matiere editer(Matiere matiere)  throws DAOException
+	public void editer(Matiere matiere)  throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -142,8 +141,6 @@ public class MatiereDaoImpl implements MatiereDao
 		{
 			fermeturesSilencieuses(preparedStatement, connexion);
 		}
-		
-		return matiere;
 	}
 	
 	/**

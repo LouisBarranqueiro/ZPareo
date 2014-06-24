@@ -26,9 +26,8 @@ public interface AdministrateurDao
 	 * Edite un administrateur dans la base de données
 	 * 
 	 * @param administrateur
-	 * @throws DAOException
 	 */
-	Administrateur editer(Administrateur administrateur) throws DAOException;
+	void editer(Administrateur administrateur);
 	
 	/**
 	 * Trouve un administrateur dans la base de données

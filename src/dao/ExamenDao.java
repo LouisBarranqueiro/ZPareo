@@ -18,6 +18,7 @@ public interface ExamenDao
      * Recherche une ou des examen(s) dans la base de données
      * 
      * @param examen
+     * @return Set<Examen>
      * @throws DAOException
      */
 	Set<Examen> rechercher(Examen examen) throws DAOException;
@@ -28,12 +29,13 @@ public interface ExamenDao
 	 * @param examen
 	 * @throws DAOException
 	 */
-	Examen editer(Examen examen) throws DAOException;
+	void editer(Examen examen) throws DAOException;
 	
 	/**
 	 * Trouve un examen dans la base de données
 	 * 
 	 * @param examen
+	 * @return Examen
 	 * @throws DAOException
 	 */
 	Examen trouver(Examen examen) throws DAOException;

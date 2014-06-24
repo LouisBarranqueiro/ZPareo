@@ -73,7 +73,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 			preparedStatement.executeUpdate();
 			resultSet = preparedStatement.getGeneratedKeys();
 			
-			if(resultSet.next())professeur.setId(resultSet.getLong(1));
+			if (resultSet.next()) professeur.setId(resultSet.getLong(1));
 		} 
 		catch (SQLException e) 
 		{
@@ -98,7 +98,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 		Administrateur administrateur = null;
 		Object[] matieres = null;
 		
-		if(creation) administrateur = new Administrateur(professeur.getCreateur());
+		if (creation) administrateur = new Administrateur(professeur.getCreateur());
 		else  administrateur = new Administrateur(professeur.getEditeur());
 		
 		try 
@@ -136,7 +136,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 		Administrateur administrateur = null;
 		Object[] groupes = null;
 		
-		if(creation) administrateur = new Administrateur(professeur.getCreateur());
+		if (creation) administrateur = new Administrateur(professeur.getCreateur());
 		else  administrateur = new Administrateur(professeur.getEditeur());
 		
 		try 
@@ -144,7 +144,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 			connexion = daoFactory.getConnection();
 			groupes = professeur.getListeGroupes().toArray();
 			
-			for(Object g : groupes)
+			for (Object g : groupes)
 			{
 				Groupe groupe = (Groupe) g;
 				preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_GROUPE, true, professeur.getId(), groupe.getId(), administrateur.getId());
@@ -190,14 +190,12 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 			}
 			else sqlSelectRecherche += " AND gnw_utilisateur.nom IS NOT ?";	
 			
-			
 			if (professeur.getPrenom() != null)
 			{
 				sqlSelectRecherche += " AND gnw_utilisateur.prenom LIKE ?";
 				professeur.setPrenom("%" + professeur.getPrenom() + "%");
 			}
 			else sqlSelectRecherche += " AND gnw_utilisateur.prenom IS NOT ?";	
-			
 			
 			if (professeur.getAdresseMail() != null) 
 			{
@@ -234,7 +232,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 	 * @return professeur
 	 * @throws DAOException
 	 */
-	public Professeur editer(Professeur professeur)
+	public void editer(Professeur professeur)
 	{
 		// Edite les informations générales du professeur
 		editerInformations(professeur);
@@ -250,8 +248,6 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 		if (professeur.getListeMatieres() != null) ajouterMatieres(professeur, false);
 		
 		if (professeur.getListeGroupes() != null) ajouterGroupes(professeur, false);
-	
-		return professeur;
 	}
 	
 	/**
@@ -437,7 +433,6 @@ public class ProfesseurDaoImpl implements ProfesseurDao
 		
 		try 
 		{
-			
 			connexion = daoFactory.getConnection();
 			
 			if (professeur.getId() == null) sqlSelectRecherche += " AND gnw_utilisateur.id IS NOT ?";

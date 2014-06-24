@@ -26,10 +26,9 @@ public interface ProfesseurDao
 	 * Edite un professeur dans la base de données
 	 * 
 	 * @param professeur
-	 * @return Professeur
 	 * @throws DAOException
 	 */
-	Professeur editer(Professeur professeur) throws DAOException;
+	void editer(Professeur professeur) throws DAOException;
 	
 	/**
 	 * Vérifie l'existance d'un professeur dans la base de données

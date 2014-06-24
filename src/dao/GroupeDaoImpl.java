@@ -25,7 +25,7 @@ public class GroupeDaoImpl implements GroupeDao
 	private static final String SQL_UPDATE_SUPPR         = "UPDATE gnw_groupe SET date_suppr = now(), fk_utilisateur = ? WHERE id = ?";
 	
 	/**
-	 * R�cup�re la daoFactory
+	 * Récupère la daoFactory
 	 * 
 	 * @param daoFactory
 	 */
@@ -93,7 +93,6 @@ public class GroupeDaoImpl implements GroupeDao
 			}
 			else sqlSelectRecherche += " AND gnw_groupe.nom IS NOT ?";	
 			
-			
 			preparedStatement = initialisationRequetePreparee(connexion, sqlSelectRecherche, true, groupe.getId(), groupe.getNom());
 			resultSet = preparedStatement.executeQuery();
 			
@@ -119,10 +118,9 @@ public class GroupeDaoImpl implements GroupeDao
 	 * Edite un groupe dans la base de données
 	 * 
 	 * @param groupe
-	 * @return groupe
 	 * @throws DAOException
 	 */
-	public Groupe editer(Groupe groupe) throws DAOException
+	public void editer(Groupe groupe) throws DAOException
 	{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -142,8 +140,6 @@ public class GroupeDaoImpl implements GroupeDao
 		{
 			fermeturesSilencieuses(preparedStatement, connexion);
 		}
-		
-		return groupe;
 	}
 	
 	/**
