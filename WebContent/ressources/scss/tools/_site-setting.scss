@@ -1,0 +1,98 @@
+// background colors
+// --------------------
+$bg-color-white:      #ffffff;
+$bg-color-gray:       #f6f6f6;
+$bg-color-dark-gray:  #323544;
+$bg-color-black:      #000000;
+$bg-color-light-gray: #eeeeee;
+$bg-color-blue:       #66afe9;
+
+// Font family
+// --------------------
+$font-family-base: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+// Font colors
+// --------------------
+$font-color-white:        #ffffff;
+$font-color-dark-white:   #b9b9b9;
+$font-color-blue:         #66afe9;
+$font-color-gray:         #6f6f6f;
+$font-color-dark-gray:    #aeaeae;
+$font-color-light-black:  #2f3239;
+$font-color-red:          #d04437;
+$font-color-green:        #52af52;
+$font-color-purple:       #a48ad4;
+
+$font-color-success: $font-color-green;
+$font-color-danger:  $font-color-red;
+$font-color-info:    $font-color-purple;
+$font-color-default: $font-color-gray; 
+
+$font-color-nav-icon: #97989d;
+$font-color-nav-link: #97989d;
+
+$font-color-placeholder: #999999;
+
+// Typography  settings
+// --------------------
+$font-size-base:   13px;
+$font-size-xlarge: 14px;
+$font-size-large: 13.5px;
+$font-size-small:  12px;
+$font-size-xsmall: 11px;
+
+$font-size-h1: floor(($font-size-base * 2.8)) !default; // ~36px
+$font-size-h2: floor(($font-size-base * 2.35)) !default; // ~30px
+$font-size-h3: ceil(($font-size-base * 1.8)) !default; // ~24px
+$font-size-h4: ceil(($font-size-base * 1.35)) !default; // ~18px
+$font-size-h5: $font-size-base !default; 
+$font-size-h6: $font-size-small !default;
+
+$font-size-dd: 13.5px;
+$font-size-dt: $font-size-small;
+
+$font-size-label: $font-size-small;
+
+$line-height-base: 1.4;
+
+$headings-font-family: inherit !default;
+$headings-font-weight: 500 !default;
+$headings-line-height: 1.1 !default;
+$headings-color:       inherit !default;
+
+// Borders settings
+// --------------------
+$border-color-white:      #f1f1f1;
+$border-color-light-gray: #ececec;
+$border-color-dark-gray:  #aeaeae;
+$border-color-blue:       #66afe9;
+$border-color-green:      #52af52;
+$border-color-red:        #d04437;
+$border-color-green:      #52af52;
+$border-color-purple:     #a48ad4;
+
+$border-color-success: $border-color-green;
+$border-color-danger:  $border-color-red;
+$border-color-info:    $border-color-purple;
+$border-color-default: $border-color-dark-gray;
+
+$border-radius-base: 3px;
+
+$border-color-shadow: #e9e9e9;
+
+// Tables settings
+// --------------------
+$table-border-color:          #f1f1f1;
+$table-tr-border-color-hover: #e7f2f6;
+$table-tr-color-hover:        #f0fbff;
+
+// Buttons setting
+// --------------------
+$btn-bg-color:       #ffffff;
+$btn-icon-color:     #ececec;
+$btn-success-color:  #52af52;
+$btn-danger-color:   #d04437;
+$btn-info-color:     #a48ad4;
+$btn-primary-color:  #66afe9;
+$btn-default-color:  #aeaeae;
+

@@ -1,0 +1,106 @@
+input,
+button,
+select,
+textarea 
+{
+	  width:            100%;
+	  display:          block;
+  	padding:          6px 12px;
+  	border:           1px solid $border-color-light-gray;
+  	border-radius:    $border-radius-base;
+  	background-color: $bg-color-white;
+  	background-image: none;
+  	line-height:      $line-height-base;
+  	font-size:        $font-size-base;
+  	color:            $font-color-gray;
+  	margin:           0;
+}
+input
+{
+  	height: 33px;
+}
+input:focus,
+input[required]:focus,
+select[required]:focus,
+textarea:focus,
+textarea:focus[required]:focus
+{
+	  border-color: $border-color-blue;
+  	outline:      0;
+}
+select
+{
+  	height:      30px;
+  	line-height: 30px;
+}
+textarea,
+select[multiple]
+{
+  	height: auto;
+}
+label
+{
+	  font-size:   $font-size-label;
+	  font-weight: bold;
+	  color:       $font-color-blue;
+}
+input::-moz-placeholder,
+select::-moz-placeholder,
+textarea::-moz-placeholder
+{
+  	color:   $font-color-placeholder;
+  	opacity: 1;
+}
+input::-ms-placeholder,
+select::-ms-placeholder,
+textarea::-ms-placeholder 
+{
+  	color: $font-color-placeholder;
+}
+input::-webkit-placeholder,
+select::-webkit-placeholder,
+textarea::-webkit-placeholder 
+{
+  	color: $font-color-placeholder;
+}
+input[disabled],
+input[readonly],
+select[disabled],
+select[readonly]
+{
+  	cursor:           not-allowed;
+  	background-color: $bg-color-light-gray;
+  	opacity:          1;
+}
+input[required], 
+textarea[required], 
+select[required] 
+{
+    border:     1px solid $border-color-light-gray;
+    background: url("http://localhost:8080/ZPareo/ressources/img/icone-required.png") white -moz-calc(100% - 10px) 50% no-repeat;
+}
+input[required]:valid, 
+textarea[required]:valid 
+{
+	  background: url("http://localhost:8080/ZPareo/ressources/img/icone-valid.png") white -moz-calc(100% - 10px) 50% no-repeat;
+}
+select[required]:valid 
+{
+	  background: url("http://localhost:8080/ZPareo/ressources/img/icone-valid.png") white -moz-calc(100% - 35px) 50% no-repeat;
+}
+input[required]:focus:valid, 
+textarea[required]:focus:valid 
+{
+  	border:     1px solid $border-color-success;
+	  background: url("http://localhost:8080/ZPareo/ressources/img/icone-valid.png") white -moz-calc(100% - 10px) 50% no-repeat;
+}
+select[required]:focus:valid
+{
+	  border:     1px solid $border-color-success;
+	  background: url("http://localhost:8080/ZPareo/ressources/img/icone-valid.png") white -moz-calc(100% - 35px) 50% no-repeat;
+}
+select[required] 
+{
+    border:     1px solid $border-color-light-gray;
+    background: url("http://localhost:8080/ZPareo/ressources/img/icone-required.png") white -moz-calc(100% - 35px) 50% no-repeat;
+}

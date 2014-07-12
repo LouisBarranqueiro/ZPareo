@@ -1,0 +1,43 @@
+.mod
+{
+	height:        auto;
+    position:      relative;
+    padding:       18px;
+    display:       inline-block;
+    border-radius: $border-radius-base;
+ 	background:    $bg-color-white;
+ 	margin:        9px;
+ 	@include       box-shadow(0 1px 1px $border-color-shadow);
+}
+.mod--lg 
+{
+    width: 95%;
+}
+.mod--md
+{
+    width: 60%;
+}
+.mod--sm 
+{
+    width: 45%;
+}
+.mod--xs 
+{
+    width: 30%;
+}
+.mod__head
+{
+	display:       block;
+	font-size:     $font-size-xlarge;
+	height:        30px;
+	color:         $font-color-dark-white;
+	width:         100%;
+	margin:        0 0 15px 0;
+	border-bottom: 1px solid $border-color-light-gray;
+}
+.mod--center
+{
+	display:      block;
+	margin-right: auto;
+	margin-left:  auto;
+}

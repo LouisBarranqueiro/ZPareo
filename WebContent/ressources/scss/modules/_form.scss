@@ -1,0 +1,41 @@
+.form--inline
+{
+    input,
+    select,
+    textarea
+    {
+        display:        inline-block;
+        width:          auto;
+        vertical-align: middle;
+        position:       relative;
+    }
+} 
+.form--horizontal 
+{
+    input,
+    select,
+    textarea
+    {
+        display: block;
+        width:   100%;
+        margin:  5px 0 10px 0;
+    }
+}
+.form__erreur 
+{
+	display:   block;
+	font-size: $font-size-small;
+	color:     $font-color-danger;
+	margin:    5px 0 0 0;
+}
+.form__control
+{
+    position: relative;
+    width:    auto;
+    height:   auto;
+}
+.form__control button 
+{
+    float:  right;
+    margin: 10px 0 0 15px;
+}

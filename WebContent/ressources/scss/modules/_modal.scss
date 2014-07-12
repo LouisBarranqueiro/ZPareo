@@ -1,0 +1,50 @@
+#masque
+ {
+ 	width:    100%;
+    height:   100%;
+    position: fixed;
+    top:      0px;
+    left:     0px;
+    z-index:  9;
+}
+.modal 
+{
+	max-height:    600px;
+	padding:       18px;
+	display:       none;
+	border-radius: $border-radius-base;
+	background:    $bg-color-white;
+    position:      fixed;
+    z-index:       10;
+    
+    .modal__mod--xs
+	{
+		width: 33%
+	}
+	.modal__mod--sm
+	{
+		width: 48%;
+	}
+	.modal__mod--med
+	{
+		width: 63%;
+	}
+	.modal__mod__vertical
+	{
+		height:         auto;
+		display:        inline-block;
+		vertical-align: top;
+		max-height:     500px;
+		overflow:       hidden;
+	}
+}
+.module .fm_module_sm:last-child
+{
+	margin: 0 0 0 18px;
+}
+.fm__module--scrollable
+{
+	overflow-x:hidden;
+	overflow-y:scroll;
+	max-height:400px;
+}
