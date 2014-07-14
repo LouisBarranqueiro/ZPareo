@@ -461,6 +461,22 @@ public class ExamenDaoImpl implements ExamenDao
 
 	}
 	
+	public float calcMoyenneBulletin(Set<MatiereNote> ListeMatiereNotes)
+	{
+		float moyenne = 0;
+		Object[] matiereNotes = ListeMatiereNotes.toArray();
+		int i = 0;
+		
+		for (Object mn : matiereNotes)
+		{
+			MatiereNote matiereNote = (MatiereNote) mn;
+			moyenne += matiereNote.getMoyenne();
+			i++;
+		}
+		
+		return (moyenne / i);
+	}
+	
 	/**
 	 * Retourne le buletin d'un étudiant
 	 * 
@@ -472,7 +488,7 @@ public class ExamenDaoImpl implements ExamenDao
 		Bulletin bulletin = new Bulletin();
 		
 		bulletin.setListeMatiereNote(recupNotesMatieres(etudiant));
-		
+		bulletin.setMoyenne(calcMoyenneBulletin(bulletin.getListeMatiereNote()));
 		return bulletin;
 	}
 	
@@ -555,11 +571,8 @@ public class ExamenDaoImpl implements ExamenDao
 	 */
 	public void editer(Examen examen)
 	{
-		// Edite les informations de l'examen
-		editerExamen(examen);
-		
-		// Edite la liste des notes de l'examen
-		editerListeNotes(examen);
+		editerExamen(examen); // Edite les informations de l'examen
+		editerListeNotes(examen); // Edite la liste des notes de l'examen
 	}
 	
 	/**
