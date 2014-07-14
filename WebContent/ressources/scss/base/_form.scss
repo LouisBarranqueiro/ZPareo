@@ -25,13 +25,13 @@ select[required]:focus,
 textarea:focus,
 textarea:focus[required]:focus
 {
-	  border-color: $border-color-blue;
+	border-color: $border-color-blue;
   	outline:      0;
 }
 select
 {
-  	height:      30px;
-  	line-height: 30px;
+  	height:      33px;
+  	line-height: 33px;
 }
 textarea,
 select[multiple]
@@ -78,29 +78,54 @@ select[required]
 {
     border:     1px solid $border-color-light-gray;
     background: url("http://localhost:8080/ZPareo/ressources/img/icone-required.png") white -moz-calc(100% - 10px) 50% no-repeat;
+    background: url("http://localhost:8080/ZPareo/ressources/img/icone-required.png") white -webkit-calc(100% - 10px) 50% no-repeat;
 }
 input[required]:valid, 
 textarea[required]:valid 
 {
-	  background: url("http://localhost:8080/ZPareo/ressources/img/icone-valid.png") white -moz-calc(100% - 10px) 50% no-repeat;
+	background: url("http://localhost:8080/ZPareo/ressources/img/icone-valid.png") white -moz-calc(100% - 10px) 50% no-repeat;
+	background: url("http://localhost:8080/ZPareo/ressources/img/icone-valid.png") white -webkit-calc(100% - 10px) 50% no-repeat;
 }
 select[required]:valid 
 {
-	  background: url("http://localhost:8080/ZPareo/ressources/img/icone-valid.png") white -moz-calc(100% - 35px) 50% no-repeat;
+	background: url("http://localhost:8080/ZPareo/ressources/img/icone-valid.png") white -moz-calc(100% - 35px) 50% no-repeat;
+	background: url("http://localhost:8080/ZPareo/ressources/img/icone-valid.png") white -webkit-calc(100% - 35px) 50% no-repeat;
 }
 input[required]:focus:valid, 
 textarea[required]:focus:valid 
 {
-  	border:     1px solid $border-color-success;
-	  background: url("http://localhost:8080/ZPareo/ressources/img/icone-valid.png") white -moz-calc(100% - 10px) 50% no-repeat;
+	border:     1px solid $border-color-success;
+	background: url("http://localhost:8080/ZPareo/ressources/img/icone-valid.png") white -moz-calc(100% - 10px) 50% no-repeat;
+	background: url("http://localhost:8080/ZPareo/ressources/img/icone-valid.png") white -webkit-calc(100% - 10px) 50% no-repeat;
 }
 select[required]:focus:valid
 {
-	  border:     1px solid $border-color-success;
-	  background: url("http://localhost:8080/ZPareo/ressources/img/icone-valid.png") white -moz-calc(100% - 35px) 50% no-repeat;
+	border:     1px solid $border-color-success;
+	background: url("http://localhost:8080/ZPareo/ressources/img/icone-valid.png") white -moz-calc(100% - 35px) 50% no-repeat;
+	background: url("http://localhost:8080/ZPareo/ressources/img/icone-valid.png") white -webkit-calc(100% - 35px) 50% no-repeat;
+}
+input[disabled],
+textarea[disabled]
+{
+	
+	background: url("http://localhost:8080/ZPareo/ressources/img/icone-valid.png") white -moz-calc(100% - 10px) 50% no-repeat !important;
+	background: url("http://localhost:8080/ZPareo/ressources/img/icone-valid.png") white -webkit-calc(100% - 10px) 50% no-repeat !important;
+}
+select[disabled]
+{
+	background: url("http://localhost:8080/ZPareo/ressources/img/icone-valid.png") white -moz-calc(100% - 35px) 50% no-repeat !important;
+	background: url("http://localhost:8080/ZPareo/ressources/img/icone-valid.png") white -webkit-calc(100% - 35px) 50% no-repeat !important;
+}
+input[required]:focus:invalid, 
+textarea[required]:focus:invalid, 
+select[required]:focus:invalid
+{
+    border:  1px solid $border-color-light-gray;
+    outline: none;
 }
 select[required] 
 {
     border:     1px solid $border-color-light-gray;
     background: url("http://localhost:8080/ZPareo/ressources/img/icone-required.png") white -moz-calc(100% - 35px) 50% no-repeat;
+    background: url("http://localhost:8080/ZPareo/ressources/img/icone-required.png") white -webkit-calc(100% - 35px) 50% no-repeat;
 }

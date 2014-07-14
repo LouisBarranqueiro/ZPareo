@@ -12,16 +12,14 @@
 } 
 .form--horizontal 
 {
-    input,
-    select,
-    textarea
+    .form--control
     {
         display: block;
         width:   100%;
         margin:  5px 0 10px 0;
     }
 }
-.form__erreur 
+.form__error 
 {
 	display:   block;
 	font-size: $font-size-small;

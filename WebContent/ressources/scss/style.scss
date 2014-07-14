@@ -1,7 +1,8 @@
 @import "compass";
+
 // Tools
-@import 'tools/site-setting.scss';
-@import 'tools/jquery-ui.css';
+@import 'tools/variables.scss';
+@import 'tools/jquery-ui.scss';
 @import 'tools/utilities.scss';
 
 // Base

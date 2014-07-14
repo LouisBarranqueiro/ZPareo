@@ -35,13 +35,17 @@ tbody
 }
 tbody tr 
 {
-	  border-bottom: 1px solid $table-border-color;
+	border-bottom: 1px solid $table-border-color;
     background:    $bg-color-white;
     font-size:     $font-size-large;
 }
+tbody tr td
+{
+	padding-right: 15px;
+}
 tbody tr:hover 
 {
-	  border-bottom: 1px solid $table-tr-border-color-hover;
+	border-bottom: 1px solid $table-tr-border-color-hover;
     background:    $table-tr-color-hover;
     z-index:       2;
 }
@@ -56,11 +60,13 @@ tr:first-child th:last-child
 }
 .tr--md td
 {
-	padding: 5px 15px 5px 0;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 .tr--lg td
 {
-	padding: 12px 15px 12px 0;
+	padding-top: 12px;
+	padding-bottom: 12px;
 }
 th.sortable 
 {

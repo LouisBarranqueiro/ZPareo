@@ -7,13 +7,13 @@ html {
 }
 body 
 {
-	  width:       100%;
-	  min-width:   900px;
-  	height:      100%;
-	  margin:      0;
-	  padding:     0;
-	  background:  $bg-color-white;
-	  font-family: $font-family-base;
+    width:       100%;
+    min-width:   900px;
+    height:      100%;
+    margin:      0;
+    padding:     0;
+    background:  $bg-color-white;
+    font-family: $font-family-base;
     font-size:   $font-size-base;
     line-height: $line-height-base;
 }
@@ -24,7 +24,7 @@ h4,
 h5,
 h6
 {
-	  font-family: $headings-font-family;
+    font-family: $headings-font-family;
     font-weight: $headings-font-weight;
     line-height: $headings-line-height;
     color:       $headings-color;
@@ -33,44 +33,44 @@ h1
 h2
 h3
 {
-   	margin-top:    20px;
-  	margin-bottom: 10px;
+    margin-top:    20px;
+    margin-bottom: 10px;
 }
 h4
 h5
 h6
 {
-  	margin-top:    10px;
-  	margin-bottom: 10px;
+    margin-top:    10px;
+    margin-bottom: 10px;
 }
 
 h1
 {
-  	font-size: $font-size-h1;
+    font-size: $font-size-h1;
 }
 h2
 {
-  	font-size: $font-size-h2;
+    font-size: $font-size-h2;
 }
 h3
 {
-  	font-size: $font-size-h3;
+    font-size: $font-size-h3;
 }
 h4
 {
-  	font-size: $font-size-h4;
+    font-size: $font-size-h4;
 }
 h5
 {
-  	font-size: $font-size-h5;
+    font-size: $font-size-h5;
 }
 h6
 {
-  	font-size: $font-size-h6;
+    font-size: $font-size-h6;
 }
 p 
 {
-  	margin: 0 0 10px;
+    margin: 0 0 10px;
 }
 table 
 {
@@ -84,14 +84,14 @@ th
 }
 dl dt
 {
-	  font-size:   $font-size-dt;
-	  font-weight: bold;
-	  color:       $font-color-blue;
+    font-size:   $font-size-dt;
+    font-weight: bold;
+    color:       $font-color-blue;
 }
 dl dd
 {
-	font-size:   $font-size-dd;
-	font-weight: normal;
-	color:       $font-color-gray;
-	margin:      0 0 15px 0;
+  font-size:   $font-size-dd;
+  font-weight: normal;
+  color:       $font-color-gray;
+  margin:      0 2px 15px 0;
 }

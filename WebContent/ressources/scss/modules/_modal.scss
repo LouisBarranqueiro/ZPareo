@@ -10,26 +10,51 @@
 .modal 
 {
 	max-height:    600px;
-	padding:       18px;
+	padding:       18px 9px;
 	display:       none;
 	border-radius: $border-radius-base;
 	background:    $bg-color-white;
     position:      fixed;
     z-index:       10;
     
+    .modal__mod__head
+	{
+    	display:   block;
+    	padding:    0 9px 9px 9px;
+		font-size: $font-size-xlarge;
+		color:     $font-color-dark-white;
+		width:     auto;
+		
+		.modal__mod__head__title
+		{
+			width:         auto;
+			padding:       0 0 18px 0;
+			border-bottom: 1px solid $border-color-light-gray;
+			margin:        0;
+			font-size:     $font-size-xlarge !important;
+		}
+    }
     .modal__mod--xs
 	{
-		width: 33%
+		width:  30%;
+		margin: 9px;
 	}
 	.modal__mod--sm
 	{
-		width: 48%;
+		width:  46%;
+		margin: 9px;
 	}
-	.modal__mod--med
+	.modal__mod--md
 	{
-		width: 63%;
+		width:  60%;
+		margin: 9px;
 	}
-	.modal__mod__vertical
+	.modal__mod--lg
+	{
+		width:  94%;
+		margin: 9px;
+	}
+	.modal__mod--vertical
 	{
 		height:         auto;
 		display:        inline-block;
@@ -37,14 +62,14 @@
 		max-height:     500px;
 		overflow:       hidden;
 	}
-}
-.module .fm_module_sm:last-child
-{
-	margin: 0 0 0 18px;
-}
-.fm__module--scrollable
-{
-	overflow-x:hidden;
-	overflow-y:scroll;
-	max-height:400px;
+	.modal__mod--scrollable
+	{
+		overflow-x: hidden;
+		overflow-y: scroll;
+		max-height: 400px;
+	}
+	.modal__mod__control
+	{
+		padding: 9px;
+	}
 }
