@@ -1,64 +1,59 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<!-- Fenetre modale d'edition d'un examen -->
-<div class="fenetre-modale">
-	<section class="module">
-		<div class="module-barre">
-			<h1 class="centre">Edition de l'examen n°<c:out value="${ examen.id }"/></h1>
-		</div>
-		<form id="edition-examen" action="http://localhost:8080/ZPareo/pi/examen/edition" method="POST" class="form-horizontal">
-			<div id="form-examen" class="module-form">
-	
-				<input type="hidden" name="professeur" class="form-control input-sm" value="<c:out value='${ sessionScope.sessionProfesseur.id }'/>" pattern=".{1,55}" readonly="readonly" required/>
- 				<select name="format" class="form-control input-sm" required>
-                	<option disabled="disabled" selected="selected">Sélectionner un type</option>
-                	<option <c:if test="${ examen.format.nom == \"Oral\"}"><c:out value="selected=\"selected\""/></c:if> value="2">Oral</option>
-                	<option <c:if test="${ examen.format.nom == \"Ecrit\"}"><c:out value="selected=\"selected\""/></c:if> value="1">Ecrit</option>
-			    </select>
-			    <span class="erreur">${ form.erreurs['format'] }</span>
-                <input type="text" name="date" class="form-control input-sm datepicker" value="<c:out value="${ examen.date }"/>" placeholder="Date de l'examen" pattern="(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)\d\d" x-moz-errormessage="Veuillez entrer une date correct" required/>
-                <span class="erreur">${ form.erreurs['date'] }</span>
-                <input type="text" name="nom" class="form-control input-sm" value="<c:out value="${ examen.nom }"/>" pattern=".{5,55}" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom correct" required/>
-                <span class="erreur">${ form.erreurs['nom'] }</span>
-                <input type="text" name="coefficient" class="form-control input-sm" value="<c:out value="${ examen.coefficient }"/>" placeholder="Coefficient" x-moz-errormessage="Veuillez entrer un nombre" required/>
-                <span class="erreur">${ form.erreurs['coefficient'] }</span>
-                <select name="groupe" class="form-control input-sm" readonly="readonly"  disabled="disabled" required>
-                	<option disabled="disabled" selected="selected">Sélectionner un groupe</option>
-			        <c:forEach items="${ sessionScope.sessionProfesseur.listeGroupes }" var="groupe">
-			        	<option value="${ groupe.id }"
-			                	<c:if test="${ examen.groupe.nom == groupe.nom }"><c:out value="selected=selected"/></c:if>			                      
-			        	>
-			            	 <c:out value="${ groupe.nom }"/>
-			            </option>
-			        </c:forEach>
-			    </select>
-			    <span class="erreur">${ form.erreurs['groupe'] }</span>
-                <select name="matiere" class="form-control input-sm" required>
-                	<option disabled="disabled" selected="selected">Sélectionner une matière</option>
-			        <c:forEach items="${ sessionScope.sessionProfesseur.listeMatieres }" var="matiere">
-			        	<option value="${ matiere.id }"
-			        		<c:if test="${ examen.matiere.nom == matiere.nom }"><c:out value="selected=selected"/></c:if>
-			        	>
-			            	 <c:out value="${ matiere.nom }"/>
-			            </option>
-			        </c:forEach>
-			   	</select>
-			   	<span class="erreur">${ form.erreurs['matiere'] }</span>
-			</div>
-			
-			<div id="form-notes">
-				<c:forEach  items="${examen.listeNotes}" var="note">
-  				<div class="input-group input-group-sm form-note">
-  					<span class="input-group-addon form-addon"><c:out value="${note.etudiant.prenom}"/> <c:out value="${note.etudiant.nom}"/></span>
- 					<input type="hidden" name="etudiants[]" value="<c:out value="${note.etudiant.id}"/>" class="form-control" readonly="readonly"/>
- 					<input type="text" name="notes[]" value="<fmt:formatNumber type="number" maxFractionDigits="1" value="${note.note}" />" class="form-control" placeholder="Note" pattern="[0-9,.]{1,5}" x-moz-errormessage="Veuillez entrer un nombre avec ou sans virgule">		
-				</div>
-  				</c:forEach>
-  				<span class="erreur">${ form.erreurs['notes'] }</span>
-			</div>			
-			<div class="module-control-bas">
-            	<button type="button" class="bouton bouton-default" onclick="supprFenetresModales()">RETOUR</button>
-            </div>
-		</form>
-	</section>
-</div>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<form id="edition-examen" action="http://localhost:8080/ZPareo/pi/examen/edition" method="POST" class="form-horizontal">
+    <div class="modal__mod__head">
+        <h3 class="modal__mod__head__title text-center">Informations gÃ©nÃ©rales de l'examen nÂ°<c:out value="${ examen.id }"/></h3>
+    </div>
+    <div class="modal__mod--sm modal__mod--vertical">
+        <dl>
+            <dt>REFERENCE</dt>
+            <dd><c:out value="${ examen.id }"/></dd>
+        
+            <dt>INTITULE</dt>
+            <dd><c:out value="${ examen.nom }"/></dd>
+        
+            <dt>FORMAT</dt>
+            <dd><c:out value="${ examen.format.nom }"/></dd>
+        
+            <dt>DATE</dt>
+            <dd><c:out value="${ examen.date }"/></dd>
+        
+            <dt>GROUPE</dt>
+            <dd><c:out value="${ examen.groupe.nom }"/></dd>
+        
+            <dt>MATIERE</dt>
+            <dd><c:out value="${ examen.matiere.nom }"/></dd>
+        
+            <dt>COEFFICIENT</dt>
+            <dd><c:out value="${ examen.coefficient }"/></dd>
+        
+            <dt>MOYENNE</dt>
+            <dd><fmt:formatNumber type="number" maxFractionDigits="1" value="${examen.moyenne}" /></dd>
+        </dl>
+    </div>
+    <div id="examen-notes" class="modal__mod--sm modal__mod--vertical modal__mod--scrollable">
+        <table id="examen__notes">
+            <thead>
+                <tr class="tr--ref tr--blue">
+                    <th>PRENOM</th>
+                    <th>NOM</th>
+                    <th>NOTE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach  items="${examen.listeNotes}" var="note">
+                    <tr class="tr--lg">
+                        <td><c:out value="${note.etudiant.prenom}"/></td>
+                        <td><c:out value="${note.etudiant.nom}"/></td>
+                        <td><fmt:formatNumber type="number" maxFractionDigits="1" value="${note.note}"/></td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
+    <div class="form__control modal__mod__control">
+        <button type="button" class="btn btn--default" onclick="supprFenetresModales()">RETOUR</button>
+    </div>
+</form>

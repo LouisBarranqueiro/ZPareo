@@ -1,58 +1,59 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!-- Fenetre modale de creation d'un professeur -->
-<div id="creation-professeur" class="fenetre-modale">
-	<section class="module">
-		<div class="module-barre">
-			<h1 class="centre">Ajout d'un professeur</h1>
-		</div>
-		<form action="http://localhost:8080/ZPareo/professeur/creation" method="POST" class="form-horizontal">
-			<div class="module-form">
- 				<div class="form-group-inline-moy">
-				<input type="text" name="nom" class="form-control input-sm" size="39" value="<c:out value='${ professeur.nom }'/>" pattern="[a-zA-Z ]{2,50}" placeholder="Nom" x-moz-error-message="Veuillez entrez un nom correct composer de 2 ‡ 50 caractËres" required/>
-				<span class="erreur">${ form.erreurs['nom'] }</span>
-				<input type="text" name="prenom" class="form-control input-sm" size="39" value="<c:out value='${ professeur.prenom }'/>" pattern="[a-zA-Z ]{2,50}" placeholder="Prenom" x-moz-error-message="Veuillez entrez un prenom correct composer de 2 ‡ 50 caractËres" required/>
-				<span class="erreur">${ form.erreurs['prenom'] }</span>
-				<input type="text" name="adresseMail" class="form-control input-sm" size="39" value="<c:out value='${ professeur.adresseMail }'/>" pattern="[a-zA-Z0-9@.-_]+@[a-zA-Z.]{2,20}.[a-zA-Z]{2,3}" placeholder="Adresse Mail" x-moz-error-message="Veuillez entrez une adresse mail correcte" required/>
-				<span class="erreur">${ form.erreurs['professeur'] }</span>
-				<span class="erreur">${ form.erreurs['adresseMail'] }</span>
-				<input type="password" name="motDePasse" class="form-control input-sm" size="39" pattern=".{8,}" placeholder="Mot de passe" x-moz-error-message="Veuillez entrez un mot de passe composer de 8 caractËres avec au moins une minucule, une majuscule, un chiffre et un caractËre spÈciale" required/>
-				<span class="erreur">${ form.erreurs['motDePasse'] }</span>
-				<input type="password" name="confirmation" class="form-control input-sm" size="39" pattern=".{8,}" placeholder="Confirmation du mot de passe" x-moz-error-message="Veuillez entrez un mot de passe composer de 8 caractËres avec au moins une minucule, une majuscule, un chiffre et un caractËre spÈciale" required/>
-				<span class="erreur">${ form.erreurs['motDePasse'] }</span>
-				<select multiple="multiple" size="10" name="groupes" class="form-control input-sm">
-			         <option disabled="disabled">SÈlectionnez un ou plusieurs groupe(s)</option>
-			         <c:forEach items="${ listeGroupes }" var="groupe">
-			             <option value="${ groupe.id }"
-			             	<c:forEach items="${ professeur.listeGroupes }" var="professeurGroupe">
-			                	<c:if test="${ professeurGroupe.id == groupe.id }"><c:out value="selected=selected"/></c:if>			                      
-			                </c:forEach>
-			             >
-			            	 <c:out value="${ groupe.nom }"/>
-			             </option>
-			         </c:forEach>
-			     </select>
-			     <span class="erreur">${ form.erreurs['groupes'] }</span>
-			     </div>
-			     <div class="form-group-inline-moy">
-			     <select multiple="multiple" size="23" name="matieres" class="form-control input-sm">
-			         <option disabled="disabled">SÈlectionnez une ou plusieurs matiere(s)</option>
-			         <c:forEach items="${ listeMatieres }" var="matiere">
-			             <option value="${ matiere.id }"
-			             	<c:forEach items="${ professeur.listeMatieres }" var="professeurMatiere">
-			                	<c:if test="${ professeurMatiere.id == matiere.id }"><c:out value="selected=selected"/></c:if>			                      
-			                </c:forEach>
-			             >
-			             	<c:out value="${ matiere.nom }"/>
-			             </option>
-			         </c:forEach>
-			     </select>
-				<span class="erreur">${ form.erreurs['matieres'] }</span>
-				</div>
-			</div>				
-			<div class="module-control-bas">
-				<button type="submit" class="bouton bouton-primary">AJOUTER</button>
-				<button type="button" class="bouton bouton-default" onclick="supprFenetresModales()">ANNULER</button>
-			</div>
-		</form>
-	</section>
-</div>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<form id="creation-professeur" action="http://localhost:8080/ZPareo/professeur/creation" method="POST" class="form--horizontal">
+    <div class="modal__mod__head">
+    	<h3 class="modal__mod__head__title text-center">Ajout d'un professeur</h3>
+    </div>
+    <div class="modal__mod--sm modal__mod--vertical">
+        <label>PRENOM</label>
+        <input type="text" name="prenom" class="form--control" size="39" value="<c:out value='${ professeur.prenom }'/>" pattern="[a-zA-Z ]{2,50}" x-moz-error-message="Veuillez entrez un prenom correct composer de 2 √† 50 caract√®res" required/>
+        <span class="form__error">${ form.erreurs['prenom'] }</span>
+        <label>NOM</label>
+        <input type="text" name="nom" class="form--control" size="39" value="<c:out value='${ professeur.nom }'/>" pattern="[a-zA-Z ]{2,50}" x-moz-error-message="Veuillez entrez un nom correct composer de 2 √† 50 caract√®res" required/>
+        <span class="form__error">${ form.erreurs['nom'] }</span>
+        <label>ADRESSE MAIL</label>
+        <input type="text" name="adresseMail" class="form--control" size="39" value="<c:out value='${ professeur.adresseMail }'/>" pattern="[a-zA-Z0-9@.-_]+@[a-zA-Z.]{2,20}.[a-zA-Z]{2,3}" x-moz-error-message="Veuillez entrez une adresse mail correcte" required/>
+        <span class="form__error">${ form.erreurs['professeur'] }</span>
+        <span class="form__error">${ form.erreurs['adresseMail'] }</span>
+        <label>MOT DE PASSE</label>
+        <input type="password" name="motDePasse" class="form--control" size="39" pattern=".{8,}" x-moz-error-message="Veuillez entrez un mot de passe composer de 8 caract√®res avec au moins une minucule, une majuscule, un chiffre et un caract√®re sp√©ciale" required/>
+        <span class="form__error">${ form.erreurs['motDePasse'] }</span>
+        <label>CONFIRMATION</label>
+        <input type="password" name="confirmation" class="form--control" size="39" pattern=".{8,}"  x-moz-error-message="Veuillez entrez un mot de passe composer de 8 caract√®res avec au moins une minucule, une majuscule, un chiffre et un caract√®re sp√©ciale" required/>
+        <span class="form__error">${ form.erreurs['motDePasse'] }</span>
+        <label>GROUPE(S)</label>
+        <select multiple="multiple" class="form--control" size="7" name="groupes" class="form-control input-sm">
+            <option disabled="disabled">S√©lectionnez un ou plusieurs groupes</option>
+            <c:forEach items="${ listeGroupes }" var="groupe">
+                <option value="${ groupe.id }"
+                    <c:forEach items="${ professeur.listeGroupes }" var="professeurGroupe">
+                    <c:if test="${ professeurGroupe.id == groupe.id }"><c:out value="selected=selected"/></c:if>                                  
+                    </c:forEach>
+                >
+                    <c:out value="${ groupe.nom }"/>
+                </option>
+             </c:forEach>
+         </select>
+         <span class="form__error">${ form.erreurs['groupes'] }</span>
+    </div>
+    <div class="modal__mod--sm modal__mod--vertical">
+        <label>MATIERE(S) ENSEIGNEE(S)</label>
+        <select multiple="multiple" class="form--control" size="23" name="matieres" class="form-control input-sm">
+            <option disabled="disabled">S√©lectionnez une ou plusieurs mati√®res</option>
+            <c:forEach items="${ listeMatieres }" var="matiere">
+                <option value="${ matiere.id }"
+                    <c:forEach items="${ professeur.listeMatieres }" var="professeurMatiere">
+                        <c:if test="${ professeurMatiere.id == matiere.id }"><c:out value="selected=selected"/></c:if>                                
+                    </c:forEach>
+                >
+                    <c:out value="${ matiere.nom }"/>
+                </option>
+            </c:forEach>
+        </select>
+        <span class="form__error">${ form.erreurs['matieres'] }</span>
+    </div>              
+    <div class="form__control modal__mod__control">
+        <button type="submit" class="btn btn--primary">AJOUTER</button>
+        <button type="button" class="btn btn--default" onclick="supprFenetresModales()">ANNULER</button>
+    </div>
+</form>
