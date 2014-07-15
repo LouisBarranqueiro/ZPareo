@@ -1,4 +1,4 @@
-package filtres;
+package filters;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter("/ei/*")
-public class EtudiantFiltre implements Filter 
+@WebFilter("/ai/*")
+public class AdminFilter implements Filter 
 {
-	private static final String URL_CONNEXION        = "/connexion";
-	private static final String ATT_SESSION_ETUDIANT = "sessionEtudiant";
+	private static final String URL_CONNEXION = "/connexion";
+	private static final String ADMIN_SESSION = "sessionAdministrateur";
     
     public void init(FilterConfig config) throws ServletException
     {
@@ -24,18 +24,18 @@ public class EtudiantFiltre implements Filter
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException 
     {
-        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletRequest request   = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
-        HttpSession session = request.getSession();
-        String chemin = request.getRequestURI().substring(request.getContextPath().length());
+        HttpSession session          = request.getSession();
+        String path                  = request.getRequestURI().substring(request.getContextPath().length());
         
-        if ((chemin.startsWith("/ressources")) || (chemin.startsWith("/connexion"))) 
+        if ((path.startsWith("/assets")) || (path.startsWith("/connexion"))) 
         {
         	chain.doFilter(request, response);
             return;
         }
         
-        if (session.getAttribute(ATT_SESSION_ETUDIANT) == null)
+        if (session.getAttribute(ADMIN_SESSION) == null)
         {
         	request.getRequestDispatcher(URL_CONNEXION).forward(request, response);
         } 

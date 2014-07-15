@@ -1,4 +1,4 @@
-package filtres;
+package filters;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebFilter("/*")
-public class ZPareoFiltre implements Filter 
+public class ZPareoFilter implements Filter 
 {
-	private static final String URL_CONNEXION              = "/connexion";
-	private static final String ATT_SESSION_ETUDIANT       = "sessionEtudiant";
-	private static final String ATT_SESSION_PROFESSEUR     = "sessionProfesseur";
-    private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
+	private static final String URL_CONNEXION   = "/connexion";
+	private static final String STUDENT_SESSION = "sessionEtudiant";
+	private static final String TEACHER_SESSION = "sessionProfesseur";
+    private static final String ADMIN_SESSION   = "sessionAdministrateur";
     
     public void init(FilterConfig config) throws ServletException
     {
@@ -26,18 +26,18 @@ public class ZPareoFiltre implements Filter
 
     public void doFilter(ServletRequest req, ServletResponse rep, FilterChain chain) throws IOException, ServletException 
     {
-        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletRequest request   = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) rep;
-        HttpSession session = request.getSession();
-        String chemin = request.getRequestURI().substring(request.getContextPath().length());
+        HttpSession session          = request.getSession();
+        String path                  = request.getRequestURI().substring(request.getContextPath().length());
         
-        if ((chemin.startsWith("/ressources")) || (chemin.startsWith("/connexion"))) 
+        if ((path.startsWith("/assets")) || (path.startsWith("/connexion"))) 
         {
         	chain.doFilter(request, response);
             return;
         }
         
-        if ((session.getAttribute(ATT_SESSION_ETUDIANT) == null) && (session.getAttribute(ATT_SESSION_PROFESSEUR) == null) && (session.getAttribute(ATT_SESSION_ADMINISTRATEUR) == null) )
+        if ((session.getAttribute(STUDENT_SESSION) == null) && (session.getAttribute(TEACHER_SESSION) == null) && (session.getAttribute(ADMIN_SESSION) == null) )
         {
         	request.getRequestDispatcher(URL_CONNEXION).forward(request, response);
         } 

@@ -1,4 +1,4 @@
-package filtres;
+package filters;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -12,30 +12,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter("/pi/*")
-public class ProfesseurFiltre implements Filter 
+@WebFilter("/ei/*")
+public class StudentFilter implements Filter 
 {
-	private static final String URL_CONNEXION          = "/connexion";
-	private static final String ATT_SESSION_PROFESSEUR = "sessionProfesseur";
+	private static final String URL_CONNEXION   = "/connexion";
+	private static final String STUDENT_SESSION = "sessionEtudiant";
     
     public void init(FilterConfig config) throws ServletException
     {
     }
 
-    public void doFilter(ServletRequest req, ServletResponse rep, FilterChain chain) throws IOException, ServletException 
+    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException 
     {
-        HttpServletRequest request = (HttpServletRequest) req;
-        HttpServletResponse response = (HttpServletResponse) rep;
-        HttpSession session = request.getSession();
-        String chemin = request.getRequestURI().substring(request.getContextPath().length());
+        HttpServletRequest request   = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) resp;
+        HttpSession session          = request.getSession();
+        String path                  = request.getRequestURI().substring(request.getContextPath().length());
         
-        if ((chemin.startsWith("/ressources")) || (chemin.startsWith("/connexion"))) 
+        if ((path.startsWith("/assets")) || (path.startsWith("/connexion"))) 
         {
         	chain.doFilter(request, response);
             return;
         }
         
-        if (session.getAttribute(ATT_SESSION_PROFESSEUR) == null)
+        if (session.getAttribute(STUDENT_SESSION) == null)
         {
         	request.getRequestDispatcher(URL_CONNEXION).forward(request, response);
         } 
