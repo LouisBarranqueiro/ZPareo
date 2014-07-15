@@ -1,0 +1,38 @@
+.main__head
+{
+  	width:      auto;
+  	height:     39px;
+  	padding:    18px;
+    @include    box-shadow(0 1px 1px $border-color-shadow);
+    background: $bg-color-white;
+ 	position:   relative;
+	z-index:    5;
+    
+    .main__head__title 
+    {
+    	width:     48%;
+        height:    auto;
+        margin:    0;
+        font-size: $font-size-h4;
+        color:     $font-color-light-black;
+    }
+    .main__head__desc
+    {
+    	width:     48%;
+        height:    auto;
+        color:     $font-color-dark-gray;
+      	font-size: $font-size-base;
+    }
+    .main__head__control
+    {
+        position: absolute;
+        top:      20px;
+        right:    15px;
+    }
+}
+.main__content
+{
+	width:   auto;
+	padding: 9px;
+}
+
