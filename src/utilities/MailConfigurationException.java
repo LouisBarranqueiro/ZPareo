@@ -1,4 +1,4 @@
-package utilitaires;
+package utilities;
 
 @SuppressWarnings("serial")
 public class MailConfigurationException extends RuntimeException 
