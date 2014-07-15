@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<form id="suppression-examen" action="" method="POST" class="form--horizontal">
+<form id="delete-test" action="<c:url value="pi/examen/suppression"/>" method="POST" class="form--horizontal">
     <div class="modal__mod__head">
         <h3 class="modal__mod__head__title text-center">Suppression de l'examen n°<c:out value="${examen.id}"/></h3>
     </div>
@@ -10,6 +10,6 @@
     </div>
     <div class="form__control modal__mod__control">
         <button type="submit" class="btn btn--danger">SUPPRIMER</button>
-        <button type="button" class="btn btn--default" onclick="supprFenetresModales()">ANNULER</button>
+        <button type="button" class="btn btn--default" onclick="removeModalWindow()">ANNULER</button>
     </div>
 </form>

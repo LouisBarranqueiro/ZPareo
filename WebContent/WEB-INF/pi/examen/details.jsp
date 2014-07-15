@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<form id="edition-examen" action="http://localhost:8080/ZPareo/pi/examen/edition" method="POST" class="form-horizontal">
     <div class="modal__mod__head">
         <h3 class="modal__mod__head__title text-center">Informations générales de l'examen n°<c:out value="${ examen.id }"/></h3>
     </div>
@@ -54,6 +53,5 @@
         </table>
     </div>
     <div class="form__control modal__mod__control">
-        <button type="button" class="btn btn--default" onclick="supprFenetresModales()">RETOUR</button>
+        <button type="button" class="btn btn--default" onclick="removeModalWindow()">RETOUR</button>
     </div>
-</form>

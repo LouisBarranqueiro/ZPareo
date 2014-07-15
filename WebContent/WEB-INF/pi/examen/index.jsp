@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <title>ZPareo - Liste de vos examens</title>
-        <link type="text/css" rel="stylesheet" href="http://localhost:8080/ZPareo/ressources/scss/style.css" />
+        <link type="text/css" rel="stylesheet" href="<c:url value="/assets/scss/style.css"/>"/>
     </head>
     <body>
         <div id="site-wrap">
@@ -15,11 +15,11 @@
                     <span class="aside__user-info__name"><c:out value="${fn:toUpperCase(sessionScope.sessionProfesseur.nom)}"></c:out><br/><c:out value="${fn:toUpperCase(sessionScope.sessionProfesseur.prenom)}"></c:out></span>
                 </div>
                 <nav class="aside__nav">
-                    <a href="http://localhost:8080/ZPareo/pi/examen">
+                    <a href="<c:url value="/pi/examen"/>">
                         <span class="icon-stats"></span>
                         <span>EXAMENS</span>
                     </a>
-                    <a href="http://localhost:8080/ZPareo/deconnexion">
+                    <a href="<c:url value="/deconnexionn"/>">
                         <span class="icon-switch2"></span>
                         <span>DECONNEXION</span>
                     </a>
@@ -29,7 +29,7 @@
                 <div class="main__head">
                     <h1 class="main__head__title">Liste de vos examens</h1>
                     <p class="main__head__desc"><c:out value="${ nbExamens }"/> examens enregistrés</p>
-                    <button type="button" class="btn btn--success main__head__control" onclick="affFormCreation('pi/examen',300)">AJOUTER UN EXAMEN</button>
+                    <button type="button" class="btn btn--success main__head__control" onclick="displayRespModal('pi/examen/creation',300)">AJOUTER UN EXAMEN</button>
                 </div>
                 <div class="main__content">
                     <div class="mod mod--lg">
@@ -57,9 +57,9 @@
                                                 <option value="2">Oral</option>
                                             </select>
                                         </th>
-                                        <th><input type="text" name="nom" size="25" pattern=".{5,55}" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom correct"/></th>
+                                        <th><input type="text" name="title" size="25" pattern=".{5,55}" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom correct"/></th>
                                         <th>
-                                            <select name="groupe" >
+                                            <select name="groupe">
                                             <option disabled="disabled" value="">Groupe</option>
                                                 <option value="">Tous</option>
                                                 <c:forEach items="${ sessionScope.sessionProfesseur.listeGroupes }" var="groupe">
@@ -70,7 +70,7 @@
                                             </select>
                                         </th>
                                         <th>
-                                            <select name="matiere">
+                                            <select name="matter">
                                                 <option disabled="disabled" value="">Matière</option>
                                                 <option value="">Tous</option>
                                                 <c:forEach items="${ sessionScope.sessionProfesseur.listeMatieres }" var="matiere">
@@ -96,9 +96,9 @@
                                             <td><fmt:formatNumber type="number" maxFractionDigits="1" value="${examen.moyenne}" /></td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn--icon" onclick="affFormDetails('pi/examen',<c:out value="${ examen.id }"/>,550)"><span class="icon-list2"></span></button>
-                                                    <button type="button" class="btn btn--icon" onclick="affFormEdition('pi/examen',<c:out value="${ examen.id }"/>,600)"><span class="icon-edit"></span></button>
-                                                    <button type="button" class="btn btn--icon" onclick="affFormSuppr('pi/examen',<c:out value="${ examen.id }"/>,'auto')"><span class="icon-trashcan"></span></button>
+                                                    <button type="button" class="btn btn--icon" onclick="displayRespModal('pi/examen/details?id=<c:out value="${ examen.id }"/>',550)"><span class="icon-list2"></span></button>
+                                                    <button type="button" class="btn btn--icon" onclick="displayRespModal('pi/examen/edition?id=<c:out value="${ examen.id }"/>',600)"><span class="icon-edit"></span></button>
+                                                    <button type="button" class="btn btn--icon" onclick="displayRespModal('pi/examen/suppression?id=<c:out value="${ examen.id }"/>','auto')"><span class="icon-trashcan"></span></button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -108,14 +108,14 @@
                         </form>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div><!-- End main-wrap -->
+        </div><!-- End site-wrap -->
         <div id="modal" class="modal"></div>
-        <script type="text/javascript" src="http://localhost:8080/ZPareo/ressources/js/jquery.js"></script>
-        <script type="text/javascript" src="http://localhost:8080/ZPareo/ressources/js/highcharts.js"></script>
-        <script type="text/javascript" src="http://localhost:8080/ZPareo/ressources/js/jquery-ui.custom.min.js"></script>
-        <script type="text/javascript" src="http://localhost:8080/ZPareo/ressources/js/jquery.tablesorter.min.js"></script>
-        <script type="text/javascript" src="http://localhost:8080/ZPareo/ressources/js/jquery.ui.datepicker-fr.js"></script> 
-        <script type="text/javascript" src="http://localhost:8080/ZPareo/ressources/js/script.js"></script> 
+        <script type="text/javascript" src="<c:url value="/assets/js/jquery.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/assets/js/highcharts.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/assets/js/jquery-ui.custom.min.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/assets/js/jquery.tablesorter.min.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/assets/js/jquery.ui.datepicker-fr.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/assets/js/script.js"/>"></script> 
     </body>  
 </html>

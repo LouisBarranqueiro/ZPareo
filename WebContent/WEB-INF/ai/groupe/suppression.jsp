@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<form id="suppression-groupe" action="http://localhost:8080/ZPareo/ai/groupe/suppression" method="POST" class="form--horizontal">
+<form id="delete-group" action="<c:url value="ai/groupe/suppression"/>" method="POST" class="form--horizontal">
     <div class="modal__mod__head">
     	<h3 class="modal__mod__head__title text-center">Suppression du groupe n°<c:out value="${ groupe.id }"/></h3>
     </div>
@@ -10,6 +10,6 @@
     </div>
     <div class="form__control modal__mod__control">
         <button type="submit" class="btn btn--danger">SUPPRIMER</button>
-        <button type="button" class="btn btn--default" onclick="supprFenetresModales()">ANNULER</button>
+        <button type="button" class="btn btn--default" onclick="removeModalWindow()">ANNULER</button>
     </div>
 </form>

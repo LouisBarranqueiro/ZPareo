@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<form id="reinitmdp-etudiant" action="http://localhost:8080/ZPareo/ai/etudiant/reinit-mot-de-passe" method="POST" class="form--horizontal">
+<form id="reinit-pass-student" action="<c:url value="ai/etudiant/reinit-mot-de-passe"/>" method="POST" class="form--horizontal">
    	<div class="modal__mod__head">
     	<h3 class="modal__mod__head__title text-center">Réinitialisation du mot de passe de l'étudiant n°<c:out value="${etudiant.id}"/></h3>
     </div>
@@ -10,6 +10,6 @@
     </div>
     <div class="form__control">
         <button type="submit" class="btn btn--danger">REINITIALISER</button>
-        <button type="button" class="btn btn--default" onclick="supprFenetresModales()">ANNULER</button>
+        <button type="button" class="btn btn--default" onclick="removeModalWindow()">ANNULER</button>
     </div>
 </form>

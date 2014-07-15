@@ -30,8 +30,8 @@
             </dd>
         </dl>
 	    <div class="form__control modal__mod__control">
-	            <button type="submit" class="btn btn--primary" onclick="affFormEdition('/ai/professeur',<c:out value="${ professeur.id }"/>,600)" >EDITER</button>
-	            <button type="button" class="btn btn--default" onclick="supprFenetresModales()">FERMER</button>
+	            <button type="submit" class="btn btn--primary" onclick="displayRespModal('ai/professeur/edition?id=<c:out value="${ professeur.id }"/>',600)" >EDITER</button>
+	            <button type="button" class="btn btn--default" onclick="removeModalWindow()">FERMER</button>
 	    </div>
     </div>
 </div>
