@@ -10,7 +10,7 @@ import dao.DAOFactory;
 @WebListener
 public class InitialisationDaoFactory implements ServletContextListener 
 {
-	private static final String ATT_DAO_FACTORY = "daofactory";
+	private static final String DAO_FACTORY = "daofactory";
     private DAOFactory daoFactory;
 
     public InitialisationDaoFactory() 
@@ -22,7 +22,7 @@ public class InitialisationDaoFactory implements ServletContextListener
     {
         ServletContext servletContext = event.getServletContext();
         this.daoFactory = DAOFactory.getInstance();
-        servletContext.setAttribute( ATT_DAO_FACTORY, this.daoFactory );
+        servletContext.setAttribute(DAO_FACTORY, this.daoFactory);
     }
 	
     public void contextDestroyed(ServletContextEvent arg0) 
