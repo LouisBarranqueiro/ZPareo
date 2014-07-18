@@ -12,7 +12,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import beans.Etudiant;
+import beans.Student;
 
 public class Mail 
 {
@@ -106,12 +106,12 @@ public class Mail
      * @param student
      * @param password
      */
-    public static void sendStudentPassword(Etudiant student, String password)
+    public static void sendStudentPassword(Student student, String password)
     {
     	String topic   = "Bienvenue sur ZPareo";
-    	String content = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'></head><style type='text/css'>body, .content{	margin:0 auto; 	background:#ffffff; 	letter-spacing: 0pt; 	width:100%;	max-width:650px; 	font-family:'Helvetica Neue'; 	font:'Helvetica Neue'; 	font-size:13px; 	color:#707277;}body h4{ 	display:block;    font:'helvetica Neue'; 	font-size:16px;	color:#454545; 	height:30px;	margin:0 15px;	border-bottom:1px solid #e3e3e3; }a{ 	text-decoration:none; 	text-align: center; 	color:#39F;}.content{	width:auto;	margin:0 15px;	line-height:20px;}.gras{	color:#26282b;}</style><body>	<br/>	<h4>Bienvenue sur ZPareo</h4>	<div class='content'>	<p>Bonjour <span class='gras'>"+ student.getPrenom() +"</span>,<br/><br/> Un compte étudiant a été crée pour vous sur ZPareo. Vous pouvez dés maintenant vous connecter dessus pour consulter vos notes en cliquant sur : <a href='http://localhost:8080/ZPareo/connexion'>Accéder à mon compte</a><br/><br/>Identifiant : <span class='gras'>" + student.getAdresseMail() + "</span><br>Mot de passe : <span class='gras'> " + password + "</span><br/><br/>Cordialement,<br/>Administration ZPareo</div></p></body></html";
+    	String content = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'></head><style type='text/css'>body, .content{	margin:0 auto; 	background:#ffffff; 	letter-spacing: 0pt; 	width:100%;	max-width:650px; 	font-family:'Helvetica Neue'; 	font:'Helvetica Neue'; 	font-size:13px; 	color:#707277;}body h4{ 	display:block;    font:'helvetica Neue'; 	font-size:16px;	color:#454545; 	height:30px;	margin:0 15px;	border-bottom:1px solid #e3e3e3; }a{ 	text-decoration:none; 	text-align: center; 	color:#39F;}.content{	width:auto;	margin:0 15px;	line-height:20px;}.gras{	color:#26282b;}</style><body>	<br/>	<h4>Bienvenue sur ZPareo</h4>	<div class='content'>	<p>Bonjour <span class='gras'>"+ student.getFirstName() +"</span>,<br/><br/> Un compte étudiant a été crée pour vous sur ZPareo. Vous pouvez dés maintenant vous connecter dessus pour consulter vos notes en cliquant sur : <a href='http://localhost:8080/ZPareo/connexion'>Accéder à mon compte</a><br/><br/>Identifiant : <span class='gras'>" + student.getEmailAddress() + "</span><br>Mot de passe : <span class='gras'> " + password + "</span><br/><br/>Cordialement,<br/>Administration ZPareo</div></p></body></html";
     	
-    	sendMail(student.getAdresseMail(), topic, content);
+    	sendMail(student.getEmailAddress(), topic, content);
     }
     
     /**
@@ -120,11 +120,11 @@ public class Mail
      * @param student
      * @param password
      */
-    public static void sendBackStudentPassword(Etudiant student, String password)
+    public static void sendBackStudentPassword(Student student, String password)
     {
     	String topic   = "Votre nouveau mot de passe sur ZPareo";
-    	String content = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'></head><style type='text/css'>body, .content{	margin:0 auto; 	background:#ffffff; 	letter-spacing: 0pt; 	width:100%;	max-width:650px; 	font-family:'Helvetica Neue'; 	font:'Helvetica Neue'; 	font-size:13px; 	color:#707277;}body h4{ 	display:block;    font:'helvetica Neue'; 	font-size:16px;	color:#454545; 	height:30px;	margin:0 15px;	border-bottom:1px solid #e3e3e3; }a{ 	text-decoration:none; 	text-align: center; 	color:#39F;}.content{	width:auto;	margin:0 15px;	line-height:20px;}.gras{	color:#26282b;}</style><body>	<br/>	<h4>ZPareo</h4>	<div class='content'>	<p>Bonjour <span class='gras'>" + student.getPrenom() + "</span>,<br/><br/> Le mot de passe de votre compte ZPareo a été réinitialisé. Vous pouvez de nouveau consulter vos informations et vos notes ici : <a href='http://localhost:8080/ZPareo/connexion'>Accéder à mon compte</a><br/><br/>Identifiant : <span class='gras'>" + student.getAdresseMail() + "</span><br>Mot de passe : <span class='gras'> " + password + "</span><br/><br/>Cordialement,<br/>Administration ZPareo</div></p></body></html";
+    	String content = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'></head><style type='text/css'>body, .content{	margin:0 auto; 	background:#ffffff; 	letter-spacing: 0pt; 	width:100%;	max-width:650px; 	font-family:'Helvetica Neue'; 	font:'Helvetica Neue'; 	font-size:13px; 	color:#707277;}body h4{ 	display:block;    font:'helvetica Neue'; 	font-size:16px;	color:#454545; 	height:30px;	margin:0 15px;	border-bottom:1px solid #e3e3e3; }a{ 	text-decoration:none; 	text-align: center; 	color:#39F;}.content{	width:auto;	margin:0 15px;	line-height:20px;}.gras{	color:#26282b;}</style><body>	<br/>	<h4>ZPareo</h4>	<div class='content'>	<p>Bonjour <span class='gras'>" + student.getFirstName() + "</span>,<br/><br/> Le mot de passe de votre compte ZPareo a été réinitialisé. Vous pouvez de nouveau consulter vos informations et vos notes ici : <a href='http://localhost:8080/ZPareo/connexion'>Accéder à mon compte</a><br/><br/>Identifiant : <span class='gras'>" + student.getEmailAddress() + "</span><br>Mot de passe : <span class='gras'> " + password + "</span><br/><br/>Cordialement,<br/>Administration ZPareo</div></p></body></html";
     	
-    	sendMail(student.getAdresseMail(), topic, content);
+    	sendMail(student.getEmailAddress(), topic, content);
     }
 }
