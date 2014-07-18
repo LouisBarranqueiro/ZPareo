@@ -33,7 +33,7 @@
         </dl>
     </div>
     <div id="examen-notes" class="modal__mod--sm modal__mod--vertical modal__mod--scrollable">
-        <table id="examen__notes">
+        <table class="table">
             <thead>
                 <tr class="tr--ref tr--blue">
                     <th>PRENOM</th>

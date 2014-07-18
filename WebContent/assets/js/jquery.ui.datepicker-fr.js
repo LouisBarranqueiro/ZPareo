@@ -12,13 +12,13 @@ factory( jQuery.datepicker );
 
 datepicker.regional['fr'] = {
 closeText: 'Fermer',
-prevText: 'Précédent',
+prevText: 'Pr√©c√©dent',
 nextText: 'Suivant',
 currentText: 'Aujourd\'hui',
 monthNames: ['janvier', 'f√©vrier', 'mars', 'avril', 'mai', 'juin',
-'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'décembre'],
+'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'dÔøΩcembre'],
 monthNamesShort: ['janv.', 'f√©vr.', 'mars', 'avril', 'mai', 'juin',
-'juil.', 'aout', 'sept.', 'oct.', 'nov.', 'déc.'],
+'juil.', 'aout', 'sept.', 'oct.', 'nov.', 'd√©c.'],
 dayNames: ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
 dayNamesShort: ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'],
 dayNamesMin: ['D','L','M','M','J','V','S'],

@@ -230,6 +230,7 @@ var reloadCreateFunctions = function()
 	createTeacher();
 	createAdmin();
 	createTest();
+	initDatepicker();
 };
 
 /**
@@ -244,6 +245,7 @@ var reloadEditFunctions = function()
 	editTeacher();
 	editAdmin();
 	editTest();
+	initDatepicker();
 };
 
 /**
@@ -1269,8 +1271,10 @@ var checkLogin = function()
 			    			left:"+=5"
 			    		},60);
 			    	}
+			    	initDatepicker();
 			    } 
 			});
+			
 		});
 	});
 };

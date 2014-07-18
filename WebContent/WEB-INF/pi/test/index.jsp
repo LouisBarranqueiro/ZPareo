@@ -34,7 +34,7 @@
                 <div class="main__content">
                     <div class="mod mod--lg">
                         <form action="http://localhost:8080/ZPareo/pi/examen" method="GET" class="form--inline">
-                            <table>
+                            <table class="table">
                                 <thead>
                                     <tr class="tr--ref">
                                         <th class="sortable">REFERENCE</th>
@@ -48,18 +48,18 @@
                                     </tr>
                                     <tr class="tr--search">
                                         <th><input type="text" name="id" size="8" pattern="[0-9]+" placeholder="Reference" x-moz-errormessage="Veuillez entrez une référence correcte"/></th>
-                                        <th><input type="text" name="date" class="form-control input-sm datepicker" size="10" placeholder="Date" pattern="(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)\d\d" x-moz-errormessage="Veuillez entrer une date correct"/></th>
+                                        <th><input type="text" name="date" class="form--control datepicker" size="10" placeholder="Date" pattern="(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)\d\d" x-moz-errormessage="Veuillez entrer une date correct"/></th>
                                         <th>
-                                            <select name="format">
+                                            <select name="format" class="form--control">
                                                 <option disabled="disabled" value="">Format</option>
                                                 <option value="">Tous</option>
                                                 <option value="1">Ecrit</option>
                                                 <option value="2">Oral</option>
                                             </select>
                                         </th>
-                                        <th><input type="text" name="title" size="25" pattern=".{5,55}" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom correct"/></th>
+                                        <th><input type="text" name="title" class="form--control" size="25" pattern=".{5,55}" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom correct"/></th>
                                         <th>
-                                            <select name="groupe">
+                                            <select name="groupe" class="form--control">
                                             <option disabled="disabled" value="">Groupe</option>
                                                 <option value="">Tous</option>
                                                 <c:forEach items="${sessionScope.teacherSession.groups}" var="teacherGroup">
@@ -70,7 +70,7 @@
                                             </select>
                                         </th>
                                         <th>
-                                            <select name="matter">
+                                            <select name="matter" class="form--control">
                                                 <option disabled="disabled" value="">Matière</option>
                                                 <option value="">Tous</option>
                                                 <c:forEach items="${sessionScope.teacherSession.matters}" var="matter">

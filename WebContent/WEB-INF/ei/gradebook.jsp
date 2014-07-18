@@ -42,7 +42,7 @@
                     </div>
                     <div class="mod mod--xs">  
                         <h3 class="mod__head">Liste des moyennes</h3>
-                        <table>
+                        <table class="table">
                             <thead>
                                 <tr class="tr--ref">
                                     <th class="sortable">MATIERE</th>
@@ -61,7 +61,7 @@
                     </div>
                     <div class="mod mod--md">  
                         <h3 class="mod__head">Liste des examens</h3>
-                        <table>
+                        <table class="table">
                             <thead>
                                 <tr class="tr--ref">
                                     <th class="sortable">FORMAT</th>

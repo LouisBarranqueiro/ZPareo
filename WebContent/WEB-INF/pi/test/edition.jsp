@@ -41,7 +41,7 @@
         <span class="form__error">${testForm.errors['matter']}</span>
     </div>
     <div class="modal__mod--sm modal__mod--vertical modal__mod--scrollable">
-        <table>
+        <table class="table">
             <thead>
                 <tr class="tr--ref tr--blue">
                     <th>PRENOM</th>

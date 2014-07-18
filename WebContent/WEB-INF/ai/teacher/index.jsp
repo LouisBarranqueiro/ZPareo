@@ -49,7 +49,7 @@
                 <div class="main__content">
                     <div class="mod mod--lg">
                         <form action="http://localhost:8080/ZPareo/ai/professeur" method="GET" class="form--inline">
-                            <table>
+                            <table class="table">
                                 <thead>
                                     <tr class="tr--ref">
                                         <th class="sortable">REFERENCE</th>
