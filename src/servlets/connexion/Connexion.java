@@ -7,28 +7,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import dao.AdministrateurDao;
+import dao.AdministratorDao;
 import dao.DAOFactory;
-import dao.EtudiantDao;
-import dao.ProfesseurDao;
-import forms.AdministrateurForm;
-import forms.EtudiantForm;
-import forms.ProfesseurForm;
+import dao.StudentDao;
+import dao.TeacherDao;
+import forms.AdministratorForm;
+import forms.StudentForm;
+import forms.TeacherForm;
 
 @SuppressWarnings("serial")
 @WebServlet("/connexion")
 public class Connexion extends HttpServlet 
 {
-	private static final String CONF_DAO_FACTORY           = "daofactory";
-	private static final String ATT_UTILISATEUR            = "utilisateur";
-	private static final String ATT_SESSION_ETUDIANT       = "sessionEtudiant";
-	private static final String ATT_SESSION_PROFESSEUR     = "sessionProfesseur";
-	private static final String ATT_SESSION_ADMINISTRATEUR = "sessionAdministrateur";
-	private static final String ATT_FORM                   = "form";
-	private static final String VUE                        = "/WEB-INF/connexion.jsp";
-	private AdministrateurDao administrateurDao;
-	private EtudiantDao etudiantDao;
-	private ProfesseurDao professeurDao;
+	private static final String CONF_DAO_FACTORY      = "daofactory";
+	private static final String USER                  = "user";
+	private static final String STUDENT_SESSION       = "studentSession";
+	private static final String TEACHER_SESSION       = "teacherSession";
+	private static final String ADMINISTRATOR_SESSION = "administratorSession";
+	private static final String STUDENT_FORM          = "studentForm";
+	private static final String VIEW                  = "/WEB-INF/connexion.jsp";
+	private AdministratorDao administratorDao;
+	private StudentDao studentDao;
+	private TeacherDao teacherForm;
 	
     public Connexion() 
     {
@@ -37,51 +37,51 @@ public class Connexion extends HttpServlet
     
     public void init() throws ServletException 
     {
-    	this.administrateurDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getAdministrateurDao();
-    	this.etudiantDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getEtudiantDao();
-    	this.professeurDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getProfesseurDao();
+    	this.administratorDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getAdministratorDao();
+    	this.studentDao       = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getStudentDao();
+    	this.teacherForm      = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getTeacherDao();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		HttpSession session = request.getSession();
 		
-		if (session.getAttribute(ATT_SESSION_ADMINISTRATEUR) != null) response.sendRedirect("http://localhost:8080/ZPareo/ai/administrateur");  
-		else if (session.getAttribute(ATT_SESSION_PROFESSEUR) != null) response.sendRedirect("http://localhost:8080/ZPareo/pi/examen");  
-		else if (session.getAttribute(ATT_SESSION_ETUDIANT) != null) response.sendRedirect("http://localhost:8080/ZPareo/ei/mon-bulletin");
-		else this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+		if (session.getAttribute(ADMINISTRATOR_SESSION) != null) response.sendRedirect("http://localhost:8080/ZPareo/ai/administrateur");  
+		else if (session.getAttribute(TEACHER_SESSION) != null) response.sendRedirect("http://localhost:8080/ZPareo/pi/examen");  
+		else if (session.getAttribute(STUDENT_SESSION) != null) response.sendRedirect("http://localhost:8080/ZPareo/ei/mon-bulletin");
+		else this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		HttpSession session = request.getSession();
-		EtudiantForm etudiantForm = new EtudiantForm(this.etudiantDao);
-		ProfesseurForm professeurForm = new ProfesseurForm(this.professeurDao);
-		AdministrateurForm administrateurForm = new AdministrateurForm(this.administrateurDao);
-		beans.Etudiant etudiant = etudiantForm.verifIdentifiantEtudiant(request);
-		beans.Professeur professeur = professeurForm.verifIdentifiantProfesseur(request);
-		beans.Administrateur administrateur = administrateurForm.verifIdentifiantAdmin(request);
+		HttpSession session                 = request.getSession();
+		StudentForm studentForm             = new StudentForm(this.studentDao);
+		TeacherForm teacherForm             = new TeacherForm(this.teacherForm);
+		AdministratorForm administratorForm = new AdministratorForm(this.administratorDao);
+		beans.Student student               = studentForm.checkLogin(request);
+		beans.Teacher teacher               = teacherForm.checkLogin(request);
+		beans.Administrator administrator   = administratorForm.checkLogin(request);
 		
-		if (etudiant.getId() != null)
+		if (student.getId() != null)
 		{
-			session.setAttribute(ATT_SESSION_ETUDIANT, etudiant);
+			session.setAttribute(STUDENT_SESSION, student);
 			response.sendRedirect("http://localhost:8080/ZPareo/ei/mon-bulletin"); 
 		}
-		else if (professeur.getId() != null)
+		else if (teacher.getId() != null)
 		{
-			session.setAttribute(ATT_SESSION_PROFESSEUR, professeur);
+			session.setAttribute(TEACHER_SESSION, teacher);
 			response.sendRedirect("http://localhost:8080/ZPareo/pi/examen");   
 		}
-		else if (administrateur.getId() != null)
+		else if (administrator.getId() != null)
 		{
-			session.setAttribute(ATT_SESSION_ADMINISTRATEUR, administrateur);
+			session.setAttribute(ADMINISTRATOR_SESSION, administrator);
 			response.sendRedirect("http://localhost:8080/ZPareo/ai/administrateur"); 
 		}
 		else
 		{
-			request.setAttribute(ATT_UTILISATEUR, etudiant);
-        	request.setAttribute(ATT_FORM, etudiantForm);
-			this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+			request.setAttribute(USER, student);
+        	request.setAttribute(STUDENT_FORM, studentForm);
+			this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);
 		}
 		
 	
