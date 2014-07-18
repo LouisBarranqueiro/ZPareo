@@ -197,6 +197,8 @@ var removeModalWindow = function()
 
 /**
  * Initializes the modal window
+ * 
+ * @param modalWidth
  */
 var initModalWindow = function(modalWidth) 
 {
