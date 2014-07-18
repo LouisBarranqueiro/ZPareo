@@ -11,7 +11,7 @@
             <div id="aside-wrap">
                 <div class="aside__user-info">
                     <span class="aside__user-info__picture"></span>
-                    <span class="aside__user-info__name"><c:out value="${fn:toUpperCase(sessionScope.administratorSession.lastName)}"></c:out><br/><c:out value="${fn:toUpperCase(sessionScope.AdministratorSession.firstName)}"></c:out></span>
+                    <span class="aside__user-info__name"><c:out value="${fn:toUpperCase(sessionScope.administratorSession.lastName)}"></c:out><br/><c:out value="${fn:toUpperCase(sessionScope.administratorSession.firstName)}"></c:out></span>
                 </div>
                 <nav class="aside__nav">
                     <a href="<c:url value="/ai/administrateur"/>">
