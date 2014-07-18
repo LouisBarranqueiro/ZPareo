@@ -1,5 +1,5 @@
 /**
- * Initialize the Table Sorter library
+ * Initializes the Table Sorter library
  */ 
 var initTableSorter = function()
 {
@@ -7,7 +7,7 @@ var initTableSorter = function()
 };
 
 /**
- * Initialize the averages's student chart
+ * Initializes the averages's student chart
  */
 var initAverageStudentChart = function()
 {
@@ -92,7 +92,7 @@ var initAverageStudentChart = function()
 };
  
 /**
- * Initialize the datapicker library
+ * Initializes the datapicker library
  */ 
 var initDatepicker = function()
 {
@@ -100,7 +100,7 @@ var initDatepicker = function()
 };
 
 /**
- * Animate sortable array column
+ * Animates sortable array column
  */
 var animateColumn = function() 
 {
@@ -121,7 +121,7 @@ var animateColumn = function()
 };
 
 /**
- * Center a modal window
+ * Centers a modal window
  * 
  * @param modalWidth
  */
@@ -150,7 +150,7 @@ var centerModalWindow = function(modalWidth)
 };
 
 /**
- * Display a mask
+ * Displays a mask
  */ 
 var displayMask = function() 
 {
@@ -162,7 +162,7 @@ var displayMask = function()
 };
 
 /**
- * Display the modal window
+ * Displays the modal window
  */ 
 var displayModalWindow = function() 
 {
@@ -170,7 +170,7 @@ var displayModalWindow = function()
 };
 
 /**
- * Remove the mask
+ * Removes the mask
  */
 var removeMask = function() 
 {
@@ -178,7 +178,7 @@ var removeMask = function()
 };
 
 /**
- * hide the modal window and remove the mask
+ * hides the modal window and remove the mask
  */ 
 var hideModalWindow = function() 
 {
@@ -187,7 +187,7 @@ var hideModalWindow = function()
 };
 
 /**
- * Remove the modal window
+ * Removes the modal window
  */
 var removeModalWindow = function() 
 {
@@ -196,7 +196,7 @@ var removeModalWindow = function()
 };
 
 /**
- * Initialize the modal window
+ * Initializes the modal window
  */
 var initModalWindow = function(modalWidth) 
 {
@@ -206,8 +206,8 @@ var initModalWindow = function(modalWidth)
 	displayModalWindow();
 };
 
-/*
- * Slice a view (main wrap)
+/**
+ * Slices a view (main wrap)
  * 
  * @param view
  * @return 
@@ -218,7 +218,7 @@ var sliceMainView = function(view)
 };
 
 /**
- * Reload AJAX functions in charge of creating
+ * Reloads AJAX functions in charge of creating
  */
 var reloadCreateFunctions = function()
 {
@@ -231,7 +231,7 @@ var reloadCreateFunctions = function()
 };
 
 /**
- * Reload AJAX functions in charge of editing
+ * Reloads AJAX functions in charge of editing
  */
 var reloadEditFunctions = function()
 { 
@@ -245,7 +245,7 @@ var reloadEditFunctions = function()
 };
 
 /**
- * Reload AJAX functions in charge of deleting
+ * Reloads AJAX functions in charge of deleting
  */
 var reloadDeleteFunctions = function()
 {
@@ -258,8 +258,8 @@ var reloadDeleteFunctions = function()
 };
 
 
-/*
- * Reload AJAX Functions inf charge of all objects
+/**
+ * Reloads AJAX Functions inf charge of all objects
  */
 var reloadObjectsfunctions = function()
 {
@@ -268,8 +268,8 @@ var reloadObjectsfunctions = function()
 	reloadDeleteFunctions();
 };
 
-/*
- * Display response into modal window
+/**
+ * Displays response into modal window
  * 
  * @param url
  * @param modalWidth
@@ -296,7 +296,7 @@ var displayRespModal = function(url, modalWidth)
 };
 
 /**
- * Create a matter in database
+ * Creates a matter in database
  */ 
 var createMatter = function()  
 {
@@ -337,7 +337,7 @@ var createMatter = function()
 };
 
 /**
- * Edit a matter in database
+ * Edits a matter in database
  */
 var editMatter = function()  
 {
@@ -380,7 +380,7 @@ var editMatter = function()
 };
 
 /**
- * Delete a matter in database
+ * Deletes a matter in database
  */
 var delMatter = function()  
 {
@@ -421,7 +421,7 @@ var delMatter = function()
 };
 
 /**
- * Create a group in database
+ * Creates a group in database
  */ 
 var createGroup = function()  
 {
@@ -462,7 +462,7 @@ var createGroup = function()
 };
 
 /**
- * Edit a group in database
+ * Edits a group in database
  */
 var editGroup = function()  
 {
@@ -505,7 +505,7 @@ var editGroup = function()
 };
 
 /**
- * Delete a group in database
+ * Deletes a group in database
  */
 var delGroup = function()  
 {
@@ -546,7 +546,7 @@ var delGroup = function()
 };
 
 /**
- * Create a student in database
+ * Creates a student in database
  */ 
 var createStudent = function()  
 {
@@ -556,7 +556,7 @@ var createStudent = function()
 		var lastName     = $('#create-student input[name=lastName]').val();
 		var firstName    = $('#create-student input[name=firstName]').val();
 		var emailAddress = $('#create-student input[name=emailAddress]').val();
-		var group        = $('#create-student select[name=groupe]').val();
+		var group        = $('#create-student select[name=group]').val();
 		var modalWindow  = $('#modal');
 
 		$.ajax(
@@ -593,7 +593,7 @@ var createStudent = function()
 };
 
 /**
- * Edit a student in database
+ * Edits a student in database
  */
 var editStudent = function()  
 {
@@ -642,7 +642,7 @@ var editStudent = function()
 };
 
 /**
- * Delete a student in database
+ * Deletes a student in database
  */
 var delStudent = function()  
 {
@@ -682,7 +682,7 @@ var delStudent = function()
 };
 
 /**
- * Re-initialize a user password
+ * Resets a user password
  */
 var reinitPassStudent = function()  
 {
@@ -712,7 +712,7 @@ var reinitPassStudent = function()
 };
 
 /**
- * Create a teacher in database
+ * Creates a teacher in database
  */ 
 var createTeacher = function()  
 {
@@ -765,7 +765,7 @@ var createTeacher = function()
 };
 
 /**
- * Edit a teacher in database
+ * Edits a teacher in database
  */ 
 var editTeacher = function()  
 {
@@ -819,7 +819,7 @@ var editTeacher = function()
 };
 
 /**
- * Delete a teacher in database
+ * Deletes a teacher in database
  */
 var delTeacher = function()  
 {
@@ -860,7 +860,7 @@ var delTeacher = function()
 };
 
 /**
- * Create an administrator in database
+ * Creates an administrator in database
  */ 
 var createAdmin = function()  
 {
@@ -909,7 +909,7 @@ var createAdmin = function()
 };
 
 /**
- * Edit an administrator in database
+ * Edits an administrator in database
  */ 
 var editAdmin = function()  
 {
@@ -960,7 +960,7 @@ var editAdmin = function()
 };
 
 /**
- * Delete an administrator in database
+ * Deletes an administrator in database
  */
 var delAdmin = function()  
 {
@@ -1001,7 +1001,7 @@ var delAdmin = function()
 };
 
 /**
- * Create a test in database
+ * Creates a test in database
  */ 
 var createTest = function()  
 {
@@ -1042,6 +1042,7 @@ var createTest = function()
 		    		removeModalWindow();
 		    		modalWindow.html(view);
 		    		initModalWindow(600);
+		    		reloadEditFunctions();
 		    	}
 		    	else 
 		    	{
@@ -1055,7 +1056,7 @@ var createTest = function()
 };
 
 /**
- * Edit a test in database
+ * Edits a test in database
  */ 
 var editTest = function()  
 {
@@ -1125,7 +1126,7 @@ var editTest = function()
 };
 
 /**
- * Delete a test in database
+ * Deletes a test in database
  */
 var delTest = function()  
 {
@@ -1165,7 +1166,7 @@ var delTest = function()
 };
 
 /**
- * Check login in database
+ * Checks login in database
  */ 
 var checkLogin = function()  
 {
@@ -1192,7 +1193,7 @@ var checkLogin = function()
 			    data: 
 			    {
 			    	emailAddress: emailAddress,
-			    	password: password
+			    	password:     password
 			    }, 
 			    error: function() 
 			    { 
