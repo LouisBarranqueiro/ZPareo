@@ -9,58 +9,60 @@ import java.util.Properties;
 
 public class DAOFactory 
 {
-    private static final String FICHIER_PROPERTIES       = "/dao/dao.properties";
-    private static final String PROPERTY_URL             = "url";
-    private static final String PROPERTY_DRIVER          = "driver";
-    private static final String PROPERTY_NOM_UTILISATEUR = "nomutilisateur";
-    private static final String PROPERTY_MOT_DE_PASSE    = "motdepasse";
+    private static final String PROPERTIES_FILE      = "/dao/dao.properties";
+    private static final String PROPERTY_URL         = "url";
+    private static final String PROPERTY_DRIVER      = "driver";
+    private static final String PROPERTY_USERNAME    = "username";
+    private static final String PROPERTY_PASSWORD    = "password";
     private String url;
     private String username;
     private String password;
 
     /**
+     * Constructor
+     * 
      * @param url
      * @param username
      * @param password
      */
     DAOFactory(String url, String username, String password) 
     {
-        this.url = url;
+        this.url      = url;
         this.username = username;
         this.password = password;
     }
 
     /**
-     * Méthode chargée de récupérer les informations de connexion à la base de données, charger le driver JDBC et retourner une instance de la Factory
+     * Method in chage of get connexion to the database, charge the driver and returns an daoFactory instance
      * 
      * @return instance
      */
     public static DAOFactory getInstance() throws DAOConfigurationException 
     {
-        Properties properties = new Properties();
         String url;
         String driver;
-        String nomUtilisateur;
-        String motDePasse;
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        InputStream fichierProperties = classLoader.getResourceAsStream(FICHIER_PROPERTIES);
+        String username;
+        String password;
+        Properties properties         = new Properties();
+        ClassLoader classLoader       = Thread.currentThread().getContextClassLoader();
+        InputStream propertiesFile    = classLoader.getResourceAsStream(PROPERTIES_FILE);
 
-        if (fichierProperties == null) 
+        if (propertiesFile == null) 
         {
-            throw new DAOConfigurationException("Le fichier properties " + FICHIER_PROPERTIES + " est introuvable.");
+            throw new DAOConfigurationException("Le fichier properties " + PROPERTIES_FILE + " est introuvable.");
         }
 
         try 
         {
-            properties.load(fichierProperties);
+            properties.load(propertiesFile);
             url = properties.getProperty(PROPERTY_URL);
             driver = properties.getProperty(PROPERTY_DRIVER);
-            nomUtilisateur = properties.getProperty(PROPERTY_NOM_UTILISATEUR);
-            motDePasse = properties.getProperty(PROPERTY_MOT_DE_PASSE);  
+            username = properties.getProperty(PROPERTY_USERNAME);
+            password = properties.getProperty(PROPERTY_PASSWORD);  
         } 
         catch (IOException e) 
         {
-            throw new DAOConfigurationException("Impossible de charger le fichier properties " + FICHIER_PROPERTIES, e);
+            throw new DAOConfigurationException("Impossible de charger le fichier properties " + PROPERTIES_FILE, e);
         }
 
         try 
@@ -72,13 +74,13 @@ public class DAOFactory
             throw new DAOConfigurationException("Le driver est introuvable dans le classpath.", e);
         }
 
-        DAOFactory instance = new DAOFactory( url, nomUtilisateur, motDePasse );
+        DAOFactory instance = new DAOFactory( url, username, password );
         
         return instance;
     }
 
     /**
-     * Retourne une instance de l'objet DriverManager
+     * Returns an instance of DriverManager
      * 
      * @return
      * @throws SQLException
@@ -89,62 +91,62 @@ public class DAOFactory
     }
 
     /**
-     * Retourne une instance de l'objet MaterielDaoImpl
+     * Returns an instance of MatterDaoImpl
      * 
-     * @return MatiereDaoImpl
+     * @return MatterDaoImpl
      */
-    public MatiereDao getMatiereDao() 
+    public MatterDao getMatterDao() 
     {
-        return new MatiereDaoImpl(this);
+        return new MatterDaoImpl(this);
     }
 
    /**
-    * Retourne une instance de l'objet GroupeDaoImpl
+    * Returns an instance of GroupDaoImpl
     * 
-    * @return GroupeDaoImpl
+    * @return GroupDaoImpl
     */
-   public GroupeDao getGroupeDao() 
+   public GroupDao getGroupDao() 
    {
-	   return new GroupeDaoImpl(this);
+	   return new GroupDaoImpl(this);
    }
    
    /**
-    * Retourne une instance de l'objet EtudiantDaoImpl
+    * Returns an instance of StudentDaoImpl
     * 
-    * @return EtudiantDaoImpl
+    * @return StudentDaoImpl
     */
-   public EtudiantDao getEtudiantDao() 
+   public StudentDao getStudentDao() 
    {
-	   return new EtudiantDaoImpl(this);
+	   return new StudentDaoImpl(this);
    }
    
    /**
-    * Retourne une instance de l'objet ProfesseurDaoImpl
+    * Returns an instance of TeacherDaoImpl
     * 
-    * @return ProfesseurDaoImpl
+    * @return TeacherDaoImpl
     */
-   public ProfesseurDao getProfesseurDao() 
+   public TeacherDao getTeacherDao() 
    {
-	   return new ProfesseurDaoImpl(this);
+	   return new TeacherDaoImpl(this);
    }
    
    /**
-    * Retourne une instance de l'objet AdministrateurDao
+    * Returns an instance of AdministratorDaoImpl
     * 
-    * @return AdministrateurDaoImpl
+    * @return AdministratorDaoImpl
     */
-   public AdministrateurDao getAdministrateurDao() 
+   public AdministratorDao getAdministratorDao() 
    {
-	   return new AdministrateurDaoImpl(this);
+	   return new AdministratorDaoImpl(this);
    }
    
    /**
-    * Retourne une instance de l'objet ExamenDao
+    * Returns an instance of TestDaoImpl
     * 
-    * @return ExamenDaoImpl
+    * @return TestDaoImpl
     */
-   public ExamenDao getExamenDao() 
+   public TestDao getTestDao() 
    {
-	   return new ExamenDaoImpl(this);
+	   return new TestDaoImpl(this);
    }
 }
