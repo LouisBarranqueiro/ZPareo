@@ -6,7 +6,7 @@
     </div>
     <div class="modal__mod--lg">
     	<p>Êtes-vous sûr de vouloir supprimer l'étudiant : <c:out value="${student.firstName}"/> <c:out value="${student.lastName}"/> ?</p>
-    	<input type="hidden" name="id" value="<c:out value='${ student.id }'/>" size="30" pattern="[0-9]{1,11}" readonly required/>             
+    	<input type="hidden" name="id" value="<c:out value='${student.id}'/>" size="30" pattern="[0-9]{1,11}" readonly required/>             
     </div>
     <div class="form__control modal__mod__control">
         <button type="submit" class="btn btn--danger">SUPPRIMER</button>
