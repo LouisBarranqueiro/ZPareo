@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 public class StudentFilter implements Filter 
 {
 	private static final String URL_CONNEXION   = "/connexion";
-	private static final String STUDENT_SESSION = "sessionEtudiant";
+	private static final String STUDENT_SESSION = "studentSession";
     
     public void init(FilterConfig config) throws ServletException
     {

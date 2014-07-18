@@ -15,10 +15,10 @@ import javax.servlet.http.HttpSession;
 @WebFilter("/*")
 public class ZPareoFilter implements Filter 
 {
-	private static final String URL_CONNEXION   = "/connexion";
-	private static final String STUDENT_SESSION = "sessionEtudiant";
-	private static final String TEACHER_SESSION = "sessionProfesseur";
-    private static final String ADMIN_SESSION   = "sessionAdministrateur";
+	private static final String URL_CONNEXION         = "/connexion";
+	private static final String STUDENT_SESSION       = "studentSession";
+	private static final String TEACHER_SESSION       = "teacherSession";
+    private static final String ADMINISTRATOR_SESSION = "administratorSession";
     
     public void init(FilterConfig config) throws ServletException
     {
@@ -37,7 +37,7 @@ public class ZPareoFilter implements Filter
             return;
         }
         
-        if ((session.getAttribute(STUDENT_SESSION) == null) && (session.getAttribute(TEACHER_SESSION) == null) && (session.getAttribute(ADMIN_SESSION) == null) )
+        if ((session.getAttribute(STUDENT_SESSION) == null) && (session.getAttribute(TEACHER_SESSION) == null) && (session.getAttribute(ADMINISTRATOR_SESSION) == null) )
         {
         	request.getRequestDispatcher(URL_CONNEXION).forward(request, response);
         } 

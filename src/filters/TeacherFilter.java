@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 public class TeacherFilter implements Filter 
 {
 	private static final String URL_CONNEXION   = "/connexion";
-	private static final String TEACHER_SESSION = "sessionProfesseur";
+	private static final String TEACHER_SESSION = "teacherSession";
     
     public void init(FilterConfig config) throws ServletException
     {
@@ -29,7 +29,7 @@ public class TeacherFilter implements Filter
         HttpSession session          = request.getSession();
         String path 				 = request.getRequestURI().substring(request.getContextPath().length());
         
-        if ((path.startsWith("/ressources")) || (path.startsWith("/connexion"))) 
+        if ((path.startsWith("/assets")) || (path.startsWith("/connexion"))) 
         {
         	chain.doFilter(request, response);
             return;

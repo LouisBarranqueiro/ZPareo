@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebFilter("/ai/*")
-public class AdminFilter implements Filter 
+public class AdministratorFilter implements Filter 
 {
 	private static final String URL_CONNEXION = "/connexion";
-	private static final String ADMIN_SESSION = "sessionAdministrateur";
+	private static final String ADMINISTRATOR_SESSION = "administratorSession";
     
     public void init(FilterConfig config) throws ServletException
     {
@@ -35,7 +35,7 @@ public class AdminFilter implements Filter
             return;
         }
         
-        if (session.getAttribute(ADMIN_SESSION) == null)
+        if (session.getAttribute(ADMINISTRATOR_SESSION) == null)
         {
         	request.getRequestDispatcher(URL_CONNEXION).forward(request, response);
         } 
