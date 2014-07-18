@@ -1249,7 +1249,7 @@ var checkLogin = function()
 			    	}
 			    	else 
 			    	{
-			    		$('#site-wrap').replaceWith(view.slice(view.search('<div id=\"site-wrap\">'), view.search('<!-- End site-wrap -->')));
+			    		$('#site-wrap').replaceWith(view.slice(view.search('<div id=\"site-wrap\" class=\"bg-white\">'), view.search('<!-- End site-wrap -->')));
 			    		$('#mod-connection').animate(
 			    		{
 			    			left:"+=5"
