@@ -241,6 +241,7 @@ var displayRespModal = function(url, modalWidth)
 	    {
 	    	modalWindow.html(data);
 	    	initModalWindow(modalWidth);
+	    	initDatepicker();
 	    } 
 	});
 };
@@ -1216,6 +1217,8 @@ var checkLogin = function()
 			    			left:"+=5"
 			    		},60);
 			    	}
+			    	
+			    	initDatepicker();
 			    } 
 			});
 			
