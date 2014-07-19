@@ -1194,6 +1194,7 @@ var checkLogin = function()
 				    				'http://localhost:8080/ZPareo/ei/mon-bulletin'
 				    			);
 				    			document.title = 'ZPareo - Mon bulletin';
+				    			initAverageStudentChart();
 				    		}
 			    		});
 			    	}
