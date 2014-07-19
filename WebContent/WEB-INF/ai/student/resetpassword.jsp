@@ -9,7 +9,7 @@
 	    <input type="hidden" name="id" value="<c:out value='${student.id}'/>" size="30" pattern="[0-9]{1,11}" readonly disabled required/>         
     </div>
     <div class="form__control">
-        <button type="submit" class="btn btn--danger">REINITIALISER</button>
+        <button type="submit" class="btn btn--danger" onclick="resetPassStudent()">REINITIALISER</button>
         <button type="button" class="btn btn--default" onclick="removeModalWindow()">ANNULER</button>
     </div>
 </form>

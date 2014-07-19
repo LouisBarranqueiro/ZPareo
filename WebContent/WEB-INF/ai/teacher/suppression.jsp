@@ -9,7 +9,7 @@
     <input type="hidden" name="id" value="<c:out value='${teacher.id}'/>" size="30" pattern="[0-9]{1,11}" readonly  required/>
     </div>
     <div class="form__control modal__mod__control">
-        <button type="submit" class="btn btn--danger">SUPPRIMER</button>
+        <button type="submit" class="btn btn--danger" onclick="deleteTeacher()">SUPPRIMER</button>
         <button type="button" class="btn btn--default" onclick="removeModalWindow()">ANNULER</button>
     </div>
 </form>

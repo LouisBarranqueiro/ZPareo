@@ -14,7 +14,7 @@
 					<input type="text" name="emailAddress" class="form--control" value="<c:out value='${utilisateur.adresseMail }'></c:out>" placeholder="Adresse mail" pattern="[a-zA-Z0-9@.-_]+@[a-zA-Z]{2,20}.[a-zA-Z]{2,3}" x-moz-errormessage="Veuillez entrez un identifiant" required/>
 					<input type="password" name="password" class="form--control" placeholder="Mot de passe" pattern=".{8,}" x-moz-errormessage="Veuillez entrez un mot de passe" required/>
 					<span class="form__erreur">${form.erreurs['connexion'] }</span>
-					<button type="submit" class="btn btn--100 btn--primary">CONNEXION</button>
+					<button type="submit" class="btn btn--100 btn--primary" onclick="checkLogin()">CONNEXION</button>
 				</form>
 				<div class="icon-load-wrap icon-load-wrap--center">
 					<span class="icon-load"></span>

@@ -11,7 +11,7 @@
 	    <span class="form__error">${matterForm.errors['matter']}</span>
 	</div>
     <div class="form__control modal__mod__control">
-        <button type="submit" class="btn btn--primary">ENREGISTRER</button>
+        <button type="submit" class="btn btn--primary" onclick="editMatter()">ENREGISTRER</button>
         <button type="button" class="btn btn--default" onclick="removeModalWindow()">ANNULER</button>
     </div>
 </form>

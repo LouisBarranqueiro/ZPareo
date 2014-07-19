@@ -65,7 +65,7 @@
         <span class="form__error">${testForm.errors['scores']}</span>
     </div>          
     <div class="form__control modal__mod__control">
-        <button type="submit" class="btn btn--primary">ENREGISTRER</button>
+        <button type="submit" class="btn btn--primary" onclick="editTest()">ENREGISTRER</button>
         <button type="button" class="btn btn--default" onclick="removeModalWindow()">ANNULER</button>
     </div>
 </form>

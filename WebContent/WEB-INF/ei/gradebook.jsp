@@ -8,7 +8,7 @@
         <title>ZPareo - Bulletin de notes</title>
         <link type="text/css" rel="stylesheet" href="<c:url value="/assets/scss/style.css"/>"/>
     </head>
-    <body>
+    <body onload="initAverageStudentChart()">
         <div id="site-wrap">
             <div id="aside-wrap">
                 <div class="aside__user-info">

@@ -10,7 +10,7 @@
 	    <span class="form__error">${matterForm.errors['matter']}</span>
 	</div>
     <div class="form__control modal__mod__control">
-        <button type="submit" class="btn btn--primary">AJOUTER</button>
+        <button type="submit" class="btn btn--primary" onclick="createMatter()">AJOUTER</button>
         <button type="button" class="btn btn--default" onclick="removeModalWindow()">ANNULER</button>
     </div>
 </form>

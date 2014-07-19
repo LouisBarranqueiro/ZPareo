@@ -102,7 +102,7 @@ var initDatepicker = function()
 /**
  * Animates sortable array column
  */
-var animateColumn = function() 
+var animSortableColumn = function() 
 {
 	$('th.sortable').click(function() 
 	{
@@ -220,59 +220,6 @@ var sliceMainView = function(view)
 };
 
 /**
- * Reloads AJAX functions in charge of creating
- */
-var reloadCreateFunctions = function()
-{
-	createGroup();
-	createStudent();
-	createMatter();
-	createTeacher();
-	createAdmin();
-	createTest();
-	initDatepicker();
-};
-
-/**
- * Reloads AJAX functions in charge of editing
- */
-var reloadEditFunctions = function()
-{ 
-	editGroup();
-	editMatter();
-	editStudent();
-	reinitPassStudent();
-	editTeacher();
-	editAdmin();
-	editTest();
-	initDatepicker();
-};
-
-/**
- * Reloads AJAX functions in charge of deleting
- */
-var reloadDeleteFunctions = function()
-{
-	delGroup();
-	delMatter();
-	delStudent();
-	delTeacher();
-	delAdmin();
-	delTest();
-};
-
-
-/**
- * Reloads AJAX Functions inf charge of all objects
- */
-var reloadObjectsfunctions = function()
-{
-	reloadCreateFunctions();
-	reloadEditFunctions();
-	reloadDeleteFunctions();
-};
-
-/**
  * Displays response into modal window
  * 
  * @param url
@@ -294,7 +241,6 @@ var displayRespModal = function(url, modalWidth)
 	    {
 	    	modalWindow.html(data);
 	    	initModalWindow(modalWidth);
-	    	reloadObjectsfunctions();
 	    } 
 	});
 };
@@ -386,7 +332,7 @@ var editMatter = function()
 /**
  * Deletes a matter in database
  */
-var delMatter = function()  
+var deleteMatter = function()  
 {
 	$('#delete-matter').submit(function(event)
 	{
@@ -511,7 +457,7 @@ var editGroup = function()
 /**
  * Deletes a group in database
  */
-var delGroup = function()  
+var deleteGroup = function()  
 {
 	$('#delete-group').submit(function(event)
 	{
@@ -648,7 +594,7 @@ var editStudent = function()
 /**
  * Deletes a student in database
  */
-var delStudent = function()  
+var deleteStudent = function()  
 {
 	$('#delete-student').submit(function(event)
 	{
@@ -688,7 +634,7 @@ var delStudent = function()
 /**
  * Resets a user password
  */
-var reinitPassStudent = function()  
+var resetPassStudent = function()  
 {
 	$('#reinit-pass-student').submit(function(event)
 	{
@@ -825,7 +771,7 @@ var editTeacher = function()
 /**
  * Deletes a teacher in database
  */
-var delTeacher = function()  
+var deleteTeacher = function()  
 {
 	$('#delete-teacher').submit(function(event)
 	{
@@ -966,7 +912,7 @@ var editAdmin = function()
 /**
  * Deletes an administrator in database
  */
-var delAdmin = function()  
+var deleteAdmin = function()  
 {
 	$('#delete-administrator').submit(function(event)
 	{
@@ -1132,7 +1078,7 @@ var editTest = function()
 /**
  * Deletes a test in database
  */
-var delTest = function()  
+var deleteTest = function()  
 {
 	$('#delete-test').submit(function(event)
 	{
@@ -1247,7 +1193,6 @@ var checkLogin = function()
 				    				'http://localhost:8080/ZPareo/ei/mon-bulletin'
 				    			);
 				    			document.title = 'ZPareo - Mon bulletin';
-				    			initAverageStudentChart();
 				    		}
 			    		});
 			    	}
@@ -1271,7 +1216,6 @@ var checkLogin = function()
 			    			left:"+=5"
 			    		},60);
 			    	}
-			    	initDatepicker();
 			    } 
 			});
 			
@@ -1283,7 +1227,5 @@ $(function()
 {
 	initTableSorter();
 	initDatepicker();
-	initAverageStudentChart();
-	animateColumn();
-	checkLogin();
+	animSortableColumn();
 });

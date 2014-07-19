@@ -44,7 +44,7 @@
         <span class="form__error">${testForm.errors['matter']}</span>
     </div>              
     <div class="form__control modal__mod__control">
-        <button type="submit" class="btn btn--primary">AJOUTER</button>
+        <button type="submit" class="btn btn--primary" onclick="createTest()">AJOUTER</button>
         <button type="button" class="btn btn--default" onclick="removeModalWindow()">ANNULER</button>
     </div>
 </form>
