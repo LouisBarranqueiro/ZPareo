@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<form id="edit-group" action="<c:url value="ai/groupe/edition"/>" method="POST" class="form--horizontal">
+<form id="edit-group" action="<c:url value="/ai/groupe/edition"/>" method="POST" class="form--horizontal">
     <div class="modal__mod__head">
     	<h3 class="modal__mod__head__title text-center">Edition du groupe n°<c:out value="${group.id}"/></h3>
     </div>

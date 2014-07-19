@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<form id="edit-student" action="<c:url value="ai/etudiant/edition"/>" method="POST" class="form--horizontal">
+<form id="edit-student" action="<c:url value="/ai/etudiant/edition"/>" method="POST" class="form--horizontal">
     <div class="modal__mod__head">
     	<h3 class="modal__mod__head__title text-center">Edition de l'étudiant n°<c:out value="${student.id}"/></h3>
     </div>

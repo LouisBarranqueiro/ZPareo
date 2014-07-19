@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<form id="delete-matter" action="<c:url value="ai/matiere/suppression"/>" method="POST" class="form--horizontal">
+<form id="delete-matter" action="<c:url value="/ai/matiere/suppression"/>" method="POST" class="form--horizontal">
     <div class="modal__mod__head">
     	<h3 class="modal__mod__head__title text-center">Suppression de la matière n°<c:out value="${matter.id}"/></h3>
     </div>

@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<form id="edit-test" action="<c:url value="pi/examen/edition"/>" method="POST" class="form--horizontal">
+<form id="edit-test" action="<c:url value="/pi/examen/edition"/>" method="POST" class="form--horizontal">
     <div class="modal__mod__head">
         <h3 class="modal__mod__head__title text-center">Informations générales de l'examen n°<c:out value="${test.id}"/></h3>
     </div>

@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<form id="delete-group" action="<c:url value="ai/groupe/suppression"/>" method="POST" class="form--horizontal">
+<form id="delete-group" action="<c:url value="/ai/groupe/suppression"/>" method="POST" class="form--horizontal">
     <div class="modal__mod__head">
     	<h3 class="modal__mod__head__title text-center">Suppression du groupe n°<c:out value="${group.id}"/></h3>
     </div>

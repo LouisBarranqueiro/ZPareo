@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<form id="delete-administrator" action="<c:url value="ai/administrateur/suppression"/>" method="POST" class="form--horizontal">
+<form id="delete-administrator" action="<c:url value="/ai/administrateur/suppression"/>" method="POST" class="form--horizontal">
     <div class="modal__mod__head">
     	<h3 class="modal__mod__head__title text-center">Suppression de l'administrateur n°<c:out value="${administrator.id}"/></h3>
     </div>

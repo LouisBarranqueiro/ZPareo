@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<form id="create-matter" action="<c:url value="ai/matiere/creation"/>" method="POST" class="form--horizontal">
+<form id="create-matter" action="<c:url value="/ai/matiere/creation"/>" method="POST" class="form--horizontal">
     <div class="modal__mod__head">
     	<h3 class="modal__mod__head__title text-center">Ajout d'une matière</h3>
     </div>
