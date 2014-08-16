@@ -7,6 +7,14 @@ var initTableSorter = function()
 };
 
 /**
+ * Initializes Select2 library
+ */ 
+var initSelect2 = function()
+{
+	$('.select2').select2(); 
+};
+
+/**
  * Initializes the averages's student chart
  */
 var initAverageStudentChart = function()
@@ -206,6 +214,8 @@ var initModalWindow = function(modalWidth)
 	removeMask();
 	displayMask();
 	displayModalWindow();
+	initDatepicker();
+	initSelect2();
 };
 
 /**
@@ -241,7 +251,6 @@ var displayRespModal = function(url, modalWidth)
 	    {
 	    	modalWindow.html(data);
 	    	initModalWindow(modalWidth);
-	    	initDatepicker();
 	    } 
 	});
 };
@@ -1220,16 +1229,17 @@ var checkLogin = function()
 			    	}
 			    	
 			    	initDatepicker();
+			    	initSelect2();
 			    } 
 			});
 			
 		});
 	});
 };
-
-$(function()
+jQuery(document).ready(function($) 
 {
 	initTableSorter();
 	initDatepicker();
+	initSelect2();
 	animSortableColumn();
 });

@@ -21,8 +21,11 @@
         <label>CONFIRMATION</label>
         <input type="password" name="confirmation" class="form--control" size="39" pattern=".{8,}"  x-moz-error-message="Veuillez entrez un mot de passe composer de 8 caractères avec au moins une minucule, une majuscule, un chiffre et un caractère spéciale" required/>
         <span class="form__error">${teacherForm.errors['password']}</span>
-        <label>GROUPE(S)</label>
-        <select multiple="multiple" class="form--control" size="7" name="groups" class="form-control input-sm">
+        
+    </div>
+    <div class="modal__mod--sm modal__mod--vertical">
+   		<label>GROUPE(S)</label>
+        <select multiple="multiple" class="form--control select2" size="7" name="groups">
             <option disabled="disabled">Sélectionnez un ou plusieurs groupes</option>
             <c:forEach items="${groups}" var="group">
                 <option value="${group.id}"
@@ -35,10 +38,8 @@
              </c:forEach>
          </select>
          <span class="form__error">${teacherForm.errors['groups']}</span>
-    </div>
-    <div class="modal__mod--sm modal__mod--vertical">
         <label>MATIERE(S) ENSEIGNEE(S)</label>
-        <select multiple="multiple" class="form--control" size="23" name="matters" class="form-control input-sm">
+        <select multiple="multiple" class="form--control select2" size="23" name="matters" >
             <option disabled="disabled">Sélectionnez une ou plusieurs matières</option>
             <c:forEach items="${matters}" var="matter">
                 <option value="${matter.id}"

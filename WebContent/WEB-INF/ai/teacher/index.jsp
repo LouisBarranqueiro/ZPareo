@@ -91,6 +91,7 @@
         </div>
         <div id="modal" class="modal"></div>
         <script type="text/javascript" src="<c:url value="/assets/js/jquery.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/assets/js/select2.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/assets/js/highcharts.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/assets/js/jquery-ui.custom.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/assets/js/jquery.tablesorter.min.js"/>"></script>
