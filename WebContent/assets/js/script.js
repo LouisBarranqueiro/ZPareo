@@ -214,8 +214,6 @@ var initModalWindow = function(modalWidth)
 	removeMask();
 	displayMask();
 	displayModalWindow();
-	initDatepicker();
-	initSelect2();
 };
 
 /**
@@ -252,6 +250,14 @@ var displayRespModal = function(url, modalWidth)
 	    	modalWindow.html(data);
 	    	initModalWindow(modalWidth);
 	    } 
+	}).done (function()
+	{
+		initSelect2();
+		
+	}).always (function()
+	{
+		initDatepicker();
+		
 	});
 };
 
@@ -289,7 +295,7 @@ var createMatter = function()
 		    	{
 		    		modalWindow.html(view);
 		    		initModalWindow(300);
-		    		reloadCreateFunctions();
+		    		
 		    	}
 		    } 
 		});
@@ -332,7 +338,6 @@ var editMatter = function()
 		    	{
 		    		modalWindow.html(view);
 		    		initModalWindow(300);
-		    		reloadCreateFunctions();
 		    	}
 		    } 
 		});
@@ -373,7 +378,7 @@ var deleteMatter = function()
 		    	{
 		    		modalWindow.html(view);
 		    		initModalWindow('auto');
-		    		reloadCreateFunctions();
+		    		
 		    	}
 		    } 
 		});
@@ -414,7 +419,6 @@ var createGroup = function()
 		    	{
 		    		modalWindow.html(view);
 		    		initModalWindow(300);
-		    		reloadCreateFunctions();
 		    	}
 		    } 
 		});
@@ -457,7 +461,6 @@ var editGroup = function()
 		    	{
 		    		modalWindow.html(view);
 		    		initModalWindow(300);
-		    		reloadCreateFunctions();
 		    	}
 		    } 
 		});
@@ -498,7 +501,6 @@ var deleteGroup = function()
 		    	{
 		    		modalWindow.html(view);
 		    		initModalWindow(300);
-		    		reloadCreateFunctions();
 		    	}
 		    } 
 		});
@@ -545,7 +547,7 @@ var createStudent = function()
 		    	{
 		    		modalWindow.html(view);
 		    		initModalWindow(300);
-		    		reloadCreateFunctions();
+		    		
 		    	}
 		    } 
 		});
@@ -594,7 +596,7 @@ var editStudent = function()
 		    	{
 		    		modalWindow.html(view);
 		    		initModalWindow(300);
-		    		reloadCreateFunctions();
+		    		
 		    	}
 		    } 
 		});
@@ -634,7 +636,7 @@ var deleteStudent = function()
 		    	{
 		    		modalWindow.html(view);
 		    		initModalWindow(300);
-		    		reloadCreateFunctions();
+		    		
 		    	}
 		    } 
 		});
@@ -717,7 +719,7 @@ var createTeacher = function()
 		    	{
 		    		modalWindow.html(view);
 		    		initModalWindow(600);
-		    		reloadCreateFunctions();
+		    		
 		    	}
 		    } 
 		});
@@ -764,16 +766,14 @@ var editTeacher = function()
 		    { 
 		    	if(view.search('<div id=\"main-wrap\"') > 0) 
 		    	{
-		    		removeModalWindow();
-		    		$('#main-wrap').replaceWith(sliceMainView(view));
+		    		document.location = "http://localhost:8080/ZPareo/ai/professeur";
 		    	}
 		    	else 
 		    	{
 		    		modalWindow.html(view);
 		    		initModalWindow(600);
-		    		reloadCreateFunctions();
 		    	}
-		    } 
+		    }
 		});
 	});
 };
@@ -812,7 +812,7 @@ var deleteTeacher = function()
 		    	{
 		    		modalWindow.html(view);
 		    		initModalWindow('auto');
-		    		reloadCreateFunctions();
+		    		
 		    	}
 		    } 
 		});
@@ -861,7 +861,7 @@ var createAdmin = function()
 		    	{
 		    		modalWindow.html(view);
 		    		initModalWindow(300);
-		    		reloadCreateFunctions();
+		    		
 		    	}
 		    } 
 		});

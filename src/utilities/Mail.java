@@ -16,7 +16,7 @@ import beans.Student;
 
 public class Mail 
 {
-	private static final String PROPERTIES_FILE   = "/utilitaires/mail.properties";
+	private static final String PROPERTIES_FILE   = "/utilities/mail.properties";
 	private static final String PROPERTY_PROTOCOL = "protocol";
     private static final String PROPERTY_HOST     = "host";
     private static final String PROPERTY_USERNAME = "username";

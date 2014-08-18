@@ -8,7 +8,7 @@
     	<input type="hidden" name="id" class="form--control" size="30" value="${group.id}" readonly required/>
     	<input type="text" name="name" class="form--control" size="30" value="${group.name}" pattern="(G|g)[A-Za-z]" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom de 2 caractères commencant par G" required/>
     	<span class="form__error">${groupForm.errors['name']}</span>
-    	<span class="form__error">${groupForm.errors['groupe']}</span>
+    	<span class="form__error">${groupForm.errors['group']}</span>
     </div>
     <div class="form__control modal__mod__control">
         <button type="submit" class="btn btn--primary" onclick="editGroup()">ENREGISTRER</button>
