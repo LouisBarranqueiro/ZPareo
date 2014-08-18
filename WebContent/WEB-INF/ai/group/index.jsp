@@ -58,7 +58,7 @@
                                     </tr>
                                     <tr class="tr--search">
                                         <th><input type="text" name="id" size="10" pattern="[0-9]+" placeholder="Reference" x-moz-errormessage="Veuillez entrez une référence correcte"/></th>
-                                        <th><input type="text" name="nom" size="30" pattern="(G|g)[A-Za-z]" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom de 1 à 2 caractères commencant par G"/></th>
+                                        <th><input type="text" name="name" size="30" pattern="(G|g)[A-Za-z]" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom de 1 à 2 caractères commencant par G"/></th>
                                         <th><button type="submit" class="btn btn--primary">RECHERCHER</button></th>
                                     </tr>
                                 </thead>

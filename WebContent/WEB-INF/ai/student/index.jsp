@@ -61,9 +61,9 @@
                                     </tr>
                                     <tr class="tr--search">
                                         <th><input type="text" name="id"  size="10" pattern="[0-9]+" placeholder="Reference" x-moz-errormessage="Veuillez entrez une référence correcte"/></th>
-                                        <th><input type="text" name="nom"  size="20" pattern="[A-Za-z ]+" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom correct"/></th>
-                                        <th><input type="text" name="prenom"  size="20" pattern="[A-Za-z ]+" placeholder="Prenom" x-moz-errormessage="Veuillez entrer un prenom correct"/></th>
-                                        <th><input type="text" name="adresseMail"  size="25" pattern="[A-Za-z0-9@.-_]+" placeholder="Adresse mail" x-moz-errormessage="Veuillez entrer une adresse mail correct"/></th>
+                                        <th><input type="text" name="lastName"  size="20" pattern="[A-Za-z ]+" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom correct"/></th>
+                                        <th><input type="text" name="firstName"  size="20" pattern="[A-Za-z ]+" placeholder="Prenom" x-moz-errormessage="Veuillez entrer un prenom correct"/></th>
+                                        <th><input type="text" name="emailAddress"  size="25" pattern="[A-Za-z0-9@.-_]+" placeholder="Adresse mail" x-moz-errormessage="Veuillez entrer une adresse mail correct"/></th>
                                         <th>
                                             <select name="groupe">
                                                 <option value="" selected="selected">Tous</option>

@@ -60,9 +60,9 @@
                                     </tr>
                                     <tr class="tr--search">
                                         <th><input name="id" size="10" pattern="[0-9]{1,11}" placeholder="Référence" x-moz-error-message="Veuillez entrez une référence correct"/></th>
-                                        <th><input name="nom" size="20" pattern="[a-zA-Z ]{3,50}" placeholder="Nom" x-moz-error-message="Veuillez entrez un nom correct composer de 3 à 50 caractères"/></th>
-                                        <th><input name="prenom" size="20" pattern="[a-zA-Z ]{3,50}" placeholder="Prenom" x-moz-error-message="Veuillez entrez un prenom correct composer de 3 à 50 caractères"/></th>
-                                        <th><input name="adresseMail" size="25" pattern="[a-zA-Z.]{3,50}" placeholder="Adresse mail" x-moz-error-message="Veuillez entrez une adresse mail correct"/></th>
+                                        <th><input name="lastName" size="20" pattern="[a-zA-Z ]{3,50}" placeholder="Nom" x-moz-error-message="Veuillez entrez un nom correct composer de 3 à 50 caractères"/></th>
+                                        <th><input name="firstName" size="20" pattern="[a-zA-Z ]{3,50}" placeholder="Prenom" x-moz-error-message="Veuillez entrez un prenom correct composer de 3 à 50 caractères"/></th>
+                                        <th><input name="emailAddress" size="25" pattern="[a-zA-Z.]{3,50}" placeholder="Adresse mail" x-moz-error-message="Veuillez entrez une adresse mail correct"/></th>
                                         <th><button type="submit" class="btn btn--primary">RECHERCHER</button></th>
                                     </tr>
                                 </thead>
