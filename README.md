@@ -1,14 +1,14 @@
-# README #
+# ZPareo #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+A simple school management software written in Java EE, JavaScript, HTML and CSS for a small project in university
 
 ### What is this repository for? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* A simple school management software written in Java EE, JavaScript, HTML and CSS for a small project in university
+* Author : Louis Barranqueiro
+* Version 1
 
-### How do I get set up? ###
+### Installation ###
 
 * Summary of set up
 * Configuration
@@ -23,7 +23,7 @@ This README would normally document whatever steps are necessary to get your app
 * Code review
 * Other guidelines
 
-### Who do I talk to? ###
+### Contact ###
 
 * Repo owner or admin
 * Other community or team contact
