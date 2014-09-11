@@ -1,3 +1,4 @@
+var baseURL = window.location.protocol+"//"+window.location.host;
 /**
  * Initializes the Table Sorter library
  */ 
@@ -240,7 +241,7 @@ var displayRespModal = function(url, modalWidth)
 	$.ajax(
 	{ 
 		type: 'GET', 
-		url:  'http://localhost:8080/ZPareo/' + url,  
+		url:  baseURL + '/ZPareo/' + url,  
 	    error: function() 
 	    { 
 	    	alert('error !'); 
@@ -262,7 +263,7 @@ var displayRespModal = function(url, modalWidth)
 };
 
 /**
- * Creates a matter in database
+ * Creates a matter 
  */ 
 var createMatter = function()  
 {
@@ -275,7 +276,7 @@ var createMatter = function()
 		$.ajax(
 		{ 
 		    type: 'POST', 
-		    url:  'http://localhost:8080/ZPareo/ai/matiere/creation', 
+		    url:  baseURL + '/ZPareo/ai/matiere/creation', 
 		    data: 
 		    {
 		    	name: name
@@ -303,7 +304,7 @@ var createMatter = function()
 };
 
 /**
- * Edits a matter in database
+ * Edits a matter 
  */
 var editMatter = function()  
 {
@@ -317,7 +318,7 @@ var editMatter = function()
 		$.ajax(
 		{ 
 			type: 'POST', 
-		    url:  'http://localhost:8080/ZPareo/ai/matiere/edition', 
+		    url:  baseURL + '/ZPareo/ai/matiere/edition', 
 		    data: 
 		    {
 		    	id:   id,
@@ -345,7 +346,7 @@ var editMatter = function()
 };
 
 /**
- * Deletes a matter in database
+ * Deletes a matter 
  */
 var deleteMatter = function()  
 {
@@ -358,7 +359,7 @@ var deleteMatter = function()
 		$.ajax(
 		{ 
 			type: 'POST', 
-		    url:  'http://localhost:8080/ZPareo/ai/matiere/suppression', 
+		    url:  baseURL + '/ZPareo/ai/matiere/suppression', 
 		    data: 
 		    {
 		    	id: id
@@ -386,7 +387,7 @@ var deleteMatter = function()
 };
 
 /**
- * Creates a group in database
+ * Creates a group 
  */ 
 var createGroup = function()  
 {
@@ -399,7 +400,7 @@ var createGroup = function()
 		$.ajax(
 		{ 
 		    type: 'POST', 
-		    url:  'http://localhost:8080/ZPareo/ai/groupe/creation', 
+		    url:  baseURL + '/ZPareo/ai/groupe/creation', 
 		    data: 
 		    {
 		    	name: name
@@ -426,7 +427,7 @@ var createGroup = function()
 };
 
 /**
- * Edits a group in database
+ * Edits a group 
  */
 var editGroup = function()  
 {
@@ -440,7 +441,7 @@ var editGroup = function()
 		$.ajax(
 		{ 
 			type: 'POST', 
-		    url:  'http://localhost:8080/ZPareo/ai/groupe/edition', 
+		    url:  baseURL + '/ZPareo/ai/groupe/edition', 
 		    data: 
 		    {
 		    	id:   id,
@@ -468,7 +469,7 @@ var editGroup = function()
 };
 
 /**
- * Deletes a group in database
+ * Deletes a group 
  */
 var deleteGroup = function()  
 {
@@ -508,7 +509,7 @@ var deleteGroup = function()
 };
 
 /**
- * Creates a student in database
+ * Creates a student 
  */ 
 var createStudent = function()  
 {
@@ -524,7 +525,7 @@ var createStudent = function()
 		$.ajax(
 		{ 
 		    type: 'POST', 
-		    url:  'http://localhost:8080/ZPareo/ai/etudiant/creation', 
+		    url:  baseURL + '/ZPareo/ai/etudiant/creation', 
 		    data: 
 		    {
 		    	lastName:     lastName,
@@ -555,7 +556,7 @@ var createStudent = function()
 };
 
 /**
- * Edits a student in database
+ * Edits a student 
  */
 var editStudent = function()  
 {
@@ -572,7 +573,7 @@ var editStudent = function()
 		$.ajax(
 		{ 
 			type: 'POST', 
-		    url:  'http://localhost:8080/ZPareo/ai/etudiant/edition', 
+		    url:  baseURL + '/ZPareo/ai/etudiant/edition', 
 		    data: 
 		    {
 		    	id:           id,
@@ -604,7 +605,7 @@ var editStudent = function()
 };
 
 /**
- * Deletes a student in database
+ * Deletes a student 
  */
 var deleteStudent = function()  
 {
@@ -616,7 +617,7 @@ var deleteStudent = function()
 		
 		$.ajax({ 
 			type: 'POST', 
-		    url:  'http://localhost:8080/ZPareo/ai/etudiant/suppression', 
+		    url:  baseURL + '/ZPareo/ai/etudiant/suppression', 
 		    data: 
 		    {
 		    	id: id
@@ -656,7 +657,7 @@ var resetPassStudent = function()
 		$.ajax(
 		{ 
 			type: 'POST', 
-		    url:  'http://localhost:8080/ZPareo/ai/etudiant/reinit-mot-de-passe', 
+		    url:  baseURL + '/ZPareo/ai/etudiant/reinit-mot-de-passe', 
 		    data: 
 		    {
 		    	id: id
@@ -674,7 +675,7 @@ var resetPassStudent = function()
 };
 
 /**
- * Creates a teacher in database
+ * Creates a teacher 
  */ 
 var createTeacher = function()  
 {
@@ -693,7 +694,7 @@ var createTeacher = function()
 		$.ajax(
 		{ 
 		    type: 'POST', 
-		    url:  'http://localhost:8080/ZPareo/ai/professeur/creation', 
+		    url:  baseURL + '/ZPareo/ai/professeur/creation', 
 		    data: 
 		    {
 		    	lastName:     lastName,
@@ -719,7 +720,7 @@ var createTeacher = function()
 		    	{
 		    		modalWindow.html(view);
 		    		initModalWindow(600);
-		    		
+		    		initSelect2();
 		    	}
 		    } 
 		});
@@ -727,7 +728,7 @@ var createTeacher = function()
 };
 
 /**
- * Edits a teacher in database
+ * Edits a teacher 
  */ 
 var editTeacher = function()  
 {
@@ -772,6 +773,7 @@ var editTeacher = function()
 		    	{
 		    		modalWindow.html(view);
 		    		initModalWindow(600);
+		    		initSelect2();
 		    	}
 		    }
 		});
@@ -779,7 +781,7 @@ var editTeacher = function()
 };
 
 /**
- * Deletes a teacher in database
+ * Deletes a teacher 
  */
 var deleteTeacher = function()  
 {
@@ -792,7 +794,7 @@ var deleteTeacher = function()
 		$.ajax(
 		{ 
 			type: 'POST', 
-		    url:  'http://localhost:8080/ZPareo/ai/professeur/suppression', 
+		    url:  baseURL + '/ZPareo/ai/professeur/suppression', 
 		    data: 
 		    {
 		    	id: id
@@ -820,7 +822,7 @@ var deleteTeacher = function()
 };
 
 /**
- * Creates an administrator in database
+ * Creates an administrator 
  */ 
 var createAdmin = function()  
 {
@@ -837,7 +839,7 @@ var createAdmin = function()
 		$.ajax(
 		{ 
 		    type: 'POST', 
-		    url:  'http://localhost:8080/ZPareo/ai/administrateur/creation', 
+		    url:  baseURL + '/ZPareo/ai/administrateur/creation', 
 		    data: 
 		    {
 		    	lastName:     lastName,
@@ -869,7 +871,7 @@ var createAdmin = function()
 };
 
 /**
- * Edits an administrator in database
+ * Edits an administrator 
  */ 
 var editAdmin = function()  
 {
@@ -887,7 +889,7 @@ var editAdmin = function()
 		$.ajax(
 		{ 
 		    type: 'POST', 
-		    url:  'http://localhost:8080/ZPareo/ai/administrateur/edition', 
+		    url:  baseURL + '/ZPareo/ai/administrateur/edition', 
 		    data: 
 		    {
 		    	id:           id,
@@ -912,7 +914,6 @@ var editAdmin = function()
 		    	{
 		    		modalWindow.html(view);
 		    		initModalWindow(300);
-		    		reloadEditFunctions();
 		    	}
 		    } 
 		});
@@ -920,7 +921,7 @@ var editAdmin = function()
 };
 
 /**
- * Deletes an administrator in database
+ * Deletes an administrator 
  */
 var deleteAdmin = function()  
 {
@@ -933,7 +934,7 @@ var deleteAdmin = function()
 		$.ajax(
 		{ 
 			type: 'POST', 
-		    url:  'http://localhost:8080/ZPareo/ai/administrateur/suppression', 
+		    url:  baseURL + '/ZPareo/ai/administrateur/suppression', 
 		    data: 
 		    {
 		    	id: id
@@ -953,7 +954,7 @@ var deleteAdmin = function()
 		    	{
 		    		modalWindow.html(view);
 		    		initModalWindow('auto');
-		    		reloadDeleteFunctions();
+		    		
 		    	}
 		    } 
 		});
@@ -961,7 +962,7 @@ var deleteAdmin = function()
 };
 
 /**
- * Creates a test in database
+ * Creates a test 
  */ 
 var createTest = function()  
 {
@@ -980,7 +981,7 @@ var createTest = function()
 		$.ajax(
 		{ 
 		    type: 'POST', 
-		    url:  'http://localhost:8080/ZPareo/pi/examen/creation', 
+		    url:  baseURL + '/ZPareo/pi/examen/creation', 
 		    data: 
 		    {
 		    	coefficient: coefficient,
@@ -1002,13 +1003,12 @@ var createTest = function()
 		    		removeModalWindow();
 		    		modalWindow.html(view);
 		    		initModalWindow(600);
-		    		reloadEditFunctions();
 		    	}
 		    	else 
 		    	{
 		    		modalWindow.html(view);
 		    		initModalWindow(300);
-		    		reloadDeleteFunctions();
+		    		
 		    	}
 		    } 
 		});
@@ -1016,7 +1016,7 @@ var createTest = function()
 };
 
 /**
- * Edits a test in database
+ * Edits a test 
  */ 
 var editTest = function()  
 {
@@ -1050,7 +1050,7 @@ var editTest = function()
 		$.ajax(
 		{ 
 		    type: 'POST', 
-		    url:  'http://localhost:8080/ZPareo/pi/examen/edition', 
+		    url:  baseURL + '/ZPareo/pi/examen/edition', 
 		    data: 
 		    {
 		    	id:          id,
@@ -1078,7 +1078,6 @@ var editTest = function()
 		    	{
 		    		modalWindow.html(view);
 		    		initModalWindow(600);
-		    		reloadDeleteFunctions();
 		    	}
 		    } 
 		});
@@ -1086,7 +1085,7 @@ var editTest = function()
 };
 
 /**
- * Deletes a test in database
+ * Deletes a test 
  */
 var deleteTest = function()  
 {
@@ -1098,7 +1097,7 @@ var deleteTest = function()
 		
 		$.ajax({ 
 			type: 'POST', 
-		    url:  'http://localhost:8080/ZPareo/pi/examen/suppression', 
+		    url:  baseURL + '/ZPareo/pi/examen/suppression', 
 		    data: 
 		    {
 		    	id: id
@@ -1118,7 +1117,6 @@ var deleteTest = function()
 		    	{
 		    		modalWindow.html(view);
 		    		initModalWindow(600);
-		    		reloadDeleteFunctions();
 		    	}
 		    } 
 		});
@@ -1126,7 +1124,7 @@ var deleteTest = function()
 };
 
 /**
- * Checks login in database
+ * Checks login 
  */ 
 var checkLogin = function()  
 {
@@ -1149,7 +1147,7 @@ var checkLogin = function()
 			$.ajax(
 			{ 
 			    type: 'POST', 
-			    url:  'http://localhost:8080/ZPareo/connexion', 
+			    url:  baseURL + '/ZPareo/connexion', 
 			    data: 
 			    {
 			    	emailAddress: emailAddress,
@@ -1161,6 +1159,7 @@ var checkLogin = function()
 			    },
 			    success: function(view) 
 			    {
+			    	// Login success
 			    	if (view.search('<div id=\"main-wrap\"') > 0) 
 			    	{
 			    		$('#mod-connection').delay(1300).animate({
@@ -1178,7 +1177,7 @@ var checkLogin = function()
 				    				path: this.path 
 				    			}, 
 				    				'', 
-				    				'http://localhost:8080/ZPareo/ai/administrateur'
+				    				baseURL + '/ZPareo/ai/administrateur'
 				    			);
 				    			document.title = 'ZPareo - Liste des administrateurs';
 				    		}
@@ -1189,7 +1188,7 @@ var checkLogin = function()
 				    				path: this.path 
 				    			}, 
 				    				'', 
-				    				'http://localhost:8080/ZPareo/pi/examen'
+				    				baseURL + '/ZPareo/pi/examen'
 				    			);
 				    			document.title = 'ZPareo - Liste de vos examens';
 				    		}
@@ -1200,16 +1199,17 @@ var checkLogin = function()
 				    				path: this.path 
 				    			},
 				    				'', 
-				    				'http://localhost:8080/ZPareo/ei/mon-bulletin'
+				    				baseURL + '/ZPareo/ei/mon-bulletin'
 				    			);
 				    			document.title = 'ZPareo - Mon bulletin';
 				    			initAverageStudentChart();
+				    			initTableSorter();
 				    		}
 			    		});
 			    	}
 			    	else 
 			    	{
-			    		$('#site-wrap').replaceWith(view.slice(view.search('<div id=\"site-wrap\" class=\"bg-white\">'), view.search('<!-- End site-wrap -->')));
+			    		$('#site-wrap').replaceWith(view.slice(view.search('<div id=\"site-wrap\"'), view.search('<!-- End site-wrap -->')));
 			    		$('#mod-connection').animate(
 			    		{
 			    			left:"+=5"
@@ -1227,7 +1227,6 @@ var checkLogin = function()
 			    			left:"+=5"
 			    		},60);
 			    	}
-			    	
 			    	initDatepicker();
 			    	initSelect2();
 			    } 
