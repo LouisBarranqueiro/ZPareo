@@ -365,7 +365,6 @@ public class StudentDaoImpl implements StudentDao
 	 * @param student
 	 * @return student
 	 */
-	@Override
 	public Student getAll(Student student) 
 	{
 		TestDaoImpl testDao = new TestDaoImpl(daoFactory);

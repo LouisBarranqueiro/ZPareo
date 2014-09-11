@@ -70,7 +70,6 @@ public class GroupDaoImpl implements GroupDao
      * @return groupes
      * @throws DAOException
      */
-	@Override
 	public Set<Group> search(Group group) throws DAOException 
 	{
 		Connection connexion                = null;

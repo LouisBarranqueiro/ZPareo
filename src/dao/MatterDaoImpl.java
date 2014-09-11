@@ -70,7 +70,6 @@ public class MatterDaoImpl implements MatterDao
      * @return matters
      * @throws DAOException
      */
-	@Override
 	public Set<Matter> search(Matter matter) throws DAOException 
 	{
 		Connection connexion                = null;

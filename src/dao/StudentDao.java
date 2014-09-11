@@ -1,19 +1,19 @@
-package dao;
-
+ package dao;
+ 
 import java.util.Set;
 import beans.Student;
-
-public interface StudentDao 
-{
-	/**
-     * Creates a student into database
-     * 
-     * @param student
-     * @throws DAOException
-     */
-	void create(Student student);
-	
-	/**
+ 
+ public interface StudentDao 
+ {
+ 	/**
+      * Creates a student into database
+      * 
+      * @param student
+      * @throws DAOException
+      */
+ 	void create(Student student);
+ 	
+ 	/**
      * Searches one or more students into database
      * 
      * @param student
@@ -23,13 +23,13 @@ public interface StudentDao
 	Set<Student> search(Student student) throws DAOException;
 	
 	/**
-	 * Edits a student into database
-	 * 
-	 * @param student
-	 */
-	void edit(Student student);
-	
-	/**
+ 	 * Edits a student into database
+ 	 * 
+ 	 * @param student
+ 	 */
+ 	void edit(Student student);
+ 	
+ 	/**
 	 * Edits a student password into database
 	 * 
 	 * @param student
@@ -56,12 +56,12 @@ public interface StudentDao
 	int check(Student student) throws DAOException;
 
 	/**
-	 * Deletes a student into database
-	 * 
-	 * @param student
-	 * @throws DAOException
-	 */
-	void delete(Student student) throws DAOException;
+ 	 * Deletes a student into database
+ 	 * 
+ 	 * @param student
+ 	 * @throws DAOException
+ 	 */
+ 	void delete(Student student) throws DAOException;
 	
 	/**
 	 * Checks student login into database

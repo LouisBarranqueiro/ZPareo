@@ -292,11 +292,11 @@ public class AdministratorDaoImpl implements AdministratorDao
 		} 
 		catch (SQLException e) 
 		{
-			throw new DAOException( e );
+			throw new DAOException(e);
 		} 
 		finally 
 		{
-			silentClosures( preparedStatement, connexion );
+			silentClosures(preparedStatement, connexion);
 		}
 	}
 	
