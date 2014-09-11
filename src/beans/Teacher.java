@@ -76,7 +76,7 @@ public class Teacher extends User implements Comparable<Teacher>
 	@Override
 	public int compareTo(Teacher teacher2) 
 	{
-        int compId = this.getId().compareTo(teacher2.getId());
+        int compId = teacher2.getId().compareTo(this.getId());
 
         return ((compId != 0) ? compId : 0);
 	}

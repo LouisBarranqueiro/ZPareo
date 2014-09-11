@@ -132,7 +132,7 @@ public class Matter implements Comparable<Matter>
 	@Override
 	public int compareTo(Matter matter2) 
 	{
-        int compId = this.getId().compareTo(matter2.getId());
+        int compId = matter2.getId().compareTo(this.getId());
         
         return ((compId != 0) ? compId : 0);
 	}

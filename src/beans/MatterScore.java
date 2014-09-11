@@ -122,7 +122,7 @@ public class MatterScore implements Comparable<MatterScore>
 	{
 		Matter matter1 = new Matter(this.getMatter());
 		Matter matter2 = new Matter(matterScore2.getMatter());
-        int compId = matter1.getName().compareTo(matter2.getName());
+        int compId = matter2.getName().compareTo(matter1.getName());
         
         return ((compId != 0) ? compId : 0 );
 	}

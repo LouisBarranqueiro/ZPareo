@@ -28,7 +28,7 @@ public class Administrator extends User implements Comparable<Administrator>
 	@Override
 	public int compareTo(Administrator administrator2) 
 	{
-		int compId = this.getId().compareTo(administrator2.getId());
+		int compId = administrator2.getId().compareTo(this.getId());
         
 		return ((compId != 0) ? compId : 0);
 	}

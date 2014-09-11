@@ -119,7 +119,7 @@ public class Group implements Comparable<Group>
 	@Override
 	public int compareTo(Group group2) 
 	{
-		int compId = this.getId().compareTo(group2.getId());
+		int compId = group2.getId().compareTo(this.getId());
         
 		return ((compId != 0) ? compId : 0);
 	}

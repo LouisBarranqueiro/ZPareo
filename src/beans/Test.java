@@ -259,7 +259,7 @@ public class Test implements Comparable<Test>
 	@Override
 	public int compareTo(Test test2) 
 	{
-		int compId = this.getId().compareTo(test2.getId());
+		int compId = test2.getId().compareTo(this.getId());
         
 		return ((compId != 0) ? compId : 0);
 	}
