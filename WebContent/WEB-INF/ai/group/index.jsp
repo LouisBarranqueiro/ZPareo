@@ -48,7 +48,7 @@
                 </div>
                 <div class="main__content">
                     <div class="mod mod--lg">
-                        <form action="http://localhost:8080/ZPareo/ai/groupe" method="GET" class="form--inline">
+                        <form action="<c:url value="/ai/groupe"/>" method="GET" class="form--inline">
                             <table class="table">
                                 <thead>
                                     <tr class="tr--ref">
