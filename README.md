@@ -4,7 +4,7 @@ A simple school management software written in Java EE, JavaScript, HTML and CSS
 
 ### What is this repository for? ###
 
-* A simple school management software written in Java EE, JavaScript, HTML and CSS for a small project in university
+* A simple school management software written in Java EE, JavaScript, HTML and CSS for a small project during studies
 * Author : Louis Barranqueiro
 * Version 1
 
@@ -19,11 +19,13 @@ A simple school management software written in Java EE, JavaScript, HTML and CSS
 
 ### Contribution guidelines ###
 
+* Implement AJAX requests with JSON
+* Improve JavaScript code structure
+* Implement a pagination for each listing view
+* Add more data for each object (teacher, students, administrators, etc...)
 * Writing tests
-* Code review
-* Other guidelines
+
 
 ### Contact ###
 
-* Repo owner or admin
-* Other community or team contact
+* [GitHub](https://github.com/LouisBarranqueiro)
