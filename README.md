@@ -10,12 +10,12 @@ A simple school management software written in Java EE, JavaScript, HTML and CSS
 
 ### Installation ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* Require Tomcat Server 7, JavaX Mail, MySQL Connector 
+
+* 1. Add the project to your IDE (develop with Eclipse)
+* 2. Install Tomcat Server 7, JavaX Mail and MySQL Connector 
+* 3. Run the SQL script 'creation_database.sql' and  'datasets_database.sql' 
+* 4. Enjoy :) and start coding 
 
 ### Contribution guidelines ###
 
