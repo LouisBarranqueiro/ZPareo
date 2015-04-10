@@ -29,7 +29,7 @@ public class TeacherFilter implements Filter
         HttpSession session          = request.getSession();
         String path 				 = request.getRequestURI().substring(request.getContextPath().length());
         
-        if ((path.startsWith("/assets")) || (path.startsWith("/connexion"))) 
+        if ((path.startsWith("/javax.faces.resource")) || (path.startsWith("/connexion")))
         {
         	chain.doFilter(request, response);
             return;
