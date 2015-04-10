@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class DAOFactory 
 {
-    private static final String PROPERTIES_FILE      = "/dao/dao.properties";
+    private static final String PROPERTIES_FILE      = "dao/dao.properties";
     private static final String PROPERTY_URL         = "url";
     private static final String PROPERTY_DRIVER      = "driver";
     private static final String PROPERTY_USERNAME    = "username";

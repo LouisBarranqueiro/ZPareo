@@ -14,7 +14,7 @@ public class Test implements Comparable<Test>
 	private Set<Score> scores;
 	private Float average;
 	private Float coefficient;
-	
+
 	/**
 	 * Constructeur
 	 */
@@ -31,11 +31,11 @@ public class Test implements Comparable<Test>
 		this.average     = null;
 		this.coefficient = null;
 	}
-	
+
 	/**
 	 * Constructeur
-	 * 
-	 * @param test 
+	 *
+	 * @param test
 	 */
 	public Test(Test test)
 	{
@@ -50,218 +50,217 @@ public class Test implements Comparable<Test>
 		this.average     = test.getAverage();
 		this.coefficient = test.getCoefficient();
 	}
-	
+
 	/**
 	 * Return test id
-	 * 
-	 * @return id 
+	 *
+	 * @return id
 	 */
-	public Long getId() 
+	public Long getId()
 	{
 		return id;
 	}
-	
+
 	/**
 	 * Sets test id
-	 * 
-	 * @param id 
+	 *
+	 * @param id
 	 */
-	public void setId(Long id) 
+	public void setId(Long id)
 	{
 		this.id = id;
 	}
 
 	/**
 	 * Returns test title
-	 * 
-	 * @return title 
+	 *
+	 * @return title
 	 */
 	public String getTitle()
 	{
 		return title;
 	}
-	
+
 	/**
 	 * Sets test title
-	 * 
+	 *
 	 * @param title
 	 */
-	public void setTitle(String title) 
+	public void setTitle(String title)
 	{
 		this.title = title;
 	}
-	
+
 	/**
 	 * Returns test date
-	 * 
+	 *
 	 * @return date
 	 */
-	public String getDate() 
+	public String getDate()
 	{
 		return date;
 	}
 
 	/**
 	 * Sets test date
-	 * 
-	 * @param date 
+	 *
+	 * @param date
 	 */
-	public void setDate(String date) 
+	public void setDate(String date)
 	{
 		this.date = date;
 	}
-	
+
 	/**
 	 * Returns test format
-	 * 
-	 * @return format 
+	 *
+	 * @return format
 	 */
-	public TestFormat getFormat() 
+	public TestFormat getFormat()
 	{
 		return format;
 	}
-	
+
 	/**
 	 * Sets test format
-	 * 
-	 * @param format 
+	 *
+	 * @param format
 	 */
-	public void setFormat(TestFormat format) 
+	public void setFormat(TestFormat format)
 	{
 		this.format = format;
 	}
 
 	/**
 	 * Returns test teacher
-	 * 
-	 * @return teacher 
+	 *
+	 * @return teacher
 	 */
 	public Teacher getTeacher()
 	{
 		return teacher;
 	}
-	
+
 	/**
 	 * Sets test teacher
-	 * 
-	 * @param teacher 
+	 *
+	 * @param teacher
 	 */
-	public void setTeacher(Teacher teacher) 
+	public void setTeacher(Teacher teacher)
 	{
 		this.teacher = teacher;
 	}
-	
+
 	/**
 	 * Returns test group
-	 * 
-	 * @return group 
+	 *
+	 * @return group
 	 */
 	public Group getGroup()
 	{
 		return group;
 	}
-	
+
 	/**
 	 * Sets test group
-	 * 
-	 * @param group 
+	 *
+	 * @param group
 	 */
 	public void setGroup(Group group)
 	{
 		this.group = group;
 	}
-	
+
 	/**
 	 * Returns test matter
-	 * 
-	 * @return matter 
+	 *
+	 * @return matter
 	 */
 	public Matter getMatter()
 	{
 		return matter;
 	}
-	
+
 	/**
 	 * Sets test matter
-	 * 
-	 * @param matter 
+	 *
+	 * @param matter
 	 */
 	public void setMatter(Matter matter)
 	{
 		this.matter = matter;
 	}
-	
+
 	/**
 	 * Returns test scores
-	 * 
-	 * @return scores 
+	 *
+	 * @return scores
 	 */
 	public Set<Score> getScores()
 	{
 		return scores;
 	}
-	
+
 	/**
 	 * Sets test scores
-	 * 
-	 * @param scores 
+	 *
+	 * @param scores
 	 */
-	public void setScores(Set<Score> scores) 
+	public void setScores(Set<Score> scores)
 	{
 		this.scores = scores;
 	}
-	
+
 	/**
 	 * Returns test average
-	 * 
-	 * @return average 
+	 *
+	 * @return average
 	 */
-	public Float getAverage() 
+	public Float getAverage()
 	{
 		return average;
 	}
 
 	/**
 	 * Sets test average
-	 * 
-	 * @param average 
+	 *
+	 * @param average
 	 */
-	public void setAverage(Float average) 
+	public void setAverage(Float average)
 	{
 		this.average = average;
 	}
 
 	/**
 	 * Returns test coefficient
-	 * 
-	 * @return coefficient 
+	 *
+	 * @return coefficient
 	 */
 	public Float getCoefficient()
 	{
 		return coefficient;
 	}
-	
+
 	/**
 	 * Sets test coefficient
-	 * 
-	 * @param coefficient 
+	 *
+	 * @param coefficient
 	 */
-	public void setCoefficient(Float coefficient) 
+	public void setCoefficient(Float coefficient)
 	{
 		this.coefficient = coefficient;
 	}
-	
+
 	/**
 	 * Compares two test id
-	 * 
-	 * @param test2 
+	 *
+	 * @param test2
 	 */
-	@Override
-	public int compareTo(Test test2) 
+	public int compareTo(Test test2)
 	{
 		int compId = test2.getId().compareTo(this.getId());
-        
+
 		return ((compId != 0) ? compId : 0);
 	}
-	
+
 }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.louisbarranqueiro</groupId>
+    <artifactId>zpareo</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>${project.artifactId}</name>
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.6</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <version>1.4.4</version>
+                <executions>
+                    <execution>
+                        <id>deploy</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>redeploy</goal>
+                        </goals>
+                        <configuration>
+                            <container>
+                                <containerId>glassfish4x</containerId>
+                                <type>installed</type>
+                                <home>/Volumes/SSD/usr/local/glassfish-4.0/</home>
+                            </container>
+                            <configuration>
+                                <type>existing</type>
+                                <home>/Volumes/SSD/usr/local/glassfish-4.0/glassfish/domains</home>
+                                <properties>
+                                    <cargo.glassfish.domain.name>domain1</cargo.glassfish.domain.name>
+                                    <cargo.remote.password/>
+                                </properties>
+                            </configuration>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
