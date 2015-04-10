@@ -1,27 +1,43 @@
 # ZPareo #
 
-A simple school management software written in Java EE, JavaScript, HTML and CSS for a small project in university
+A simple school management web application written in Java and JavaScript for a small project in university
 
-* Author : Louis Barranqueiro
-* Version : 1
+- Author : Louis Barranqueiro
+- Version : 1.1
 
-### Installation ###
+## Installation ###
 
-1. Add the project to your IDE (develop with Eclipse)
-1. Install Tomcat Server 7, JavaX Mail, MySQL Connector and a MySQL server (using MAMP)
-1. Run the SQL script 'creation_database.sql' and  'datasets_database.sql' 
-1. Run application. Login : admin@zpareo.com - Password : adminzpareo
-1. Enjoy :) and start coding 
+### Requirements
 
-### Contribution guidelines ###
+- A Java application server (using GlashFish Server v4.0.0)
+- Maven v3.0.5
+- MysSQL server
 
-* Implement AJAX requests with JSON
-* Improve JavaScript code structure
-* Implement a pagination for each listing view
-* Add more data for each object (teacher, students, administrators, etc...)
-* Writing tests
+### Procedure
 
+1. Add the project to your IDE (developed with IntelliJ 14)
+2. Run the SQL script ```database/creation_database.sql``` and  ```database/datasets_database.sql```
+3. Start your java application server
+4. Run a Maven install
+5. Enjoy :) and start coding
 
-### Contact ###
+## Documentation
 
-* [GitHub](https://github.com/LouisBarranqueiro)
+if you have any questions, create an issue. It will be a pleasur to help you! :)
+
+### Login id
+
+Login : admin@zpareo.com 
+Password : adminzpareo
+
+## Contribution guidelines ###
+
+- Implement AJAX requests with JSON
+- Improve JavaScript code structure
+- Implement a pagination for each listing view
+- Add more data for each object (teacher, students, administrators, etc...)
+- Writing tests
+
+### Licence ###
+
+This project is under MIT License.
