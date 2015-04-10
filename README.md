@@ -15,7 +15,7 @@ A simple school management web application written in Java and JavaScript for a 
 
 ### Procedure
 
-1. Add the project to your IDE (developed with IntelliJ 14)
+1. Add the project to your IDE
 2. Run the SQL script ```database/creation_database.sql``` and  ```database/datasets_database.sql```
 3. Start your java application server
 4. Run a Maven install
