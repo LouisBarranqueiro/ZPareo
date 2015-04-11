@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:decorate template="../../templates/administrator-app.xhtml">
+        <!-- header title -->
+        <ui:define name="title">Listing</ui:define>
+        <!-- Main content -->
+        <ui:define name="main-content">
+            <div id="main-wrap" class="main">
+                <div class="main__head">
+                    <h1 class="main__head__title">Liste des administrateurs</h1>
+                    <p class="main__head__desc">#{numbAdministrators} administrateurs enregistrées</p>
+                    <button type="button" class="btn btn--success main__head__control" onclick="displayRespModal('ai/administrator/create', 300)">AJOUTER UN ADMINISTRATEUR</button>
+                </div>
+                <div class="main__content">
+                    <div class="mod mod--lg">
+                        <form action="#{request.contextPath}/ai/administrator" method="GET" class="form--inline">
+                            <table class="table">
+                                <thead>
+                                    <tr class="tr--ref">
+                                        <th class="sortable">REFERENCE</th>
+                                        <th class="sortable">NOM</th>
+                                        <th class="sortable">PRENOM</th>
+                                        <th class="sortable">ADRESSE MAIL</th>
+                                        <th>ACTION</th>
+                                    </tr>
+                                    <tr class="tr--search">
+                                        <th><input type="text" name="id" size="10" pattern="[0-9]+" placeholder="Reference" x-moz-errormessage="Veuillez entrez une r�f�rence correcte"/></th>
+                                        <th><input type="text" name="lastName" size="20" pattern="[A-Za-z ]+" placeholder="Nom" x-moz-errormessage="Veuillez entrer un nom correct"/></th>
+                                        <th><input type="text" name="firstName" size="20" pattern="[A-Za-z ]+" placeholder="Prenom" x-moz-errormessage="Veuillez entrer un prenom correct"/>
+                                        </th>
+                                        <th><input type="text" name="emailAddress" size="25" pattern="[A-Za-z0-9@.-_]+" placeholder="Adresse mail"
+                                                   x-moz-errormessage="Veuillez entrer une adresse mail correct"/></th>
+                                        <th>
+                                            <button type="submit" class="btn btn--primary">RECHERCHER</button>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ui:repeat value="#{beans.administrators}" var="administrator">
+                                        <tr class="tr--md">
+                                            <td>#{administrator.id}</td>
+                                            <td>#{administrator.lastName}</td>
+                                            <td>#{administrator.firstName}</td>
+                                            <td>#{administrator.emailAddress}</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn--icon" onclick="displayRespModal('ai/administrateur/edition?id=#{administrator.id}',300)"><span
+                                                            class="icon-edit"></span></button>
+                                                    <button type="button" class="btn btn--icon" onclick="displayRespModal('ai/administrateur/suppression?id=#{administrator.id}','auto')">
+                                                        <span class="icon-trashcan"></span></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ui:repeat>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- End main-wrap -->
+        </ui:define>
+    </ui:decorate>
+</html>
