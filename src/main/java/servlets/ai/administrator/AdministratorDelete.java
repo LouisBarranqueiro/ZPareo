@@ -1,7 +1,6 @@
 package servlets.ai.administrator;
 
 import java.io.IOException;
-import java.util.Set;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,34 +13,37 @@ import dao.AdministratorDao;
 import forms.AdministratorForm;
 
 @SuppressWarnings("serial")
-@WebServlet("/ai/administrator")
-public class Administrator extends HttpServlet {
-    private static final String CONF_DAO_FACTORY    = "daofactory";
-    private static final String ADMINISTRATORS      = "administrators";
-    private static final String NUMB_ADMINISTRATORS = "numbAdministrators";
-    private static final String ADMINISTRATOR_FORM  = "administratorForm";
-    private static final String VIEW                = "/WEB-INF/ai/administrator/index.xhtml";
+@WebServlet("/ai/administrator/delete")
+public class AdministratorDelete extends HttpServlet {
+    private static final String CONF_DAO_FACTORY = "daofactory";
+    private static final String ADMINISTRATOR    = "administrator";
+    private static final String VIEW             = "/WEB-INF/ai/administrator/delete.xhtml";
     private String           path;
     private AdministratorDao administratorDao;
 
-    public Administrator() {
+    public AdministratorDelete() {
         super();
     }
 
-    public void init() throws ServletException {
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        this.path = config.getServletContext().getContextPath();
         this.administratorDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getAdministratorDao();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        AdministratorForm        administratorForm = new AdministratorForm(this.administratorDao);
-        Set<beans.Administrator> administrators    = administratorForm.search(request);
+        AdministratorForm   administratorForm = new AdministratorForm(this.administratorDao);
+        beans.Administrator administrator     = administratorForm.get(request);
 
-        request.setAttribute(ADMINISTRATOR_FORM, administratorForm);
-        request.setAttribute(ADMINISTRATORS, administrators);
-        request.setAttribute(NUMB_ADMINISTRATORS, administrators.size());
+        request.setAttribute(ADMINISTRATOR, administrator);
         this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        AdministratorForm administratorForm = new AdministratorForm(this.administratorDao);
+
+        administratorForm.delete(request);
+        response.sendRedirect(this.path + "/ai/administrator");
     }
+
 }
