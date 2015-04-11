@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter("/ei/*")
+@WebFilter("/si/*")
 public class StudentFilter implements Filter {
-    private static final String URL_CONNEXION   = "/connexion";
+    private static final String LOGIN_URL       = "/login";
     private static final String STUDENT_SESSION = "studentSession";
 
     public void init(FilterConfig config) throws ServletException {
@@ -26,13 +26,13 @@ public class StudentFilter implements Filter {
         HttpSession         session  = request.getSession();
         String              path     = request.getRequestURI().substring(request.getContextPath().length());
 
-        if ((path.startsWith("/javax.faces.resource")) || (path.startsWith("/connexion"))) {
+        if ((path.startsWith("/javax.faces.resource")) || (path.startsWith(LOGIN_URL))) {
             chain.doFilter(request, response);
             return;
         }
 
         if (session.getAttribute(STUDENT_SESSION) == null) {
-            request.getRequestDispatcher(URL_CONNEXION).forward(request, response);
+            request.getRequestDispatcher(LOGIN_URL).forward(request, response);
         }
         else {
             chain.doFilter(request, response);
