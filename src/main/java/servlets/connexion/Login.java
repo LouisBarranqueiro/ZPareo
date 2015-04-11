@@ -18,21 +18,21 @@ import forms.StudentForm;
 import forms.TeacherForm;
 
 @SuppressWarnings("serial")
-@WebServlet("/connexion")
-public class Connexion extends HttpServlet {
+@WebServlet("/login")
+public class Login extends HttpServlet {
     private static final String CONF_DAO_FACTORY      = "daofactory";
     private static final String USER                  = "user";
     private static final String STUDENT_SESSION       = "studentSession";
     private static final String TEACHER_SESSION       = "teacherSession";
     private static final String ADMINISTRATOR_SESSION = "administratorSession";
     private static final String STUDENT_FORM          = "studentForm";
-    private static final String VIEW                  = "/WEB-INF/connexion.xhtml";
+    private static final String VIEW                  = "/WEB-INF/login.xhtml";
     private String           path;
     private AdministratorDao administratorDao;
     private StudentDao       studentDao;
     private TeacherDao       teacherForm;
 
-    public Connexion() {
+    public Login() {
         super();
     }
 
@@ -48,13 +48,13 @@ public class Connexion extends HttpServlet {
         HttpSession session = request.getSession();
 
         if (session.getAttribute(ADMINISTRATOR_SESSION) != null) {
-            response.sendRedirect(this.path + "/ai/administrateur");
+            response.sendRedirect(this.path + "/ai/administrator");
         }
         else if (session.getAttribute(TEACHER_SESSION) != null) {
-            response.sendRedirect(this.path + "/pi/examen");
+            response.sendRedirect(this.path + "/pi/test");
         }
         else if (session.getAttribute(STUDENT_SESSION) != null) {
-            response.sendRedirect(this.path + "/ei/mon-bulletin");
+            response.sendRedirect(this.path + "/ei/gradebook");
         }
         else {
             this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);
@@ -70,19 +70,17 @@ public class Connexion extends HttpServlet {
         beans.Teacher       teacher           = teacherForm.checkLogin(request);
         beans.Administrator administrator     = administratorForm.checkLogin(request);
 
-        System.out.println(path);
-
         if (student.getId() != null) {
             session.setAttribute(STUDENT_SESSION, student);
-            response.sendRedirect(this.path + "/ei/mon-bulletin");
+            response.sendRedirect(this.path + "/si/gradebook");
         }
         else if (teacher.getId() != null) {
             session.setAttribute(TEACHER_SESSION, teacher);
-            response.sendRedirect(this.path + "/pi/examen");
+            response.sendRedirect(this.path + "/ti/test");
         }
         else if (administrator.getId() != null) {
             session.setAttribute(ADMINISTRATOR_SESSION, administrator);
-            response.sendRedirect(this.path + "/ai/administrateur");
+            response.sendRedirect(this.path + "/ai/administrator");
         }
         else {
             request.setAttribute(USER, student);
