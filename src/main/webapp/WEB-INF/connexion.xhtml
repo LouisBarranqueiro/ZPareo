@@ -5,38 +5,26 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-	<h:head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-		<title>ZPareo - Authentification</title>
-		<h:outputStylesheet library="scss" src="style.css"/>
-		<h:outputStylesheet library="css" src="/assets/scss/style.css"/>
-        <h:outputStylesheet library="css" src="/assets/scss/style.css"/>
-	</h:head>
-	<h:body>
-		<div id="site-wrap" class="bg-white">
-			<div class="vertical-align-middle"></div>
-			<div id="mod-connection" class="mod mod--xs mod--center">
-				<h1 class="mod__head text-center">ZPareo</h1>
-				<form id="check-login" action="<c:url value='/connexion'/>" method="POST" class="form--horizontal">
-					<input type="text" name="emailAddress" class="form--control" value="<c:out value='${utilisateur.adresseMail }'></c:out>" placeholder="Adresse mail" pattern="[a-zA-Z0-9@.-_]+@[a-zA-Z]{2,20}.[a-zA-Z]{2,3}" x-moz-errormessage="Veuillez entrez un identifiant" required/>
-					<input type="password" name="password" class="form--control" placeholder="Mot de passe" pattern=".{8,}" x-moz-errormessage="Veuillez entrez un mot de passe" required/>
-					<span class="form__erreur">${form.erreurs['connexion'] }</span>
-					<button type="submit" class="btn btn--100 btn--primary" onclick="checkLogin()">CONNEXION</button>
-				</form>
-				<div class="icon-load-wrap icon-load-wrap--center">
-					<span class="icon-load"></span>
-				</div>
-			</div>
-		</div><!-- End site-wrap -->
-		<div id="modal" class="modal"></div>
-		<!-- Script -->
-		<h:outputScript library="webjars" name="jquery/1.11.1/jquery.min.js"/>
-		<h:outputScript library="webjars" name="highcharts/4.0.3/highcharts.js"/>
-		<h:outputScript library="webjars" name="tablesorter/2.15.5/js/jquery.tablesorter.min.js"/>
-		<h:outputScript library="webjars" name="jquery-ui/1.11.4/jquery-ui.min.js"/>
-		<h:outputScript library="js" name="help.js" />
-		<h:outputScript library="js" name="help.js" />
-		<script type="text/javascript" src="<c:url value="/assets/js/jquery.ui.datepicker-fr.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/assets/js/script.js"/>"></script>
-	</body>
+    <ui:decorate template="templates/connexion.xhtml">
+        <!-- header title -->
+        <ui:define name="title">Authentification</ui:define>
+        <!-- Main content -->
+        <ui:define name="main-content">
+            <div class="vertical-align-middle"></div>
+            <div id="mod-connection" class="mod mod--xs mod--center">
+                <h1 class="mod__head text-center">ZPareo</h1>
+                <form id="check-login" action="#{request.contextPath}/connexion" method="POST" class="form--horizontal">
+                    <input type="text" name="emailAddress" class="form--control" value="#{utilisateur.adresseMail}" placeholder="Adresse mail"
+                           pattern="[a-zA-Z0-9@.-_]+@[a-zA-Z]{2,20}.[a-zA-Z]{2,3}" x-moz-errormessage="Veuillez entrez un identifiant" required="required"/>
+                    <input type="password" name="password" class="form--control" placeholder="Mot de passe" pattern=".{8,}" x-moz-errormessage="Veuillez entrez un mot de passe"
+                           required="required"/>
+                    <span class="form__erreur">#{form.erreurs['connexion']}</span>
+                    <button type="submit" class="btn btn--100 btn--primary" onclick="checkLogin()">CONNEXION</button>
+                </form>
+                <div class="icon-load-wrap icon-load-wrap--center">
+                    <span class="icon-load"></span>
+                </div>
+            </div>
+        </ui:define>
+    </ui:decorate>
 </html>
