@@ -13,39 +13,32 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebFilter("/ei/*")
-public class StudentFilter implements Filter 
-{
-	private static final String URL_CONNEXION   = "/connexion";
-	private static final String STUDENT_SESSION = "studentSession";
-    
-    public void init(FilterConfig config) throws ServletException
-    {
+public class StudentFilter implements Filter {
+    private static final String URL_CONNEXION   = "/connexion";
+    private static final String STUDENT_SESSION = "studentSession";
+
+    public void init(FilterConfig config) throws ServletException {
     }
 
-    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException 
-    {
-        HttpServletRequest request   = (HttpServletRequest) req;
+    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest  request  = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
-        HttpSession session          = request.getSession();
-        String path                  = request.getRequestURI().substring(request.getContextPath().length());
-        
-        if ((path.startsWith("/javax.faces.resource")) || (path.startsWith("/connexion")))
-        {
-        	chain.doFilter(request, response);
+        HttpSession         session  = request.getSession();
+        String              path     = request.getRequestURI().substring(request.getContextPath().length());
+
+        if ((path.startsWith("/javax.faces.resource")) || (path.startsWith("/connexion"))) {
+            chain.doFilter(request, response);
             return;
         }
-        
-        if (session.getAttribute(STUDENT_SESSION) == null)
-        {
-        	request.getRequestDispatcher(URL_CONNEXION).forward(request, response);
-        } 
-        else 
-        {
+
+        if (session.getAttribute(STUDENT_SESSION) == null) {
+            request.getRequestDispatcher(URL_CONNEXION).forward(request, response);
+        }
+        else {
             chain.doFilter(request, response);
         }
     }
 
-    public void destroy()
-    {
+    public void destroy() {
     }
 }
