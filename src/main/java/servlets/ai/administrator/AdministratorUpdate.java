@@ -12,7 +12,6 @@ import dao.DAOFactory;
 import dao.AdministratorDao;
 import forms.AdministratorForm;
 
-@SuppressWarnings("serial")
 @WebServlet("/ai/administrator/update")
 public class AdministratorUpdate extends HttpServlet {
     private static final String CONF_DAO_FACTORY   = "daofactory";
