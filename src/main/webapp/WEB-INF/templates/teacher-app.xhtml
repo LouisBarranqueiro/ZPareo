@@ -13,15 +13,16 @@
             <h:outputStylesheet library="webjars" name="jquery-ui/1.11.4/jquery-ui.min.css"/>
             <h:outputStylesheet library="webjars" name="select2/3.5.1/select2.css"/>
             <h:outputStylesheet library="webjars" name="font-awesome/4.3.0/css/font-awesome.min.css"/>
-            <h:outputStylesheet library="scss" name="style.css"/>
+            <h:outputStylesheet library="css" name="style.css"/>
         </h:head>
         <h:body>
-            <div id="site-wrap" >
+            <div id="site-wrap">
                 <!-- Include Sidebar -->
                 <ui:include src="partial/teacher-sidebar.xhtml"/>
                 <!-- Insert main content -->
                 <ui:insert name="main-content"/>
-            </div><!-- End site-wrap -->
+            </div>
+            <!-- End site-wrap -->
             <div id="modal" class="modal"></div>
 
             <!-- JavaScript -->
