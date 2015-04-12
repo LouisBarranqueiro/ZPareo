@@ -4,3 +4,4 @@ ZPareo.iml
 *.class
 .sass-cache
 *.css
+node_modules
