@@ -3,7 +3,7 @@
   	width:      auto;
   	height:     41px;
   	padding:    18px;
-    @include    box-shadow(0 1px 1px $border-color-shadow);
+    @include    prefix(box-shadow, 0 1px 1px $border-color-shadow, 'webkit' 'moz' 'ms');
     background: $bg-color-white;
  	position:   relative;
 	z-index:    5;

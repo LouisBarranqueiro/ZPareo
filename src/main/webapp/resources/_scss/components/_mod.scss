@@ -7,7 +7,7 @@
     border-radius: $border-radius-base;
  	background:    $bg-color-white;
  	margin:        9px;
- 	@include       box-shadow(0 1px 1px $border-color-shadow);
+    @include    prefix(box-shadow, 0 1px 1px $border-color-shadow, 'webkit' 'moz' 'ms');
 }
 .mod--lg 
 {
