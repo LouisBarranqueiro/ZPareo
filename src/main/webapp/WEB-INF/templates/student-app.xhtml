@@ -21,13 +21,15 @@
                 <ui:include src="partial/student-sidebar.xhtml"/>
                 <!-- Insert main content -->
                 <ui:insert name="main-content"/>
-            </div>
+            </div><!-- End site-wrap -->
+            <div id="modal" class="modal"></div>
 
             <!-- JavaScript -->
             <h:outputScript library="webjars" name="jquery/1.11.1/jquery.min.js"/>
+            <h:outputScript library="webjars" name="jquery-ui/1.11.4/jquery-ui.min.js"/>
             <h:outputScript library="webjars" name="highcharts/4.0.3/highcharts.js"/>
             <h:outputScript library="webjars" name="tablesorter/2.15.5/js/jquery.tablesorter.min.js"/>
-            <h:outputScript library="webjars" name="jquery-ui/1.11.4/jquery-ui.min.js"/>
+            <h:outputScript library="webjars" name="select2/3.5.1/select2.min.js"/>
             <h:outputScript library="js" name="script.js"/>
         </h:body>
     </f:view>
