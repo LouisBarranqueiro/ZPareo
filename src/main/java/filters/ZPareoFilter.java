@@ -28,7 +28,7 @@ public class ZPareoFilter implements Filter {
         HttpSession         session  = request.getSession();
         String              path     = request.getRequestURI().substring(request.getContextPath().length());
 
-        if ((path.startsWith("/javax.faces.resource")) || (path.startsWith(LOGIN_URL))) {
+        if ((path.startsWith("/resources")) || (path.startsWith("/javax.faces.resource")) || (path.startsWith(LOGIN_URL))) {
             chain.doFilter(request, response);
             return;
         }
