@@ -1,6 +1,4 @@
-var baseURL         = window.location.protocol + "//" + window.location.host;
-var contextPath     = window.location.hostname;
-
+var baseURL = window.location.protocol + "//" + window.location.host;
 
 /**
  * Initializes the Table Sorter library
@@ -214,25 +212,23 @@ var sliceMainView = function (view) {
  */
 var displayRespModal = function (url, modalWidth) {
     var modalWindow = $('#modal');
+    $.ajax({
+        type:    'GET',
+        url:     baseURL + url,
+        error:   function () {
+            alert('error !');
+        },
+        success: function (data) {
+            modalWindow.html(data);
+            initModalWindow(modalWidth);
+        }
+    }).done(function () {
+        initSelect2();
 
-    $.ajax(
-        {
-            type:    'GET',
-            url:     baseURL + '/zpareo/' + url,
-            error:   function () {
-                alert('error !');
-            },
-            success: function (data) {
-                modalWindow.html(data);
-                initModalWindow(modalWidth);
-            }
-        }).done(function () {
-            initSelect2();
+    }).always(function () {
+        initDatepicker();
 
-        }).always(function () {
-            initDatepicker();
-
-        });
+    });
 };
 
 /**
@@ -717,11 +713,12 @@ var createAdmin = function () {
         var password     = $('#create-administrator input[name=password]').val();
         var confirmation = $('#create-administrator input[name=confirmation]').val();
         var modalWindow  = $('#modal');
+        var url          = $(this).attr('action');
 
         $.ajax(
             {
                 type:    'POST',
-                url:     baseURL + '/zpareo/ai/administrateur/creation',
+                url:     baseURL + url,
                 data:    {
                     lastName:     lastName,
                     firstName:    firstName,
@@ -760,11 +757,12 @@ var editAdmin = function () {
         var password     = $('#edit-administrator input[name=password]').val();
         var confirmation = $('#edit-administrator input[name=confirmation]').val();
         var modalWindow  = $('#modal');
+        var url          = $(this).attr('action');
 
         $.ajax(
             {
                 type:    'POST',
-                url:     baseURL + '/zpareo/ai/administrateur/edition',
+                url:     baseURL + url,
                 data:    {
                     id:           id,
                     lastName:     lastName,
@@ -774,7 +772,7 @@ var editAdmin = function () {
                     confirmation: confirmation
                 },
                 error:   function () {
-                    alert('erreur !');
+                    alert('error !');
                 },
                 success: function (view) {
                     if (view.search('<div id=\"main-wrap\"') > 0) {
@@ -798,11 +796,12 @@ var deleteAdmin = function () {
         event.preventDefault();
         var id          = $('#delete-administrator input[name=id]').val();
         var modalWindow = $('#modal');
+        var url         = $(this).attr('action');
 
         $.ajax(
             {
                 type:    'POST',
-                url:     baseURL + '/zpareo/ai/administrateur/suppression',
+                url:     baseURL + url,
                 data:    {
                     id: id
                 },
@@ -962,111 +961,9 @@ var deleteTest = function () {
         });
     });
 };
-
-/**
- * Checks login
- */
-var checkLogin = function () {
-    $('#check-login').submit(function (event) {
-        event.preventDefault();
-        var emailAddress = $('#check-login input[name=emailAddress]').val();
-        var password     = $('#check-login input[name=password]').val();
-        var formHeight   = $('#check-login').height();
-        var iconHeight   = $('.icon-load').height();
-
-        // Animation
-        $('#check-login').fadeOut(300);
-        $('.icon-load-wrap').delay(300).css(
-            {
-                'height':     formHeight - iconHeight,
-                'margin-top': (formHeight / 2)
-            }).fadeIn(1500, function () {
-                $.ajax(
-                    {
-                        type:    'POST',
-                        url:     baseURL + '/zpareo/connexion',
-                        data:    {
-                            emailAddress: emailAddress,
-                            password:     password
-                        },
-                        error:   function () {
-                            alert('error !');
-                        },
-                        success: function (view) {
-                            // Login success
-                            if (view.search('<div id=\"main-wrap\"') > 0) {
-                                $('#mod-connection').delay(1300).animate({
-                                    left: '-=2000'
-                                }, 1000, function () {
-                                    $('body').hide();
-                                    $('#site-wrap').replaceWith(view.slice(view.search('<div id=\"site-wrap\">'), view.search('<!-- End site-wrap -->')));
-                                    $('body').fadeIn();
-
-                                    if (view.search('Liste des administrateurs') > 0) {
-                                        history.pushState(
-                                            {
-                                                path: this.path
-                                            },
-                                            '',
-                                            baseURL + '/zpareo/ai/administrateur'
-                                        );
-                                        document.title = 'ZPareo - Liste des administrateurs';
-                                    }
-                                    else if (view.search('Liste de vos examens') > 0) {
-                                        history.pushState(
-                                            {
-                                                path: this.path
-                                            },
-                                            '',
-                                            baseURL + '/zpareo/pi/examen'
-                                        );
-                                        document.title = 'ZPareo - Liste de vos examens';
-                                    }
-                                    else if (view.search('Bulletin de notes') > 0) {
-                                        history.pushState(
-                                            {
-                                                path: this.path
-                                            },
-                                            '',
-                                            baseURL + '/zpareo/ei/mon-bulletin'
-                                        );
-                                        document.title = 'ZPareo - Mon bulletin';
-                                        initAverageStudentChart();
-                                        initTableSorter();
-                                    }
-                                });
-                            }
-                            else {
-                                $('#site-wrap').replaceWith(view.slice(view.search('<div id=\"site-wrap\"'), view.search('<!-- End site-wrap -->')));
-                                $('#mod-connection').animate(
-                                    {
-                                        left: "+=5"
-                                    }, 60).animate(
-                                    {
-                                        left: "-=10"
-                                    }, 60).animate(
-                                    {
-                                        left: "+=10"
-                                    }, 60).animate(
-                                    {
-                                        left: "-=10"
-                                    }, 60).animate(
-                                    {
-                                        left: "+=5"
-                                    }, 60);
-                            }
-                            initDatepicker();
-                            initSelect2();
-                        }
-                    });
-
-            });
-    });
-};
 jQuery(document).ready(function ($) {
     initTableSorter();
     initDatepicker();
     initSelect2();
     animSortableColumn();
-    alert(contextPath);
 });
