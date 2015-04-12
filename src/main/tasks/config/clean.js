@@ -1,4 +1,4 @@
-module.exports = function (grunt) {
+module.exports = function(grunt) {
     grunt.config.set('clean', {
         build: [
             'src/main/webapp/resources/js',
