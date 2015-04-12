@@ -70,18 +70,18 @@
 	th.sortable 
 	{
 		cursor:     pointer;
-		background: url('http://localhost:8080/ZPareo/assets/img/icons/sortable.png') no-repeat -moz-calc(100% - 20px) 50%;
-		background: url('http://localhost:8080/ZPareo/assets/img/icons/sortable.png') no-repeat -webkit-calc(100% - 20px) 50%;
+		background: url('../img/icons/sortable.png') no-repeat -moz-calc(100% - 20px) 50%;
+		background: url('../img/icons/sortable.png') no-repeat -webkit-calc(100% - 20px) 50%;
 	}
 	th.sortable.asc 
 	{
-	  	background: url('http://localhost:8080/ZPareo/assets/img/icons/sortable-asc.png')  no-repeat -moz-calc(100% - 20px) 50%;
-	  	background: url('http://localhost:8080/ZPareo/assets/img/icons/sortable-asc.png')  no-repeat -webkit-calc(100% - 20px) 50%;
+	  	background: url('../img/icons/sortable-asc.png')  no-repeat -moz-calc(100% - 20px) 50%;
+	  	background: url('../img/icons/sortable-asc.png')  no-repeat -webkit-calc(100% - 20px) 50%;
 	}
 	th.sortable.desc 
 	{
-	  	background: url('http://localhost:8080/ZPareo/assets/img/icons/sortable-desc.png')  no-repeat -moz-calc(100% - 20px) 50%;
-	  	background: url('http://localhost:8080/ZPareo/assets/img/icons/sortable-desc.png')  no-repeat -webkit-calc(100% - 20px) 50%;
+	  	background: url('../img/icons/sortable-desc.png')  no-repeat -moz-calc(100% - 20px) 50%;
+	  	background: url('../img/icons/sortable-desc.png')  no-repeat -webkit-calc(100% - 20px) 50%;
 	}
 	th
 	{

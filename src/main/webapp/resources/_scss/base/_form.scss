@@ -77,44 +77,44 @@ textarea[required],
 select[required] 
 {
     border:     1px solid $border-color-light-gray;
-    background: url("http://localhost:8080/ZPareo/assets/img/icons/required-input.png") white -moz-calc(100% - 10px) 50% no-repeat;
-    background: url("http://localhost:8080/ZPareo/assets/img/icons/required-input.png") white -webkit-calc(100% - 10px) 50% no-repeat;
+    background: url("../img/icons/required-input.png") white -moz-calc(100% - 10px) 50% no-repeat;
+    background: url("../img/icons/required-input.png") white -webkit-calc(100% - 10px) 50% no-repeat;
 }
 input[required]:valid, 
 textarea[required]:valid 
 {
-	background: url("http://localhost:8080/ZPareo/assets/img/icons/valid-input.png") white -moz-calc(100% - 10px) 50% no-repeat;
-	background: url("http://localhost:8080/ZPareo/assets/img/icons/valid-input.png") white -webkit-calc(100% - 10px) 50% no-repeat;
+	background: url("../img/icons/valid-input.png") white -moz-calc(100% - 10px) 50% no-repeat;
+	background: url("../img/icons/valid-input.png") white -webkit-calc(100% - 10px) 50% no-repeat;
 }
 select[required]:valid 
 {
-	background: url("http://localhost:8080/ZPareo/assets/img/icons/valid-input.png") white -moz-calc(100% - 35px) 50% no-repeat;
-	background: url("http://localhost:8080/ZPareo/assets/img/icons/valid-input.png") white -webkit-calc(100% - 35px) 50% no-repeat;
+	background: url("../img/icons/valid-input.png") white -moz-calc(100% - 35px) 50% no-repeat;
+	background: url("../img/icons/valid-input.png") white -webkit-calc(100% - 35px) 50% no-repeat;
 }
 input[required]:focus:valid, 
 textarea[required]:focus:valid 
 {
 	border:     1px solid $border-color-success;
-	background: url("http://localhost:8080/ZPareo/assets/img/icons/valid-input.png") white -moz-calc(100% - 10px) 50% no-repeat;
-	background: url("http://localhost:8080/ZPareo/assets/img/icons/valid-input.png") white -webkit-calc(100% - 10px) 50% no-repeat;
+	background: url("../img/icons/valid-input.png") white -moz-calc(100% - 10px) 50% no-repeat;
+	background: url("../img/icons/valid-input.png") white -webkit-calc(100% - 10px) 50% no-repeat;
 }
 select[required]:focus:valid
 {
 	border:     1px solid $border-color-success;
-	background: url("http://localhost:8080/ZPareo/assets/img/icons/valid-input.png") white -moz-calc(100% - 35px) 50% no-repeat;
-	background: url("http://localhost:8080/ZPareo/assets/img/icons/valid-input.png") white -webkit-calc(100% - 35px) 50% no-repeat;
+	background: url("../img/icons/valid-input.png") white -moz-calc(100% - 35px) 50% no-repeat;
+	background: url("../img/icons/valid-input.png") white -webkit-calc(100% - 35px) 50% no-repeat;
 }
 input[disabled],
 textarea[disabled]
 {
 	
-	background: url("http://localhost:8080/ZPareo/assets/img/icons/valid-input.png") white -moz-calc(100% - 10px) 50% no-repeat !important;
-	background: url("http://localhost:8080/ZPareo/assets/img/icons/valid-input.png") white -webkit-calc(100% - 10px) 50% no-repeat !important;
+	background: url("../img/icons/valid-input.png") white -moz-calc(100% - 10px) 50% no-repeat !important;
+	background: url("../img/icons/valid-input.png") white -webkit-calc(100% - 10px) 50% no-repeat !important;
 }
 select[disabled]
 {
-	background: url("http://localhost:8080/ZPareo/assets/img/icons/valid-input.png") white -moz-calc(100% - 35px) 50% no-repeat !important;
-	background: url("http://localhost:8080/ZPareo/assets/img/icons/valid-input.png") white -webkit-calc(100% - 35px) 50% no-repeat !important;
+	background: url("../img/icons/valid-input.png") white -moz-calc(100% - 35px) 50% no-repeat !important;
+	background: url("../img/icons/valid-input.png") white -webkit-calc(100% - 35px) 50% no-repeat !important;
 }
 input[required]:focus:invalid, 
 textarea[required]:focus:invalid, 
@@ -126,8 +126,8 @@ select[required]:focus:invalid
 select[required] 
 {
     border:     1px solid $border-color-light-gray;
-    background: url("http://localhost:8080/ZPareo/assets/img/icons/required-input.png") white -moz-calc(100% - 35px) 50% no-repeat;
-    background: url("http://localhost:8080/ZPareo/assets/img/icons/required-input.png") white -webkit-calc(100% - 35px) 50% no-repeat;
+    background: url("../img/icons/required-input.png") white -moz-calc(100% - 35px) 50% no-repeat;
+    background: url("../img/icons/required-input.png") white -webkit-calc(100% - 35px) 50% no-repeat;
 }
 input:invalid {
     box-shadow:none;

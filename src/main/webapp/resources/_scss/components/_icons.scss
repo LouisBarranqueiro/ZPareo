@@ -1,11 +1,12 @@
-@font-face 
+
+@font-face
 {
 	font-family: 'icomoon';
-	src:         url('http://localhost:8080/ZPareo/assets/fonts/icomoon.eot?-8hwm07');
-	src:         url('http://localhost:8080/ZPareo/assets/fonts/icomoon.eot?#iefix-8hwm07') format('embedded-opentype'),
-		         url('http://localhost:8080/ZPareo/assets/fonts/icomoon.woff?-8hwm07') format('woff'),
-		         url('http://localhost:8080/ZPareo/assets/fonts/icomoon.ttf?-8hwm07') format('truetype'),
-		         url('http://localhost:8080/ZPareo/assets/fonts/icomoon.svg?-8hwm07#icomoon') format('svg');
+	src:         url('../fonts/icomoon.eot?-8hwm07');
+	src:         url('../fonts/icomoon.eot?#iefix-8hwm07') format('embedded-opentype'),
+		         url('../fonts/icomoon.woff?-8hwm07') format('woff'),
+		         url('../fonts/icomoon.ttf?-8hwm07') format('truetype'),
+		         url('../fonts/icomoon.svg?-8hwm07#icomoon') format('svg');
 	font-weight: normal;
 	font-style:  normal;
 }
@@ -130,7 +131,7 @@
 }
 .icon-load
 {
-	background: url('http://localhost:8080/ZPareo/assets/img/icons/load.gif') no-repeat;
+	background: url('../img/icons/load.gif') no-repeat;
 	display:    block;
 	width:      31px;
 	height:     31px;
