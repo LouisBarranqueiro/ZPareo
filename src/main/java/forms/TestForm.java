@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import beans.Subject;
 
-public final class TestForm 
+public class TestForm
 {
 	private static final String TEACHER_SESSION   = "teacherSession";
 	private static final String ID_FIELD          = "id";

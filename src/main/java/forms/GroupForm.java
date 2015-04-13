@@ -10,7 +10,7 @@ import dao.GroupDao;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public final class GroupForm 
+public class GroupForm
 {
 	private static final String ADMINISTRATOR_SESSION = "administratorSession";
 	private static final String ID_FIELD              = "id";

@@ -16,7 +16,7 @@ import beans.Administrator;
 import beans.Student;
 import beans.Group;
 
-public final class StudentForm 
+public class StudentForm
 { 
 	private static final String STUDENT_SESSION       = "studentSession";
 	private static final String ADMINISTRATOR_SESSION = "administratorSession";
