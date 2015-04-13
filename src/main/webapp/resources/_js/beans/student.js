@@ -1,5 +1,5 @@
 /**
- * Creates a student
+ * Create a student
  */
 var createStudent = function() {
     $('#create-student').submit(function(event) {
@@ -9,37 +9,36 @@ var createStudent = function() {
         var emailAddress = $('#create-student input[name=emailAddress]').val();
         var group        = $('#create-student select[name=group]').val();
         var modalWindow  = $('#modal');
+        var url          = $(this).attr('action');
 
-        $.ajax(
-            {
-                type:    'POST',
-                url:     baseURL + '/zpareo/ai/etudiant/creation',
-                data:    {
-                    lastName:     lastName,
-                    firstName:    firstName,
-                    emailAddress: emailAddress,
-                    group:        group
-                },
-                error:   function() {
-                    alert('error !');
-                },
-                success: function(view) {
-                    if (view.search('<div id=\"main-wrap\"') > 0) {
-                        removeModalWindow();
-                        $('#main-wrap').replaceWith(sliceMainView(view));
-                    }
-                    else {
-                        modalWindow.html(view);
-                        initModalWindow(300);
-
-                    }
+        $.ajax({
+            type:    'POST',
+            url:     baseURL + url,
+            data:    {
+                lastName:     lastName,
+                firstName:    firstName,
+                emailAddress: emailAddress,
+                group:        group
+            },
+            error:   function() {
+                alert('error !');
+            },
+            success: function(view) {
+                if (view.search('<div id=\"main-wrap\"') > 0) {
+                    removeModalWindow();
+                    $('#main-wrap').replaceWith(sliceMainView(view));
                 }
-            });
+                else {
+                    modalWindow.html(view);
+                    initModalWindow(300);
+                }
+            }
+        });
     });
 };
 
 /**
- * Edits a student
+ * Edit a student
  */
 var editStudent = function() {
     $('#edit-student').submit(function(event) {
@@ -50,48 +49,48 @@ var editStudent = function() {
         var emailAddress = $('#edit-student input[name=emailAddress]').val();
         var group        = $('#edit-student select[name=group]').val();
         var modalWindow  = $('#modal');
+        var url          = $(this).attr('action');
 
-        $.ajax(
-            {
-                type:    'POST',
-                url:     baseURL + '/zpareo/ai/etudiant/edition',
-                data:    {
-                    id:           id,
-                    lastName:     lastName,
-                    firstName:    firstName,
-                    emailAddress: emailAddress,
-                    group:        group
-                },
-                error:   function() {
-                    alert("error !");
-                },
-                success: function(view) {
-                    if (view.search('<div id=\"main-wrap\"') > 0) {
-                        removeModalWindow();
-                        $('#main-wrap').replaceWith(sliceMainView(view));
-                    }
-                    else {
-                        modalWindow.html(view);
-                        initModalWindow(300);
-
-                    }
+        $.ajax({
+            type:    'POST',
+            url:     baseURL + url,
+            data:    {
+                id:           id,
+                lastName:     lastName,
+                firstName:    firstName,
+                emailAddress: emailAddress,
+                group:        group
+            },
+            error:   function() {
+                alert("error !");
+            },
+            success: function(view) {
+                if (view.search('<div id=\"main-wrap\"') > 0) {
+                    removeModalWindow();
+                    $('#main-wrap').replaceWith(sliceMainView(view));
                 }
-            });
+                else {
+                    modalWindow.html(view);
+                    initModalWindow(300);
+                }
+            }
+        });
     });
 };
 
 /**
- * Deletes a student
+ * Delete a student
  */
 var deleteStudent = function() {
     $('#delete-student').submit(function(event) {
         event.preventDefault();
         var id          = $('#delete-student input[name=id]').val();
         var modalWindow = $('#modal');
+        var url         = $(this).attr('action');
 
         $.ajax({
             type:    'POST',
-            url:     baseURL + '/zpareo/ai/etudiant/suppression',
+            url:     baseURL + url,
             data:    {
                 id: id
             },
@@ -106,7 +105,6 @@ var deleteStudent = function() {
                 else {
                     modalWindow.html(view);
                     initModalWindow(300);
-
                 }
             }
         });
@@ -114,26 +112,26 @@ var deleteStudent = function() {
 };
 
 /**
- * Resets a user password
+ * Reset a user password
  */
-var resetPassStudent = function() {
-    $('#reinit-pass-student').submit(function(event) {
+var resetPasswordStudent = function() {
+    $('#reset-pass-student').submit(function(event) {
         event.preventDefault();
-        var id = $('#reinit-pass-student input[name=id]').val();
+        var id  = $('#reinit-pass-student input[name=id]').val();
+        var url = $(this).attr('action');
 
-        $.ajax(
-            {
-                type:    'POST',
-                url:     baseURL + '/zpareo/ai/etudiant/reinit-mot-de-passe',
-                data:    {
-                    id: id
-                },
-                error:   function() {
-                    alert("error !");
-                },
-                success: function(data) {
-                    removeModalWindow();
-                }
-            });
+        $.ajax({
+            type:    'POST',
+            url:     baseURL + url,
+            data:    {
+                id: id
+            },
+            error:   function() {
+                alert("error !");
+            },
+            success: function(data) {
+                removeModalWindow();
+            }
+        });
     });
 };

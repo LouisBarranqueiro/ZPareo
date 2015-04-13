@@ -8,45 +8,57 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import beans.Student;
 import beans.Group;
 import dao.DAOFactory;
 import dao.StudentDao;
 import dao.GroupDao;
 import forms.StudentForm;
 
-@WebServlet("/ai/student")
-public class Student extends HttpServlet {
+@WebServlet("/ai/student/create")
+public class StudentCreate extends HttpServlet {
     private static final String CONF_DAO_FACTORY = "daofactory";
-    private static final String STUDENTS         = "students";
+    private static final String STUDENTS         = "student";
     private static final String GROUPS           = "groups";
-    private static final String NUMB_STUDENTS    = "numbStudents";
     private static final String STUDENT_FORM     = "studentForm";
-    private static final String VIEW             = "/WEB-INF/ai/student/index.xhtml";
+    private static final String VIEW             = "/WEB-INF/ai/student/create.xhtml";
+    private String     contextPath;
     private StudentDao studentDao;
     private GroupDao   groupDao;
 
-    public Student() {
+    public StudentCreate() {
         super();
     }
 
     public void init() throws ServletException {
+        this.contextPath = getServletContext().getContextPath();
         this.studentDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getStudentDao();
         this.groupDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getGroupDao();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        StudentForm        studentForm = new StudentForm(this.studentDao);
-        Set<beans.Student> students    = studentForm.search(request);
-        Group              groupe      = new Group();
-        Set<beans.Group>   groups      = this.groupDao.search(groupe);
+        Group      group  = new Group();
+        Set<Group> groups = this.groupDao.search(group);
 
-        request.setAttribute(STUDENT_FORM, studentForm);
-        request.setAttribute(STUDENTS, students);
         request.setAttribute(GROUPS, groups);
-        request.setAttribute(NUMB_STUDENTS, students.size());
         this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Group       group       = new Group();
+        StudentForm studentForm = new StudentForm(this.studentDao);
+        Set<Group>  groups      = this.groupDao.search(group);
+        Student     student     = studentForm.create(request);
+
+        if (studentForm.getErrors().isEmpty()) {
+            response.sendRedirect(this.contextPath + "/ai/student");
+        }
+        else {
+            request.setAttribute(STUDENT_FORM, studentForm);
+            request.setAttribute(STUDENTS, student);
+            request.setAttribute(GROUPS, groups);
+            this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);
+        }
     }
+
 }
