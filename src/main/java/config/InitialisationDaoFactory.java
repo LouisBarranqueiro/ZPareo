@@ -8,25 +8,20 @@ import javax.servlet.annotation.WebListener;
 import dao.DAOFactory;
 
 @WebListener
-public class InitialisationDaoFactory implements ServletContextListener 
-{
-	private static final String DAO_FACTORY = "daofactory";
+public class InitialisationDaoFactory implements ServletContextListener {
+    private static final String DAO_FACTORY = "daofactory";
     private DAOFactory daoFactory;
 
-    public InitialisationDaoFactory() 
-    {
+    public InitialisationDaoFactory() {
     }
 
-    @Override
-    public void contextInitialized(ServletContextEvent event) 
-    {
+    public void contextInitialized(ServletContextEvent event) {
         ServletContext servletContext = event.getServletContext();
         this.daoFactory = DAOFactory.getInstance();
         servletContext.setAttribute(DAO_FACTORY, this.daoFactory);
     }
-	
-    public void contextDestroyed(ServletContextEvent arg0) 
-    {
+
+    public void contextDestroyed(ServletContextEvent arg0) {
     }
-	
+
 }
