@@ -17,16 +17,16 @@ public class GroupDelete extends HttpServlet {
     private static final String CONF_DAO_FACTORY = "daofactory";
     private static final String GROUP            = "group";
     private static final String VIEW             = "/WEB-INF/ai/group/delete.xhtml";
-    private String   path;
+    private String   contextPath;
     private GroupDao groupDao;
-
-    public void init(HttpServlet config) throws ServletException {
-        this.path = config.getServletContext().getContextPath();
-        this.groupDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getGroupDao();
-    }
 
     public GroupDelete() {
         super();
+    }
+
+    public void init() throws ServletException {
+        this.contextPath = getServletContext().getContextPath();
+        this.groupDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getGroupDao();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,7 +41,6 @@ public class GroupDelete extends HttpServlet {
         GroupForm groupeForm = new GroupForm(this.groupDao);
 
         groupeForm.delete(request);
-        response.sendRedirect(this.path + "/ai/group");
+        response.sendRedirect(this.contextPath + "/ai/group");
     }
-
 }

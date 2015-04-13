@@ -18,15 +18,15 @@ public class GroupCreate extends HttpServlet {
     private static final String GROUP            = "group";
     private static final String GROUP_FORM       = "groupForm";
     private static final String VIEW             = "/WEB-INF/ai/group/create.xhtml";
-    private String   path;
+    private String   contextPath;
     private GroupDao groupDao;
 
     public GroupCreate() {
         super();
     }
 
-    public void init(HttpServlet config) throws ServletException {
-        this.path = config.getServletContext().getContextPath();
+    public void init() throws ServletException {
+        this.contextPath = getServletContext().getContextPath();
         this.groupDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getGroupDao();
     }
 
@@ -39,7 +39,7 @@ public class GroupCreate extends HttpServlet {
         Group     group     = groupForm.create(request);
 
         if (groupForm.getErrors().isEmpty()) {
-            response.sendRedirect(this.path + "/ai/group");
+            response.sendRedirect(this.contextPath + "/ai/group");
         }
         else {
             request.setAttribute(GROUP_FORM, groupForm);
@@ -47,5 +47,4 @@ public class GroupCreate extends HttpServlet {
             this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);
         }
     }
-
 }

@@ -18,32 +18,33 @@ public class GroupUpdate extends HttpServlet {
     private static final String GROUP            = "group";
     private static final String GROUP_FORM       = "groupForm";
     private static final String VIEW             = "/WEB-INF/ai/group/update.xhtml";
-    private String   path;
-    private GroupDao groupeDao;
-
-    public void init(HttpServlet config) throws ServletException {
-        this.path = config.getServletContext().getContextPath();
-        this.groupeDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getGroupDao();
-    }
+    private String   contextPath;
+    private GroupDao groupDao;
 
     public GroupUpdate() {
         super();
     }
 
+    public void init() throws ServletException {
+        this.contextPath = getServletContext().getContextPath();
+        this.groupDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getGroupDao();
+    }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        GroupForm groupForm = new GroupForm(this.groupeDao);
+        GroupForm groupForm = new GroupForm(this.groupDao);
         Group     group     = groupForm.get(request);
 
+        request.setAttribute(GROUP_FORM, groupForm);
         request.setAttribute(GROUP, group);
         this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        GroupForm groupForm = new GroupForm(this.groupeDao);
+        GroupForm groupForm = new GroupForm(this.groupDao);
         Group     group     = groupForm.edit(request);
 
         if (groupForm.getErrors().isEmpty()) {
-            response.sendRedirect(this.path + "/ai/group");
+            response.sendRedirect(this.contextPath + "/ai/group");
         }
         else {
             request.setAttribute(GROUP_FORM, groupForm);
@@ -51,5 +52,4 @@ public class GroupUpdate extends HttpServlet {
             this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);
         }
     }
-
 }

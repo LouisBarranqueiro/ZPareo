@@ -17,16 +17,15 @@ public class AdministratorDelete extends HttpServlet {
     private static final String CONF_DAO_FACTORY = "daofactory";
     private static final String ADMINISTRATOR    = "administrator";
     private static final String VIEW             = "/WEB-INF/ai/administrator/delete.xhtml";
-    private String           path;
+    private String           contextPath;
     private AdministratorDao administratorDao;
 
     public AdministratorDelete() {
         super();
     }
 
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        this.path = config.getServletContext().getContextPath();
+    public void init() throws ServletException {
+        this.contextPath = getServletContext().getContextPath();
         this.administratorDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getAdministratorDao();
     }
 
@@ -42,7 +41,7 @@ public class AdministratorDelete extends HttpServlet {
         AdministratorForm administratorForm = new AdministratorForm(this.administratorDao);
 
         administratorForm.delete(request);
-        response.sendRedirect(this.path + "/ai/administrator");
+        response.sendRedirect(this.contextPath + "/ai/administrator");
     }
 
 }
