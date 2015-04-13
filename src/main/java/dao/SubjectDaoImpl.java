@@ -57,7 +57,7 @@ public class SubjectDaoImpl implements SubjectDao {
     /**
      * Searches one or more subject into database
      * @param subject
-     * @return matters
+     * @return subjects
      * @throws DAOException
      */
     public Set<Subject> search(Subject subject) throws DAOException {

@@ -1,4 +1,4 @@
-package servlets.ai.matter;
+package servlets.ai.subject;
 
 import java.io.IOException;
 import java.util.Set;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.SubjectDao;
-import forms.MatterForm;
+import forms.SubjectForm;
 import dao.DAOFactory;
 
 @WebServlet("/ai/subject")
@@ -26,14 +26,14 @@ public class Subject extends HttpServlet {
     }
 
     public void init() throws ServletException {
-        this.subjectDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getMatterDao();
+        this.subjectDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getSubjectDao();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        MatterForm         matterForm = new MatterForm(this.subjectDao);
-        Set<beans.Subject> subjects   = matterForm.search(request);
+        SubjectForm        subjectForm = new SubjectForm(this.subjectDao);
+        Set<beans.Subject> subjects    = subjectForm.search(request);
 
-        request.setAttribute(SUBJECT_FORM, matterForm);
+        request.setAttribute(SUBJECT_FORM, subjectForm);
         request.setAttribute(SUBJECTS, subjects);
         request.setAttribute(NUMB_SUBJECTS, subjects.size());
         this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);
@@ -41,5 +41,4 @@ public class Subject extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
-
 }

@@ -82,7 +82,7 @@ public class DAOFactory {
      * Returns an instance of SubjectDaoImpl
      * @return SubjectDaoImpl
      */
-    public SubjectDao getMatterDao() {
+    public SubjectDao getSubjectDao() {
         return new SubjectDaoImpl(this);
     }
 

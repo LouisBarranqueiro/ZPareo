@@ -1,4 +1,4 @@
-package servlets.ai.matter;
+package servlets.ai.subject;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.Subject;
-import forms.MatterForm;
+import forms.SubjectForm;
 import dao.DAOFactory;
 import dao.SubjectDao;
 
@@ -18,16 +18,16 @@ public class SubjectCreate extends HttpServlet {
     private static final String SUBJECT          = "subject";
     private static final String SUBJECT_FORM     = "subjectForm";
     private static final String VIEW             = "/WEB-INF/ai/subject/create.xhtml";
-    private String     path;
+    private String     contextPath;
     private SubjectDao subjectDao;
 
     public SubjectCreate() {
         super();
     }
 
-    public void init(HttpServlet config) throws ServletException {
-        this.path = config.getServletContext().getContextPath();
-        this.subjectDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getMatterDao();
+    public void init() throws ServletException {
+        this.contextPath = getServletContext().getContextPath();
+        this.subjectDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getSubjectDao();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,14 +35,14 @@ public class SubjectCreate extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        MatterForm matterForm = new MatterForm(this.subjectDao);
-        Subject    subject    = matterForm.create(request);
+        SubjectForm subjectForm = new SubjectForm(this.subjectDao);
+        Subject     subject     = subjectForm.create(request);
 
-        if (matterForm.getErrors().isEmpty()) {
-            response.sendRedirect(this.path + "/ai/subject");
+        if (subjectForm.getErrors().isEmpty()) {
+            response.sendRedirect(this.contextPath + "/ai/subject");
         }
         else {
-            request.setAttribute(SUBJECT_FORM, matterForm);
+            request.setAttribute(SUBJECT_FORM, subjectForm);
             request.setAttribute(SUBJECT, subject);
             this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);
         }

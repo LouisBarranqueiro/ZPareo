@@ -1,4 +1,4 @@
-package servlets.ai.matter;
+package servlets.ai.subject;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,19 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 import beans.Subject;
 import dao.DAOFactory;
 import dao.SubjectDao;
-import forms.MatterForm;
+import forms.SubjectForm;
 
 @WebServlet("/ai/subject/delete")
 public class SubjectDelete extends HttpServlet {
     private static final String CONF_DAO_FACTORY = "daofactory";
     private static final String SUBJECT          = "subject";
     private static final String VIEW             = "/WEB-INF/ai/subject/delete.xhtml";
-    private String     path;
+    private String     contextPath;
     private SubjectDao subjectDao;
 
-    public void init(HttpServlet config) throws ServletException {
-        this.path = config.getServletContext().getContextPath();
-        this.subjectDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getMatterDao();
+    public void init() throws ServletException {
+        this.contextPath = getServletContext().getContextPath();
+        this.subjectDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getSubjectDao();
     }
 
     public SubjectDelete() {
@@ -30,18 +30,17 @@ public class SubjectDelete extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        MatterForm matterForm = new MatterForm(this.subjectDao);
-        Subject    subject    = matterForm.get(request);
+        SubjectForm subjectForm = new SubjectForm(this.subjectDao);
+        Subject     subject     = subjectForm.get(request);
 
         request.setAttribute(SUBJECT, subject);
         this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        MatterForm matterForm = new MatterForm(this.subjectDao);
+        SubjectForm subjectForm = new SubjectForm(this.subjectDao);
 
-        matterForm.delete(request);
-        response.sendRedirect(this.path + "/ai/subject");
+        subjectForm.delete(request);
+        response.sendRedirect(this.contextPath + "/ai/subject");
     }
-
 }

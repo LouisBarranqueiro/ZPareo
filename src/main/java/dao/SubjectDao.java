@@ -1,7 +1,6 @@
 package dao;
 
 import java.util.Set;
-
 import beans.Subject;
 
 public interface SubjectDao {
