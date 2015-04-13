@@ -4,7 +4,7 @@ import java.util.Set;
 
 import beans.Subject;
 
-public interface MatterDao {
+public interface SubjectDao {
     /**
      * Creates a subject into database
      * @param subject

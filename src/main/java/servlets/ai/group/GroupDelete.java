@@ -16,7 +16,6 @@ import forms.GroupForm;
 public class GroupDelete extends HttpServlet {
     private static final String CONF_DAO_FACTORY = "daofactory";
     private static final String GROUP            = "group";
-    private static final String GROUP_FORM       = "groupForm";
     private static final String VIEW             = "/WEB-INF/ai/group/delete.xhtml";
     private String   path;
     private GroupDao groupDao;
@@ -34,7 +33,6 @@ public class GroupDelete extends HttpServlet {
         GroupForm groupeForm = new GroupForm(this.groupDao);
         Group     group      = groupeForm.get(request);
 
-        request.setAttribute(GROUP_FORM, groupeForm);
         request.setAttribute(GROUP, group);
         this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);
     }

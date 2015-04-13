@@ -341,7 +341,7 @@ public class TestDaoImpl implements TestDao {
         PreparedStatement preparedStatement = null;
         ResultSet         resultSet         = null;
         Set<SubjectScore> subjectScores     = new TreeSet<SubjectScore>();
-        MatterDaoImpl     matterDao         = new MatterDaoImpl(daoFactory);
+        SubjectDaoImpl matterDao         = new SubjectDaoImpl(daoFactory);
 
         try {
             connexion = daoFactory.getConnection();

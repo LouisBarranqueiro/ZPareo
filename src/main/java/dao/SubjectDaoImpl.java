@@ -14,7 +14,7 @@ import java.util.TreeSet;
 import beans.Administrator;
 import beans.Subject;
 
-public class MatterDaoImpl implements MatterDao {
+public class SubjectDaoImpl implements SubjectDao {
     private DAOFactory daoFactory;
     private static final String SELECT_COUNT_BY_NAME = "SELECT COUNT(id) FROM gnw_matiere WHERE date_suppr IS NULL AND nom = ?";
     private static final String SELECT_ALL           = "SELECT id, nom FROM gnw_matiere WHERE date_suppr IS NULL";
@@ -27,7 +27,7 @@ public class MatterDaoImpl implements MatterDao {
      * Returns daoFactory
      * @param daoFactory
      */
-    MatterDaoImpl(DAOFactory daoFactory) {
+    SubjectDaoImpl(DAOFactory daoFactory) {
         this.daoFactory = daoFactory;
     }
 

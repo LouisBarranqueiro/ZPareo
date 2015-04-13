@@ -6,31 +6,31 @@ import java.util.Map;
 import java.util.Set;
 import beans.Administrator;
 import beans.Subject;
-import dao.MatterDao;
+import dao.SubjectDao;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public final class MatterForm 
 {
-	private static final String ADMINISTRATOR_SESSION = "administratorSession";
-	private static final String ID_FIELD              = "id";
-    private static final String NAME_FIELD            = "name";
-    private Map<String, String> errors                = new HashMap<String, String>();
-    private MatterDao matterDao;
+    private static final String              ADMINISTRATOR_SESSION = "administratorSession";
+    private static final String              ID_FIELD              = "id";
+    private static final String              NAME_FIELD            = "name";
+    private              Map<String, String> errors                = new HashMap<String, String>();
+    private SubjectDao subjectDao;
 
     /**
      * Constructor
-     * 
-     * @param matterDao
+     *
+     * @param subjectDao
      */
-    public MatterForm(MatterDao matterDao) 
-    {
-    	this.matterDao = matterDao;
+    public MatterForm(SubjectDao subjectDao) {
+        this.subjectDao = subjectDao;
     }
-    
+
     /**
      * Creates a matter into database
-     * 
+     *
      * @param request
      * @return matter
      */
@@ -46,7 +46,7 @@ public final class MatterForm
             treatMatter(subject);
             treatCreator(creator, subject);
             
-            if (errors.isEmpty()) matterDao.create(subject);
+            if (errors.isEmpty()) subjectDao.create(subject);
             
         } 
         catch ( Exception e ) 
@@ -72,7 +72,7 @@ public final class MatterForm
     	
     	treatId(id, subject);
     	subject.setName(name);
-        subjects = matterDao.search(subject);
+        subjects = subjectDao.search(subject);
         
     	return subjects;
     }
@@ -95,7 +95,7 @@ public final class MatterForm
     	treatMatter(subject);
         treatEditor(editor, subject);
         
-    	if (errors.isEmpty()) matterDao.edit(subject);
+    	if (errors.isEmpty()) subjectDao.edit(subject);
        	
 
     	return subject;
@@ -113,7 +113,7 @@ public final class MatterForm
     	Subject subject = new Subject();
     	
     	treatId(id, subject);
-    	subject = matterDao.get(subject);
+    	subject = subjectDao.get(subject);
     	
     	return subject;
     }
@@ -131,7 +131,7 @@ public final class MatterForm
     	
     	treatId(id, subject);
     	treatEditor(editor, subject);
-    	matterDao.delete(subject);
+    	subjectDao.delete(subject);
     }
    
     /**
@@ -261,7 +261,7 @@ public final class MatterForm
      */
     private void validateMatter(Subject subject) throws Exception
     {
-        if (matterDao.check(subject) != 0) throw new Exception("Cette matière existe déja");
+        if (subjectDao.check(subject) != 0) throw new Exception("Cette matière existe déja");
         
     }
     

@@ -13,7 +13,7 @@ import beans.Group;
 import beans.Subject;
 import dao.DAOFactory;
 import dao.GroupDao;
-import dao.MatterDao;
+import dao.SubjectDao;
 import dao.TeacherDao;
 import forms.TeacherForm;
 
@@ -28,24 +28,21 @@ public class TeacherEdition extends HttpServlet
 	private static final String TEACHER_FORM     = "teacherForm";
 	private static final String VIEW             = "/WEB-INF/ai/teacher/edition.jsp";
 	private TeacherDao teacherDao;
-	private GroupDao groupeDao;
-	private MatterDao matiereDao;
-	
-	public void init() throws ServletException 
-    {
+	private GroupDao   groupeDao;
+	private SubjectDao matiereDao;
+
+	public void init() throws ServletException {
 		this.matiereDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getMatterDao();
-        this.groupeDao  = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getGroupDao();
-        this.teacherDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getTeacherDao();
-    }
+		this.groupeDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getGroupDao();
+		this.teacherDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getTeacherDao();
+	}
 
-    public TeacherEdition() 
-    {
-        super();
-    }
+	public TeacherEdition() {
+		super();
+	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
-		Subject      matiere          = new Subject();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Subject matiere          = new Subject();
 		Group groupe            = new Group();
 		Set<Group> groups       = this.groupeDao.search(groupe);
 		Set<Subject> subjects         = this.matiereDao.search(matiere);

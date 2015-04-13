@@ -79,11 +79,11 @@ public class DAOFactory {
     }
 
     /**
-     * Returns an instance of MatterDaoImpl
-     * @return MatterDaoImpl
+     * Returns an instance of SubjectDaoImpl
+     * @return SubjectDaoImpl
      */
-    public MatterDao getMatterDao() {
-        return new MatterDaoImpl(this);
+    public SubjectDao getMatterDao() {
+        return new SubjectDaoImpl(this);
     }
 
     /**
