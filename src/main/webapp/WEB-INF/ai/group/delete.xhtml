@@ -10,7 +10,7 @@
             <h3 class="modal__mod__head__title text-center">Deleting of group n°#{group.id}</h3>
         </div>
         <div class="modal__mod--lg">
-            <p>Are you sur to delete group : <c:out value="${group.name}"/>?</p>
+            <p>Are you sur to delete group : #{group.name} ?</p>
             <input type="hidden" name="id" value="#{group.id}" size="30" pattern="[0-9]{1,11}" readonly="readonly" required="required"/>
         </div>
         <div class="form__control modal__mod__control">

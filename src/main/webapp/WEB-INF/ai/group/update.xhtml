@@ -5,13 +5,16 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <form id="edit-group" action="#{request.servletContext}/ai/group/update" method="POST" class="form--horizontal">
+    <form id="edit-group" action="#{request.contextPath}/ai/group/update" method="POST"
+          class="form--horizontal">
         <div class="modal__mod__head">
             <h3 class="modal__mod__head__title text-center">Editing of group n°#{group.id}</h3>
         </div>
         <div class="modal__mod--lg">
-            <input type="hidden" name="id" class="form--control" size="30" value="#{group.id}" readonly="readonly" required="required"/>
-            <input type="text" name="name" class="form--control" size="30" value="#{group.name}" pattern="(G|g)[A-Za-z]" placeholder="Name" required="required"/>
+            <input type="hidden" name="id" class="form--control" size="30" value="#{group.id}" readonly="readonly"
+                   required="required"/>
+            <input type="text" name="name" class="form--control" size="30" value="#{group.name}"
+                   pattern="(G|g)[A-Za-z]" placeholder="Name" required="required"/>
             <span class="form__error">#{groupForm.errors['name']}</span>
             <span class="form__error">#{groupForm.errors['group']}</span>
         </div>
