@@ -236,7 +236,7 @@ public class SubjectForm {
     }
 
     /**
-     * Validates matter's creator
+     * Validates subject's creator
      * @param creator
      * @throws Exception
      */
