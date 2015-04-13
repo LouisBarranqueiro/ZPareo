@@ -1,16 +1,17 @@
 /**
- * Creates a matter
+ * Creates a subject
  */
-var createMatter = function() {
-    $('#create-matter').submit(function(event) {
+var createSubject = function() {
+    $('#create-subject').submit(function(event) {
         event.preventDefault();
-        var name        = $('#create-matter input[name=name]').val();
+        var name        = $('#create-subject input[name=name]').val();
         var modalWindow = $('#modal');
+        var url         = $(this).attr('action');
 
         $.ajax(
             {
                 type:    'POST',
-                url:     baseURL + '/zpareo/ai/matiere/creation',
+                url:     baseURL + url,
                 data:    {
                     name: name
                 },
@@ -25,7 +26,6 @@ var createMatter = function() {
                     else {
                         modalWindow.html(view);
                         initModalWindow(300);
-
                     }
                 }
             });
@@ -33,19 +33,20 @@ var createMatter = function() {
 };
 
 /**
- * Edits a matter
+ * Edits a subject
  */
-var editMatter = function() {
-    $('#edit-matter').submit(function(event) {
+var editSubject = function() {
+    $('#edit-subject').submit(function(event) {
         event.preventDefault();
-        var id          = $('#edit-matter input[name=id]').val();
-        var name        = $('#edit-matter input[name=name]').val();
+        var id          = $('#edit-subject input[name=id]').val();
+        var name        = $('#edit-subject input[name=name]').val();
         var modalWindow = $('#modal');
+        var url         = $(this).attr('action');
 
         $.ajax(
             {
                 type:    'POST',
-                url:     baseURL + '/zpareo/ai/matiere/edition',
+                url:     baseURL + url,
                 data:    {
                     id:   id,
                     name: name
@@ -68,18 +69,19 @@ var editMatter = function() {
 };
 
 /**
- * Deletes a matter
+ * Deletes a subject
  */
-var deleteMatter = function() {
-    $('#delete-matter').submit(function(event) {
+var deleteSubject = function() {
+    $('#delete-subject').submit(function(event) {
         event.preventDefault();
-        var id          = $('#delete-matter input[name=id]').val();
+        var id          = $('#delete-subject input[name=id]').val();
         var modalWindow = $('#modal');
+        var url         = $(this).attr('action');
 
         $.ajax(
             {
                 type:    'POST',
-                url:     baseURL + '/zpareo/ai/matiere/suppression',
+                url:     baseURL + url,
                 data:    {
                     id: id
                 },
@@ -94,7 +96,6 @@ var deleteMatter = function() {
                     else {
                         modalWindow.html(view);
                         initModalWindow('auto');
-
                     }
                 }
             });
