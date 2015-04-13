@@ -5,7 +5,7 @@
         <h3 class="modal__mod__head__title text-center">Suppression de l'examen n°<c:out value="${test.id}"/></h3>
     </div>
     <div class="modal__mod--lg">
-        <p>Êtes-vous sûr de vouloir supprimer l'examen : <c:out value="${test.title}"/> en <c:out value="${test.matter.name}"/>?</p>
+        <p>Êtes-vous sûr de vouloir supprimer l'examen : <c:out value="${test.title}"/> en <c:out value="${test.subject.name}"/>?</p>
         <input type="hidden" name="id" class="form-control input-sm" value="<c:out value='${test.id}'/>" size="30" pattern="[0-9]{1,11}" readonly disabled required/>
     </div>
     <div class="form__control modal__mod__control">

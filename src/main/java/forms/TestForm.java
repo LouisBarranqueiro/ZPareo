@@ -6,16 +6,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+
+import beans.*;
 import dao.TestDao;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import beans.Student;
-import beans.Test;
-import beans.TestFormat;
-import beans.Group;
-import beans.Matter;
-import beans.Score;
-import beans.Teacher;
+
+import beans.Subject;
 
 public final class TestForm 
 {
@@ -289,19 +286,19 @@ public final class TestForm
      */
     private void treatMatterId(String matterId, Test test) 
     {
-    	Matter matter = new Matter();
+    	Subject subject = new Subject();
     	
     	try
     	{
     		validateMatterId(matterId);
-    		matter.setId(Long.parseLong(matterId));
+    		subject.setId(Long.parseLong(matterId));
     	}
     	catch (Exception e) 
     	{
     		setError(MATTER_FIELD, e.getMessage());
     	}
     	
-    	test.setMatter(matter);
+    	test.setSubject(subject);
     }
     
     /**

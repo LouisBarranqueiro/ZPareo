@@ -39,19 +39,19 @@
          </select>
          <span class="form__error">${teacherForm.errors['groups']}</span>
         <label>MATIERE(S) ENSEIGNEE(S)</label>
-        <select multiple="multiple" class="form--control select2" size="23" name="matters" >
+        <select multiple="multiple" class="form--control select2" size="23" name="subjects" >
             <option disabled="disabled">Sélectionnez une ou plusieurs matières</option>
-            <c:forEach items="${matters}" var="matter">
-                <option value="${matter.id}"
-                    <c:forEach items="${teacher.matters}" var="teacherMatter">
-                        <c:if test="${teacherMatter.id == matter.id}"><c:out value="selected=selected"/></c:if>                                
+            <c:forEach items="${subjects}" var="subject">
+                <option value="${subject.id}"
+                    <c:forEach items="${teacher.subjects}" var="teacherMatter">
+                        <c:if test="${teacherMatter.id == subject.id}"><c:out value="selected=selected"/></c:if>
                     </c:forEach>
                 >
-                    <c:out value="${matter.name}"/>
+                    <c:out value="${subject.name}"/>
                 </option>
             </c:forEach>
         </select>
-        <span class="form__error">${teacherForm.errors['matters']}</span>
+        <span class="form__error">${teacherForm.errors['subjects']}</span>
     </div>              
     <div class="form__control modal__mod__control">
         <button type="submit" class="btn btn--primary" onclick="createTeacher()">AJOUTER</button>

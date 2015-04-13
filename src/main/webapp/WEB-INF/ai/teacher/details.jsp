@@ -22,9 +22,9 @@
             </dd>
             <dt>MATIERE(S) ENSEIGNEE(S)</dt>
             <dd>
-                <c:forEach items="${matters}" var="matter">
-                    <c:forEach items="${teacher.matters}" var="teacherMatter">
-                        <c:if test="${teacherMatter.id == matter.id}"><c:out value="${matter.name}, "/></c:if>                               
+                <c:forEach items="${subjects}" var="subject">
+                    <c:forEach items="${teacher.subjects}" var="teacherMatter">
+                        <c:if test="${teacherMatter.id == subject.id}"><c:out value="${subject.name}, "/></c:if>
                     </c:forEach>
                 </c:forEach>
             </dd>

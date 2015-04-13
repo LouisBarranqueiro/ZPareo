@@ -28,7 +28,7 @@
             <div id="main-wrap" class="main">
                 <div class="main__head">
                     <h1 class="main__head__title">Liste de vos examens</h1>
-                    <p class="main__head__desc"><c:out value="${numbTests}"/> examens enregistrés</p>
+                    <p class="main__head__desc"><c:out value="${numbTests}"/> examens enregistrï¿½s</p>
                     <button type="button" class="btn btn--success main__head__control" onclick="displayRespModal('pi/examen/creation',300)">AJOUTER UN EXAMEN</button>
                 </div>
                 <div class="main__content">
@@ -47,7 +47,7 @@
                                         <th>ACTION</th>
                                     </tr>
                                     <tr class="tr--search">
-                                        <th><input type="text" name="id" size="8" pattern="[0-9]+" placeholder="Reference" x-moz-errormessage="Veuillez entrez une référence correcte"/></th>
+                                        <th><input type="text" name="id" size="8" pattern="[0-9]+" placeholder="Reference" x-moz-errormessage="Veuillez entrez une rï¿½fï¿½rence correcte"/></th>
                                         <th><input type="text" name="date" class="form--control datepicker" size="10" placeholder="Date" pattern="(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)\d\d" x-moz-errormessage="Veuillez entrer une date correct"/></th>
                                         <th>
                                             <select name="format" class="form--control">
@@ -70,12 +70,12 @@
                                             </select>
                                         </th>
                                         <th>
-                                            <select name="matter" class="form--control">
-                                                <option disabled="disabled" value="">Matière</option>
+                                            <select name="subject" class="form--control">
+                                                <option disabled="disabled" value="">Matiï¿½re</option>
                                                 <option value="">Tous</option>
-                                                <c:forEach items="${sessionScope.teacherSession.matters}" var="matter">
-                                                    <option value="${matter.id}">
-                                                        <c:out value="${matter.name}"/>
+                                                <c:forEach items="${sessionScope.teacherSession.subjects}" var="subject">
+                                                    <option value="${subject.id}">
+                                                        <c:out value="${subject.name}"/>
                                                     </option>
                                                 </c:forEach>
                                             </select>
@@ -92,7 +92,7 @@
                                             <td><c:out value="${test.format.name}"/></td>
                                             <td><c:out value="${test.title}"/></td>
                                             <td><c:out value="${test.group.name}"/></td>
-                                            <td><c:out value="${test.matter.name}"/></td>
+                                            <td><c:out value="${test.subject.name}"/></td>
                                             <td><fmt:formatNumber type="number" maxFractionDigits="1" value="${test.average}"/></td>
                                             <td>
                                                 <div class="btn-group">

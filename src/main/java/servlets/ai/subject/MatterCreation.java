@@ -6,8 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import beans.Subject;
 import forms.MatterForm;
-import beans.Matter;
 import dao.DAOFactory;
 import dao.MatterDao;
 
@@ -39,13 +40,13 @@ public class MatterCreation extends HttpServlet
 	protected void doPost( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
         MatterForm matterForm = new MatterForm(this.matterDao);
-        Matter matter         = matterForm.create(request);
+        Subject subject = matterForm.create(request);
 		
        if (matterForm.getErrors().isEmpty()) response.sendRedirect("http://localhost:8080/ZPareo/ai/matiere");   
        else
        {
     	   request.setAttribute(MATTER_FORM, matterForm);
-           request.setAttribute(MATTER, matter);
+           request.setAttribute(MATTER, subject);
     	   this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);   
        }
 	}

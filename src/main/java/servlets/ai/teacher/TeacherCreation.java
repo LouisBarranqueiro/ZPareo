@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import beans.Group;
-import beans.Matter;
+import beans.Subject;
 import dao.DAOFactory;
 import dao.GroupDao;
 import dao.MatterDao;
@@ -43,13 +43,13 @@ public class TeacherCreation extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		Matter matter       = new Matter();
+		Subject      subject  = new Subject();
 		Group group         = new Group();
 		Set<Group> groups   = this.groupDao.search(group);
-		Set<Matter> matters = this.matterDao.search(matter);
+		Set<Subject> subjects = this.matterDao.search(subject);
 		
         request.setAttribute(GROUPS, groups);
-        request.setAttribute(MATTERS, matters);
+        request.setAttribute(MATTERS, subjects);
         this.getServletContext().getRequestDispatcher(VIEW).forward(request, response); 
 	}
 
@@ -61,15 +61,15 @@ public class TeacherCreation extends HttpServlet
         if (teacherForm.getErrors().isEmpty()) response.sendRedirect("http://localhost:8080/ZPareo/ai/professeur");   
         else
         {
-        	Matter matter       = new Matter();
+        	Subject subject = new Subject();
         	Group group         = new Group();
     	   	Set<Group> groups   = this.groupDao.search(group);
-   			Set<Matter> matters = this.matterDao.search(matter);
+   			Set<Subject> subjects = this.matterDao.search(subject);
    			
    			request.setAttribute(TEACHER_FORM, teacherForm);
    			request.setAttribute(TEACHER, teacher);
    			request.setAttribute(GROUPS, groups);
-   			request.setAttribute(MATTERS, matters);
+   			request.setAttribute(MATTERS, subjects);
    			this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);   
         }
 	}

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.Group;
-import beans.Matter;
+import beans.Subject;
 import dao.DAOFactory;
 import dao.GroupDao;
 import dao.MatterDao;
@@ -45,27 +45,27 @@ public class TeacherEdition extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		Matter matiere          = new Matter();
+		Subject      matiere          = new Subject();
 		Group groupe            = new Group();
 		Set<Group> groups       = this.groupeDao.search(groupe);
-		Set<Matter> matters     = this.matiereDao.search(matiere);
+		Set<Subject> subjects         = this.matiereDao.search(matiere);
 		TeacherForm teacherForm = new TeacherForm(this.teacherDao);
 		beans.Teacher teacher   = teacherForm.get(request);
 		
 		request.setAttribute(TEACHER_FORM, teacherForm);
 		request.setAttribute(TEACHERS, teacher);
-        request.setAttribute(MATTERS, matters);
+        request.setAttribute(MATTERS, subjects);
         request.setAttribute(GROUPS, groups);
         this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);   
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		Matter matiere          = new Matter();
+		Subject      matiere          = new Subject();
 		Group groupe            = new Group();
 		TeacherForm teacherForm = new TeacherForm(this.teacherDao);
 		Set<Group> groups       = this.groupeDao.search(groupe);
-		Set<Matter> matters     = this.matiereDao.search(matiere);
+		Set<Subject> subjects         = this.matiereDao.search(matiere);
 		beans.Teacher teacher   = teacherForm.edit(request);
 		
 		if (teacherForm.getErrors().isEmpty()) response.sendRedirect("http://localhost:8080/ZPareo/ai/professeur");   
@@ -73,7 +73,7 @@ public class TeacherEdition extends HttpServlet
 	    {
 	    	request.setAttribute(TEACHER_FORM, teacherForm);
 	    	request.setAttribute(TEACHERS, teacher);
-	        request.setAttribute(MATTERS, matters);
+	        request.setAttribute(MATTERS, subjects);
 	        request.setAttribute(GROUPS, groups);
 	        this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);   
 	    }

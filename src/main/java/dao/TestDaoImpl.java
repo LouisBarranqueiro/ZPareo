@@ -10,15 +10,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Set;
 import java.util.TreeSet;
-import beans.Gradebook;
-import beans.Student;
-import beans.Test;
-import beans.TestFormat;
-import beans.Group;
-import beans.Matter;
-import beans.MatterScore;
-import beans.Score;
-import beans.Teacher;
+
+import beans.*;
+import beans.Subject;
 
 public class TestDaoImpl implements TestDao 
 {
@@ -60,7 +54,7 @@ public class TestDaoImpl implements TestDao
 		Connection connexion                = null;
 		PreparedStatement preparedStatement = null;
 		Group group                         = new Group(test.getGroup());
-		Matter matter                       = new Matter(test.getMatter());
+		Subject subject = new Subject(test.getSubject());
 		Teacher teacher                     = new Teacher(test.getTeacher());
 		TestFormat format                   = new TestFormat(test.getFormat());
 		ResultSet resultSet                 = null;
@@ -69,7 +63,7 @@ public class TestDaoImpl implements TestDao
 		{
 			connexion = daoFactory.getConnection();
 		
-			preparedStatement = initPreparedQuery(connexion, INSERT_TEST, true, format.getId(), test.getTitle(), test.getDate(), test.getCoefficient(), teacher.getId(), group.getId(), matter.getId(), teacher.getId());
+			preparedStatement = initPreparedQuery(connexion, INSERT_TEST, true, format.getId(), test.getTitle(), test.getDate(), test.getCoefficient(), teacher.getId(), group.getId(), subject.getId(), teacher.getId());
 			preparedStatement.executeUpdate();
 			resultSet = preparedStatement.getGeneratedKeys();
 			
@@ -340,24 +334,24 @@ public class TestDaoImpl implements TestDao
 	/**
 	 * Returns student scores in a matter into database
 	 * 
-	 * @param matterScore
+	 * @param subjectScore
 	 * @param student
-	 * @return matterScore
+	 * @return subjectScore
 	 * @throws DAOException
 	 */
-	private void getTests(MatterScore matterScore, Student student)
+	private void getTests(SubjectScore subjectScore, Student student)
 	{
 		Connection connexion                = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet                 = null;
-		Matter matter                       = new Matter(matterScore.getMatter());
+		Subject subject = new Subject(subjectScore.getSubject());
 		Group group                         = new Group(student.getGroup());
 		Set<Test> tests                     = new TreeSet<Test>();
 		
 		try 
 		{
 			connexion         = daoFactory.getConnection();
-			preparedStatement = initPreparedQuery(connexion, SELECT_TEST_BY_MATTER_GROUP, true, matter.getId(), group.getId());
+			preparedStatement = initPreparedQuery(connexion, SELECT_TEST_BY_MATTER_GROUP, true, subject.getId(), group.getId());
 			resultSet         = preparedStatement.executeQuery();
 			
 			while (resultSet.next())
@@ -368,7 +362,7 @@ public class TestDaoImpl implements TestDao
 				tests.add(test);
 			}
 			
-			matterScore.setTests(tests);
+			subjectScore.setTests(tests);
 
 		} 
 		catch (SQLException e) 
@@ -388,12 +382,12 @@ public class TestDaoImpl implements TestDao
 	 * @return matterScores
 	 * @throws DAOException
 	 */
-	public Set<MatterScore> getMatterScores(Student student) throws DAOException
+	public Set<SubjectScore> getMatterScores(Student student) throws DAOException
 	{
 		Connection connexion                = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet                 = null;
-		Set<MatterScore> matterScores       = new TreeSet<MatterScore>();
+		Set<SubjectScore> subjectScores = new TreeSet<SubjectScore>();
 		MatterDaoImpl matterDao             = new MatterDaoImpl(daoFactory);
 		
 		try 
@@ -404,14 +398,14 @@ public class TestDaoImpl implements TestDao
 			
 			while (resultSet.next())
 			{
-				MatterScore matterScore = new MatterScore();
-				matterScore.setId(resultSet.getLong("fk_matiere"));
-				Matter matter = new Matter(matterScore.getId());
-				matter        = matterDao.get(matter);
-				matterScore.setMatter(matter);
-				getMatterAverage(matterScore, student);
-				getTests(matterScore, student);
-				matterScores.add(matterScore);
+				SubjectScore subjectScore = new SubjectScore();
+				subjectScore.setId(resultSet.getLong("fk_matiere"));
+				Subject subject = new Subject(subjectScore.getId());
+				subject = matterDao.get(subject);
+				subjectScore.setSubject(subject);
+				getMatterAverage(subjectScore, student);
+				getTests(subjectScore, student);
+				subjectScores.add(subjectScore);
 			}
 
 		} 
@@ -424,18 +418,18 @@ public class TestDaoImpl implements TestDao
 			silentClosures(preparedStatement, connexion);
 		}
 		
-		return matterScores;
+		return subjectScores;
 	}
 	
 	/**
 	 * Returns a student matter average into database
 	 * 
-	 * @param matterScore
+	 * @param subjectScore
 	 * @param student
-	 * @return matterScore
+	 * @return subjectScore
 	 * @throws DAOException
 	 */
-	public void getMatterAverage(MatterScore matterScore, Student student) throws DAOException
+	public void getMatterAverage(SubjectScore subjectScore, Student student) throws DAOException
 	{
 		Connection connexion                = null;
 		PreparedStatement preparedStatement = null;
@@ -444,11 +438,11 @@ public class TestDaoImpl implements TestDao
 		try 
 		{
 			connexion         = daoFactory.getConnection();
-			preparedStatement = initPreparedQuery(connexion, SELECT_TEST_AVERAGE_BY_MATTER, true, student.getId(), matterScore.getId());
+			preparedStatement = initPreparedQuery(connexion, SELECT_TEST_AVERAGE_BY_MATTER, true, student.getId(), subjectScore.getId());
 			resultSet         = preparedStatement.executeQuery();
 			
 			resultSet.next();
-			matterScore.setAverage(resultSet.getFloat("moyenne"));
+			subjectScore.setAverage(resultSet.getFloat("moyenne"));
 
 		} 
 		catch (SQLException e) 
@@ -465,19 +459,19 @@ public class TestDaoImpl implements TestDao
 	/**
 	 * Calculates gradebook average
 	 * 
-	 * @param matterScores
+	 * @param subjectScores
 	 * @return average
 	 */
-	public float calcGradebookAverage(Set<MatterScore> matterScores)
+	public float calcGradebookAverage(Set<SubjectScore> subjectScores)
 	{
 		float average = 0;
-		Object[] mss  = matterScores.toArray();
+		Object[] mss  = subjectScores.toArray();
 		int i         = 0;
 		
 		for (Object ms : mss)
 		{
-			MatterScore matterScore = (MatterScore) ms;
-			average += matterScore.getAverage();
+			SubjectScore subjectScore = (SubjectScore) ms;
+			average += subjectScore.getAverage();
 			i++;
 		}
 		
@@ -494,8 +488,8 @@ public class TestDaoImpl implements TestDao
 	{
 		Gradebook gradebook = new Gradebook();
 		
-		gradebook.setMatterScores(getMatterScores(student));
-		gradebook.setAverage(calcGradebookAverage(gradebook.getMatterScores()));
+		gradebook.setSubjectScores(getMatterScores(student));
+		gradebook.setAverage(calcGradebookAverage(gradebook.getSubjectScores()));
 		
 		return gradebook;
 	}
@@ -510,7 +504,7 @@ public class TestDaoImpl implements TestDao
 	{
 		Set<Test> tests                     = new TreeSet<Test>();
 		Group group                         = new Group(test.getGroup());
-		Matter matter                       = new Matter(test.getMatter());
+		Subject subject = new Subject(test.getSubject());
 		Teacher teacher                     = new Teacher(test.getTeacher());
 		TestFormat format                   = new TestFormat(test.getFormat());
 		Connection connexion                = null;
@@ -546,11 +540,11 @@ public class TestDaoImpl implements TestDao
 			else SQLQuery += " AND gnw_examen.fk_groupe IS NOT ?";	
 			
 			
-			if (matter.getId() != null) SQLQuery += " AND gnw_examen.fk_matiere = ?";
+			if (subject.getId() != null) SQLQuery += " AND gnw_examen.fk_matiere = ?";
 			else SQLQuery += " AND gnw_examen.fk_matiere IS NOT ?";	
 			
 			
-			preparedStatement = initPreparedQuery(connexion, SQLQuery, true, teacher.getId(), test.getId(), test.getTitle(), test.getDate(), format.getId(), group.getId(), matter.getId());
+			preparedStatement = initPreparedQuery(connexion, SQLQuery, true, teacher.getId(), test.getId(), test.getTitle(), test.getDate(), format.getId(), group.getId(), subject.getId());
 			resultSet         = preparedStatement.executeQuery();
 			
 			while (resultSet.next()) 
@@ -595,12 +589,12 @@ public class TestDaoImpl implements TestDao
 		PreparedStatement preparedStatement = null;
 		Teacher teacher                     = new Teacher(test.getTeacher());
 		TestFormat format                   = new TestFormat(test.getFormat());
-		Matter matter                       = new Matter(test.getMatter());
+		Subject subject = new Subject(test.getSubject());
 		
 		try 
 		{
 			connexion         = daoFactory.getConnection();
-			preparedStatement = initPreparedQuery(connexion, UPDATE_TEST, true, teacher.getId(), format.getId(), test.getTitle(), test.getDate(), test.getCoefficient(), matter.getId(), teacher.getId(), test.getId());
+			preparedStatement = initPreparedQuery(connexion, UPDATE_TEST, true, teacher.getId(), format.getId(), test.getTitle(), test.getDate(), test.getCoefficient(), subject.getId(), teacher.getId(), test.getId());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -780,7 +774,7 @@ public class TestDaoImpl implements TestDao
 	private static Test mapExamen(ResultSet resultSet) throws SQLException 
 	{
 		Test test         = new Test();
-		Matter matter     = new Matter();
+		Subject subject = new Subject();
 		Group group       = new Group();
 		TestFormat format = new TestFormat();
 		Teacher teacher   = new Teacher();
@@ -796,9 +790,9 @@ public class TestDaoImpl implements TestDao
 		test.setFormat(format);
 		group.setId(resultSet.getLong("groupeId"));
 		group.setName(resultSet.getString("groupeNom"));
-		matter.setName(resultSet.getString("matiereNom"));
+		subject.setName(resultSet.getString("matiereNom"));
 		test.setGroup(group);
-		test.setMatter(matter);
+		test.setSubject(subject);
 		
 		return test;
 	}

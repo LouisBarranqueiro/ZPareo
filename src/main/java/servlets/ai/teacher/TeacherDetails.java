@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import beans.Group;
-import beans.Matter;
+import beans.Subject;
 import dao.DAOFactory;
 import dao.GroupDao;
 import dao.MatterDao;
@@ -42,15 +42,15 @@ public class TeacherDetails extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		Matter matter           = new Matter();
+		Subject      subject  = new Subject();
 		Group group             = new Group();
 		Set<Group> groups       = this.groupDao.search(group);
-		Set<Matter> matters     = this.matterDao.search(matter);
+		Set<Subject> subjects = this.matterDao.search(subject);
 		TeacherForm teacherForm = new TeacherForm(this.teacherDao);
 		beans.Teacher teacher   = teacherForm.get(request);
 		
 		request.setAttribute(TEACHER, teacher);
-        request.setAttribute(MATTERS, matters);
+        request.setAttribute(MATTERS, subjects);
         request.setAttribute(GROUPS, groups);
         this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);   
 	}

@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <title>ZPareo - Liste des matières</title>
+        <title>ZPareo - Liste des matiï¿½res</title>
         <link type="text/css" rel="stylesheet" href="<c:url value="/assets/scss/style.css"/>"/>
     </head>
     <body>
@@ -42,8 +42,8 @@
             </div>
             <div id="main-wrap" class="main">
                 <div class="main__head">
-                    <h1 class="main__head__title">Liste des matières</h1>
-                    <p class="main__head__desc"><c:out value="${numbMatters}"/> matière(s) enregistrée(s)</p>
+                    <h1 class="main__head__title">Liste des matiï¿½res</h1>
+                    <p class="main__head__desc"><c:out value="${numbMatters}"/> matiï¿½re(s) enregistrï¿½e(s)</p>
                     <button type="button" class="btn btn--success main__head__control" onclick="displayRespModal('ai/matiere/creation',300)">AJOUTER UNE MATIERE</button>
                 </div>
                 <div class="main__content">
@@ -57,20 +57,20 @@
                                         <th>ACTION</th>
                                     </tr>
                                     <tr class="tr--search">
-                                        <th><input type="text" name="id" size="10" pattern="[0-9]+" placeholder="Reference" x-moz-errormessage="Veuillez entrez une référence correcte"/></th>
+                                        <th><input type="text" name="id" size="10" pattern="[0-9]+" placeholder="Reference" x-moz-errormessage="Veuillez entrez une rï¿½fï¿½rence correcte"/></th>
                                         <th><input type="text" name="name" size="40" placeholder="Nom" x-moz-errormessage="Veuillez entrez un nom correct"/></th>
                                         <th><button type="submit" class="btn btn--primary">RECHERCHER</button></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${matters}" var="matter">
+                                    <c:forEach items="${subjects}" var="subject">
                                         <tr class="tr--md">
-                                            <td><c:out value="${matter.id}"/></td>
-                                            <td><c:out value="${matter.name}"/></td>
+                                            <td><c:out value="${subject.id}"/></td>
+                                            <td><c:out value="${subject.name}"/></td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn--icon" onclick="displayRespModal('ai/matiere/edition?id=<c:out value="${matter.id}"/>',300)"><span class="icon-edit"></span></button>
-                                                    <button type="button" class="btn btn--icon" onclick="displayRespModal('ai/matiere/suppression?id=<c:out value="${matter.id}"/>','auto')"><span class="icon-trashcan"></span></button>
+                                                    <button type="button" class="btn btn--icon" onclick="displayRespModal('ai/matiere/edition?id=<c:out value="${subject.id}"/>',300)"><span class="icon-edit"></span></button>
+                                                    <button type="button" class="btn btn--icon" onclick="displayRespModal('ai/matiere/suppression?id=<c:out value="${subject.id}"/>','auto')"><span class="icon-trashcan"></span></button>
                                                 </div>
                                             </td>
                                         </tr>

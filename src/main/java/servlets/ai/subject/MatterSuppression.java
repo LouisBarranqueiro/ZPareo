@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import beans.Matter;
+import beans.Subject;
 import dao.DAOFactory;
 import dao.MatterDao;
 import forms.MatterForm;
@@ -33,9 +33,9 @@ public class MatterSuppression extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		MatterForm matterForm = new MatterForm(this.matterDao);
-        Matter matter         = matterForm.get(request);
+        Subject subject = matterForm.get(request);
         
-        request.setAttribute(MATTER , matter);
+        request.setAttribute(MATTER , subject);
         this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);   
 	}
 

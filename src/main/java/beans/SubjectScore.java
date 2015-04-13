@@ -2,20 +2,19 @@ package beans;
 
 import java.util.Set;
 
-public class MatterScore implements Comparable<MatterScore>
+public class SubjectScore implements Comparable<SubjectScore>
 {
-	private Long id;
-	private Matter matter;
-	private Float average;
+	private Long      id;
+	private Subject   subject;
+	private Float     average;
 	private Set<Test> tests;
-	
+
 	/**
 	 * Constructor
 	 */
-	public MatterScore()
-	{
-		this.id      = null;
-		this.matter  = null;
+	public SubjectScore() {
+		this.id = null;
+		this.subject = null;
 		this.average = null;
 		this.tests   = null;
 	}
@@ -23,14 +22,14 @@ public class MatterScore implements Comparable<MatterScore>
 	/**
 	 * Constructor
 	 * 
-	 * @param matterScore
+	 * @param subjectScore
 	 */
-	public MatterScore(MatterScore matterScore)
+	public SubjectScore(SubjectScore subjectScore)
 	{
-		this.id      = matterScore.getId();
-		this.matter  = matterScore.getMatter();
-		this.average = matterScore.getAverage();
-		this.tests   = matterScore.getTests();
+		this.id      = subjectScore.getId();
+		this.subject = subjectScore.getSubject();
+		this.average = subjectScore.getAverage();
+		this.tests   = subjectScore.getTests();
 	}
 	/**
 	 * Returns matterscore id
@@ -53,23 +52,23 @@ public class MatterScore implements Comparable<MatterScore>
 	}
 
 	/**
-	 * Returns matterscore matter
+	 * Returns matterscore subject
 	 * 
-	 * @return matter 
+	 * @return subject
 	 */
-	public Matter getMatter() 
+	public Subject getSubject()
 	{
-		return matter;
+		return subject;
 	}
 	
 	/**
-	 * Sets matterscore matter
+	 * Sets matterscore subject
 	 * 
-	 * @param matter 
+	 * @param subject
 	 */
-	public void setMatter(Matter matter) 
+	public void setSubject(Subject subject)
 	{
-		this.matter = matter;
+		this.subject = subject;
 	}
 	
 	/**
@@ -115,14 +114,13 @@ public class MatterScore implements Comparable<MatterScore>
 	/**
 	 * Compares two matterscore name
 	 * 
-	 * @param matterScore2 
+	 * @param subjectScore2
 	 */
-	@Override
-	public int compareTo(MatterScore matterScore2)
+	public int compareTo(SubjectScore subjectScore2)
 	{
-		Matter matter1 = new Matter(this.getMatter());
-		Matter matter2 = new Matter(matterScore2.getMatter());
-        int compId = matter2.getName().compareTo(matter1.getName());
+		Subject subject1 = new Subject(this.getSubject());
+		Subject subject2 = new Subject(subjectScore2.getSubject());
+        int compId = subject2.getName().compareTo(subject1.getName());
         
         return ((compId != 0) ? compId : 0 );
 	}

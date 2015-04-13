@@ -33,15 +33,15 @@
         </select>
         <span class="form__error">${testForm.errors['group']}</span>
         <label>MATIERE</label>
-        <select name="matter" class="form--control" required>
+        <select name="subject" class="form--control" required>
             <option disabled="disabled" selected="selected">Sélectionner une matière</option>
-            <c:forEach items="${sessionScope.teacherSession.matters}" var="teacherMatter">
+            <c:forEach items="${sessionScope.teacherSession.subjects}" var="teacherMatter">
                 <option value="${teacherMatter.id}">
                      <c:out value="${teacherMatter.name}"/>
                 </option>
             </c:forEach>
         </select>
-        <span class="form__error">${testForm.errors['matter']}</span>
+        <span class="form__error">${testForm.errors['subject']}</span>
     </div>              
     <div class="form__control modal__mod__control">
         <button type="submit" class="btn btn--primary" onclick="createTest()">AJOUTER</button>

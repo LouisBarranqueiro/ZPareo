@@ -1,56 +1,56 @@
  package dao;
  
 import java.util.Set;
-import beans.Matter;
- 
+import beans.Subject;
+
  public interface MatterDao 
  {
  	/**
-      * Creates a matter into database
+      * Creates a subject into database
       * 
-      * @param matter
+      * @param subject
       * @throws DAOException
       */
- 	void create(Matter matter) throws DAOException;
+ 	void create(Subject subject) throws DAOException;
 	
 	/**
      * Searches one or more matters into database
      * 
-     * @param matter
+     * @param subject
      * @throws DAOException
      */
-	Set<Matter> search(Matter matter) throws DAOException;
+	Set<Subject> search(Subject subject) throws DAOException;
 	
 
  	/**
- 	 * Edits a matter into database
+ 	 * Edits a subject into database
  	 * 
- 	 * @param matter
+ 	 * @param subject
  	 * @throws DAOException
  	 */
- 	void edit(Matter matter) throws DAOException;
+ 	void edit(Subject subject) throws DAOException;
  	
  	/**
-	 * Checks the existance of a matter into database
+	 * Checks the existance of a subject into database
 	 * 
-	 * @param matter
+	 * @param subject
 	 * @throws DAOException
 	 */
-	int check(Matter matter) throws DAOException;
+	int check(Subject subject) throws DAOException;
 	
 	/**
- 	 * Returns a matter into database
+ 	 * Returns a subject into database
  	 * 
- 	 * @param matter
+ 	 * @param subject
  	 * @throws DAOException
  	 */
- 	Matter get(Matter matter) throws DAOException;
+ 	Subject get(Subject subject) throws DAOException;
  	
  	/**
- 	 * Deletes a matter into database
+ 	 * Deletes a subject into database
  	 * 
- 	 * @param matter
+ 	 * @param subject
  	 * @throws DAOException
  	 */
- 	void delete(Matter matter) throws DAOException;	
+ 	void delete(Subject subject) throws DAOException;
  }

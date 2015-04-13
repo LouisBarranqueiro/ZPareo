@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import beans.Administrator;
-import beans.Matter;
+import beans.Subject;
 import dao.MatterDao;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,19 +34,19 @@ public final class MatterForm
      * @param request
      * @return matter
      */
-    public Matter create(HttpServletRequest request) 
+    public Subject create(HttpServletRequest request)
     {
         String name           = getFieldVar(request, NAME_FIELD);
         Administrator creator = (Administrator) getSessionVar(request, ADMINISTRATOR_SESSION);
-        Matter matter         = new Matter();
+        Subject subject = new Subject();
         
         try 
         {
-            treatName(name, matter);
-            treatMatter(matter);
-            treatCreator(creator, matter);
+            treatName(name, subject);
+            treatMatter(subject);
+            treatCreator(creator, subject);
             
-            if (errors.isEmpty()) matterDao.create(matter);
+            if (errors.isEmpty()) matterDao.create(subject);
             
         } 
         catch ( Exception e ) 
@@ -54,7 +54,7 @@ public final class MatterForm
         	e.printStackTrace();
         }
 
-        return matter;
+        return subject;
     }
     
     /**
@@ -63,18 +63,18 @@ public final class MatterForm
      * @param request
      * @return matters
      */
-    public Set<Matter> search(HttpServletRequest request) 
+    public Set<Subject> search(HttpServletRequest request)
     {
     	String id           = getFieldVar(request, ID_FIELD);
     	String name         = getFieldVar(request, NAME_FIELD);
-    	Set<Matter> matters = new HashSet<Matter>();
-    	Matter matter       = new Matter();
+    	Set<Subject> subjects = new HashSet<Subject>();
+    	Subject      subject  = new Subject();
     	
-    	treatId(id, matter);
-    	matter.setName(name);
-        matters = matterDao.search(matter);
+    	treatId(id, subject);
+    	subject.setName(name);
+        subjects = matterDao.search(subject);
         
-    	return matters;
+    	return subjects;
     }
    
     /**
@@ -83,22 +83,22 @@ public final class MatterForm
      * @param request
      * @return matter
      */
-    public Matter edit(HttpServletRequest request)
+    public Subject edit(HttpServletRequest request)
     {
     	String id            = getFieldVar(request, ID_FIELD);
     	String name          = getFieldVar(request, NAME_FIELD);
     	Administrator editor = (Administrator) getSessionVar(request, ADMINISTRATOR_SESSION);
-    	Matter matter        = new Matter();
+    	Subject subject = new Subject();
     	
-    	treatId(id, matter);
-    	treatName(name, matter);
-    	treatMatter(matter);
-        treatEditor(editor, matter);
+    	treatId(id, subject);
+    	treatName(name, subject);
+    	treatMatter(subject);
+        treatEditor(editor, subject);
         
-    	if (errors.isEmpty()) matterDao.edit(matter);
+    	if (errors.isEmpty()) matterDao.edit(subject);
        	
 
-    	return matter;
+    	return subject;
     }
     
     /**
@@ -107,15 +107,15 @@ public final class MatterForm
      * @param request
      * @return matter
      */
-    public Matter get(HttpServletRequest request)
+    public Subject get(HttpServletRequest request)
     {
     	String id     = getFieldVar(request, ID_FIELD);
-    	Matter matter = new Matter();
+    	Subject subject = new Subject();
     	
-    	treatId(id, matter);
-    	matter = matterDao.get( matter);
+    	treatId(id, subject);
+    	subject = matterDao.get(subject);
     	
-    	return matter;
+    	return subject;
     }
     
     /**
@@ -127,25 +127,25 @@ public final class MatterForm
     {
     	String id            = getFieldVar(request, ID_FIELD);
     	Administrator editor = (Administrator) getSessionVar(request, ADMINISTRATOR_SESSION);
-    	Matter matter        = new Matter();
+    	Subject subject = new Subject();
     	
-    	treatId(id, matter);
-    	treatEditor(editor, matter);
-    	matterDao.delete(matter);
+    	treatId(id, subject);
+    	treatEditor(editor, subject);
+    	matterDao.delete(subject);
     }
    
     /**
-     *  Treats matter's id
+     *  Treats subject's id
      *  
      * @param id
-     * @param matter
+     * @param subject
      */
-    private void treatId(String id, Matter matter)
+    private void treatId(String id, Subject subject)
     {
     	try
     	{
     		validateId(id);
-    		matter.setId(Long.parseLong(id));
+    		subject.setId(Long.parseLong(id));
     	}
     	catch (Exception e) 
     	{
@@ -154,12 +154,12 @@ public final class MatterForm
     }
     
     /**
-     *  Treats matter's name
+     *  Treats subject's name
      *  
      * @param name
-     * @param matter
+     * @param subject
      */
-    private void treatName(String name, Matter matter) 
+    private void treatName(String name, Subject subject)
     {
     	try 
     	{
@@ -170,33 +170,33 @@ public final class MatterForm
             setError(NAME_FIELD, e.getMessage());
         }
     	
-        matter.setName(name);
+        subject.setName(name);
     }
     
     /**
-     *  Treats a matter
+     *  Treats a subject
      *  
-     * @param matter
+     * @param subject
      */
-    private void treatMatter(Matter matter) 
+    private void treatMatter(Subject subject)
     {
     	try 
     	{
-    		validateMatter(matter);
+    		validateMatter(subject);
         } 
     	catch (Exception e) 
     	{
-            setError("matter", e.getMessage());
+            setError("subject", e.getMessage());
         }
     }
     
     /**
-     *  Treats matter's creator
+     *  Treats subject's creator
      *  
      * @param creator
-     * @param matter
+     * @param subject
      */
-    private void treatCreator(Administrator creator, Matter matter) 
+    private void treatCreator(Administrator creator, Subject subject)
     {
     	try 
     	{
@@ -207,16 +207,16 @@ public final class MatterForm
             setError("administrateur", e.getMessage());
         }
     	
-    	matter.setCreator(creator);
+    	subject.setCreator(creator);
     }
     
     /**
-     *  Treats matter's editor
+     *  Treats subject's editor
      *  
      * @param editor
-     * @param matter
+     * @param subject
      */
-    private void treatEditor(Administrator editor, Matter matter) 
+    private void treatEditor(Administrator editor, Subject subject)
     {
     	try 
     	{
@@ -227,7 +227,7 @@ public final class MatterForm
             setError("administrateur", e.getMessage());
         }
     	
-    	matter.setEditor(editor);
+    	subject.setEditor(editor);
     }
     
     /**
@@ -254,14 +254,14 @@ public final class MatterForm
     }
     
     /**
-     * Validates a matter (Check the existance)
+     * Validates a subject (Check the existance)
      * 
-     * @param matter
+     * @param subject
      * @throws Exception
      */
-    private void validateMatter(Matter matter) throws Exception 
+    private void validateMatter(Subject subject) throws Exception
     {
-        if (matterDao.check(matter) != 0) throw new Exception("Cette matière existe déja");
+        if (matterDao.check(subject) != 0) throw new Exception("Cette matière existe déja");
         
     }
     

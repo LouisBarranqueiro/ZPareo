@@ -34,9 +34,9 @@
                 <div class="main__content">
                     <div class="mod mod--lg">  
                         <div id="averages-student-chart">
-                            <c:forEach items="${student.gradebook.matterScores}" var="matterScore">
-                                <span class="matters" data-matter="<c:out value="${matterScore.matter.name}"/>"></span>
-                                <span class="averages" data-average="<fmt:formatNumber type="number" maxFractionDigits="1" value="${matterScore.average}"/>"></span>
+                            <c:forEach items="${student.gradebook.subjectScores}" var="subjectScore">
+                                <span class="subjects" data-subject="<c:out value="${subjectScore.subject.name}"/>"></span>
+                                <span class="averages" data-average="<fmt:formatNumber type="number" maxFractionDigits="1" value="${subjectScore.average}"/>"></span>
                             </c:forEach>
                         </div>
                     </div>
@@ -50,10 +50,10 @@
                                 </tr>
                             </thead>
                             <tbody class="tr--lg">
-                            <c:forEach items="${student.gradebook.matterScores}" var="matterScore">
+                            <c:forEach items="${student.gradebook.subjectScores}" var="subjectScore">
                                 <tr>
-                                    <td><c:out value="${matterScore.matter.name}"/></td>
-                                    <td><fmt:formatNumber type="number" maxFractionDigits="1" value="${matterScore.average}"/></td>
+                                    <td><c:out value="${subjectScore.subject.name}"/></td>
+                                    <td><fmt:formatNumber type="number" maxFractionDigits="1" value="${subjectScore.average}"/></td>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -73,11 +73,11 @@
                                 </tr>
                             </thead>
                             <tbody class="tr--lg">
-                            <c:forEach items="${student.gradebook.matterScores}" var="matterScore">
-                            <c:forEach items="${matterScore.tests}" var="test">
+                            <c:forEach items="${student.gradebook.subjectScores}" var="subjectScore">
+                            <c:forEach items="${subjectScore.tests}" var="test">
                                 <tr>
                                     <td><c:out value="${test.format.name}"/></td>
-                                    <td><c:out value="${test.matter.name}"/></td>
+                                    <td><c:out value="${test.subject.name}"/></td>
                                     <td><c:out value="${test.title}"/></td>
                                     <td><c:out value="${test.date}"/></td>
                                     <td><c:out value="${test.coefficient}"/></td>

@@ -28,17 +28,17 @@
         <input type="text" name="group" class="form--control" value="<c:out value="${test.group.name}"/>" pattern="G[a-zA-Z]{1}" disabled readonly required/>
         <span class="form__error">${testForm.errors['group']}</span>
         <label>MATIERE</label>
-        <select name="matter" class="form--control" required>
+        <select name="subject" class="form--control" required>
             <option disabled="disabled" selected="selected">Sélectionner une matière</option>
-            <c:forEach items="${sessionScope.teacherSession.matters}" var="matter">
-                <option value="${matter.id}"
-                    <c:if test="${test.matter.name == matter.name}"><c:out value="selected=selected"/></c:if>
+            <c:forEach items="${sessionScope.teacherSession.subjects}" var="subject">
+                <option value="${subject.id}"
+                    <c:if test="${test.subject.name == subject.name}"><c:out value="selected=selected"/></c:if>
                 >
-                     <c:out value="${matter.name}"/>
+                     <c:out value="${subject.name}"/>
                 </option>
             </c:forEach>
         </select>
-        <span class="form__error">${testForm.errors['matter']}</span>
+        <span class="form__error">${testForm.errors['subject']}</span>
     </div>
     <div class="modal__mod--sm modal__mod--vertical modal__mod--scrollable">
         <table class="table">

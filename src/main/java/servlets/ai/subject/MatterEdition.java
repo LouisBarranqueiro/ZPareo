@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.DAOFactory;
 import dao.MatterDao;
 import forms.MatterForm;
-import beans.Matter;
+import beans.Subject;
 
 @SuppressWarnings("serial")
 @WebServlet("/ai/matiere/edition")
@@ -34,22 +34,22 @@ public class MatterEdition extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		MatterForm matterForm = new MatterForm(this.matterDao);
-        Matter matter         = matterForm.get(request);
+        Subject subject = matterForm.get(request);
         
-        request.setAttribute(MATTER , matter);
+        request.setAttribute(MATTER , subject);
         this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);   
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		MatterForm matterForm = new MatterForm(this.matterDao);
-		Matter matter         = matterForm.edit(request);
+		Subject subject = matterForm.edit(request);
 		
 		if (matterForm.getErrors().isEmpty()) response.sendRedirect("http://localhost:8080/ZPareo/ai/matiere");  
 	    else
 	    {
 	    	request.setAttribute(MATTER_FORM, matterForm);
-	        request.setAttribute(MATTER, matter);
+	        request.setAttribute(MATTER, subject);
 	        this.getServletContext().getRequestDispatcher(VIEW).forward( request, response );   
 	    }
 	}

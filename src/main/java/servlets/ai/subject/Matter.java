@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import beans.Subject;
 import forms.MatterForm;
 import dao.DAOFactory;
 import dao.MatterDao;
@@ -35,11 +37,11 @@ public class Matter extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
         MatterForm matterForm     = new MatterForm(this.matterDao);
-        Set<beans.Matter> matters = matterForm.search(request);
+        Set<Subject> subjects = matterForm.search(request);
 		
         request.setAttribute(MATTER_FORM, matterForm);
-        request.setAttribute(MATTERS, matters);
-        request.setAttribute(NUMB_MATTERS, matters.size());
+        request.setAttribute(MATTERS, subjects);
+        request.setAttribute(NUMB_MATTERS, subjects.size());
 		this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);
 	}
 

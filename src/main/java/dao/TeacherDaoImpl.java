@@ -9,9 +9,9 @@ import java.sql.Statement;
 import java.util.Set;
 import java.util.TreeSet;
 import beans.Administrator;
+import beans.Subject;
 import beans.Teacher;
 import beans.Group;
-import beans.Matter;
 
 public class TeacherDaoImpl implements TeacherDao
 {
@@ -104,12 +104,12 @@ public class TeacherDaoImpl implements TeacherDao
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			matters = teacher.getMatters().toArray();
+			matters = teacher.getSubjects().toArray();
 
 			for (Object m : matters)
 			{
-				Matter matter = (Matter) m;
-				preparedStatement = initPreparedQuery(connexion, INSERT_MATTER, true, teacher.getId(), matter.getId(), administrator.getId());
+				Subject subject = (Subject) m;
+				preparedStatement = initPreparedQuery(connexion, INSERT_MATTER, true, teacher.getId(), subject.getId(), administrator.getId());
 				preparedStatement.executeUpdate();
 			}
 		} 
@@ -245,7 +245,7 @@ public class TeacherDaoImpl implements TeacherDao
 		deleteGroups(teacher);
 		
 		// Add teacher matter and groups
-		if (teacher.getMatters() != null) addMatters(teacher, false);
+		if (teacher.getSubjects() != null) addMatters(teacher, false);
 		
 		if (teacher.getGroups() != null) addGroups(teacher, false);
 	}
@@ -399,7 +399,7 @@ public class TeacherDaoImpl implements TeacherDao
 			}
 
 			teacher2.setGroups(getGroups(teacher2));			
-			teacher2.setMatters(getMatters(teacher2));
+			teacher2.setSubjects(getMatters(teacher2));
 		} 
 		catch (SQLException e) 
 		{
@@ -474,7 +474,7 @@ public class TeacherDaoImpl implements TeacherDao
 			if (resultSet.next()) teacher = mapProfesseur(resultSet);
 
 			teacher.setGroups(getGroups(teacher));
-			teacher.setMatters(getMatters(teacher));
+			teacher.setSubjects(getMatters(teacher));
 		} 
 		catch (SQLException e) 
 		{
@@ -495,9 +495,9 @@ public class TeacherDaoImpl implements TeacherDao
 	 * @return matters
 	 * @throws DAOException
 	 */
-	private Set<Matter> getMatters(Teacher teacher) throws DAOException
+	private Set<Subject> getMatters(Teacher teacher) throws DAOException
 	{
-		Set<Matter> matters                 = new TreeSet<Matter>();
+		Set<Subject> subjects = new TreeSet<Subject>();
 		Connection connexion                = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet                 = null;
@@ -510,9 +510,9 @@ public class TeacherDaoImpl implements TeacherDao
 			
 			while (resultSet.next()) 
 			{
-				Matter matter = new Matter();
-				matter        = mapMatter(resultSet);
-				matters.add(matter);
+				Subject subject = new Subject();
+				subject = mapMatter(resultSet);
+				subjects.add(subject);
 	        }
 		} 
 		catch (SQLException e) 
@@ -524,7 +524,7 @@ public class TeacherDaoImpl implements TeacherDao
 			silentClosures(preparedStatement, connexion);
 		}
 
-		return matters;
+		return subjects;
 	}
 	
 	/**
@@ -636,20 +636,20 @@ public class TeacherDaoImpl implements TeacherDao
 	}
 	
 	/**
-	 * Maps a Matter
+	 * Maps a Subject
 	 * 
 	 * @param resultSet
 	 * @return matter
 	 * @throws SQLException
 	 */
-	private static Matter mapMatter(ResultSet resultSet) throws SQLException 
+	private static Subject mapMatter(ResultSet resultSet) throws SQLException
 	{
-		Matter matter = new Matter();
+		Subject subject = new Subject();
 		
-		matter.setId(resultSet.getLong("matiereId"));
-		matter.setName(resultSet.getString("matiereNom"));
+		subject.setId(resultSet.getLong("matiereId"));
+		subject.setName(resultSet.getString("matiereNom"));
 		
-		return matter;
+		return subject;
 	}
 	
 	/**

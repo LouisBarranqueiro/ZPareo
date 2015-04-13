@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import beans.Administrator;
-import beans.Matter;
+import beans.Subject;
 
 public class MatterDaoImpl implements MatterDao 
 {
@@ -35,22 +35,22 @@ public class MatterDaoImpl implements MatterDao
     }
     
 	/**
-     * Creates a matter into database
+     * Creates a subject into database
      * 
-     * @param matter
+     * @param subject
      * @throws DAOException
      */
 	@Override 
-	public void create(Matter matter) throws DAOException 
+	public void create(Subject subject) throws DAOException
 	{
 		Connection connexion                = null;
 		PreparedStatement preparedStatement = null;
-		Administrator creator               = new Administrator(matter.getCreator());
+		Administrator creator               = new Administrator(subject.getCreator());
 		
 		try 
 		{
 			connexion         = daoFactory.getConnection();
-			preparedStatement = initPreparedQuery(connexion, INSERT, true, matter.getName(), creator.getId());
+			preparedStatement = initPreparedQuery(connexion, INSERT, true, subject.getName(), creator.getId());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -64,42 +64,42 @@ public class MatterDaoImpl implements MatterDao
 	}
 	
     /**
-     * Searches one or more matter into database
+     * Searches one or more subject into database
      * 
-     * @param matter
+     * @param subject
      * @return matters
      * @throws DAOException
      */
-	public Set<Matter> search(Matter matter) throws DAOException 
+	public Set<Subject> search(Subject subject) throws DAOException
 	{
 		Connection connexion                = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet                 = null;
-		Set<Matter> matters                 = new TreeSet<Matter>();
+		Set<Subject> subjects = new TreeSet<Subject>();
 		String SQLQuery                     = SELECT_ALL;
 		
 		try 
 		{	
 			connexion = daoFactory.getConnection();
 			
-			if (matter.getId() != null) SQLQuery += " AND gnw_matiere.id = ?";
+			if (subject.getId() != null) SQLQuery += " AND gnw_matiere.id = ?";
 			else SQLQuery += " AND gnw_matiere.id IS NOT ?";	
 			
 			
-			if (matter.getName() != null)
+			if (subject.getName() != null)
 			{
 				SQLQuery += " AND gnw_matiere.nom LIKE ?";
-				matter.setName("%" + matter.getName() + "%");
+				subject.setName("%" + subject.getName() + "%");
 			}
 			else SQLQuery += " AND gnw_matiere.nom IS NOT ?";	
 			
-			preparedStatement = initPreparedQuery(connexion, SQLQuery, true, matter.getId(), matter.getName());
+			preparedStatement = initPreparedQuery(connexion, SQLQuery, true, subject.getId(), subject.getName());
 			resultSet = preparedStatement.executeQuery();
 			
 			while (resultSet.next()) 
 			{
-				matter = map(resultSet);
-				matters.add(matter);
+				subject = map(resultSet);
+				subjects.add(subject);
 	        }
 		} 
 		catch (SQLException e) 
@@ -111,25 +111,25 @@ public class MatterDaoImpl implements MatterDao
 			silentClosures(resultSet, preparedStatement, connexion);
 		}
 		
-		return matters;
+		return subjects;
 	}
 	
 	/**
-	 * Edits a matter into database
+	 * Edits a subject into database
 	 * 
-	 * @param matter
+	 * @param subject
 	 * @throws DAOException
 	 */
-	public void edit(Matter matter)  throws DAOException
+	public void edit(Subject subject)  throws DAOException
 	{
 		Connection connexion                = null;
 		PreparedStatement preparedStatement = null;
-		Administrator editor                = new Administrator(matter.getEditor());
+		Administrator editor                = new Administrator(subject.getEditor());
 		
 		try 
 		{
 			connexion = daoFactory.getConnection();
-			preparedStatement = initPreparedQuery(connexion, UPDATE, true, matter.getName(), editor.getId(), matter.getId());
+			preparedStatement = initPreparedQuery(connexion, UPDATE, true, subject.getName(), editor.getId(), subject.getId());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -143,12 +143,12 @@ public class MatterDaoImpl implements MatterDao
 	}
 	
 	/**
-	 * Checks the existance of a matter into database
+	 * Checks the existance of a subject into database
 	 * 
-	 * @param matter
+	 * @param subject
 	 * @return status
 	 */
-	public int check(Matter matter) throws DAOException 
+	public int check(Subject subject) throws DAOException
 	{
 		Connection connexion                = null;
 		PreparedStatement preparedStatement = null;
@@ -160,10 +160,10 @@ public class MatterDaoImpl implements MatterDao
 		{
 			connexion = daoFactory.getConnection();
 			
-			if (matter.getId() == null)  SQLQuery += " AND id IS NOT ?";
+			if (subject.getId() == null)  SQLQuery += " AND id IS NOT ?";
 			else SQLQuery += " AND id != ?";
 		
-			preparedStatement = initPreparedQuery(connexion, SQLQuery, true, matter.getName(), matter.getId());
+			preparedStatement = initPreparedQuery(connexion, SQLQuery, true, subject.getName(), subject.getId());
 			resultSet         = preparedStatement.executeQuery();
 			resultSet.next();
 			status = resultSet.getInt(1);
@@ -181,13 +181,13 @@ public class MatterDaoImpl implements MatterDao
 	}
 	
 	/**
-	 * Returns a matter into database
+	 * Returns a subject into database
 	 * 
-	 * @param matter
-	 * @return matter
+	 * @param subject
+	 * @return subject
 	 * @throws DAOException
 	 */
-	public Matter get(Matter matter) throws DAOException
+	public Subject get(Subject subject) throws DAOException
 	{ 
 		Connection connexion                = null;
 		PreparedStatement preparedStatement = null;
@@ -196,10 +196,10 @@ public class MatterDaoImpl implements MatterDao
 		try 
 		{
 			connexion         = daoFactory.getConnection();
-			preparedStatement = initPreparedQuery(connexion, SELECT_BY_ID, true, matter.getId());
+			preparedStatement = initPreparedQuery(connexion, SELECT_BY_ID, true, subject.getId());
 			resultSet         = preparedStatement.executeQuery();
 			
-			if (resultSet.next()) matter = map(resultSet);
+			if (resultSet.next()) subject = map(resultSet);
 	        
 		} 
 		catch (SQLException e) 
@@ -211,26 +211,26 @@ public class MatterDaoImpl implements MatterDao
 			silentClosures(preparedStatement, connexion);
 		}
 		
-		return matter;
+		return subject;
 	}
 	
 	/**
-	 * Deletes a matter into database
+	 * Deletes a subject into database
 	 * 
-	 * @param matter
+	 * @param subject
 	 * @return status
 	 * @throws DAOException
 	 */
-	public void delete(Matter matter) throws DAOException
+	public void delete(Subject subject) throws DAOException
 	{
 		Connection connexion                = null;
 		PreparedStatement preparedStatement = null;
-		Administrator editor                = new Administrator(matter.getEditor());
+		Administrator editor                = new Administrator(subject.getEditor());
 		
 		try 
 		{
 			connexion         = daoFactory.getConnection();
-			preparedStatement = initPreparedQuery(connexion, DELETE, true, editor.getId(), matter.getId());
+			preparedStatement = initPreparedQuery(connexion, DELETE, true, editor.getId(), subject.getId());
 			preparedStatement.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -266,19 +266,19 @@ public class MatterDaoImpl implements MatterDao
 	}
 
 	/**
-	 * Maps a Matter
+	 * Maps a Subject
 	 * 
 	 * @param resultSet
 	 * @return matter
 	 * @throws SQLException
 	 */
-	private static Matter map(ResultSet resultSet) throws SQLException 
+	private static Subject map(ResultSet resultSet) throws SQLException
 	{
-		Matter matter = new Matter();
+		Subject subject = new Subject();
 		
-		matter.setId(resultSet.getLong("id"));
-		matter.setName(resultSet.getString("nom"));
+		subject.setId(resultSet.getLong("id"));
+		subject.setName(resultSet.getString("nom"));
 		
-		return matter;
+		return subject;
 	}
 }

@@ -23,7 +23,7 @@
             <dd><c:out value="${test.group.name}"/></dd>
         
             <dt>MATIERE</dt>
-            <dd><c:out value="${test.matter.name}"/></dd>
+            <dd><c:out value="${test.subject.name}"/></dd>
         
             <dt>COEFFICIENT</dt>
             <dd><c:out value="${test.coefficient}"/></dd>

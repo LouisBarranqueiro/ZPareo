@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import beans.Administrator;
+import beans.Subject;
 import beans.Teacher;
 import beans.Group;
-import beans.Matter;
 import dao.TeacherDao;
 
 public class TeacherForm
@@ -360,18 +360,18 @@ public class TeacherForm
      */
     private void treatsMatters(String[] matters, Teacher teacher) 
     {
-    	Set<Matter> matterList = new HashSet<Matter>();
+    	Set<Subject> subjectList = new HashSet<Subject>();
     	
     	if (validateMatters(matters))
     	{
     		for (int i = 0; i < matters.length; i++) 
             {
-            	Matter matiere = new Matter();
+            	Subject matiere = new Subject();
             	matiere.setId(Long.parseLong(matters[i]));
-            	matterList.add(matiere);
+            	subjectList.add(matiere);
             }
     		
-    		teacher.setMatters(matterList);
+    		teacher.setSubjects(subjectList);
     	}
     }
     
