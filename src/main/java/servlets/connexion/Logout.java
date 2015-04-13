@@ -11,25 +11,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@SuppressWarnings("serial")
 @WebServlet("/logout")
 public class Logout extends HttpServlet {
-    private String path;
+    private String contextPath;
 
     public Logout() {
         super();
     }
 
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        this.path = config.getServletContext().getContextPath();
+    public void init() throws ServletException {
+        this.contextPath = getServletContext().getContextPath();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
         session.invalidate();
-        response.sendRedirect(this.path + "/logout");
+        response.sendRedirect(this.contextPath + "/logout");
     }
 
 }

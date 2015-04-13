@@ -17,7 +17,6 @@ import forms.AdministratorForm;
 import forms.StudentForm;
 import forms.TeacherForm;
 
-@SuppressWarnings("serial")
 @WebServlet("/login")
 public class Login extends HttpServlet {
     private static final String CONF_DAO_FACTORY      = "daofactory";
@@ -27,7 +26,7 @@ public class Login extends HttpServlet {
     private static final String ADMINISTRATOR_SESSION = "administratorSession";
     private static final String STUDENT_FORM          = "studentForm";
     private static final String VIEW                  = "/WEB-INF/login.xhtml";
-    private String           path;
+    private String           contextPath;
     private AdministratorDao administratorDao;
     private StudentDao       studentDao;
     private TeacherDao       teacherForm;
@@ -36,9 +35,8 @@ public class Login extends HttpServlet {
         super();
     }
 
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        this.path = config.getServletContext().getContextPath();
+    public void init() throws ServletException {
+        this.contextPath = getServletContext().getContextPath();
         this.administratorDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getAdministratorDao();
         this.studentDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getStudentDao();
         this.teacherForm = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getTeacherDao();
@@ -48,13 +46,13 @@ public class Login extends HttpServlet {
         HttpSession session = request.getSession();
 
         if (session.getAttribute(ADMINISTRATOR_SESSION) != null) {
-            response.sendRedirect(this.path + "/ai/administrator");
+            response.sendRedirect(this.contextPath + "/ai/administrator");
         }
         else if (session.getAttribute(TEACHER_SESSION) != null) {
-            response.sendRedirect(this.path + "/pi/test");
+            response.sendRedirect(this.contextPath + "/pi/test");
         }
         else if (session.getAttribute(STUDENT_SESSION) != null) {
-            response.sendRedirect(this.path + "/ei/gradebook");
+            response.sendRedirect(this.contextPath + "/ei/gradebook");
         }
         else {
             this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);
@@ -72,15 +70,15 @@ public class Login extends HttpServlet {
 
         if (student.getId() != null) {
             session.setAttribute(STUDENT_SESSION, student);
-            response.sendRedirect(this.path + "/si/gradebook");
+            response.sendRedirect(this.contextPath + "/si/gradebook");
         }
         else if (teacher.getId() != null) {
             session.setAttribute(TEACHER_SESSION, teacher);
-            response.sendRedirect(this.path + "/ti/test");
+            response.sendRedirect(this.contextPath + "/ti/test");
         }
         else if (administrator.getId() != null) {
             session.setAttribute(ADMINISTRATOR_SESSION, administrator);
-            response.sendRedirect(this.path + "/ai/administrator");
+            response.sendRedirect(this.contextPath + "/ai/administrator");
         }
         else {
             request.setAttribute(USER, student);
