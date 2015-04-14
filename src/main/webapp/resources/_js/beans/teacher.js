@@ -10,7 +10,7 @@ var createTeacher = function() {
         var password     = $('#create-teacher input[name=password]').val();
         var confirmation = $('#create-teacher input[name=confirmation]').val();
         var groups       = $('#create-teacher select[name=groups]').val();
-        var matters      = $('#create-teacher select[name=matters]').val();
+        var subjects     = $('#create-teacher select[name=subjects]').val();
         var modalWindow  = $('#modal');
         var url          = $(this).attr('action');
 
@@ -24,7 +24,7 @@ var createTeacher = function() {
                 password:     password,
                 confirmation: confirmation,
                 groups:       groups,
-                matters:      matters
+                subjects:     subjects
             },
             error:   function() {
                 alert('error !');
@@ -57,7 +57,7 @@ var editTeacher = function() {
         var password     = $('#edit-teacher input[name=password]').val();
         var confirmation = $('#edit-teacher input[name=confirmation]').val();
         var groups       = $('#edit-teacher select[name=groups]').val();
-        var matters      = $('#edit-teacher select[name=matters]').val();
+        var subjects     = $('#edit-teacher select[name=subjects]').val();
         var modalWindow  = $('#modal');
         var url          = $(this).attr('action');
 
@@ -72,14 +72,15 @@ var editTeacher = function() {
                 password:     password,
                 confirmation: confirmation,
                 groups:       groups,
-                matters:      matters
+                subjects:     subjects
             },
             error:   function() {
                 alert("erreur !");
             },
             success: function(view) {
                 if (view.search('<div id=\"main-wrap\"') > 0) {
-                    document.location = "http://localhost:8080/zpareo/ai/professeur";
+                    removeModalWindow();
+                    $('#main-wrap').replaceWith(sliceMainView(view));
                 }
                 else {
                     modalWindow.html(view);
@@ -103,7 +104,7 @@ var deleteTeacher = function() {
 
         $.ajax({
             type:    'POST',
-            url:     baseURL + '/zpareo/ai/professeur/suppression',
+            url:     baseURL + url,
             data:    {
                 id: id
             },
