@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <form id="edit-teacher" action="#{request.contextPath}/ai/teacher/update" method="post"
+          class="form--horizontal">
+        <div class="modal__mod__head">
+            <h3 class="modal__mod__head__title text-center">Editing of teacher n°#{teacher.id}</h3>
+        </div>
+        <div class="modal__mod--sm modal__mod--vertical">
+            <input type="hidden" name="id" class="form--control" size="39" value="#{teacher.id}"
+                   pattern="[0-9]{1,11}"
+                   required="required"/>
+            <label>FIRST NAME</label>
+            <input type="text" name="firstName" class="form--control" size="39" value="#{teacher.firstName}"
+                   pattern="[a-zA-Z ]{2,50}"
+                   required="required"/>
+            <span class="form__error">#{teacherForm.errors['firstName']}</span>
+            <label>LAST NAME</label>
+            <input type="text" name="lastName" class="form--control" size="39" value="#{teacher.lastName}"
+                   pattern="[a-zA-Z ]{2,50}"
+                   required="required"/>
+            <span class="form__error">#{teacherForm.errors['lastName']}</span>
+            <label>EMAIL</label>
+            <input type="text" name="emailAddress" class="form--control" size="39"
+                   value="#{teacher.emailAddress}" pattern="[a-zA-Z0-9@.-_]+@[a-zA-Z.]{2,20}.[a-zA-Z]{2,3}"
+                   required="required"/>
+            <span class="form__error">#{teacherForm.errors['emailAddress']}</span>
+            <label>NEW PASSWORD</label>
+            <input type="password" name="password" class="form--control" size="39"/>
+            <span class="form__error">#{teacherForm.errors['password']}</span>
+            <label>CONFIRMATION</label>
+            <input type="password" name="confirmation" class="form--control" size="39"/>
+            <span class="form__error">#{teacherForm.errors['password']}</span>
+        </div>
+        <div class="modal__mod--sm modal__mod--vertical">
+            <label>GROUP(S)</label>
+            <select multiple="multiple" size="7" name="groups" class="form--control select2">
+                <c:forEach items="#{groups}" var="group">
+                    <c:forEach items="#{teacher.groups}" var="teacherGroup">
+                        <c:choose>
+                            <c:when test="#{teacherGroup.id == group.id}">
+                                <option value="#{group.id}" selected="selected">
+                                    #{group.name}
+                                </option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="#{group.id}">
+                                    #{group.name}
+                                </option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </c:forEach>
+            </select>
+            <span class="form__error">#{teacherForm.errors['groups']}</span>
+            <label>SUBJECT(S) TAUGHT</label>
+            <select multiple="multiple" size="23" name="subjects" class="form--control select2">
+                <c:forEach items="#{subjects}" var="subject">
+                    <c:forEach items="#{teacher.subjects}" var="teacherSubject">
+                        <c:choose>
+                            <c:when test="#{teacherSubject.id == subject.id}">
+                                <option value="#{subject.id}" selected="selected">
+                                    #{subject.name}
+                                </option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="#{subject.id}">
+                                    #{subject.name}
+                                </option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </c:forEach>
+            </select>
+            <span class="form__error">#{teacherForm.errors['subjects']}</span>
+            <span class="form__error">#{teacherForm.errors['teacher']}</span>
+        </div>
+        <div class="form__control modal__mod__control">
+            <button type="submit" class="btn btn--primary" onclick="editTeacher()">UPDATE</button>
+            <button type="button" class="btn btn--default" onclick="removeModalWindow()">CANCEL</button>
+        </div>
+    </form>
+</html>
