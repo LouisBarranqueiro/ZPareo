@@ -85,7 +85,6 @@ var editTeacher = function() {
                 else {
                     modalWindow.html(view);
                     initModalWindow(600);
-                    initSelect2();
                 }
             }
         });
