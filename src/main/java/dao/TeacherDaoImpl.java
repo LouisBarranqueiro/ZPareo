@@ -19,16 +19,16 @@ public class TeacherDaoImpl implements TeacherDao {
     private DAOFactory daoFactory;
     private static final String SELECT_COUNT_BY_EMAIL = "SELECT COUNT(id) FROM gnw_utilisateur WHERE profil = 1 AND adresse_mail = ?";
     private static final String SELECT_ALL            = "SELECT id, nom, prenom, adresse_mail  FROM gnw_utilisateur WHERE profil = 1 AND date_suppr IS NULL";
-    private static final String SELECT_MATTERS        = "SELECT gnw_professeur_matiere.fk_matiere as matiereId, gnw_matiere.nom as matiereNom FROM gnw_professeur_matiere, gnw_matiere WHERE gnw_professeur_matiere.date_suppr IS NULL AND gnw_professeur_matiere.fk_professeur = ? AND gnw_professeur_matiere.fk_matiere = gnw_matiere.id";
+    private static final String SELECT_SUBJECTS        = "SELECT gnw_professeur_matiere.fk_matiere as matiereId, gnw_matiere.nom as matiereNom FROM gnw_professeur_matiere, gnw_matiere WHERE gnw_professeur_matiere.date_suppr IS NULL AND gnw_professeur_matiere.fk_professeur = ? AND gnw_professeur_matiere.fk_matiere = gnw_matiere.id";
     private static final String SELECT_GROUPS         = "SELECT gnw_professeur_groupe.fk_groupe as groupeId, gnw_groupe.nom as groupeNom FROM gnw_professeur_groupe, gnw_groupe WHERE gnw_professeur_groupe.date_suppr IS NULL AND gnw_professeur_groupe.fk_professeur = ? AND gnw_professeur_groupe.fk_groupe = gnw_groupe.id";
     private static final String SELECT_BY_ID          = "SELECT id, nom, prenom, adresse_mail FROM gnw_utilisateur WHERE id = ? AND date_suppr IS NULL";
     private static final String SELECT_LOGIN          = "SELECT gnw_utilisateur.id, gnw_utilisateur.nom, gnw_utilisateur.prenom, gnw_utilisateur.adresse_mail FROM gnw_utilisateur WHERE gnw_utilisateur.profil = 1 AND gnw_utilisateur.adresse_mail = ? AND gnw_utilisateur.mot_de_passe = ?";
     private static final String SELECT_TEACHER        = "INSERT INTO gnw_utilisateur ( nom, prenom, adresse_mail, mot_de_passe, profil, fk_utilisateur ) VALUES (?, ?, ?, ?, 1, ?)";
-    private static final String INSERT_MATTER         = "INSERT INTO gnw_professeur_matiere ( fk_professeur, fk_matiere, fk_utilisateur ) VALUES (?, ?, ?)";
+    private static final String INSERT_SUBJECT         = "INSERT INTO gnw_professeur_matiere ( fk_professeur, fk_matiere, fk_utilisateur ) VALUES (?, ?, ?)";
     private static final String INSERT_GROUP          = "INSERT INTO gnw_professeur_groupe ( fk_professeur, fk_groupe, fk_utilisateur ) VALUES (?, ?, ?)";
     private static final String UPDATE_TEACHER        = "UPDATE gnw_utilisateur SET nom = ?, prenom = ?, adresse_mail = ?, fk_utilisateur = ? WHERE id = ?";
     private static final String UPDATE_PASSWORD       = "UPDATE gnw_utilisateur SET mot_de_passe = ?, fk_utilisateur = ? WHERE id = ?";
-    private static final String UPDATE_MATTER         = "UPDATE gnw_professeur_matiere SET date_suppr = now(), fk_utilisateur = ? WHERE fk_professeur = ?";
+    private static final String UPDATE_SUBJECT         = "UPDATE gnw_professeur_matiere SET date_suppr = now(), fk_utilisateur = ? WHERE fk_professeur = ?";
     private static final String UPDATE_GROUP          = "UPDATE gnw_professeur_groupe SET date_suppr = now(), fk_utilisateur = ? WHERE fk_professeur = ?";
     private static final String DELETE_TEACHER        = "UPDATE gnw_utilisateur SET date_suppr = now(), fk_utilisateur = ? WHERE id = ?";
 
@@ -46,7 +46,7 @@ public class TeacherDaoImpl implements TeacherDao {
      */
     public void create(Teacher teacher) {
         createTeacher(teacher);
-        addMatters(teacher, true);
+        addSubjects(teacher, true);
         addGroups(teacher, true);
     }
 
@@ -80,15 +80,15 @@ public class TeacherDaoImpl implements TeacherDao {
     }
 
     /**
-     * Adds matters to a teacher into database
+     * Adds subjects to a teacher into database
      * @param teacher
      * @throws DAOException
      */
-    private void addMatters(Teacher teacher, boolean creation) throws DAOException {
+    private void addSubjects(Teacher teacher, boolean creation) throws DAOException {
         Connection        connexion         = null;
         PreparedStatement preparedStatement = null;
         Administrator     administrator     = null;
-        Object[]          matters           = null;
+        Object[]          subjects           = null;
 
         if (creation) {
             administrator = new Administrator(teacher.getCreator());
@@ -99,11 +99,11 @@ public class TeacherDaoImpl implements TeacherDao {
 
         try {
             connexion = daoFactory.getConnection();
-            matters = teacher.getSubjects().toArray();
+            subjects = teacher.getSubjects().toArray();
 
-            for (Object m : matters) {
+            for (Object m : subjects) {
                 Subject subject = (Subject) m;
-                preparedStatement = initPreparedQuery(connexion, INSERT_MATTER, true, teacher.getId(), subject.getId(), administrator.getId());
+                preparedStatement = initPreparedQuery(connexion, INSERT_SUBJECT, true, teacher.getId(), subject.getId(), administrator.getId());
                 preparedStatement.executeUpdate();
             }
         }
@@ -231,13 +231,13 @@ public class TeacherDaoImpl implements TeacherDao {
             editPassword(teacher);
         }
 
-        //  Delete teacher matters and groups
-        deleteMatters(teacher);
+        //  Delete teacher subjects and groups
+        deleteSubjects(teacher);
         deleteGroups(teacher);
 
-        // Add teacher matter and groups
+        // Add teacher subject and groups
         if (teacher.getSubjects() != null) {
-            addMatters(teacher, false);
+            addSubjects(teacher, false);
         }
 
         if (teacher.getGroups() != null) {
@@ -322,19 +322,19 @@ public class TeacherDaoImpl implements TeacherDao {
     }
 
     /**
-     * Deletes teacher matters into database
+     * Deletes teacher subjects into database
      * @param teacher
      * @return teacher
      * @throws DAOException
      */
-    private Teacher deleteMatters(Teacher teacher) throws DAOException {
+    private Teacher deleteSubjects(Teacher teacher) throws DAOException {
         Connection        connexion         = null;
         PreparedStatement preparedStatement = null;
         Administrator     editor            = new Administrator(teacher.getEditor());
 
         try {
             connexion = daoFactory.getConnection();
-            preparedStatement = initPreparedQuery(connexion, UPDATE_MATTER, true, editor.getId(), teacher.getId());
+            preparedStatement = initPreparedQuery(connexion, UPDATE_SUBJECT, true, editor.getId(), teacher.getId());
             preparedStatement.executeUpdate();
         }
         catch (SQLException e) {
@@ -370,7 +370,7 @@ public class TeacherDaoImpl implements TeacherDao {
             }
 
             teacher2.setGroups(getGroups(teacher2));
-            teacher2.setSubjects(getMatters(teacher2));
+            teacher2.setSubjects(getSubjects(teacher2));
         }
         catch (SQLException e) {
             throw new DAOException(e);
@@ -441,7 +441,7 @@ public class TeacherDaoImpl implements TeacherDao {
             }
 
             teacher.setGroups(getGroups(teacher));
-            teacher.setSubjects(getMatters(teacher));
+            teacher.setSubjects(getSubjects(teacher));
         }
         catch (SQLException e) {
             throw new DAOException(e);
@@ -454,12 +454,12 @@ public class TeacherDaoImpl implements TeacherDao {
     }
 
     /**
-     * Returns teachers matters into database
+     * Returns teachers subjects into database
      * @param teacher
-     * @return matters
+     * @return subjects
      * @throws DAOException
      */
-    private Set<Subject> getMatters(Teacher teacher) throws DAOException {
+    private Set<Subject> getSubjects(Teacher teacher) throws DAOException {
         Set<Subject>      subjects          = new TreeSet<Subject>();
         Connection        connexion         = null;
         PreparedStatement preparedStatement = null;
@@ -467,12 +467,12 @@ public class TeacherDaoImpl implements TeacherDao {
 
         try {
             connexion = daoFactory.getConnection();
-            preparedStatement = initPreparedQuery(connexion, SELECT_MATTERS, true, teacher.getId());
+            preparedStatement = initPreparedQuery(connexion, SELECT_SUBJECTS, true, teacher.getId());
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 Subject subject = new Subject();
-                subject = mapMatter(resultSet);
+                subject = mapSubject(resultSet);
                 subjects.add(subject);
             }
         }
@@ -581,10 +581,10 @@ public class TeacherDaoImpl implements TeacherDao {
     /**
      * Maps a Subject
      * @param resultSet
-     * @return matter
+     * @return subject
      * @throws SQLException
      */
-    private static Subject mapMatter(ResultSet resultSet) throws SQLException {
+    private static Subject mapSubject(ResultSet resultSet) throws SQLException {
         Subject subject = new Subject();
 
         subject.setId(resultSet.getLong("matiereId"));
