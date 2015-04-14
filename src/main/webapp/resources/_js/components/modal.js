@@ -75,7 +75,7 @@ var initModalWindow = function(modalWidth) {
     displayModalWindow();
 };
 
- /**
+/**
  * Displays response into modal window
  *
  * @param {string} url
@@ -95,8 +95,6 @@ var displayRespModal = function(url, modalWidth) {
             initModalWindow(modalWidth);
         }
     }).done(function() {
-        initSelect2();
-    }).always(function() {
-        initDatepicker();
+        initLibraries();
     });
 };
