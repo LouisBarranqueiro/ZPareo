@@ -1,5 +1,5 @@
 /**
- * Creates a teacher
+ * Create a teacher
  */
 var createTeacher = function() {
     $('#create-teacher').submit(function(event) {
@@ -12,40 +12,40 @@ var createTeacher = function() {
         var groups       = $('#create-teacher select[name=groups]').val();
         var matters      = $('#create-teacher select[name=matters]').val();
         var modalWindow  = $('#modal');
+        var url          = $(this).attr('action');
 
-        $.ajax(
-            {
-                type:    'POST',
-                url:     baseURL + '/zpareo/ai/professeur/creation',
-                data:    {
-                    lastName:     lastName,
-                    firstName:    firstName,
-                    emailAddress: emailAddress,
-                    password:     password,
-                    confirmation: confirmation,
-                    groups:       groups,
-                    matters:      matters
-                },
-                error:   function() {
-                    alert('error !');
-                },
-                success: function(view) {
-                    if (view.search('<div id=\"main-wrap\"') > 0) {
-                        removeModalWindow();
-                        $('#main-wrap').replaceWith(sliceMainView(view));
-                    }
-                    else {
-                        modalWindow.html(view);
-                        initModalWindow(600);
-                        initSelect2();
-                    }
+        $.ajax({
+            type:    'POST',
+            url:     baseURL + url,
+            data:    {
+                lastName:     lastName,
+                firstName:    firstName,
+                emailAddress: emailAddress,
+                password:     password,
+                confirmation: confirmation,
+                groups:       groups,
+                matters:      matters
+            },
+            error:   function() {
+                alert('error !');
+            },
+            success: function(view) {
+                if (view.search('<div id=\"main-wrap\"') > 0) {
+                    removeModalWindow();
+                    $('#main-wrap').replaceWith(sliceMainView(view));
                 }
-            });
+                else {
+                    modalWindow.html(view);
+                    initModalWindow(600);
+                    initSelect2();
+                }
+            }
+        });
     });
 };
 
 /**
- * Edits a teacher
+ * Edit a teacher
  */
 var editTeacher = function() {
     $('#edit-teacher').submit(function(event) {
@@ -59,10 +59,11 @@ var editTeacher = function() {
         var groups       = $('#edit-teacher select[name=groups]').val();
         var matters      = $('#edit-teacher select[name=matters]').val();
         var modalWindow  = $('#modal');
+        var url          = $(this).attr('action');
 
         $.ajax({
             type:    "POST",
-            url:     "http://localhost:8080/zpareo/ai/professeur/edition",
+            url:     baseURL + url,
             data:    {
                 id:           id,
                 lastName:     lastName,
@@ -91,36 +92,35 @@ var editTeacher = function() {
 };
 
 /**
- * Deletes a teacher
+ * Delete a teacher
  */
 var deleteTeacher = function() {
     $('#delete-teacher').submit(function(event) {
         event.preventDefault();
         var id          = $('#delete-teacher input[name=id]').val();
         var modalWindow = $('#modal');
+        var url         = $(this).attr('action');
 
-        $.ajax(
-            {
-                type:    'POST',
-                url:     baseURL + '/zpareo/ai/professeur/suppression',
-                data:    {
-                    id: id
-                },
-                error:   function() {
-                    alert('error !');
-                },
-                success: function(view) {
-                    if (view.search('<div id=\"main-wrap\"') > 0) {
-                        removeModalWindow();
-                        $('#main-wrap').replaceWith(sliceMainView(view));
-                    }
-                    else {
-                        modalWindow.html(view);
-                        initModalWindow('auto');
-
-                    }
+        $.ajax({
+            type:    'POST',
+            url:     baseURL + '/zpareo/ai/professeur/suppression',
+            data:    {
+                id: id
+            },
+            error:   function() {
+                alert('error !');
+            },
+            success: function(view) {
+                if (view.search('<div id=\"main-wrap\"') > 0) {
+                    removeModalWindow();
+                    $('#main-wrap').replaceWith(sliceMainView(view));
                 }
-            });
+                else {
+                    modalWindow.html(view);
+                    initModalWindow('auto');
+                }
+            }
+        });
     });
 };
 
