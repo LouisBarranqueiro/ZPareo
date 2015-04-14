@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <div class="modal__mod">
+        <div class="modal__mod__head">
+            <h3 class="modal__mod__head__title text-center">Information</h3>
+        </div>
+        <div class="modal__mod--lg">
+            <dl>
+                <dt>FIRST NAME</dt>
+                <dd>#{teacher.lastName}</dd>
+                <dt>LAST NAME</dt>
+                <dd>#{teacher.firstName}</dd>
+                <dt>EMAIL</dt>
+                <dd>#{teacher.emailAddress}</dd>
+                <dt>GROUP(S)</dt>
+                <dd>
+                    <c:forEach items="#{groups}" var="group">
+                        <c:forEach items="#{teacher.groups}" var="teacherGroup">
+                            <c:if test="#{teacherGroup.id == group.id}">#{group.name}, </c:if>
+                        </c:forEach>
+                    </c:forEach>
+                </dd>
+                <dt>SUBJECT(S) TAUGHT</dt>
+                <dd>
+                    <c:forEach items="#{subjects}" var="subject">
+                        <c:forEach items="#{teacher.subjects}" var="teacherMatter">
+                            <c:if test="#{teacherMatter.id == subject.id}">#{subject.name}, </c:if>
+                        </c:forEach>
+                    </c:forEach>
+                </dd>
+            </dl>
+            <div class="form__control modal__mod__control">
+                <button type="submit" class="btn btn--primary"
+                        onclick="displayRespModal('#{request.contextPath}/ai/teacher/update?id=#{teacher.id}',600)">EDIT
+                </button>
+                <button type="button" class="btn btn--default" onclick="removeModalWindow()">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</html>
