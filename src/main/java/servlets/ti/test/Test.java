@@ -18,7 +18,7 @@ public class Test extends HttpServlet {
     private static final String TESTS            = "tests";
     private static final String NUMB_TESTS       = "numbTests";
     private static final String TEST_FORM        = "testForm";
-    private static final String VIEW             = "/WEB-INF/pi/test/index.xhtml";
+    private static final String VIEW             = "/WEB-INF/ti/test/index.xhtml";
     private TestDao testDao;
 
     public Test() {

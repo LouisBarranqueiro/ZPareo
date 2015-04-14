@@ -16,7 +16,7 @@ public class TestCreate extends HttpServlet {
     private static final String CONF_DAO_FACTORY = "daofactory";
     private static final String TEST             = "test";
     private static final String TEST_FORM        = "testForm";
-    private static final String VIEW             = "/WEB-INF/pi/test/create.xhtml";
+    private static final String VIEW             = "/WEB-INF/ti/test/create.xhtml";
     private String  contextPath;
     private TestDao testDao;
 
