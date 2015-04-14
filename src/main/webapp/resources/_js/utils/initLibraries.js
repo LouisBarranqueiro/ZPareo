@@ -22,14 +22,21 @@ var initDatepicker = function() {
 /**
  * Initialize javascript libraries
  */
+var initLibraries = function() {
+    // Initialize tablesorter library
+    initTableSorter();
+    // Initialize select2 library
+    initSelect2();
+    // Initialize datepicker library
+    initDatepicker();
+};
+
+/**
+ * Initialize javascript libraries
+ */
 +function($) {
     $(document).ready(function() {
-        // Initialize tablesorter library
-        initTableSorter();
-        // Initialize select2 library
-        initSelect2();
-        // Initialize datepicker library
-        initDatepicker();
+        initLibraries();
     })
 }(jQuery);
 
