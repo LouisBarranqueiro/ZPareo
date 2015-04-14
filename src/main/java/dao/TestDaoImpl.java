@@ -23,8 +23,8 @@ public class TestDaoImpl implements TestDao {
     private static final String SELECT_SCORE_BY_TEST          = "SELECT id, note FROM gnw_examen_note WHERE fk_examen = ? AND fk_etudiant = ? AND date_suppr IS NULL";
     private static final String SELECT_COUNT_SCORE_BY_TEST    = "SELECT COUNT(id) FROM gnw_examen_note WHERE fk_examen = ? AND fk_etudiant = ? AND date_suppr IS NULL";
     private static final String SELECT_STUDENT_BY_GROUP       = "SELECT gnw_utilisateur.id, gnw_utilisateur.nom, gnw_utilisateur.prenom, gnw_utilisateur.adresse_mail FROM gnw_utilisateur, gnw_etudiant_groupe WHERE profil = 0 AND gnw_utilisateur.date_suppr IS NULL AND gnw_utilisateur.id = gnw_etudiant_groupe.fk_etudiant AND gnw_etudiant_groupe.fk_groupe = ?";
-    private static final String SELECT_TEST_BY_MATTER_GROUP   = "SELECT gnw_examen.id, gnw_examen.nom, gnw_examen.date, gnw_examen.fk_professeur, gnw_examen.fk_format as formatId, gnw_formatexamen.nom as formatNom, gnw_groupe.id as groupeId, gnw_groupe.nom as groupeNom, gnw_matiere.nom as matiereNom, AVG(gnw_examen_note.note) as average, gnw_examen.coefficient FROM gnw_examen, gnw_matiere, gnw_groupe, gnw_formatexamen, gnw_examen_note WHERE gnw_examen.date_suppr IS NULL AND gnw_examen.fk_groupe = gnw_groupe.id AND gnw_examen.fk_format = gnw_formatexamen.id AND gnw_examen.fk_matiere = gnw_matiere.id AND gnw_examen.fk_matiere = ? AND gnw_examen.fk_groupe = ? GROUP BY gnw_examen.id";
-    private static final String SELECT_MATTER_BY_STUDENT      = "SELECT DISTINCT gnw_examen.fk_matiere FROM gnw_examen, gnw_examen_note WHERE gnw_examen.date_suppr IS NULL AND gnw_examen_note.date_suppr IS NULL AND gnw_examen.id = gnw_examen_note.fk_examen AND gnw_examen_note.fk_etudiant = ?";
+    private static final String SELECT_TEST_BY_SUBJECT_GROUP  = "SELECT gnw_examen.id, gnw_examen.nom, gnw_examen.date, gnw_examen.fk_professeur, gnw_examen.fk_format as formatId, gnw_formatexamen.nom as formatNom, gnw_groupe.id as groupeId, gnw_groupe.nom as groupeNom, gnw_matiere.nom as matiereNom, AVG(gnw_examen_note.note) as average, gnw_examen.coefficient FROM gnw_examen, gnw_matiere, gnw_groupe, gnw_formatexamen, gnw_examen_note WHERE gnw_examen.date_suppr IS NULL AND gnw_examen.fk_groupe = gnw_groupe.id AND gnw_examen.fk_format = gnw_formatexamen.id AND gnw_examen.fk_matiere = gnw_matiere.id AND gnw_examen.fk_matiere = ? AND gnw_examen.fk_groupe = ? GROUP BY gnw_examen.id";
+    private static final String SELECT_SUBJECT_BY_STUDENT     = "SELECT DISTINCT gnw_examen.fk_matiere FROM gnw_examen, gnw_examen_note WHERE gnw_examen.date_suppr IS NULL AND gnw_examen_note.date_suppr IS NULL AND gnw_examen.id = gnw_examen_note.fk_examen AND gnw_examen_note.fk_etudiant = ?";
     private static final String SELECT_TEST_AVERAGE_BY_MATTER = "SELECT SUM(gnw_examen_note.note * gnw_examen.coefficient) / SUM(gnw_examen.coefficient) as moyenne FROM gnw_examen, gnw_examen_note WHERE gnw_examen_note.fk_etudiant = ? AND gnw_examen.fk_matiere = ? AND gnw_examen_note.fk_examen = gnw_examen.id";
     private static final String SELECT_TEST_AVERAGE           = "SELECT AVG(gnw_examen_note.note) as moyenne FROM gnw_examen_note WHERE fk_examen = ?";
     private static final String UPDATE_SCORE                  = "UPDATE gnw_examen_note SET note = ?, fk_utilisateur = ? WHERE fk_examen = ? AND fk_etudiant = ?";
@@ -293,7 +293,7 @@ public class TestDaoImpl implements TestDao {
     }
 
     /**
-     * Returns student scores in a matter into database
+     * Returns student scores in a subject into database
      * @param subjectScore
      * @param student
      * @return subjectScore
@@ -309,7 +309,7 @@ public class TestDaoImpl implements TestDao {
 
         try {
             connexion = daoFactory.getConnection();
-            preparedStatement = initPreparedQuery(connexion, SELECT_TEST_BY_MATTER_GROUP, true, subject.getId(), group.getId());
+            preparedStatement = initPreparedQuery(connexion, SELECT_TEST_BY_SUBJECT_GROUP, true, subject.getId(), group.getId());
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -331,9 +331,9 @@ public class TestDaoImpl implements TestDao {
     }
 
     /**
-     * Returns student matter informations into database
+     * Returns student subject informations into database
      * @param student
-     * @return matterScores
+     * @return subjectScores
      * @throws DAOException
      */
     public Set<SubjectScore> getMatterScores(Student student) throws DAOException {
@@ -341,18 +341,18 @@ public class TestDaoImpl implements TestDao {
         PreparedStatement preparedStatement = null;
         ResultSet         resultSet         = null;
         Set<SubjectScore> subjectScores     = new TreeSet<SubjectScore>();
-        SubjectDaoImpl matterDao         = new SubjectDaoImpl(daoFactory);
+        SubjectDaoImpl    subjectDao        = new SubjectDaoImpl(daoFactory);
 
         try {
             connexion = daoFactory.getConnection();
-            preparedStatement = initPreparedQuery(connexion, SELECT_MATTER_BY_STUDENT, true, student.getId());
+            preparedStatement = initPreparedQuery(connexion, SELECT_SUBJECT_BY_STUDENT, true, student.getId());
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 SubjectScore subjectScore = new SubjectScore();
                 subjectScore.setId(resultSet.getLong("fk_matiere"));
                 Subject subject = new Subject(subjectScore.getId());
-                subject = matterDao.get(subject);
+                subject = subjectDao.get(subject);
                 subjectScore.setSubject(subject);
                 getMatterAverage(subjectScore, student);
                 getTests(subjectScore, student);
@@ -371,7 +371,7 @@ public class TestDaoImpl implements TestDao {
     }
 
     /**
-     * Returns a student matter average into database
+     * Returns a student subject average into database
      * @param subjectScore
      * @param student
      * @return subjectScore
