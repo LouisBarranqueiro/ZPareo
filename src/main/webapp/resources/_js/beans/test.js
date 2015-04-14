@@ -1,5 +1,5 @@
 /**
- * Creates a test
+ * Create a test
  */
 var createTest = function() {
     $('#create-test').submit(function(event) {
@@ -9,21 +9,22 @@ var createTest = function() {
         var format      = $('#create-test select[name=format]').val();
         var title       = $('#create-test input[name=title]').val();
         var date        = $('#create-test input[name=date]').val();
-        var matter      = $('#create-test select[name=matter]').val();
+        var subject     = $('#create-test select[name=subject]').val();
         var group       = $('#create-test select[name=group]').val();
         var modalWindow = $('#modal');
+        var url          = $(this).attr('action');
 
         $.ajax(
             {
                 type:    'POST',
-                url:     baseURL + '/zpareo/pi/examen/creation',
+                url:     baseURL + url,
                 data:    {
                     coefficient: coefficient,
                     teacher:     teacher,
                     format:      format,
                     title:       title,
                     date:        date,
-                    matter:      matter,
+                    subject:     subject,
                     group:       group
                 },
                 error:   function() {
@@ -46,7 +47,7 @@ var createTest = function() {
 };
 
 /**
- * Edits a test
+ * Edit a test
  */
 var editTest = function() {
     $('#edit-test').submit(function(event) {
@@ -59,8 +60,9 @@ var editTest = function() {
         var title       = $('#edit-test input[name=title]').val();
         var date        = $('#edit-test input[name=date]').val();
         var coefficient = $('#edit-test input[name=coefficient]').val();
-        var matter      = $('#edit-test select[name=matter]').val();
+        var subject     = $('#edit-test select[name=subject]').val();
         var modalWindow = $('#modal');
+        var url          = $(this).attr('action');
 
         $('input[name="students[]"]').each(function() {
             students.push($(this).val());
@@ -76,7 +78,7 @@ var editTest = function() {
         $.ajax(
             {
                 type:    'POST',
-                url:     baseURL + '/zpareo/pi/examen/edition',
+                url:     baseURL + url,
                 data:    {
                     id:          id,
                     teacher:     teacher,
@@ -84,7 +86,7 @@ var editTest = function() {
                     title:       title,
                     date:        date,
                     coefficient: coefficient,
-                    matter:      matter,
+                    subject:     subject,
                     students:    students,
                     scores:      scores
                 },
@@ -106,17 +108,18 @@ var editTest = function() {
 };
 
 /**
- * Deletes a test
+ * Delete a test
  */
 var deleteTest = function() {
     $('#delete-test').submit(function(event) {
         event.preventDefault();
         var id          = $('#delete-test input[name=id]').val();
         var modalWindow = $('#modal');
+        var url          = $(this).attr('action');
 
         $.ajax({
             type:    'POST',
-            url:     baseURL + '/zpareo/pi/examen/suppression',
+            url:     baseURL + url,
             data:    {
                 id: id
             },
