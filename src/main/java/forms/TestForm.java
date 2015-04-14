@@ -26,7 +26,7 @@ public class TestForm {
     private static final String              STUDENTS_FIELD    = "students";
     private static final String              TITLE_FIELD       = "title";
     private static final String              GROUP_FIELD       = "group";
-    private static final String              SUBJECT_FIELD      = "subject";
+    private static final String              SUBJECT_FIELD     = "subject";
     private static final String              AVERAGE_FIELD     = "average";
     private              Map<String, String> errors            = new HashMap<String, String>();
     private TestDao testDao;
@@ -50,7 +50,7 @@ public class TestForm {
         String  title       = getFieldVar(request, TITLE_FIELD);
         String  coefficient = getFieldVar(request, COEFFICIENT_FIELD);
         String  groupId     = getFieldVar(request, GROUP_FIELD);
-        String  subjectId    = getFieldVar(request, SUBJECT_FIELD);
+        String  subjectId   = getFieldVar(request, SUBJECT_FIELD);
         Teacher teacher     = (Teacher) getSessionVar(request, TEACHER_SESSION);
         Test    test        = new Test();
 
@@ -86,7 +86,7 @@ public class TestForm {
         String  format      = getFieldVar(request, FORMAT_FIELD);
         String  title       = getFieldVar(request, TITLE_FIELD);
         String  coefficient = getFieldVar(request, COEFFICIENT_FIELD);
-        String  subjectId    = getFieldVar(request, SUBJECT_FIELD);
+        String  subjectId   = getFieldVar(request, SUBJECT_FIELD);
         String  students    = getFieldVar(request, STUDENTS_FIELD);
         String  scores      = getFieldVar(request, SCORES_FIELD);
         Teacher teacher     = (Teacher) getSessionVar(request, TEACHER_SESSION);
@@ -138,16 +138,16 @@ public class TestForm {
      * @return tests
      */
     public Set<Test> search(HttpServletRequest request) {
-        String    id       = getFieldVar(request, ID_FIELD);
-        String    date     = getFieldVar(request, DATE_FIELD);
-        String    format   = getFieldVar(request, FORMAT_FIELD);
-        String    title    = getFieldVar(request, TITLE_FIELD);
-        String    groupId  = getFieldVar(request, GROUP_FIELD);
+        String    id        = getFieldVar(request, ID_FIELD);
+        String    date      = getFieldVar(request, DATE_FIELD);
+        String    format    = getFieldVar(request, FORMAT_FIELD);
+        String    title     = getFieldVar(request, TITLE_FIELD);
+        String    groupId   = getFieldVar(request, GROUP_FIELD);
         String    subjectId = getFieldVar(request, SUBJECT_FIELD);
-        String    average  = getFieldVar(request, AVERAGE_FIELD);
-        Set<Test> tests    = new TreeSet<Test>();
-        Teacher   teacher  = (Teacher) getSessionVar(request, TEACHER_SESSION);
-        Test      test     = new Test();
+        String    average   = getFieldVar(request, AVERAGE_FIELD);
+        Set<Test> tests     = new TreeSet<Test>();
+        Teacher   teacher   = (Teacher) getSessionVar(request, TEACHER_SESSION);
+        Test      test      = new Test();
 
         treatId(id, test);
         treatSubjectId(subjectId, test);
@@ -260,7 +260,7 @@ public class TestForm {
         Subject subject = new Subject();
 
         try {
-            validateMatterId(subjectId);
+            validateSubjectId(subjectId);
             subject.setId(Long.parseLong(subjectId));
         }
         catch (Exception e) {
@@ -433,7 +433,7 @@ public class TestForm {
      * @param subjectId
      * @throws Exception
      */
-    private void validateMatterId(String subjectId) throws Exception {
+    private void validateSubjectId(String subjectId) throws Exception {
         if (subjectId == null) {
             throw new Exception("Veuillez sélectionner une matière");
         }
