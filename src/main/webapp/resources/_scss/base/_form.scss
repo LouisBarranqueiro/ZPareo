@@ -15,7 +15,6 @@ textarea {
     margin:           0;
 }
 
-
 input:focus,
 input[required]:focus,
 select[required]:focus,
@@ -48,10 +47,9 @@ select::-ms-placeholder,
 textarea::-ms-placeholder,
 input::-webkit-placeholder,
 select::-webkit-placeholder,
-textarea::-webkit-placeholder{
+textarea::-webkit-placeholder {
     color: $font-color-placeholder;
 }
-
 
 input[disabled],
 input[readonly],
