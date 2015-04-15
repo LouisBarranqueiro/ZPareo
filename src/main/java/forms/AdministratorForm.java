@@ -396,7 +396,7 @@ public class AdministratorForm {
      */
     private void validateAdministrator(Administrator administrator) throws Exception {
         if (administratorDao.check(administrator) != 0) {
-            throw new Exception("Cet administrateur existe déja");
+            throw new Exception("This administrator already exists");
         }
     }
 
