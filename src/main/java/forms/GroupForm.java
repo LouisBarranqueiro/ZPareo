@@ -37,18 +37,12 @@ public class GroupForm {
         Administrator creator = (Administrator) getSessionVar(request, ADMINISTRATOR_SESSION);
         Group         group   = new Group();
 
-        try {
-            treatName(name, group);
-            treatGroup(group);
-            treatCreator(creator, group);
+        treatName(name, group);
+        treatGroup(group);
+        treatCreator(creator, group);
 
-            if (errors.isEmpty()) {
-                groupDao.create(group);
-            }
-
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+        if (errors.isEmpty()) {
+            groupDao.create(group);
         }
 
         return group;
@@ -147,12 +141,11 @@ public class GroupForm {
     private void treatName(String name, Group group) {
         try {
             validateName(name);
+            group.setName(name.toUpperCase());
         }
         catch (Exception e) {
             setError(NAME_FIELD, e.getMessage());
         }
-
-        group.setName(name.toUpperCase());
     }
 
     /**
@@ -176,12 +169,11 @@ public class GroupForm {
     private void treatCreator(Administrator creator, Group group) {
         try {
             validateCreator(creator);
+            group.setCreator(creator);
         }
         catch (Exception e) {
             setError("administrator", e.getMessage());
         }
-
-        group.setCreator(creator);
     }
 
     /**
@@ -192,12 +184,11 @@ public class GroupForm {
     private void treatEditor(Administrator editor, Group group) {
         try {
             validateCreator(editor);
+            group.setEditor(editor);
         }
         catch (Exception e) {
             setError("administrator", e.getMessage());
         }
-
-        group.setEditor(editor);
     }
 
     /**
