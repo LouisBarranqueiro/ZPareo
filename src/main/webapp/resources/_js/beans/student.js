@@ -12,16 +12,13 @@ var createStudent = function() {
         var url          = $(this).attr('action');
 
         $.ajax({
-            type:    'POST',
+            type:    'post',
             url:     baseURL + url,
             data:    {
                 lastName:     lastName,
                 firstName:    firstName,
                 emailAddress: emailAddress,
                 group:        group
-            },
-            error:   function() {
-                alert('error !');
             },
             success: function(view) {
                 if (view.search('<div id=\"main-wrap\"') > 0) {
@@ -52,7 +49,7 @@ var editStudent = function() {
         var url          = $(this).attr('action');
 
         $.ajax({
-            type:    'POST',
+            type:    'post',
             url:     baseURL + url,
             data:    {
                 id:           id,
@@ -60,9 +57,6 @@ var editStudent = function() {
                 firstName:    firstName,
                 emailAddress: emailAddress,
                 group:        group
-            },
-            error:   function() {
-                alert("error !");
             },
             success: function(view) {
                 if (view.search('<div id=\"main-wrap\"') > 0) {
@@ -89,13 +83,10 @@ var deleteStudent = function() {
         var url         = $(this).attr('action');
 
         $.ajax({
-            type:    'POST',
+            type:    'post',
             url:     baseURL + url,
             data:    {
                 id: id
-            },
-            error:   function() {
-                alert('error !');
             },
             success: function(view) {
                 if (view.search('<div id=\"main-wrap\"') > 0) {
@@ -125,9 +116,6 @@ var resetPasswordStudent = function() {
             url:     baseURL + url,
             data:    {
                 id: id
-            },
-            error:   function() {
-                alert("error !");
             },
             success: function(data) {
                 removeModalWindow();
