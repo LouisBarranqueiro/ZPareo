@@ -13,13 +13,13 @@
         <div class="modal__mod--lg">
             <input type="hidden" name="teacher" class="form--control" value="#{sessionScope.teacherSession.id}"
                    pattern=".{5,55}" readonly="readonly" required="required"/>
-            <label>FORMAT</label>
+            <label>FORMAT :#{test.format.name} </label>
             <select name="format" class="form--control" required="required">
                 <c:choose>
-                    <c:when test="${not empty test.format.name}">
+                    <c:when test="#{not empty test.format.id}">
                         <option disabled="disabled">Choose a format</option>
                         <c:choose>
-                            <c:when test="#{test.format.name == 'Oral'}">
+                            <c:when test="#{test.format.id == 2}">
                                 <option value="1">Written</option>
                                 <option value="2" selected="selected">Oral</option>
                             </c:when>
@@ -39,8 +39,8 @@
             <span class="form__error">#{testForm.errors['format']}</span>
             <label>DATE</label>
             <input type="text" name="date" class="form--control input-sm datepicker" value="#{test.date}"
-                   pattern="(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)\d\d"
-                   placeholder="DD/MM/YYYY"
+                   pattern="[(0[1-9]|1[012])/(0[1-9]|[12][0-9]|3[01])/(19|20)\d\d]|[((19|20)\d\d)-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])]"
+                   placeholder="MM/DD/YYYY"
                    required="required"/>
             <span class="form__error">#{testForm.errors['date']}</span>
             <label>TITLE</label>
@@ -64,7 +64,7 @@
                 </c:choose>
                 <c:forEach items="${sessionScope.teacherSession.groups}" var="teacherGroup">
                     <c:choose>
-                        <c:when test="${test.group.name == teacherGroup.name}">
+                        <c:when test="${test.group.id == teacherGroup.id}">
                             <option value="#{teacherGroup.id}"
                                     selected="selected">#{teacherGroup.name}</option>
                         </c:when>
@@ -87,7 +87,7 @@
                 </c:choose>
                 <c:forEach items="${sessionScope.teacherSession.subjects}" var="teacherSubject">
                     <c:choose>
-                        <c:when test="${test.subject.name == teacherSubject.name}">
+                        <c:when test="${test.subject.id == teacherSubject.id}">
                             <option value="#{teacherSubject.id}"
                                     selected="selected">#{teacherSubject.name}</option>
                         </c:when>
