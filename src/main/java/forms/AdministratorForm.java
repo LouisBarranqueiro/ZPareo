@@ -45,21 +45,15 @@ public class AdministratorForm {
         Administrator creator       = (Administrator) getSessionVar(request, ADMINISTRATOR_SESSION);
         Administrator administrator = new Administrator();
 
-        try {
-            treatLastName(lastName, administrator);
-            treatFirstName(firstName, administrator);
-            treatEmailAddress(emailAddress, administrator);
-            treatPassword(password, confirmation, administrator);
-            treatAdministrator(administrator);
-            treatCreator(creator, administrator);
+        treatLastName(lastName, administrator);
+        treatFirstName(firstName, administrator);
+        treatEmailAddress(emailAddress, administrator);
+        treatPassword(password, confirmation, administrator);
+        treatAdministrator(administrator);
+        treatCreator(creator, administrator);
 
-            if (errors.isEmpty()) {
-                administratorDao.create(administrator);
-            }
-
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+        if (errors.isEmpty()) {
+            administratorDao.create(administrator);
         }
 
         return administrator;
@@ -120,24 +114,19 @@ public class AdministratorForm {
         Administrator editor        = (Administrator) getSessionVar(request, ADMINISTRATOR_SESSION);
         Administrator administrator = new Administrator();
 
-        try {
-            treatId(id, administrator);
-            treatLastName(lastName, administrator);
-            treatFirstName(firstName, administrator);
-            treatEmailAddress(emailAddress, administrator);
-            treatAdministrator(administrator);
-            treatEditor(editor, administrator);
+        treatId(id, administrator);
+        treatLastName(lastName, administrator);
+        treatFirstName(firstName, administrator);
+        treatEmailAddress(emailAddress, administrator);
+        treatAdministrator(administrator);
+        treatEditor(editor, administrator);
 
-            if ((password != null) || (confirmation != null)) {
-                treatPassword(password, confirmation, administrator);
-            }
-
-            if (errors.isEmpty()) {
-                administratorDao.edit(administrator);
-            }
+        if ((password != null) || (confirmation != null)) {
+            treatPassword(password, confirmation, administrator);
         }
-        catch (Exception e) {
-            e.printStackTrace();
+
+        if (errors.isEmpty()) {
+            administratorDao.edit(administrator);
         }
 
         return administrator;
@@ -152,16 +141,11 @@ public class AdministratorForm {
         Administrator editor        = (Administrator) getSessionVar(request, ADMINISTRATOR_SESSION);
         Administrator administrator = new Administrator();
 
-        try {
-            treatId(id, administrator);
-            treatEditor(editor, administrator);
+        treatId(id, administrator);
+        treatEditor(editor, administrator);
 
-            if (errors.isEmpty()) {
-                administratorDao.delete(administrator);
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+        if (errors.isEmpty()) {
+            administratorDao.delete(administrator);
         }
     }
 
@@ -175,17 +159,12 @@ public class AdministratorForm {
         String        password      = getFieldVar(request, PASSWORD_FIELD);
         Administrator administrator = new Administrator();
 
-        try {
-            treatEmailAddress(emailAddress, administrator);
-            administrator.setPassword(cryptPassword(password));
-            administrator = administratorDao.checkLogin(administrator);
-            treatLogin(administrator);
-            administrator.setPassword(cryptPassword(password));
-            administrator.setEmailAddress(emailAddress);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        treatEmailAddress(emailAddress, administrator);
+        administrator.setPassword(cryptPassword(password));
+        administrator = administratorDao.checkLogin(administrator);
+        treatLogin(administrator);
+        administrator.setPassword(cryptPassword(password));
+        administrator.setEmailAddress(emailAddress);
 
         return administrator;
     }
@@ -198,12 +177,11 @@ public class AdministratorForm {
     private void treatId(String id, Administrator administrator) {
         try {
             validateId(id);
+            administrator.setId(Long.parseLong(id));
         }
         catch (Exception e) {
             setError(ID_FIELD, e.getMessage());
         }
-
-        administrator.setId(Long.parseLong(id));
     }
 
     /**
@@ -214,12 +192,11 @@ public class AdministratorForm {
     private void treatLastName(String lastName, Administrator administrator) {
         try {
             validateLastName(lastName);
+            administrator.setLastName(lastName.substring(0, 1).toUpperCase() + lastName.substring(1).toLowerCase());
         }
         catch (Exception e) {
             setError(LAST_NAME_FIELD, e.getMessage());
         }
-
-        administrator.setLastName(lastName.substring(0, 1).toUpperCase() + lastName.substring(1).toLowerCase());
     }
 
     /**
@@ -230,12 +207,11 @@ public class AdministratorForm {
     private void treatFirstName(String firstName, Administrator administrator) {
         try {
             validateFirstName(firstName);
+            administrator.setFirstName(firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase());
         }
         catch (Exception e) {
             setError(FIRST_NAME_FIELD, e.getMessage());
         }
-
-        administrator.setFirstName(firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase());
     }
 
     /**
@@ -246,12 +222,11 @@ public class AdministratorForm {
     private void treatEmailAddress(String emailAddress, Administrator administrator) {
         try {
             validateEmailAddress(emailAddress);
+            administrator.setEmailAddress(emailAddress.trim().toLowerCase());
         }
         catch (Exception e) {
             setError(EMAIL_ADDRESS_FIELD, e.getMessage());
         }
-
-        administrator.setEmailAddress(emailAddress.trim().toLowerCase());
     }
 
     /**
@@ -264,13 +239,12 @@ public class AdministratorForm {
         try {
             validatePassword(password, confirmation);
             password = cryptPassword(password);
+            administrator.setPassword(password);
         }
         catch (Exception e) {
             setError(PASSWORD_FIELD, e.getMessage());
             setError(CONFIRMATION_FIELD, null);
         }
-
-        administrator.setPassword(password);
     }
 
     /**
@@ -307,12 +281,11 @@ public class AdministratorForm {
     private void treatCreator(Administrator creator, Administrator administrator) {
         try {
             validateCreator(creator);
+            administrator.setCreator(creator);
         }
         catch (Exception e) {
             setError("administrator", e.getMessage());
         }
-
-        administrator.setCreator(creator);
     }
 
     /**
@@ -323,12 +296,11 @@ public class AdministratorForm {
     private void treatEditor(Administrator editor, Administrator administrator) {
         try {
             validateCreator(editor);
+            administrator.setEditor(editor);
         }
         catch (Exception e) {
             setError("administrator", e.getMessage());
         }
-
-        administrator.setEditor(editor);
     }
 
     /**
