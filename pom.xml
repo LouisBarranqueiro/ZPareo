@@ -39,11 +39,6 @@
             <version>3.5.1</version>
         </dependency>
         <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>font-awesome</artifactId>
-            <version>4.3.0</version>
-        </dependency>
-        <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
