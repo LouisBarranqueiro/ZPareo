@@ -73,6 +73,10 @@ var initModalWindow = function(modalWidth) {
     removeMask();
     displayMask();
     displayModalWindow();
+
+    // Call back all libraries to affect components
+    // in the modal window (select2 nand datepicker)
+    initLibraries();
 };
 
 /**
@@ -87,14 +91,9 @@ var displayRespModal = function(url, modalWidth) {
     $.ajax({
         type:    'GET',
         url:     baseURL + url,
-        error:   function() {
-            alert('error !');
-        },
         success: function(data) {
             modalWindow.html(data);
             initModalWindow(modalWidth);
         }
-    }).done(function() {
-        initLibraries();
-    });
+    })
 };
