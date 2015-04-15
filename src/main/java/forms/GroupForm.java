@@ -178,7 +178,7 @@ public class GroupForm {
             validateCreator(creator);
         }
         catch (Exception e) {
-            setError("administrateur", e.getMessage());
+            setError("administrator", e.getMessage());
         }
 
         group.setCreator(creator);
@@ -194,7 +194,7 @@ public class GroupForm {
             validateCreator(editor);
         }
         catch (Exception e) {
-            setError("administrateur", e.getMessage());
+            setError("administrator", e.getMessage());
         }
 
         group.setEditor(editor);
@@ -207,7 +207,7 @@ public class GroupForm {
      */
     private void validateId(String id) throws Exception {
         if ((id == null)) {
-            throw new Exception("Le numéro d'identification est nul");
+            throw new Exception("The identification number is null");
         }
     }
 
@@ -218,7 +218,7 @@ public class GroupForm {
      */
     private void validateName(String name) throws Exception {
         if ((name == null) || (name.length() < 2) || (name.length() > 50)) {
-            throw new Exception("Veuillez entrer un name de 3 à 50 caractères");
+            throw new Exception("Please enter a name of 3 to 50 characters");
         }
     }
 
@@ -229,7 +229,7 @@ public class GroupForm {
      */
     private void validateGroup(Group group) throws Exception {
         if (groupDao.check(group) != 0) {
-            throw new Exception("Ce groupe existe déja");
+            throw new Exception("This group already exists");
         }
     }
 
@@ -240,7 +240,7 @@ public class GroupForm {
      */
     private void validateCreator(Administrator creator) throws Exception {
         if (creator.getId() == null) {
-            throw new Exception("Administrateur inconnu");
+            throw new Exception("Unknown administrator");
         }
     }
 
@@ -286,4 +286,3 @@ public class GroupForm {
         return ((object == null) ? null : object);
     }
 }
-

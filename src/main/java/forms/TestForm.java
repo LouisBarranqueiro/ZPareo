@@ -412,7 +412,7 @@ public class TestForm {
      */
     private void validateTitle(String title) throws Exception {
         if ((title == null) || (title.length() < 2) || (title.length() > 50)) {
-            throw new Exception("Please enter a title (2-50 characters)");
+            throw new Exception("Please enter a title of 2-50 characters");
         }
     }
 
