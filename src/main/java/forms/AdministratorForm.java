@@ -282,7 +282,7 @@ public class AdministratorForm {
             validateLogin(administrator);
         }
         catch (Exception e) {
-            setError("connexion", e.getMessage());
+            setError("login", e.getMessage());
         }
     }
 
@@ -338,7 +338,7 @@ public class AdministratorForm {
      */
     private void validateId(String id) throws Exception {
         if ((id == null)) {
-            throw new Exception("Le numéro d'identification est nul");
+            throw new Exception("The identification number is null");
         }
     }
 
@@ -349,7 +349,7 @@ public class AdministratorForm {
      */
     private void validateLastName(String lastName) throws Exception {
         if ((lastName == null) || (lastName.length() < 2) || (lastName.length() > 50)) {
-            throw new Exception("Veuillez entrer un lastName de 2 à 50 caractères");
+            throw new Exception("Please enter a last name of 2 to 50 characters");
         }
     }
 
@@ -360,7 +360,7 @@ public class AdministratorForm {
      */
     private void validateFirstName(String firstName) throws Exception {
         if ((firstName == null) || (firstName.length() < 2) || (firstName.length() > 50)) {
-            throw new Exception("Veuillez entrer un firstName de 2 à 50 caractères");
+            throw new Exception("Please enter a first name of 2-50 characters");
         }
     }
 
@@ -371,7 +371,7 @@ public class AdministratorForm {
      */
     private void validateEmailAddress(String emailAddress) throws Exception {
         if ((emailAddress == null) || (emailAddress.length() < 8) || (emailAddress.length() > 100) || (!emailAddress.matches("[a-zA-Z0-9@.-_]+@[a-zA-Z.]{2,20}.[a-zA-Z]{2,3}"))) {
-            throw new Exception("Veuillez entrer une adresse mail correcte");
+            throw new Exception("Please enter a valid email address");
         }
     }
 
@@ -382,10 +382,10 @@ public class AdministratorForm {
      */
     private void validatePassword(String password, String confirmation) throws Exception {
         if ((password == null) || (password.length() < 4) || (confirmation == null) || (confirmation.length() < 4)) {
-            throw new Exception("Veuillez entrez un mot de passe plus fort.");
+            throw new Exception("Please enter a stronger password");
         }
         else if (!password.equals(confirmation)) {
-            throw new Exception("Les mots de passes sont différents");
+            throw new Exception("Passwords are different");
         }
     }
 
@@ -407,7 +407,7 @@ public class AdministratorForm {
      */
     private void validateLogin(Administrator administrator) throws Exception {
         if (administrator.getId() == null) {
-            throw new Exception("Votre adresse mail ou votre mot de passe est incorrect");
+            throw new Exception("Your email address or password is incorrect");
         }
     }
 
@@ -418,7 +418,7 @@ public class AdministratorForm {
      */
     private void validateCreator(Administrator creator) throws Exception {
         if (creator.getId() == null) {
-            throw new Exception("Administrateur inconnu");
+            throw new Exception("Unknown administrator");
         }
     }
 
