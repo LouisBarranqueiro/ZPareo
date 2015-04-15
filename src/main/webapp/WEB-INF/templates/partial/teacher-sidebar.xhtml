@@ -10,8 +10,8 @@
             <div class="aside__user-info">
                 <span class="aside__user-info__picture"></span>
                 <span class="aside__user-info__name">
-                    #{sessionScope.teacherSession.lastName.toUpperCase()}<br/>
-                    #{sessionScope.teacherSession.firstName.toUpperCase()}
+                    #{sessionScope.teacherSession.firstName.toUpperCase()}<br/>
+                    #{sessionScope.teacherSession.lastName.toUpperCase()}
                 </span>
             </div>
             <nav class="aside__nav">
@@ -21,7 +21,7 @@
                 </a>
                 <a href="#{request.contextPath}/logout">
                     <span class="icon-switch2"></span>
-                    <span>DECONNEXION</span>
+                    <span>LOGOUT</span>
                 </a>
             </nav>
         </div>
