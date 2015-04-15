@@ -1,14 +1,14 @@
 .btn {
     width:         auto;
-    height:        33px;
+    height:        auto;
     display:       inline-block;
-    padding:       0 15px;
+    padding:       9px 15px;
     border-radius: $border-radius-base;
     background:    $btn-bg-color;
     cursor:        pointer;
     font-size:     $font-size-small;
     font-weight:   bold;
-    line-height:   31px;
+    line-height: $line-height-base;
 }
 
 .btn--icon,

@@ -2,9 +2,9 @@ input,
 button,
 select,
 textarea {
-    width:            100%;
-    display:          block;
-    padding:          6px 12px;
+    width:            auto;
+    display:          inline-block;
+    padding:          9px 12px;
     border:           1px solid $border-color-light-gray;
     border-radius:    $border-radius-base;
     background-color: $bg-color-white;
@@ -15,9 +15,6 @@ textarea {
     margin:           0;
 }
 
-input {
-    height: 33px;
-}
 
 input:focus,
 input[required]:focus,
@@ -26,11 +23,6 @@ textarea:focus,
 textarea:focus[required]:focus {
     border-color: $border-color-blue;
     outline:      0;
-}
-
-select {
-    height:      33px;
-    line-height: 33px;
 }
 
 textarea,
@@ -53,15 +45,13 @@ textarea::-moz-placeholder {
 
 input::-ms-placeholder,
 select::-ms-placeholder,
-textarea::-ms-placeholder {
+textarea::-ms-placeholder,
+input::-webkit-placeholder,
+select::-webkit-placeholder,
+textarea::-webkit-placeholder{
     color: $font-color-placeholder;
 }
 
-input::-webkit-placeholder,
-select::-webkit-placeholder,
-textarea::-webkit-placeholder {
-    color: $font-color-placeholder;
-}
 
 input[disabled],
 input[readonly],
