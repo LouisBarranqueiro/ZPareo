@@ -1,13 +1,14 @@
 /**
- * Create a student
+ * Create an administrator
  */
-var createStudent = function() {
-    $('#create-student').submit(function(event) {
+var createAdmin = function() {
+    $('#create-administrator').submit(function(event) {
         event.preventDefault();
-        var lastName     = $('#create-student input[name=lastName]').val();
-        var firstName    = $('#create-student input[name=firstName]').val();
-        var emailAddress = $('#create-student input[name=emailAddress]').val();
-        var group        = $('#create-student select[name=group]').val();
+        var lastName     = $('#create-administrator input[name=lastName]').val();
+        var firstName    = $('#create-administrator input[name=firstName]').val();
+        var emailAddress = $('#create-administrator input[name=emailAddress]').val();
+        var password     = $('#create-administrator input[name=password]').val();
+        var confirmation = $('#create-administrator input[name=confirmation]').val();
         var modalWindow  = $('#modal');
         var url          = $(this).attr('action');
 
@@ -18,7 +19,8 @@ var createStudent = function() {
                 lastName:     lastName,
                 firstName:    firstName,
                 emailAddress: emailAddress,
-                group:        group
+                password:     password,
+                confirmation: confirmation
             },
             success: function(view) {
                 if (view.search('<div id=\"main-wrap\"') > 0) {
@@ -28,6 +30,7 @@ var createStudent = function() {
                 else {
                     modalWindow.html(view);
                     initModalWindow(300);
+
                 }
             }
         });
@@ -35,16 +38,17 @@ var createStudent = function() {
 };
 
 /**
- * Edit a student
+ * Edits an administrator
  */
-var editStudent = function() {
-    $('#edit-student').submit(function(event) {
+var editAdmin = function() {
+    $('#edit-administrator').submit(function(event) {
         event.preventDefault();
-        var id           = $('#edit-student input[name=id]').val();
-        var lastName     = $('#edit-student input[name=lastName]').val();
-        var firstName    = $('#edit-student input[name=firstName]').val();
-        var emailAddress = $('#edit-student input[name=emailAddress]').val();
-        var group        = $('#edit-student select[name=group]').val();
+        var id           = $('#edit-administrator input[name=id]').val();
+        var lastName     = $('#edit-administrator input[name=lastName]').val();
+        var firstName    = $('#edit-administrator input[name=firstName]').val();
+        var emailAddress = $('#edit-administrator input[name=emailAddress]').val();
+        var password     = $('#edit-administrator input[name=password]').val();
+        var confirmation = $('#edit-administrator input[name=confirmation]').val();
         var modalWindow  = $('#modal');
         var url          = $(this).attr('action');
 
@@ -56,7 +60,8 @@ var editStudent = function() {
                 lastName:     lastName,
                 firstName:    firstName,
                 emailAddress: emailAddress,
-                group:        group
+                password:     password,
+                confirmation: confirmation
             },
             success: function(view) {
                 if (view.search('<div id=\"main-wrap\"') > 0) {
@@ -73,43 +78,14 @@ var editStudent = function() {
 };
 
 /**
- * Delete a student
+ * Delete an administrator
  */
-var deleteStudent = function() {
-    $('#delete-student').submit(function(event) {
+var deleteAdmin = function() {
+    $('#delete-administrator').submit(function(event) {
         event.preventDefault();
-        var id          = $('#delete-student input[name=id]').val();
+        var id          = $('#delete-administrator input[name=id]').val();
         var modalWindow = $('#modal');
         var url         = $(this).attr('action');
-
-        $.ajax({
-            type:    'post',
-            url:     baseURL + url,
-            data:    {
-                id: id
-            },
-            success: function(view) {
-                if (view.search('<div id=\"main-wrap\"') > 0) {
-                    removeModalWindow();
-                    $('#main-wrap').replaceWith(sliceMainView(view));
-                }
-                else {
-                    modalWindow.html(view);
-                    initModalWindow(300);
-                }
-            }
-        });
-    });
-};
-
-/**
- * Reset a user password
- */
-var resetPasswordStudent = function() {
-    $('#reset-pass-student').submit(function(event) {
-        event.preventDefault();
-        var id  = $('#reinit-pass-student input[name=id]').val();
-        var url = $(this).attr('action');
 
         $.ajax({
             type:    'POST',
@@ -117,8 +93,16 @@ var resetPasswordStudent = function() {
             data:    {
                 id: id
             },
-            success: function(data) {
-                removeModalWindow();
+            success: function(view) {
+                if (view.search('<div id=\"main-wrap\"') > 0) {
+                    removeModalWindow();
+                    $('#main-wrap').replaceWith(sliceMainView(view));
+                }
+                else {
+                    modalWindow.html(view);
+                    initModalWindow('auto');
+
+                }
             }
         });
     });

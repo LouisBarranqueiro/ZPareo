@@ -14,31 +14,30 @@ var createTest = function() {
         var modalWindow = $('#modal');
         var url         = $(this).attr('action');
 
-        $.ajax(
-            {
-                type:    'post',
-                url:     baseURL + url,
-                data:    {
-                    coefficient: coefficient,
-                    teacher:     teacher,
-                    format:      format,
-                    title:       title,
-                    date:        date,
-                    subject:     subject,
-                    group:       group
-                },
-                success: function(view) {
-                    if (view.search('<form id=\"edit-test\"') > 0) {
-                        removeModalWindow();
-                        modalWindow.html(view);
-                        initModalWindow(600);
-                    }
-                    else {
-                        modalWindow.html(view);
-                        initModalWindow(300);
-                    }
+        $.ajax({
+            type:    'post',
+            url:     baseURL + url,
+            data:    {
+                coefficient: coefficient,
+                teacher:     teacher,
+                format:      format,
+                title:       title,
+                date:        date,
+                subject:     subject,
+                group:       group
+            },
+            success: function(view) {
+                if (view.search('<form id=\"edit-test\"') > 0) {
+                    removeModalWindow();
+                    modalWindow.html(view);
+                    initModalWindow(600);
                 }
-            });
+                else {
+                    modalWindow.html(view);
+                    initModalWindow(300);
+                }
+            }
+        });
     });
 };
 
@@ -71,32 +70,31 @@ var editTest = function() {
         students = students.join("-");
         scores   = scores.join("-");
 
-        $.ajax(
-            {
-                type:    'post',
-                url:     baseURL + url,
-                data:    {
-                    id:          id,
-                    teacher:     teacher,
-                    format:      format,
-                    title:       title,
-                    date:        date,
-                    coefficient: coefficient,
-                    subject:     subject,
-                    students:    students,
-                    scores:      scores
-                },
-                success: function(view) {
-                    if (view.search('<div id=\"main-wrap\"') > 0) {
-                        removeModalWindow();
-                        $('#main-wrap').replaceWith(sliceMainView(view));
-                    }
-                    else {
-                        modalWindow.html(view);
-                        initModalWindow(600);
-                    }
+        $.ajax({
+            type:    'post',
+            url:     baseURL + url,
+            data:    {
+                id:          id,
+                teacher:     teacher,
+                format:      format,
+                title:       title,
+                date:        date,
+                coefficient: coefficient,
+                subject:     subject,
+                students:    students,
+                scores:      scores
+            },
+            success: function(view) {
+                if (view.search('<div id=\"main-wrap\"') > 0) {
+                    removeModalWindow();
+                    $('#main-wrap').replaceWith(sliceMainView(view));
                 }
-            });
+                else {
+                    modalWindow.html(view);
+                    initModalWindow(600);
+                }
+            }
+        });
     });
 };
 
