@@ -1,31 +1,27 @@
 // Text centered
 // --------------------
-.text-center
-{
-	text-align:center;
+.text-center {
+    text-align: center;
 }
 
-a
-{
-	&.unstyled,
-	&.unstyled:hover,
-	&.unstyled:active 
-	{
-  		text-decoration: none;
-	}
+a {
+    &.unstyled,
+    &.unstyled:hover,
+    &.unstyled:active {
+        text-decoration: none;
+    }
 }
 
-.vertical-align-middle
-{
-	display: inline-block;
- 	width:   100%;
- 	height:  25%;
+.vertical-align-middle {
+    display: inline-block;
+    width:   100%;
+    height:  25%;
 }
-.bg-white
-{
-	background: $bg-color-white !important;
+
+.bg-white {
+    background: $bg-color-white !important;
 }
-.bg-grey
-{
-	background: $bg-color-gray !important;
+
+.bg-grey {
+    background: $bg-color-gray !important;
 }

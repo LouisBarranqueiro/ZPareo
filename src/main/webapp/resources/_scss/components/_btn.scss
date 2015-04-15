@@ -1,83 +1,82 @@
-.btn
-{
-	  width:         auto;
-  	height:        33px;
-  	display:       inline-block;
-  	padding:       0 15px;
-  	border-radius: $border-radius-base;
-  	background:    $btn-bg-color;
-  	cursor:        pointer;
-  	font-size:     $font-size-small;
-  	font-weight:   bold;
-  	line-height:   31px;
+.btn {
+    width:         auto;
+    height:        33px;
+    display:       inline-block;
+    padding:       0 15px;
+    border-radius: $border-radius-base;
+    background:    $btn-bg-color;
+    cursor:        pointer;
+    font-size:     $font-size-small;
+    font-weight:   bold;
+    line-height:   31px;
 }
+
 .btn--icon,
-.btn--icon:hover
-{
-  	width: 30px;
-  	height: 30px;
-  	padding:0 0 0 0;
-  	border: 1px solid $btn-icon-color;
-  	font-size: 21px;
-  	line-height: 32px;
-  	color: $btn-default-color;
+.btn--icon:hover {
+    width:       30px;
+    height:      30px;
+    padding:     0 0 0 0;
+    border:      1px solid $btn-icon-color;
+    font-size:   21px;
+    line-height: 32px;
+    color:       $btn-default-color;
 }
+
 .btn--danger,
-.btn--danger:hover
-{
-	  border: 1px solid $btn-danger-color;
- 	  color:  $btn-danger-color;
+.btn--danger:hover {
+    border: 1px solid $btn-danger-color;
+    color:  $btn-danger-color;
 }
-.btn--danger:active 
-{
- 	  border: 1px solid $btn-danger-color;
- 	  color:  $btn-danger-color;
-}	
+
+.btn--danger:active {
+    border: 1px solid $btn-danger-color;
+    color:  $btn-danger-color;
+}
+
 .btn--success,
-.btn--success:hover
-{
- 	  border: 1px solid $btn-success-color;
- 	  color:  $btn-success-color;
+.btn--success:hover {
+    border: 1px solid $btn-success-color;
+    color:  $btn-success-color;
 }
-.btn--success:active 
-{
-	  border: 1px solid lighten($btn-success-color, 20%);
-	  color:  lighten($btn-success-color, 20%);
+
+.btn--success:active {
+    border: 1px solid lighten($btn-success-color, 20%);
+    color:  lighten($btn-success-color, 20%);
 }
+
 .btn--info,
-.btn--info:hover
-{  
- 	  border: 1px solid $btn-info-color;
- 	  color:  $btn-info-color;
+.btn--info:hover {
+    border: 1px solid $btn-info-color;
+    color:  $btn-info-color;
 }
-.btn--info:active 
-{
-  	border: 1px solid lighten($btn-info-color, 20%);
+
+.btn--info:active {
+    border: 1px solid lighten($btn-info-color, 20%);
     color:  lighten($btn-info-color, 20%);
 }
+
 .btn--primary,
-.btn--primary:hover
-{
-	border: 1px solid $btn-primary-color;
-  	color:  $btn-primary-color;
+.btn--primary:hover {
+    border: 1px solid $btn-primary-color;
+    color:  $btn-primary-color;
 }
-.btn--primary:active 
-{
-	border: 1px solid lighten($btn-primary-color, 20%);
+
+.btn--primary:active {
+    border: 1px solid lighten($btn-primary-color, 20%);
     color:  lighten($btn-primary-color, 20%);
 }
+
 .btn--default,
-.btn--default:hover
-{
-	border: 1px solid $btn-default-color;
+.btn--default:hover {
+    border: 1px solid $btn-default-color;
     color:  $btn-default-color;
 }
-.btn--default:active
-{
+
+.btn--default:active {
     border: 1px solid lighten($btn-default-color, 20%);
     color:  lighten($btn-default-color, 20%);
 }
-.btn--100
-{
-	width: 100% !important;
+
+.btn--100 {
+    width: 100% !important;
 }
