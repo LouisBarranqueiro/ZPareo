@@ -52,23 +52,17 @@ public class TeacherForm {
         Administrator creator      = (Administrator) getSessionVar(request, ADMINISTRATOR_SESSION);
         Teacher       teacher      = new Teacher();
 
-        try {
-            treatLastName(lastName, teacher);
-            treatFirstName(firstName, teacher);
-            treatEmailAddress(emailAddress, teacher);
-            treatPassword(password, confirmation, teacher);
-            treatTeacher(teacher);
-            treatSubjects(subjects, teacher);
-            treatGroups(groups, teacher);
-            treatCreator(creator, teacher);
+        treatLastName(lastName, teacher);
+        treatFirstName(firstName, teacher);
+        treatEmailAddress(emailAddress, teacher);
+        treatPassword(password, confirmation, teacher);
+        treatTeacher(teacher);
+        treatSubjects(subjects, teacher);
+        treatGroups(groups, teacher);
+        treatCreator(creator, teacher);
 
-            if (errors.isEmpty()) {
-                teacherDao.create(teacher);
-            }
-
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+        if (errors.isEmpty()) {
+            teacherDao.create(teacher);
         }
 
         return teacher;
@@ -131,27 +125,21 @@ public class TeacherForm {
         Administrator editor       = (Administrator) getSessionVar(request, ADMINISTRATOR_SESSION);
         Teacher       teacher      = new Teacher();
 
-        try {
-            treatId(id, teacher);
-            treatLastName(lastName, teacher);
-            treatFirstName(firstName, teacher);
-            treatEmailAddress(emailAddress, teacher);
-            treatTeacher(teacher);
-            treatSubjects(subjects, teacher);
-            treatGroups(groups, teacher);
-            treatEditor(editor, teacher);
+        treatId(id, teacher);
+        treatLastName(lastName, teacher);
+        treatFirstName(firstName, teacher);
+        treatEmailAddress(emailAddress, teacher);
+        treatTeacher(teacher);
+        treatSubjects(subjects, teacher);
+        treatGroups(groups, teacher);
+        treatEditor(editor, teacher);
 
-            if ((password != null) || (confirmation != null)) {
-                treatPassword(password, confirmation, teacher);
-            }
-
-            if (errors.isEmpty()) {
-                teacherDao.edit(teacher);
-            }
-
+        if ((password != null) || (confirmation != null)) {
+            treatPassword(password, confirmation, teacher);
         }
-        catch (Exception e) {
-            e.printStackTrace();
+
+        if (errors.isEmpty()) {
+            teacherDao.edit(teacher);
         }
 
         return teacher;
@@ -182,17 +170,12 @@ public class TeacherForm {
         String  password     = getFieldVar(request, PASSWORD_FIELD);
         Teacher teacher      = new Teacher();
 
-        try {
-            treatEmailAddress(emailAddress, teacher);
-            teacher.setPassword(cryptPassword(password));
-            teacher = teacherDao.checkLogin(teacher);
-            treatLogin(teacher);
-            teacher.setPassword(cryptPassword(password));
-            teacher.setEmailAddress(emailAddress);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        treatEmailAddress(emailAddress, teacher);
+        teacher.setPassword(cryptPassword(password));
+        teacher = teacherDao.checkLogin(teacher);
+        treatLogin(teacher);
+        teacher.setPassword(cryptPassword(password));
+        teacher.setEmailAddress(emailAddress);
 
         return teacher;
     }
@@ -210,7 +193,6 @@ public class TeacherForm {
         catch (Exception e) {
             setError(ID_FIELD, e.getMessage());
         }
-
     }
 
     /**
@@ -221,12 +203,11 @@ public class TeacherForm {
     private void treatLastName(String lastName, Teacher teacher) {
         try {
             validateLastName(lastName);
+            teacher.setLastName(lastName.substring(0, 1).toUpperCase() + lastName.substring(1).toLowerCase());
         }
         catch (Exception e) {
             setError(LAST_NAME_FIELD, e.getMessage());
         }
-
-        teacher.setLastName(lastName.substring(0, 1).toUpperCase() + lastName.substring(1).toLowerCase());
     }
 
     /**
@@ -237,12 +218,11 @@ public class TeacherForm {
     private void treatFirstName(String firstName, Teacher teacher) {
         try {
             validateFirstName(firstName);
+            teacher.setFirstName(firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase());
         }
         catch (Exception e) {
             setError(FIRST_NAME_FIELD, e.getMessage());
         }
-
-        teacher.setFirstName(firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase());
     }
 
     /**
@@ -266,12 +246,11 @@ public class TeacherForm {
     private void treatEmailAddress(String emailAddress, Teacher teacher) {
         try {
             validateEmailAddress(emailAddress);
+            teacher.setEmailAddress(emailAddress.trim().toLowerCase());
         }
         catch (Exception e) {
             setError(EMAIL_ADDRESS_FIELD, e.getMessage());
         }
-
-        teacher.setEmailAddress(emailAddress.trim().toLowerCase());
     }
 
     /**
@@ -284,13 +263,12 @@ public class TeacherForm {
         try {
             validatePassword(password, confirmation);
             password = cryptPassword(password);
+            teacher.setPassword(password);
         }
         catch (Exception e) {
             setError(PASSWORD_FIELD, e.getMessage());
             setError(CONFIRMATION_FIELD, null);
         }
-
-        teacher.setPassword(password);
     }
 
     /**
@@ -351,12 +329,11 @@ public class TeacherForm {
     private void treatCreator(Administrator creator, Teacher teacher) {
         try {
             validateCreator(creator);
+            teacher.setCreator(creator);
         }
         catch (Exception e) {
             setError("administrator", e.getMessage());
         }
-
-        teacher.setCreator(creator);
     }
 
     /**
@@ -366,12 +343,11 @@ public class TeacherForm {
     private void treatEditor(Administrator editor, Teacher teacher) {
         try {
             validateCreator(editor);
+            teacher.setEditor(editor);
         }
         catch (Exception e) {
             setError("administrator", e.getMessage());
         }
-
-        teacher.setEditor(editor);
     }
 
     /**
