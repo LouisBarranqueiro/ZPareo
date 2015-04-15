@@ -45,7 +45,6 @@ public class SubjectForm {
             if (errors.isEmpty()) {
                 subjectDao.create(subject);
             }
-
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -178,7 +177,7 @@ public class SubjectForm {
             validateCreator(creator);
         }
         catch (Exception e) {
-            setError("administrateur", e.getMessage());
+            setError("administrator", e.getMessage());
         }
 
         subject.setCreator(creator);
@@ -194,7 +193,7 @@ public class SubjectForm {
             validateCreator(editor);
         }
         catch (Exception e) {
-            setError("administrateur", e.getMessage());
+            setError("administrator", e.getMessage());
         }
 
         subject.setEditor(editor);
@@ -207,7 +206,7 @@ public class SubjectForm {
      */
     private void validateId(String id) throws Exception {
         if ((id == null)) {
-            throw new Exception("Le numéro d'identification est nul");
+            throw new Exception("The identification number is null");
         }
     }
 
@@ -218,9 +217,8 @@ public class SubjectForm {
      */
     private void validateName(String name) throws Exception {
         if ((name == null) || (name.length() < 3) || (name.length() > 55)) {
-            throw new Exception("Veuillez entrer un name de 3 à 55 caractères");
+            throw new Exception("Please enter a name of 3 to 55 characters");
         }
-
     }
 
     /**
@@ -230,9 +228,8 @@ public class SubjectForm {
      */
     private void validateSubject(Subject subject) throws Exception {
         if (subjectDao.check(subject) != 0) {
-            throw new Exception("Cette matière existe déja");
+            throw new Exception("This subject already exists");
         }
-
     }
 
     /**
@@ -242,9 +239,8 @@ public class SubjectForm {
      */
     private void validateCreator(Administrator creator) throws Exception {
         if (creator.getId() == null) {
-            throw new Exception("Administrateur inconnu");
+            throw new Exception("Unknown administrator");
         }
-
     }
 
     /**
@@ -289,4 +285,3 @@ public class SubjectForm {
         return ((object == null) ? null : object);
     }
 }
-
