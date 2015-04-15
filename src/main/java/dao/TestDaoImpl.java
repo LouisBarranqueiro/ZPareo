@@ -25,7 +25,7 @@ public class TestDaoImpl implements TestDao {
     private static final String SELECT_STUDENT_BY_GROUP       = "SELECT gnw_utilisateur.id, gnw_utilisateur.nom, gnw_utilisateur.prenom, gnw_utilisateur.adresse_mail FROM gnw_utilisateur, gnw_etudiant_groupe WHERE profil = 0 AND gnw_utilisateur.date_suppr IS NULL AND gnw_utilisateur.id = gnw_etudiant_groupe.fk_etudiant AND gnw_etudiant_groupe.fk_groupe = ?";
     private static final String SELECT_TEST_BY_SUBJECT_GROUP  = "SELECT gnw_examen.id, gnw_examen.nom, gnw_examen.date, gnw_examen.fk_professeur, gnw_examen.fk_format as formatId, gnw_formatexamen.nom as formatNom, gnw_groupe.id as groupeId, gnw_groupe.nom as groupeNom, gnw_matiere.nom as matiereNom, AVG(gnw_examen_note.note) as average, gnw_examen.coefficient FROM gnw_examen, gnw_matiere, gnw_groupe, gnw_formatexamen, gnw_examen_note WHERE gnw_examen.date_suppr IS NULL AND gnw_examen.fk_groupe = gnw_groupe.id AND gnw_examen.fk_format = gnw_formatexamen.id AND gnw_examen.fk_matiere = gnw_matiere.id AND gnw_examen.fk_matiere = ? AND gnw_examen.fk_groupe = ? GROUP BY gnw_examen.id";
     private static final String SELECT_SUBJECT_BY_STUDENT     = "SELECT DISTINCT gnw_examen.fk_matiere FROM gnw_examen, gnw_examen_note WHERE gnw_examen.date_suppr IS NULL AND gnw_examen_note.date_suppr IS NULL AND gnw_examen.id = gnw_examen_note.fk_examen AND gnw_examen_note.fk_etudiant = ?";
-    private static final String SELECT_TEST_AVERAGE_BY_MATTER = "SELECT SUM(gnw_examen_note.note * gnw_examen.coefficient) / SUM(gnw_examen.coefficient) as moyenne FROM gnw_examen, gnw_examen_note WHERE gnw_examen_note.fk_etudiant = ? AND gnw_examen.fk_matiere = ? AND gnw_examen_note.fk_examen = gnw_examen.id";
+    private static final String SELECT_TEST_AVERAGE_BY_SUBJECT = "SELECT SUM(gnw_examen_note.note * gnw_examen.coefficient) / SUM(gnw_examen.coefficient) as moyenne FROM gnw_examen, gnw_examen_note WHERE gnw_examen_note.fk_etudiant = ? AND gnw_examen.fk_matiere = ? AND gnw_examen_note.fk_examen = gnw_examen.id";
     private static final String SELECT_TEST_AVERAGE           = "SELECT AVG(gnw_examen_note.note) as moyenne FROM gnw_examen_note WHERE fk_examen = ?";
     private static final String UPDATE_SCORE                  = "UPDATE gnw_examen_note SET note = ?, fk_utilisateur = ? WHERE fk_examen = ? AND fk_etudiant = ?";
     private static final String UPDATE_TEST                   = "UPDATE gnw_examen SET fk_professeur = ?, fk_format = ?, nom = ?, date = ?, coefficient = ?, fk_matiere = ?, fk_utilisateur = ? WHERE id = ?";
@@ -336,7 +336,7 @@ public class TestDaoImpl implements TestDao {
      * @return subjectScores
      * @throws DAOException
      */
-    public Set<SubjectScore> getMatterScores(Student student) throws DAOException {
+    public Set<SubjectScore> getSubjectScores(Student student) throws DAOException {
         Connection        connexion         = null;
         PreparedStatement preparedStatement = null;
         ResultSet         resultSet         = null;
@@ -354,7 +354,7 @@ public class TestDaoImpl implements TestDao {
                 Subject subject = new Subject(subjectScore.getId());
                 subject = subjectDao.get(subject);
                 subjectScore.setSubject(subject);
-                getMatterAverage(subjectScore, student);
+                getSubjectAverage(subjectScore, student);
                 getTests(subjectScore, student);
                 subjectScores.add(subjectScore);
             }
@@ -377,14 +377,14 @@ public class TestDaoImpl implements TestDao {
      * @return subjectScore
      * @throws DAOException
      */
-    public void getMatterAverage(SubjectScore subjectScore, Student student) throws DAOException {
+    public void getSubjectAverage(SubjectScore subjectScore, Student student) throws DAOException {
         Connection        connexion         = null;
         PreparedStatement preparedStatement = null;
         ResultSet         resultSet         = null;
 
         try {
             connexion = daoFactory.getConnection();
-            preparedStatement = initPreparedQuery(connexion, SELECT_TEST_AVERAGE_BY_MATTER, true, student.getId(), subjectScore.getId());
+            preparedStatement = initPreparedQuery(connexion, SELECT_TEST_AVERAGE_BY_SUBJECT, true, student.getId(), subjectScore.getId());
             resultSet = preparedStatement.executeQuery();
 
             resultSet.next();
@@ -427,7 +427,7 @@ public class TestDaoImpl implements TestDao {
     public Gradebook getGradebook(Student student) {
         Gradebook gradebook = new Gradebook();
 
-        gradebook.setSubjectScores(getMatterScores(student));
+        gradebook.setSubjectScores(getSubjectScores(student));
         gradebook.setAverage(calcGradebookAverage(gradebook.getSubjectScores()));
 
         return gradebook;
