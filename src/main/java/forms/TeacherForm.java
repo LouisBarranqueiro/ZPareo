@@ -353,7 +353,7 @@ public class TeacherForm {
             validateCreator(creator);
         }
         catch (Exception e) {
-            setError("administrateur", e.getMessage());
+            setError("administrator", e.getMessage());
         }
 
         teacher.setCreator(creator);
@@ -368,7 +368,7 @@ public class TeacherForm {
             validateCreator(editor);
         }
         catch (Exception e) {
-            setError("administrateur", e.getMessage());
+            setError("administrator", e.getMessage());
         }
 
         teacher.setEditor(editor);
@@ -381,7 +381,7 @@ public class TeacherForm {
      */
     private void validateId(String id) throws Exception {
         if ((id == null)) {
-            throw new Exception("Le numéro d'identification est nul");
+            throw new Exception("The identification number is null");
         }
     }
 
@@ -392,7 +392,7 @@ public class TeacherForm {
      */
     private void validateLastName(String lastName) throws Exception {
         if ((lastName == null) || (lastName.length() < 2) || (lastName.length() > 50)) {
-            throw new Exception("Veuillez entrer un nom de 2 à 50 caractères");
+            throw new Exception("Please enter a name of 2 to 50 characters");
         }
     }
 
@@ -403,7 +403,7 @@ public class TeacherForm {
      */
     private void validateFirstName(String firstName) throws Exception {
         if ((firstName == null) || (firstName.length() < 2) || (firstName.length() > 50)) {
-            throw new Exception("Veuillez entrer un prenom de 2 à 50 caractères");
+            throw new Exception("Please enter a first name of 2-50 characters");
         }
     }
 
@@ -414,7 +414,7 @@ public class TeacherForm {
      */
     private void validateEmailAddress(String emailAddress) throws Exception {
         if ((emailAddress == null) || (emailAddress.length() < 8) || (emailAddress.length() > 100) || (!emailAddress.matches("[a-zA-Z0-9@.-_]+@[a-zA-Z.]{2,20}.[a-zA-Z]{2,3}"))) {
-            throw new Exception("Veuillez entrer une adresse mail correcte");
+            throw new Exception("Please enter a valid email address");
         }
     }
 
@@ -443,10 +443,10 @@ public class TeacherForm {
      */
     private void validatePassword(String password, String confirmation) throws Exception {
         if ((password == null) || (password.length() < 4) || (confirmation == null) || (confirmation.length() < 4)) {
-            throw new Exception("Veuillez entrez un mot de passe plus fort.");
+            throw new Exception("Please enter a stronger password");
         }
         else if (!password.equals(confirmation)) {
-            throw new Exception("Les mots de passes sont différents");
+            throw new Exception("Passwords are different");
         }
     }
 
@@ -457,7 +457,7 @@ public class TeacherForm {
      */
     private void validateTeacher(Teacher teacher) throws Exception {
         if (teacherDao.check(teacher) != 0) {
-            throw new Exception("Ce professeur existe déja");
+            throw new Exception("This teacher already exists");
         }
     }
 
@@ -468,7 +468,7 @@ public class TeacherForm {
      */
     private void validateLogin(Teacher teacher) throws Exception {
         if (teacher.getId() == null) {
-            throw new Exception("Votre adresse mail ou votre mot de passe est incorrect");
+            throw new Exception("Your email address or password is incorrect");
         }
     }
 
@@ -479,7 +479,7 @@ public class TeacherForm {
      */
     private void validateCreator(Administrator creator) throws Exception {
         if (creator.getId() == null) {
-            throw new Exception("Administrateur inconnu");
+            throw new Exception("Unknown administrator");
         }
     }
 
@@ -558,5 +558,4 @@ public class TeacherForm {
     private static String[] getFieldVars(HttpServletRequest request, String fieldVar) {
         return request.getParameterValues(fieldVar);
     }
-
 }
