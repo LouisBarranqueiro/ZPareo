@@ -208,12 +208,12 @@ public class TestForm {
     private void treatTitle(String title, Test test) {
         try {
             validateTitle(title);
+            test.setTitle(title);
+
         }
         catch (Exception e) {
             setError(TITLE_FIELD, e.getMessage());
         }
-
-        test.setTitle(title.substring(0, 1).toUpperCase() + title.substring(1).toLowerCase());
     }
 
     /**
@@ -226,7 +226,7 @@ public class TestForm {
             validateDate(date);
 
             if (date.matches("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)")) {
-                date = convertDateFormat("dd/MM/yyyy", "yyyy-MM-dd", date);
+                date = convertDateFormat("MM/dd/yyyy", "yyyy-MM-dd", date);
             }
         }
         catch (Exception e) {
@@ -401,7 +401,7 @@ public class TestForm {
      */
     private void validateId(String id) throws Exception {
         if ((id == null)) {
-            throw new Exception("Le numéro d'identification est nul");
+            throw new Exception("ID number is null");
         }
     }
 
@@ -412,7 +412,7 @@ public class TestForm {
      */
     private void validateTitle(String title) throws Exception {
         if ((title == null) || (title.length() < 2) || (title.length() > 50)) {
-            throw new Exception("Veuillez entrer un intitulé de 2 à 50 caractères");
+            throw new Exception("Please enter a title (2-50 characters)");
         }
     }
 
@@ -422,9 +422,9 @@ public class TestForm {
      * @throws Exception
      */
     private void validateDate(String date) throws Exception {
-        if ((date == null) || ((!date.matches("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)"))
+        if ((date == null) || ((!date.matches("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/((19|20)\\d\\d)"))
             && (!date.matches("((19|20)\\d\\d)-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])")))) {
-            throw new Exception("Veuillez entrer un date au format JJ/MM/AAAA");
+            throw new Exception("Please enter a date (DD/MM/YYYY)");
         }
     }
 
@@ -435,7 +435,7 @@ public class TestForm {
      */
     private void validateSubjectId(String subjectId) throws Exception {
         if (subjectId == null) {
-            throw new Exception("Veuillez sélectionner une matière");
+            throw new Exception("Please select a subject");
         }
 
     }
@@ -447,7 +447,7 @@ public class TestForm {
      */
     private void validateTeacher(Teacher teacher) throws Exception {
         if (teacher == null) {
-            throw new Exception("Professeur inconnu");
+            throw new Exception("Unknown teacher");
         }
 
     }
@@ -459,7 +459,7 @@ public class TestForm {
      */
     private void validateGroupId(String groupId) throws Exception {
         if (groupId == null) {
-            throw new Exception("Veuillez sélectionner un groupe");
+            throw new Exception("Please select a group");
         }
 
     }
@@ -471,7 +471,7 @@ public class TestForm {
      */
     private void validateStudentId(String studentId) throws Exception {
         if (studentId == null) {
-            throw new Exception("Etudiant inconnu");
+            throw new Exception("Unknown student");
         }
 
     }
@@ -483,7 +483,7 @@ public class TestForm {
      */
     private void validateFormatId(String formatId) throws Exception {
         if (formatId == null) {
-            throw new Exception("format d'examen inconnu");
+            throw new Exception("Unknown format of test");
         }
 
     }
@@ -495,7 +495,7 @@ public class TestForm {
      */
     private void validateAverage(String average) throws Exception {
         if (average == null) {
-            throw new Exception("Veuillez entrez un nombre décimal");
+            throw new Exception("Please enter a decimal");
         }
 
     }
@@ -507,7 +507,7 @@ public class TestForm {
      */
     private void validateCoefficient(String coefficient) throws Exception {
         if ((coefficient == null) || (!coefficient.matches("[0-9,.]{1,5}"))) {
-            throw new Exception("Veuillez entrer un nombre décimal");
+            throw new Exception("Please enter a decimal");
         }
     }
 
@@ -518,7 +518,7 @@ public class TestForm {
      */
     private void validateScore(String score) throws Exception {
         if ((score == null) || (!score.matches("[0-9,.]{1,5}"))) {
-            throw new Exception("Veuillez entrer un nombre décimal");
+            throw new Exception("Please enter a decimal");
         }
 
     }
@@ -572,7 +572,7 @@ public class TestForm {
      * @param dateString
      * @return
      */
-    private String convertDateFormat(String oldFormat, String newFormat, String dateString) {
+    public String convertDateFormat(String oldFormat, String newFormat, String dateString) {
         SimpleDateFormat ANC_FORMAT  = new SimpleDateFormat(oldFormat);
         SimpleDateFormat NOUV_FORMAT = new SimpleDateFormat(newFormat);
         java.util.Date   dateUtil    = new java.util.Date();
