@@ -15,7 +15,7 @@ var createTeacher = function() {
         var url          = $(this).attr('action');
 
         $.ajax({
-            type:    'POST',
+            type:    'post',
             url:     baseURL + url,
             data:    {
                 lastName:     lastName,
@@ -25,9 +25,6 @@ var createTeacher = function() {
                 confirmation: confirmation,
                 groups:       groups,
                 subjects:     subjects
-            },
-            error:   function() {
-                alert('error !');
             },
             success: function(view) {
                 if (view.search('<div id=\"main-wrap\"') > 0) {
@@ -62,7 +59,7 @@ var editTeacher = function() {
         var url          = $(this).attr('action');
 
         $.ajax({
-            type:    "POST",
+            type:    'post',
             url:     baseURL + url,
             data:    {
                 id:           id,
@@ -73,9 +70,6 @@ var editTeacher = function() {
                 confirmation: confirmation,
                 groups:       groups,
                 subjects:     subjects
-            },
-            error:   function() {
-                alert("erreur !");
             },
             success: function(view) {
                 if (view.search('<div id=\"main-wrap\"') > 0) {
@@ -102,13 +96,10 @@ var deleteTeacher = function() {
         var url         = $(this).attr('action');
 
         $.ajax({
-            type:    'POST',
+            type:    'post',
             url:     baseURL + url,
             data:    {
                 id: id
-            },
-            error:   function() {
-                alert('error !');
             },
             success: function(view) {
                 if (view.search('<div id=\"main-wrap\"') > 0) {
@@ -123,4 +114,3 @@ var deleteTeacher = function() {
         });
     });
 };
-
