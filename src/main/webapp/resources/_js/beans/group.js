@@ -9,13 +9,10 @@ var createGroup = function() {
         var url         = $(this).attr('action');
 
         $.ajax({
-            type:    'POST',
+            type:    'post',
             url:     baseURL + url,
             data:    {
                 name: name
-            },
-            error:   function() {
-                alert("error!");
             },
             success: function(view) {
                 if (view.search('<div id=\"main-wrap\"') > 0) {
@@ -44,14 +41,11 @@ var editGroup = function() {
 
         alert(baseURL + url);
         $.ajax({
-            type:    'POST',
+            type:    'post',
             url:     baseURL + url,
             data:    {
                 id:   id,
                 name: name
-            },
-            error:   function() {
-                alert("error!");
             },
             success: function(view) {
                 if (view.search('<div id=\"main-wrap\"') > 0) {
@@ -78,13 +72,10 @@ var deleteGroup = function() {
         var url         = $(this).attr('action');
 
         $.ajax({
-            type:    "POST",
+            type:    'post',
             url:     baseURL + url,
             data:    {
                 id: id
-            },
-            error:   function() {
-                alert("error!");
             },
             success: function(view) {
                 if (view.search('<div id=\"main-wrap\"') > 0) {
