@@ -5,8 +5,8 @@ html {
     font-size:                   62.5%;
     -webkit-tap-highlight-color: $bg-color-black;
 }
-body 
-{
+
+body {
     width:       100%;
     min-width:   900px;
     height:      100%;
@@ -17,81 +17,82 @@ body
     font-size:   $font-size-base;
     line-height: $line-height-base;
 }
+
 h1,
 h2,
 h3,
 h4,
 h5,
-h6
-{
+h6 {
     font-family: $headings-font-family;
     font-weight: $headings-font-weight;
     line-height: $headings-line-height;
     color:       $headings-color;
 }
-h1
-h2
-h3
+
+h1,
+h2,
+h3,
 {
     margin-top:    20px;
     margin-bottom: 10px;
 }
-h4
-h5
-h6
+
+h4,
+h5,
+h6,
 {
     margin-top:    10px;
     margin-bottom: 10px;
 }
 
-h1
-{
+h1 {
     font-size: $font-size-h1;
 }
-h2
-{
+
+h2 {
     font-size: $font-size-h2;
 }
-h3
-{
+
+h3 {
     font-size: $font-size-h3;
 }
-h4
-{
+
+h4 {
     font-size: $font-size-h4;
 }
-h5
-{
+
+h5 {
     font-size: $font-size-h5;
 }
-h6
-{
+
+h6 {
     font-size: $font-size-h6;
 }
-p 
-{
+
+p {
     margin: 0 0 10px;
 }
-table 
-{
+
+table {
     border-spacing:  0;
     border-collapse: collapse;
 }
+
 td,
-th 
-{
+th {
     padding: 0;
 }
-dl dt
-{
+
+dl dt {
     font-size:   $font-size-dt;
     font-weight: bold;
     color:       $font-color-blue;
 }
-dl dd
-{
-  font-size:   $font-size-dd;
-  font-weight: normal;
-  color:       $font-color-gray;
-  margin:      0 2px 15px 0;
+
+dl dd {
+    font-size:   $font-size-dd;
+    font-weight: normal;
+    color:       $font-color-gray;
+    margin:      0 2px 15px 0;
 }
