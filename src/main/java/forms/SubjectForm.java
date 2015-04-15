@@ -37,17 +37,12 @@ public class SubjectForm {
         Administrator creator = (Administrator) getSessionVar(request, ADMINISTRATOR_SESSION);
         Subject       subject = new Subject();
 
-        try {
-            treatName(name, subject);
-            treatSubject(subject);
-            treatCreator(creator, subject);
+        treatName(name, subject);
+        treatSubject(subject);
+        treatCreator(creator, subject);
 
-            if (errors.isEmpty()) {
-                subjectDao.create(subject);
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+        if (errors.isEmpty()) {
+            subjectDao.create(subject);
         }
 
         return subject;
@@ -146,12 +141,11 @@ public class SubjectForm {
     private void treatName(String name, Subject subject) {
         try {
             validateName(name);
+            subject.setName(name);
         }
         catch (Exception e) {
             setError(NAME_FIELD, e.getMessage());
         }
-
-        subject.setName(name);
     }
 
     /**
@@ -175,12 +169,11 @@ public class SubjectForm {
     private void treatCreator(Administrator creator, Subject subject) {
         try {
             validateCreator(creator);
+            subject.setCreator(creator);
         }
         catch (Exception e) {
             setError("administrator", e.getMessage());
         }
-
-        subject.setCreator(creator);
     }
 
     /**
@@ -191,12 +184,11 @@ public class SubjectForm {
     private void treatEditor(Administrator editor, Subject subject) {
         try {
             validateCreator(editor);
+            subject.setEditor(editor);
         }
         catch (Exception e) {
             setError("administrator", e.getMessage());
         }
-
-        subject.setEditor(editor);
     }
 
     /**
