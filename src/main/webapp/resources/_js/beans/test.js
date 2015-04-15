@@ -12,11 +12,11 @@ var createTest = function() {
         var subject     = $('#create-test select[name=subject]').val();
         var group       = $('#create-test select[name=group]').val();
         var modalWindow = $('#modal');
-        var url          = $(this).attr('action');
+        var url         = $(this).attr('action');
 
         $.ajax(
             {
-                type:    'POST',
+                type:    'post',
                 url:     baseURL + url,
                 data:    {
                     coefficient: coefficient,
@@ -27,9 +27,6 @@ var createTest = function() {
                     subject:     subject,
                     group:       group
                 },
-                error:   function() {
-                    alert('error !');
-                },
                 success: function(view) {
                     if (view.search('<form id=\"edit-test\"') > 0) {
                         removeModalWindow();
@@ -39,7 +36,6 @@ var createTest = function() {
                     else {
                         modalWindow.html(view);
                         initModalWindow(300);
-
                     }
                 }
             });
@@ -62,7 +58,7 @@ var editTest = function() {
         var coefficient = $('#edit-test input[name=coefficient]').val();
         var subject     = $('#edit-test select[name=subject]').val();
         var modalWindow = $('#modal');
-        var url          = $(this).attr('action');
+        var url         = $(this).attr('action');
 
         $('input[name="students[]"]').each(function() {
             students.push($(this).val());
@@ -77,7 +73,7 @@ var editTest = function() {
 
         $.ajax(
             {
-                type:    'POST',
+                type:    'post',
                 url:     baseURL + url,
                 data:    {
                     id:          id,
@@ -89,9 +85,6 @@ var editTest = function() {
                     subject:     subject,
                     students:    students,
                     scores:      scores
-                },
-                error:   function() {
-                    alert("error !");
                 },
                 success: function(view) {
                     if (view.search('<div id=\"main-wrap\"') > 0) {
@@ -115,16 +108,13 @@ var deleteTest = function() {
         event.preventDefault();
         var id          = $('#delete-test input[name=id]').val();
         var modalWindow = $('#modal');
-        var url          = $(this).attr('action');
+        var url         = $(this).attr('action');
 
         $.ajax({
-            type:    'POST',
+            type:    'post',
             url:     baseURL + url,
             data:    {
                 id: id
-            },
-            error:   function() {
-                alert("error !");
             },
             success: function(view) {
                 if (view.search('<div id=\"main-wrap\"') > 0) {
