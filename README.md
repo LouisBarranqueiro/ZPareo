@@ -2,8 +2,7 @@
 
 A simple school management web application written in Java and JavaScript for a small project in university
 
-- Author : Louis Barra
-nqueiro
+- Author : Louis Barranqueiro
 - Version : 1.1
 
 ## Features
@@ -18,7 +17,7 @@ Administrator :
 
 Teacher :
 
-- Test and grade management
+- Test and score management
 
 Student :
 
@@ -30,7 +29,7 @@ Student :
 
 - A Java application server (using GlashFish Server v4.0.0)
 - Maven v3.0.5
-- MysSQL server
+- A MysSQL server
 
 #### Procedure ####
 
@@ -51,7 +50,7 @@ Password : adminzpareo
 
 ## Contribution guidelines ##
 
-- Implement AJAX requests with JSON
+- Use JSF primefaces Framework to replace all jvascript funtion to handle beans
 - Improve JavaScript code structure
 - Implement a pagination for each listing view
 - Add more data for each object (teacher, students, administrators, etc...)
