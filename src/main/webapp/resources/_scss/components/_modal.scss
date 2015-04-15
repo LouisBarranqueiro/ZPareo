@@ -8,13 +8,21 @@
 }
 
 .modal {
-    max-height:    600px;
     padding:       18px 9px;
     display:       none;
     border-radius: $border-radius-base;
     background:    $bg-color-white;
+    overflow:      scroll;
     position:      fixed;
     z-index:       10;
+
+    @media #{$medium-only} {
+        max-height: 800px;
+    }
+
+    @media #{$large-and-up} {
+        max-height: 900px;
+    }
 
     .modal__mod__head {
         display:   block;
