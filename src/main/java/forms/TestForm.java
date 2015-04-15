@@ -54,22 +54,16 @@ public class TestForm {
         Teacher teacher     = (Teacher) getSessionVar(request, TEACHER_SESSION);
         Test    test        = new Test();
 
-        try {
-            treatFormatId(format, test);
-            treatTitle(title, test);
-            treatDate(date, test);
-            treatCoefficient(coefficient, test);
-            treatGroupId(groupId, test);
-            treatSubjectId(subjectId, test);
-            treatTeacher(teacher, test);
+        treatFormatId(format, test);
+        treatTitle(title, test);
+        treatDate(date, test);
+        treatCoefficient(coefficient, test);
+        treatGroupId(groupId, test);
+        treatSubjectId(subjectId, test);
+        treatTeacher(teacher, test);
 
-            if (errors.isEmpty()) {
-                testDao.create(test);
-            }
-
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+        if (errors.isEmpty()) {
+            testDao.create(test);
         }
 
         return test;
@@ -92,26 +86,20 @@ public class TestForm {
         Teacher teacher     = (Teacher) getSessionVar(request, TEACHER_SESSION);
         Test    test        = new Test();
 
-        try {
-            treatId(id, test);
-            treatFormatId(format, test);
-            treatTitle(title, test);
-            treatDate(date, test);
-            treatCoefficient(coefficient, test);
-            treatSubjectId(subjectId, test);
-            treatTeacher(teacher, test);
-            treatScores(scores, students, test);
+        treatId(id, test);
+        treatFormatId(format, test);
+        treatTitle(title, test);
+        treatDate(date, test);
+        treatCoefficient(coefficient, test);
+        treatSubjectId(subjectId, test);
+        treatTeacher(teacher, test);
+        treatScores(scores, students, test);
 
-            if (errors.isEmpty()) {
-                testDao.edit(test);
-            }
-            else {
-                test = testDao.get(test);
-            }
-
+        if (errors.isEmpty()) {
+            testDao.edit(test);
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        else {
+            test = testDao.get(test);
         }
 
         return test;
@@ -228,12 +216,12 @@ public class TestForm {
             if (date.matches("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)")) {
                 date = convertDateFormat("MM/dd/yyyy", "yyyy-MM-dd", date);
             }
+
+            test.setDate(date);
         }
         catch (Exception e) {
             setError(DATE_FIELD, e.getMessage());
         }
-
-        test.setDate(date);
     }
 
     /**
@@ -262,12 +250,11 @@ public class TestForm {
         try {
             validateSubjectId(subjectId);
             subject.setId(Long.parseLong(subjectId));
+            test.setSubject(subject);
         }
         catch (Exception e) {
             setError(SUBJECT_FIELD, e.getMessage());
         }
-
-        test.setSubject(subject);
     }
 
     /**
@@ -281,12 +268,11 @@ public class TestForm {
         try {
             validateGroupId(groupId);
             group.setId(Long.parseLong(groupId));
+            test.setGroup(group);
         }
         catch (Exception e) {
             setError(GROUP_FIELD, e.getMessage());
         }
-
-        test.setGroup(group);
     }
 
     /**
@@ -297,12 +283,11 @@ public class TestForm {
     private void treatTeacher(Teacher teacher, Test test) {
         try {
             validateTeacher(teacher);
+            test.setTeacher(teacher);
         }
         catch (Exception e) {
             setError(TEACHER_FIELD, e.getMessage());
         }
-
-        test.setTeacher(teacher);
     }
 
     /**
@@ -316,12 +301,11 @@ public class TestForm {
         try {
             validateFormatId(formatId);
             format.setId(Long.parseLong(formatId));
+            test.setFormat(format);
         }
         catch (Exception e) {
             setError(FORMAT_FIELD, e.getMessage());
         }
-
-        test.setFormat(format);
     }
 
     /**
@@ -350,12 +334,11 @@ public class TestForm {
         try {
             validateStudentId(studentId);
             etudiant.setId(Long.parseLong(studentId));
+            score.setStudent(etudiant);
         }
         catch (Exception e) {
             setError(STUDENTS_FIELD, e.getMessage());
         }
-
-        score.setStudent(etudiant);
     }
 
     /**
@@ -437,7 +420,6 @@ public class TestForm {
         if (subjectId == null) {
             throw new Exception("Please select a subject");
         }
-
     }
 
     /**
@@ -449,7 +431,6 @@ public class TestForm {
         if (teacher == null) {
             throw new Exception("Unknown teacher");
         }
-
     }
 
     /**
@@ -461,7 +442,6 @@ public class TestForm {
         if (groupId == null) {
             throw new Exception("Please select a group");
         }
-
     }
 
     /**
@@ -473,7 +453,6 @@ public class TestForm {
         if (studentId == null) {
             throw new Exception("Unknown student");
         }
-
     }
 
     /**
@@ -485,7 +464,6 @@ public class TestForm {
         if (formatId == null) {
             throw new Exception("Unknown format of test");
         }
-
     }
 
     /**
@@ -497,7 +475,6 @@ public class TestForm {
         if (average == null) {
             throw new Exception("Please enter a decimal");
         }
-
     }
 
     /**
@@ -520,7 +497,6 @@ public class TestForm {
         if ((score == null) || (!score.matches("[0-9,.]{1,5}"))) {
             throw new Exception("Please enter a decimal");
         }
-
     }
 
     /**

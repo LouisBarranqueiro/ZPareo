@@ -49,22 +49,16 @@ public class StudentForm {
         Administrator creator      = (Administrator) getSessionVar(request, ADMINISTRATOR_SESSION);
         Student       student      = new Student();
 
-        try {
-            treatLastName(lastName, student);
-            treatFirstName(firstName, student);
-            treatEmailAddress(emailAddress, student);
-            treatPassword(student, false);
-            treatGroup(groupId, student);
-            treatStudent(student);
-            treatCreator(creator, student);
+        treatLastName(lastName, student);
+        treatFirstName(firstName, student);
+        treatEmailAddress(emailAddress, student);
+        treatPassword(student, false);
+        treatGroup(groupId, student);
+        treatStudent(student);
+        treatCreator(creator, student);
 
-            if (errors.isEmpty()) {
-                studentDao.create(student);
-            }
-
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+        if (errors.isEmpty()) {
+            studentDao.create(student);
         }
 
         return student;
@@ -116,22 +110,16 @@ public class StudentForm {
         Administrator editor       = (Administrator) getSessionVar(request, ADMINISTRATOR_SESSION);
         Student       student      = new Student();
 
-        try {
-            treatId(id, student);
-            treatLastName(lastName, student);
-            treatFirstName(firstName, student);
-            treatEmailAddress(emailAddress, student);
-            treatGroup(groupId, student);
-            treatStudent(student);
-            treatEditor(editor, student);
+        treatId(id, student);
+        treatLastName(lastName, student);
+        treatFirstName(firstName, student);
+        treatEmailAddress(emailAddress, student);
+        treatGroup(groupId, student);
+        treatStudent(student);
+        treatEditor(editor, student);
 
-            if (errors.isEmpty()) {
-                studentDao.edit(student);
-            }
-
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+        if (errors.isEmpty()) {
+            studentDao.edit(student);
         }
 
         return student;
@@ -147,17 +135,12 @@ public class StudentForm {
         String  password     = getFieldVar(request, PASSWORD_FIELD);
         Student student      = new Student();
 
-        try {
-            treatEmailAddress(emailAddress, student);
-            student.setPassword(cryptPassword(password));
-            student = studentDao.checkLogin(student);
-            treatLogin(student);
-            student.setPassword(cryptPassword(password));
-            student.setEmailAddress(emailAddress);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        treatEmailAddress(emailAddress, student);
+        student.setPassword(cryptPassword(password));
+        student = studentDao.checkLogin(student);
+        treatLogin(student);
+        student.setPassword(cryptPassword(password));
+        student.setEmailAddress(emailAddress);
 
         return student;
     }
@@ -227,12 +210,11 @@ public class StudentForm {
     private void treatId(String id, Student student) {
         try {
             validateId(id);
+            student.setId(Long.parseLong(id));
         }
         catch (Exception e) {
             setError(ID_FIELD, e.getMessage());
         }
-
-        student.setId(Long.parseLong(id));
     }
 
     /**
@@ -243,12 +225,11 @@ public class StudentForm {
     private void treatLastName(String lastName, Student student) {
         try {
             validateLastName(lastName);
+            student.setLastName(lastName.substring(0, 1).toUpperCase() + lastName.substring(1).toLowerCase());
         }
         catch (Exception e) {
             setError(LAST_NAME_FIELD, e.getMessage());
         }
-
-        student.setLastName(lastName.substring(0, 1).toUpperCase() + lastName.substring(1).toLowerCase());
     }
 
     /**
@@ -259,12 +240,11 @@ public class StudentForm {
     private void treatFirstName(String firstName, Student student) {
         try {
             validateFirstName(firstName);
+            student.setFirstName(firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase());
         }
         catch (Exception e) {
             setError(FIRST_NAME_FIELD, e.getMessage());
         }
-
-        student.setFirstName(firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase());
     }
 
     /**
@@ -277,13 +257,12 @@ public class StudentForm {
 
         try {
             validateGroup(groupId);
+            group.setId(Long.parseLong(groupId));
+            student.setGroup(group);
         }
         catch (Exception e) {
             setError(GROUP_FIELD, e.getMessage());
         }
-
-        group.setId(Long.parseLong(groupId));
-        student.setGroup(group);
     }
 
     /**
@@ -294,12 +273,11 @@ public class StudentForm {
     private void treatEmailAddress(String emailAddress, Student student) {
         try {
             validateEmailAddress(emailAddress);
+            student.setEmailAddress(emailAddress.trim().toLowerCase());
         }
         catch (Exception e) {
             setError(EMAIL_ADDRESS_FIELD, e.getMessage());
         }
-
-        student.setEmailAddress(emailAddress.trim().toLowerCase());
     }
 
     /**
@@ -313,12 +291,11 @@ public class StudentForm {
             validatePassword(password);
             sendPassword(student, password, reset);
             password = cryptPassword(password);
+            student.setPassword(password);
         }
         catch (Exception e) {
 
         }
-
-        student.setPassword(password);
     }
 
     /**
@@ -355,12 +332,11 @@ public class StudentForm {
     private void treatCreator(Administrator creator, Student student) {
         try {
             validateCreator(creator);
+            student.setCreator(creator);
         }
         catch (Exception e) {
             setError("administrator", e.getMessage());
         }
-
-        student.setCreator(creator);
     }
 
     /**
@@ -371,12 +347,11 @@ public class StudentForm {
     private void treatEditor(Administrator editor, Student student) {
         try {
             validateCreator(editor);
+            student.setEditor(editor);
         }
         catch (Exception e) {
             setError("administrator", e.getMessage());
         }
-
-        student.setEditor(editor);
     }
 
     /**
@@ -399,7 +374,6 @@ public class StudentForm {
         if ((lastName == null) || (lastName.length() < 2) || (lastName.length() > 50)) {
             throw new Exception("Please enter a name of 2 to 50 characters");
         }
-
     }
 
     /**
@@ -411,7 +385,6 @@ public class StudentForm {
         if ((firstName == null) || (firstName.length() < 2) || (firstName.length() > 50)) {
             throw new Exception("Veuillez entrer un firstName de 2 à 50 caractères");
         }
-
     }
 
     /**
@@ -423,7 +396,6 @@ public class StudentForm {
         if (group == null) {
             throw new Exception("Please select a group");
         }
-
     }
 
     /**
@@ -446,7 +418,6 @@ public class StudentForm {
         if ((password == null) || (password.length() != 8)) {
             throw new Exception("Please enter a stronger password");
         }
-
     }
 
     /**
@@ -458,7 +429,6 @@ public class StudentForm {
         if (studentDao.check(student) != 0) {
             throw new Exception("This student already exists");
         }
-
     }
 
     /**
@@ -470,7 +440,6 @@ public class StudentForm {
         if (student.getId() == null) {
             throw new Exception("Your email address or password is incorrect");
         }
-
     }
 
     /**
@@ -482,7 +451,6 @@ public class StudentForm {
         if (creator.getId() == null) {
             throw new Exception("Unknown administrator");
         }
-
     }
 
     /**
