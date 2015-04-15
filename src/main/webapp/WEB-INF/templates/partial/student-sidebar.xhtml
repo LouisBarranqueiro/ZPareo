@@ -10,18 +10,18 @@
             <div class="aside__user-info">
                 <span class="aside__user-info__picture"></span>
                 <span class="aside__user-info__name">
-                    #{sessionScope.studentSession.lastName.toUpperCase()}<br/>
-                    #{sessionScope.studentSession.firstName.toUpperCase()}
+                    #{sessionScope.studentSession.firstName.toUpperCase()}<br/>
+                    #{sessionScope.studentSession.lastName.toUpperCase()}
                 </span>
             </div>
             <nav class="aside__nav">
                 <a href="#{request.contextPath}/si/gradebook">
                     <span class="icon-stats"></span>
-                    <span>MATIERES</span>
+                    <span>GRADEBOOK</span>
                 </a>
                 <a href="#{request.contextPath}/logout">
                     <span class="icon-switch2"></span>
-                    <span>DECONNEXION</span>
+                    <span>LOGOUT</span>
                 </a>
             </nav>
         </div>
