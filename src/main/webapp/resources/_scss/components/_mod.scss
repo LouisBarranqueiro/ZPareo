@@ -10,19 +10,19 @@
 }
 
 .mod--lg {
-    width: 95%;
+    width: calc(100% - (9px * 6));
 }
 
 .mod--md {
-    width: 59.65%;
+    width: calc(70% - (9px * 6.5));
 }
 
 .mod--sm {
-    width: 47.5%;
+    width: calc(50% - (9px * 6.5));
 }
 
 .mod--xs {
-    width: 29.65%;
+    width: calc(30% - (9px * 6.5));
 }
 
 .mod__head {
