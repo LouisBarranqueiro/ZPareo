@@ -24,7 +24,7 @@ public class Login extends HttpServlet {
     private static final String STUDENT_SESSION       = "studentSession";
     private static final String TEACHER_SESSION       = "teacherSession";
     private static final String ADMINISTRATOR_SESSION = "administratorSession";
-    private static final String STUDENT_FORM          = "studentForm";
+    private static final String FORM                  = "form";
     private static final String VIEW                  = "/WEB-INF/login.xhtml";
     private String           contextPath;
     private AdministratorDao administratorDao;
@@ -82,7 +82,7 @@ public class Login extends HttpServlet {
         }
         else {
             request.setAttribute(USER, student);
-            request.setAttribute(STUDENT_FORM, studentForm);
+            request.setAttribute(FORM, studentForm);
             this.getServletContext().getRequestDispatcher(VIEW).forward(request, response);
         }
 
