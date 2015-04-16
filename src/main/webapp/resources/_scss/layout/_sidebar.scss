@@ -1,0 +1,84 @@
+.sidebar--admin {
+    .sidebar__user-info {
+        background: #f8cb00;
+    }
+}
+
+.sidebar--teacher {
+    .sidebar__user-info {
+        background: #a48ad4;
+    }
+}
+
+.sidebar--student {
+    .sidebar__user-info {
+        background: #f3565d;
+    }
+}
+
+#sidebar-wrap {
+    width:      210px;
+    height:     100%;
+    position:   fixed;
+    top:        0px;
+    left:       0px;
+    background: map-get($background-colors, dark-grey);
+
+    .sidebar__user-info {
+        padding: 18px 15px 14px 15px;
+        color:   white;
+    }
+
+    .sidebar__user-info__picture {
+        width:      40px;
+        height:     40px;
+        display:    inline-block;
+        margin:     0 18px 0 0;
+        background: url("../img/icons/user-icon.png");
+    }
+
+    .sidebar__user-info__name {
+        width:          auto;
+        height:         auto;
+        display:        inline-block;
+        vertical-align: top;
+    }
+
+    .sidebar__nav {
+        a {
+            width:           auto;
+            height:          55px;
+            padding:         0 0 0 20px;
+            display:         block;
+            font-size:       map-get($font-size, small);
+            color:           map-get($sidebar, font-color);
+            text-decoration: none;
+            line-height:     55px;
+
+            span {
+                &:first-child {
+                    display:   inline-block;
+                    font-size: 27px;
+                    color:     map-get($sidebar, font-color);
+                    margin:    0 25px 0 0;
+                    padding:   14px 0 0 0;
+                }
+                &.icon-graduate {
+                    font-size: 22px;
+                    margin:    0 23px 0 0;
+                }
+                &:last-child {
+                    display:        inline-block;
+                    color:          map-get($sidebar, font-color);
+                    margin:         0 10px 0 0;
+                    padding:        0 0 0 0;
+                    vertical-align: top;
+                }
+            }
+            &:hover {
+                color:           white;
+                text-decoration: none;
+            }
+        }
+    }
+}
