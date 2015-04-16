@@ -48,7 +48,7 @@
                         {
                             value: 0,
                             width: 0.5,
-                            color: '#B9B9B9'
+                            color: '#ff6b6b'
                         }]
                 },
                 legend:   {
@@ -64,9 +64,9 @@
                 },
                 series:   [
                     {
-                        name:  'Etudiant',
+                        name:  'Student',
                         data:  averages,
-                        color: '#a48ad4'
+                        color: '#ff6b6b'
                     }],
                 credits:  {
                     enabled: false
