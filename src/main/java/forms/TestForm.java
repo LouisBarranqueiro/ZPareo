@@ -250,11 +250,12 @@ public class TestForm {
         try {
             validateSubjectId(subjectId);
             subject.setId(Long.parseLong(subjectId));
-            test.setSubject(subject);
         }
         catch (Exception e) {
             setError(SUBJECT_FIELD, e.getMessage());
         }
+
+        test.setSubject(subject);
     }
 
     /**
@@ -268,11 +269,12 @@ public class TestForm {
         try {
             validateGroupId(groupId);
             group.setId(Long.parseLong(groupId));
-            test.setGroup(group);
         }
         catch (Exception e) {
             setError(GROUP_FIELD, e.getMessage());
         }
+
+        test.setGroup(group);
     }
 
     /**
@@ -301,11 +303,12 @@ public class TestForm {
         try {
             validateFormatId(formatId);
             format.setId(Long.parseLong(formatId));
-            test.setFormat(format);
         }
         catch (Exception e) {
             setError(FORMAT_FIELD, e.getMessage());
         }
+
+        test.setFormat(format);
     }
 
     /**
