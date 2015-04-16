@@ -2,22 +2,22 @@
     width:            100%;
     max-width:        100%;
     background-color: transparent;
-    font-size:        $font-size-base;
+    font-size:        map-get($font-size, base);
 
     .tr--ref th {
         font-weight:   bold;
-        font-size:     $font-size-xsmall;
+        font-size:     map-get($font-size, x-small);
         padding:       0 30px 0 0;
         height:        30px;
-        border-bottom: 1px solid $table-border-color;
-        color:         $font-color-light-black;
+        border-bottom: 1px solid #f1f1f1;
+        color:         map-get($colors, light-black);
     }
     .tr--blue {
-        color: $font-color-blue;
+        color: map-get($colors, primary);
     }
     .tr--search {
-        height:        50px;
-        border-bottom: 1px solid $table-border-color;
+        padding:       7px 0px;
+        border-bottom: 1px solid map-get($table, border-color);
         font-weight:   normal;
     }
     .tr--search th {
@@ -27,17 +27,16 @@
         padding-left: 5px;
     }
     tbody tr {
-        border-bottom: 1px solid $table-border-color;
-        background:    $bg-color-white;
-        font-size:     $font-size-large;
+        border-bottom: 1px solid map-get($table, border-color);
+        background:    white;
+        font-size:     map-get($font-size, large);
     }
     tbody tr td {
         padding-right: 15px;
     }
     tbody tr:hover {
-        border-bottom: 1px solid $table-tr-border-color-hover;
-        background:    $table-tr-color-hover;
-        z-index:       2;
+        background: darken(white, 1);
+        z-index:    2;
     }
     th:last-child,
     td:last-child {
