@@ -6,15 +6,15 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <f:view>
-        <div id="aside-wrap">
-            <div class="aside__user-info">
-                <span class="aside__user-info__picture"></span>
-                <span class="aside__user-info__name">
+        <div id="sidebar-wrap" class="sidebar--student">
+            <div class="sidebar__user-info">
+                <span class="sidebar__user-info__picture"></span>
+                <span class="sidebar__user-info__name">
                     #{sessionScope.studentSession.firstName.toUpperCase()}<br/>
                     #{sessionScope.studentSession.lastName.toUpperCase()}
                 </span>
             </div>
-            <nav class="aside__nav">
+            <nav class="sidebar__nav">
                 <a href="#{request.contextPath}/si/gradebook">
                     <span class="icon-stats"></span>
                     <span>GRADEBOOK</span>
