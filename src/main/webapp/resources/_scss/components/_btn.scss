@@ -1,82 +1,47 @@
 .btn {
-    width:         auto;
-    height:        auto;
-    display:       inline-block;
-    padding:       9px 15px;
-    border-radius: $border-radius-base;
-    background:    $btn-bg-color;
-    cursor:        pointer;
-    font-size:     $font-size-small;
-    font-weight:   bold;
-    line-height: $line-height-base;
+    width:          auto;
+    height:         auto;
+    display:        inline-block;
+    padding:        12px 15px;
+    border-radius:  $border-radius-base;
+    background:     white;
+    cursor:         pointer;
+    font-size:      map-get($font-size, medium);
+    font-weight:    bold;
+    line-height:    1em;
+    letter-spacing: 0.05em;
 }
 
+// Color variant
+.btn--default {
+    @include button-color-variant(map-get($colors, 'base'));
+}
+
+.btn--success {
+    @include button-color-variant(map-get($colors, success));
+}
+
+.btn--primary {
+    @include button-color-variant(map-get($colors, primary));
+}
+
+.btn--danger {
+    @include button-color-variant(map-get($colors, danger));
+}
+
+// Style variant
 .btn--icon,
 .btn--icon:hover {
     width:       30px;
     height:      30px;
     padding:     0 0 0 0;
-    border:      1px solid $btn-icon-color;
+    border:      1px solid map-get($colors, light-grey);
     font-size:   21px;
     line-height: 32px;
-    color:       $btn-default-color;
+    color:       map-get($colors, base);
 }
 
-.btn--danger,
-.btn--danger:hover {
-    border: 1px solid $btn-danger-color;
-    color:  $btn-danger-color;
-}
-
-.btn--danger:active {
-    border: 1px solid $btn-danger-color;
-    color:  $btn-danger-color;
-}
-
-.btn--success,
-.btn--success:hover {
-    border: 1px solid $btn-success-color;
-    color:  $btn-success-color;
-}
-
-.btn--success:active {
-    border: 1px solid lighten($btn-success-color, 20%);
-    color:  lighten($btn-success-color, 20%);
-}
-
-.btn--info,
-.btn--info:hover {
-    border: 1px solid $btn-info-color;
-    color:  $btn-info-color;
-}
-
-.btn--info:active {
-    border: 1px solid lighten($btn-info-color, 20%);
-    color:  lighten($btn-info-color, 20%);
-}
-
-.btn--primary,
-.btn--primary:hover {
-    border: 1px solid $btn-primary-color;
-    color:  $btn-primary-color;
-}
-
-.btn--primary:active {
-    border: 1px solid lighten($btn-primary-color, 20%);
-    color:  lighten($btn-primary-color, 20%);
-}
-
-.btn--default,
-.btn--default:hover {
-    border: 1px solid $btn-default-color;
-    color:  $btn-default-color;
-}
-
-.btn--default:active {
-    border: 1px solid lighten($btn-default-color, 20%);
-    color:  lighten($btn-default-color, 20%);
-}
-
+// Size variant
 .btn--100 {
     width: 100% !important;
 }
