@@ -11,32 +11,23 @@
     padding:       18px 9px;
     display:       none;
     border-radius: $border-radius-base;
-    background:    $bg-color-white;
+    background:    map-get($modal, background);
     overflow:      scroll;
     position:      fixed;
     z-index:       10;
 
-    @media #{$medium-only} {
-        max-height: 800px;
-    }
-
-    @media #{$large-and-up} {
-        max-height: 900px;
-    }
-
     .modal__mod__head {
-        display:   block;
-        padding:   0 9px 9px 9px;
-        font-size: $font-size-xlarge;
-        color:     $font-color-dark-white;
-        width:     auto;
+        display: block;
+        padding: 0 9px 9px 9px;
+        width:   auto;
 
         .modal__mod__head__title {
             width:         auto;
             padding:       0 0 18px 0;
-            border-bottom: 1px solid $border-color-light-gray;
+            color:         map-get($colors, dark-white);
+            border-bottom: 1px solid map-get($border-colors, light-grey);
             margin:        0;
-            font-size:     $font-size-xlarge !important;
+            font-size:     map-get($font-size, xlarge) !important;
         }
     }
     .modal__mod--xs {
@@ -69,5 +60,17 @@
     }
     .modal__mod__control {
         padding: 9px;
+    }
+}
+
+@media #{$medium-only} {
+    .modal {
+        max-height: 800px;
+    }
+}
+
+@media #{$large-and-up} {
+    .modal {
+        max-height: 900px;
     }
 }
