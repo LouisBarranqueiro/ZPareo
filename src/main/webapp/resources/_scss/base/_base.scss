@@ -1,21 +1,27 @@
 html {
-    font-family:                 $font-family-base;
-    -webkit-text-size-adjust:    100%;
-    -ms-text-size-adjust:        100%;
-    font-size:                   62.5%;
-    -webkit-tap-highlight-color: $bg-color-black;
+    font-family: $font-family-base;
+    // equal to 10px, useful to use em and rem
+    font-size:   62.5%;
+    // Gives you better control of the font size when the first selected font is not available.
+    @include prefix(text-size-adjust, 100%, 'ms' 'webkit');
+    // Overrides the highlight color shown when the user taps
+    //a link or a JavaScript clickable element in Safari on iPhone
+    @include prefix(tap-highlight-color, rgba(0, 0, 0, 0), 'webkit');
 }
 
 body {
-    width:       100%;
-    min-width:   900px;
-    height:      100%;
-    margin:      0;
-    padding:     0;
-    background:  $bg-color-white;
-    font-family: $font-family-base;
-    font-size:   $font-size-base;
-    line-height: $line-height-base;
+    width:          100%;
+    min-width:      900px;
+    height:         100%;
+    margin:         0;
+    padding:        0;
+    background:     white;
+    font-family:    $font-family-base;
+    font-size:      map-get($font-size, base);
+    line-height:    $line-height-base;
+    letter-spacing: $letter-spacing-base;
+    // Improve smoothing of the font by adding subpixel in Safari
+    @include prefix(font-smoothing, subpixel-antialiased, 'webkit');
 }
 
 h1,
@@ -24,54 +30,33 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: $headings-font-family;
-    font-weight: $headings-font-weight;
-    line-height: $headings-line-height;
-    color:       $headings-color;
+    letter-spacing: -0.1px;
+    font-family:    'Open Sans', sans-serif;
+    font-weight:    700;
+    line-height:    1.45em;
+    color:          #4a4a4a;
 }
 
-h1,
-h2,
-h3,
-{
-    margin-top:    20px;
-    margin-bottom: 10px;
+// List each header with his font size
+@each $key, $value in $headings-font-size {
+    #{$key} {
+        font-size: $value;
+    }
 }
 
-h4,
-h5,
-h6,
-{
-    margin-top:    10px;
-    margin-bottom: 10px;
+a {
+    &.unstyled,
+    &.unstyled:hover,
+    &.unstyled:active {
+        text-decoration: none;
+    }
 }
 
-h1 {
-    font-size: $font-size-h1;
-}
-
-h2 {
-    font-size: $font-size-h2;
-}
-
-h3 {
-    font-size: $font-size-h3;
-}
-
-h4 {
-    font-size: $font-size-h4;
-}
-
-h5 {
-    font-size: $font-size-h5;
-}
-
-h6 {
-    font-size: $font-size-h6;
-}
-
-p {
-    margin: 0 0 10px;
+p,
+ul,
+ol,
+dl {
+    margin: 0 0 1.75em 0;
 }
 
 table {
@@ -85,14 +70,14 @@ th {
 }
 
 dl dt {
-    font-size:   $font-size-dt;
+    font-size:   map-get($font-size, small);
     font-weight: bold;
-    color:       $font-color-blue;
+    color:       map-get($colors, primary);
 }
 
 dl dd {
-    font-size:   $font-size-dd;
+    font-size:   map-get($font-size, small);
     font-weight: normal;
-    color:       $font-color-gray;
+    color:       map-get($colors, gray);
     margin:      0 2px 15px 0;
 }
