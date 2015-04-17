@@ -27,6 +27,7 @@ Student :
 - Maven v3.0.5
 - Node v0.10.35
 
+Maven is required to manage maven dependencies, build and deploy the webapp.  
 Node is required to manage npm dependencies with npm.  
 Grunt is requires to build assets (js and scss) of the project.
 
