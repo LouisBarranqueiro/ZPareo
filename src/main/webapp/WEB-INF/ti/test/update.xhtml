@@ -70,9 +70,9 @@
             <table class="table">
                 <thead>
                     <tr class="tr--ref tr--blue">
-                        <th>FIRST NAME</th>
-                        <th>LAST NAME</th>
-                        <th>NOTE</th>
+                        <th class="text-primary">FIRST NAME</th>
+                        <th class="text-primary">LAST NAME</th>
+                        <th class="text-primary">SCORE</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -82,7 +82,7 @@
                             <td>#{score.student.lastName}</td>
                             <td>
                                 <input type="hidden" name="students[]" value="#{score.student.id}" readonly="readonly" required="required"/>
-                                <input type="text" name="scores[]" value="#{score.score}" placeholder="Score" pattern="[0-9,.]{1,5}" required="required"/>
+                                <input type="text" name="scores[]" value="#{score.score}" size="9" placeholder="Score" pattern="[0-9,.]{1,5}" required="required"/>
                             </td>
                         </tr>
                     </c:forEach>
