@@ -12,11 +12,6 @@
 .form--horizontal {
     .form--control {
         display: block;
-        width:   calc(100% - 25px);
-        margin:  5px 0 10px 0;
-    }
-    select.form--control {
-        display: block;
         width:   100%;
         margin:  5px 0 10px 0;
     }

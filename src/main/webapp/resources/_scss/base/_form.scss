@@ -13,6 +13,8 @@ textarea {
     font-size:        map-get($input, font-size);
     color:            map-get($input, color);
     margin:           0;
+    @include prefix(box-sizing, border-box, 'webkit' 'moz');
+
 }
 
 select,
