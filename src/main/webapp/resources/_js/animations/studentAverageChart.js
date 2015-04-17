@@ -75,6 +75,8 @@
     };
 
     $(document).ready(function() {
-        initAverageStudentChart();
+        if ($('.averages').length) {
+            initAverageStudentChart();
+        }
     })
 }(jQuery);
