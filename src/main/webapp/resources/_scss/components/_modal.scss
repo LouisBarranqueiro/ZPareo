@@ -63,14 +63,36 @@
     }
 }
 
-@media #{$medium-only} {
+@media screen and (max-height: 800px) {
     .modal {
-        max-height: 800px;
+        max-height: 600px;
+
+        .modal__mod--vertical,
+        .modal__mod--scrollable {
+            max-height: 440px;
+        }
     }
 }
 
-@media #{$large-and-up} {
+@media screen and (max-height: 900px) {
     .modal {
-        max-height: 900px;
+        max-height: 700px;
+
+        .modal__mod--vertical,
+        .modal__mod--scrollable {
+            max-height: 540px;
+        }
     }
 }
+
+@media screen and (max-height: 1080px) {
+    .modal {
+        max-height: 800px;
+
+        .modal__mod--vertical,
+        .modal__mod--scrollable {
+            max-height: 640px;
+        }
+    }
+}
+
