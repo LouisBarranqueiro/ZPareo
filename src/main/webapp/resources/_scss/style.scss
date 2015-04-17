@@ -1,14 +1,14 @@
 // Tools
 @import
-    'utils/variables.scss',
-    'utils/utilities.scss';
+    'utils/fonts.scss',
+    'utils/variables.scss';
 
 // Mixins
 @import
-'utils/mixins/button',
-'utils/mixins/form',
-'utils/mixins/opacity',
-'utils/mixins/prefix';
+    'utils/mixins/button',
+    'utils/mixins/form',
+    'utils/mixins/opacity',
+    'utils/mixins/prefix';
 
 // Base
 @import
@@ -17,11 +17,11 @@
 
 // Layout
 @import
-    'layout/layout.scss',
-    'layout/aside.scss',
+    'layout/site.scss',
+    'layout/sidebar.scss',
     'layout/main.scss';
 
-// Modules
+// Components
 @import
     'components/btn.scss',
     'components/form.scss',
@@ -29,3 +29,11 @@
     'components/mod.scss',
     'components/modal.scss',
     'components/table.scss';
+
+// Pages
+@import
+    'pages/login.scss';
+
+// Vendors
+@import
+    'vendors/select2.scss';
