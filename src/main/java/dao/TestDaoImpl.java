@@ -739,7 +739,7 @@ public class TestDaoImpl implements TestDao {
      * @return
      */
     private static String convertDateToString(java.sql.Date date) {
-        DateFormat APP_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat APP_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
         return APP_FORMAT.format(date);
     }
