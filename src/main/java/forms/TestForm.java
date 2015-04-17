@@ -213,7 +213,7 @@ public class TestForm {
         try {
             validateDate(date);
 
-            if (date.matches("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)")) {
+            if (date.matches("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/((19|20)\\d\\d)")) {
                 date = convertDateFormat("MM/dd/yyyy", "yyyy-MM-dd", date);
             }
 
