@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <form id="delete-test" action="#{request.contextPath}/ti/test/delete" method="post" class="form--horizontal">
+        <div class="modal__mod__head">
+            <h3 class="modal__mod__head__title text-center">Deleting of test n°#{test.id}</h3>
+        </div>
+        <div class="modal__mod--lg">
+            <p>Are you sure to delete the test : #{test.title} in #{test.subject.name}?</p>
+            <input type="hidden" name="id" class="form-control input-sm" value="#{test.id}" size="30"
+                   pattern="[0-9]{1,11}" readonly="readonly" disabled="disabled" required="required"/>
+        </div>
+        <div class="form__control modal__mod__control">
+            <button type="submit" class="btn btn--danger" onclick="deleteTest()">DELETE</button>
+            <button type="button" class="btn btn--default" onclick="removeModalWindow()">CANCEL</button>
+        </div>
+    </form>
+</html>

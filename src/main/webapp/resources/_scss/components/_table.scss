@@ -1,0 +1,75 @@
+.table {
+    width:            100%;
+    max-width:        100%;
+    background-color: transparent;
+    font-size:        map-get($font-size, base);
+
+    .tr--ref th {
+        font-weight:   bold;
+        font-size:     map-get($font-size, x-small);
+        padding:       0 30px 0 0;
+        height:        30px;
+        border-bottom: 1px solid #f1f1f1;
+        color:         map-get($colors, light-black);
+    }
+    .tr--blue {
+        color: map-get($colors, primary);
+    }
+    .tr--search {
+        padding:       7px 0px;
+        border-bottom: 1px solid map-get($table, border-color);
+        font-weight:   normal;
+    }
+    .tr--search th {
+        padding: 5px 0;
+    }
+    tbody {
+        padding-left: 5px;
+    }
+    tbody tr {
+        border-bottom: 1px solid map-get($table, border-color);
+        background:    white;
+        font-size:     map-get($font-size, large);
+    }
+    tbody tr td {
+        padding-right: 15px;
+    }
+    tbody tr:hover {
+        background: darken(white, 1);
+        z-index:    2;
+    }
+    th:last-child,
+    td:last-child {
+        width: 120px;
+    }
+    tr:first-child th:last-child {
+        padding-right: 10px;
+    }
+    .tr--md td {
+        padding-top:    5px;
+        padding-bottom: 5px;
+    }
+    .tr--lg td {
+        padding-top:    12px;
+        padding-bottom: 12px;
+    }
+    th.sortable {
+        cursor:     pointer;
+        background: url('../img/icons/sortable.png') no-repeat -moz-calc(100% - 20px) 50%;
+        background: url('../img/icons/sortable.png') no-repeat -webkit-calc(100% - 20px) 50%;
+    }
+    th.sortable.asc {
+        background: url('../img/icons/sortable-asc.png') no-repeat -moz-calc(100% - 20px) 50%;
+        background: url('../img/icons/sortable-asc.png') no-repeat -webkit-calc(100% - 20px) 50%;
+    }
+    th.sortable.desc {
+        background: url('../img/icons/sortable-desc.png') no-repeat -moz-calc(100% - 20px) 50%;
+        background: url('../img/icons/sortable-desc.png') no-repeat -webkit-calc(100% - 20px) 50%;
+    }
+    th {
+        text-align: left;
+    }
+    td {
+        color: #6c6d6f;
+    }
+}

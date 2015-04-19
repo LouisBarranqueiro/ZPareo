@@ -1,0 +1,16 @@
+.text-center {
+    text-align: center;
+}
+
+// Colors variant
+.text-primary {
+    color: map-get($colors, primary) !important;
+}
+
+.text-info {
+    color: map-get($colors, info) !important;
+}
+
+.text-danger {
+    color: map-get($colors, danger) !important;
+}

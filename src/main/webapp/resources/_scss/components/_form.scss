@@ -1,0 +1,36 @@
+.form--inline {
+    input,
+    select,
+    textarea {
+        display:        inline-block;
+        width:          auto;
+        vertical-align: middle;
+        position:       relative;
+    }
+}
+
+.form--horizontal {
+    .form--control {
+        display: block;
+        width:   100%;
+        margin:  5px 0 10px 0;
+    }
+}
+
+.form__error {
+    display:   block;
+    font-size: map-get($font-size, small);
+    color:     map-get($colors, danger);
+    margin:    2px 0 10px 0;
+}
+
+.form__control {
+    position: relative;
+    width:    auto;
+    height:   auto;
+}
+
+.form__control button {
+    float:  right;
+    margin: 10px 0 0 15px;
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <div class="modal__mod__head">
+        <h3 class="modal__mod__head__title text-center">Information of test n°#{test.id}</h3>
+    </div>
+    <div class="modal__mod--sm modal__mod--vertical">
+        <dl>
+            <dt>ID</dt>
+            <dd>#{test.id}</dd>
+
+            <dt>TITLE</dt>
+            <dd>#{test.title}</dd>
+
+            <dt>FORMAT</dt>
+            <dd>#{test.format.name}</dd>
+
+            <dt>DATE</dt>
+            <dd>#{test.date}</dd>
+
+            <dt>GROUP</dt>
+            <dd>#{test.group.name}</dd>
+
+            <dt>SUBJECT</dt>
+            <dd>#{test.subject.name}</dd>
+
+            <dt>COEFFICIENT</dt>
+            <dd>#{test.coefficient}</dd>
+
+            <dt>AVERAGE</dt>
+            <dd>
+                <h:outputText value="#{test.average}">
+                    <f:convertNumber maxFractionDigits="1"/>
+                </h:outputText></dd>
+        </dl>
+    </div>
+    <div id="examen-notes" class="modal__mod--sm modal__mod--vertical modal__mod--scrollable">
+        <table class="table">
+            <thead>
+                <tr class="tr--ref tr--blue">
+                    <th class="text-primary">FIRST NAME</th>
+                    <th class="text-primary">LAST NAME</th>
+                    <th class="text-primary">SCORE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="#{test.scores}" var="score">
+                    <tr class="tr--lg">
+                        <td>#{score.student.firstName}</td>
+                        <td>#{score.student.lastName}</td>
+                        <td>
+                            <h:outputText value="#{score.score}">
+                                <f:convertNumber maxFractionDigits="1"/>
+                            </h:outputText>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
+    <div class="form__control modal__mod__control">
+        <button type="button" class="btn btn--primary" onclick="displayRespModal('#{request.contextPath}/ti/test/update?id=#{test.id}', 600)">EDIT</button>
+        <button type="button" class="btn btn--default" onclick="removeModalWindow()">CLOSE</button>
+    </div>
+</html>

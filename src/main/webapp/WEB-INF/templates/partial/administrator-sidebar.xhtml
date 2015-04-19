@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:view>
+        <div id="sidebar-wrap" class="sidebar--admin">
+            <div class="sidebar__user-info">
+                <span class="sidebar__user-info__picture"></span>
+                <span class="sidebar__user-info__name">
+                    #{sessionScope.administratorSession.firstName.toUpperCase()}<br/>
+                    #{sessionScope.administratorSession.lastName.toUpperCase()}
+                </span>
+            </div>
+            <nav class="sidebar__nav">
+                <a href="#{request.contextPath}/ai/administrator">
+                    <span class="icon-profile"></span>
+                    <span>ADMINISTRATORS</span>
+                </a>
+                <a href="#{request.contextPath}/ai/group">
+                    <span class="icon-addressbook"></span>
+                    <span>GROUPS</span>
+                </a>
+                <a href="#{request.contextPath}/ai/student">
+                    <span class="icon-graduate"></span>
+                    <span>STUDENTS</span>
+                </a>
+                <a href="#{request.contextPath}/ai/subject">
+                    <span class="icon-presentation"></span>
+                    <span>SUBJECTS</span>
+                </a>
+                <a href="#{request.contextPath}/ai/teacher">
+                    <span class="icon-suitcase3"></span>
+                    <span>TEACHERS</span>
+                </a>
+                <a href="#{request.contextPath}/logout">
+                    <span class="icon-switch2"></span>
+                    <span>LOGOUT</span>
+                </a>
+            </nav>
+        </div>
+    </f:view>
+</html>

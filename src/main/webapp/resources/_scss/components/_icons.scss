@@ -1,0 +1,137 @@
+@font-face {
+    font-family: 'icomoon';
+    src:         url('../fonts/icomoon.eot?-8hwm07');
+    src:         url('../fonts/icomoon.eot?#iefix-8hwm07') format('embedded-opentype'),
+                 url('../fonts/icomoon.woff?-8hwm07') format('woff'),
+                 url('../fonts/icomoon.ttf?-8hwm07') format('truetype'),
+                 url('../fonts/icomoon.svg?-8hwm07#icomoon') format('svg');
+    font-weight: normal;
+    font-style:  normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    font-family:             'icomoon';
+    speak:                   none;
+    font-style:              normal;
+    font-weight:             normal;
+    font-variant:            normal;
+    text-transform:          none;
+    line-height:             1;
+    -webkit-font-smoothing:  antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-suitcase:before {
+    content: "\e64d";
+}
+
+.icon-suitcase2:before {
+    content: "\e64e";
+}
+
+.icon-suitcase3:before {
+    content: "\e64f";
+}
+
+.icon-chart:before {
+    content: "\e667";
+}
+
+.icon-chart2:before {
+    content: "\e668";
+}
+
+.icon-chart3:before {
+    content: "\e669";
+}
+
+.icon-chart4:before {
+    content: "\e66a";
+}
+
+.icon-chart5:before {
+    content: "\e66b";
+}
+
+.icon-chart6:before {
+    content: "\e66c";
+}
+
+.icon-list2:before {
+    content: "\e6c5";
+}
+
+.icon-trashcan:before {
+    content: "\e67b";
+}
+
+.icon-graduate:before {
+    content: "\e67d";
+}
+
+.icon-library:before {
+    content: "\e6eb";
+}
+
+.icon-stats:before {
+    content: "\e6ee";
+}
+
+.icon-stats2:before {
+    content: "\e6ef";
+}
+
+.icon-edit:before {
+    content: "\e6f8";
+}
+
+.icon-profile:before {
+    content: "\e6fa";
+}
+
+.icon-profile2:before {
+    content: "\e6fb";
+}
+
+.icon-profile3:before {
+    content: "\e6fc";
+}
+
+.icon-rotate:before {
+    content: "\e6fd";
+}
+
+.icon-addressbook:before {
+    content: "\e70e";
+}
+
+.icon-addressbook2:before {
+    content: "\e70f";
+}
+
+.icon-presentation:before {
+    content: "\e715";
+}
+
+.icon-switch2:before {
+    content: "\e75c";
+}
+
+.icon-load-wrap {
+    width:   31px;
+    height:  31px;
+    display: none;
+
+}
+
+.icon-load-wrap--center {
+    margin: 0 auto;
+}
+
+.icon-load {
+    background: url('../img/icons/load.gif') no-repeat;
+    display:    block;
+    width:      31px;
+    height:     31px;
+
+}

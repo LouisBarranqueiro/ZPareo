@@ -1,0 +1,142 @@
+// Global settings
+// --------------------------------------------
+
+// Typography
+$font-family-base:    'Open Sans', sans-serif;
+// equal to 15px
+$font-size-base:      1.3rem;
+$font-color-base:     #aeaeae;
+$line-height-base:    1.4em;
+$letter-spacing-base: 0.02em;
+
+// Border radius for buttons, input, etc....
+$border-radius-base:  3px;
+
+// Font size : (X.Xrem = XXpx, 1.0rem = 10px)
+$font-size: (
+     'xlarge': 1.35rem,
+     'large':  1.3rem,
+     'base':   $font-size-base,
+     'medium': 1.2rem,
+     'small':  1.15rem,
+     'xsmall': 0.95rem
+);
+
+// Colors
+$colors: (
+     // Used for buttons and inputs
+     'success':     #52af52,
+     // Used for buttons and inputs
+     'danger':      #d04437,
+     // Used for buttons and inputs
+     'info':        #a48ad4,
+     // Used for buttons and inputs
+     'primary':     #66afe9,
+     'dark-white':  #b9b9b9,
+     'purple':      #a48ad4,
+     'base':        $font-color-base,
+     'orange':      #e75c2f,
+     'light-grey':  #ececec,
+     'dark-grey':   #323544,
+     'light-black': #2f3239,
+     'grey':        #6f6f6f,
+     // use for tag `a`
+     'link':        #64b5f6
+);
+
+// Background colors
+$background-colors: (
+     'light-grey': #ececec,
+     'dark-grey':  #323544,
+     'grey':       #f6f6f6,
+);
+
+// Border colors
+$border-colors: (
+    'light-grey': #ececec,
+    'dark-grey':  #323544,
+    'grey':       #f6f6f6,
+    'shadow':     #e9e9e9,
+);
+
+// Media Query Ranges
+// If you want to change ranges screen size, you can do it easily by changing only `$screen-min` values
+$screen-min: (
+     'xs-min': 320px,
+     'sm-min': 480px,
+     // If you change value of `md-min`,
+     // you have to change value of `mediumScreenWidth` too in `source/_js/sidebar.js`
+     'md-min': 768px,
+     'lg-min': 1024px
+);
+$screen-max: (
+     'xs-max': map-get($screen-min, sm-min) - 1,
+     'sm-max': map-get($screen-min, md-min) - 1,
+     'md-max': map-get($screen-min, lg-min) - 1
+);
+// Merged screen-* Maps
+$screen: map-merge($screen-min, $screen-max);
+// Shortcuts for medias
+$xsmall-and-down: "only screen and (max-width : #{map-get($screen, xs-max)})" !default;
+$small-and-down:  "only screen and (max-width : #{map-get($screen, sm-max)})" !default;
+$small-only:      "only screen and (min-width : #{map-get($screen, sm-min)}) and (max-width : #{map-get($screen, sm-max)})" !default;
+$small-and-up:    "only screen and (min-width : #{map-get($screen, sm-min)})" !default;
+$medium-and-down: "only screen and (max-width : #{map-get($screen, md-max)})" !default;
+$medium-only:     "only screen and (min-width : #{map-get($screen, md-min)}) and (max-width : #{map-get($screen, md-max)})" !default;
+$medium-and-up:   "only screen and (min-width : #{map-get($screen, md-min)})" !default;
+$large-and-up:    "only screen and (min-width : #{map-get($screen, lg-min)})" !default;
+
+
+// Base settings
+// Files are located in `base` folder
+// --------------------------------------------
+
+// Headings font-size : (X.Xrem = XXpx, 1.0rem = 10px)
+$headings-font-size: (
+    'h1': 2.8rem,
+    'h2': 2.4rem,
+    'h3': 2.0rem,
+    'h4': 1.8rem,
+    'h5': 1.7rem,
+    'h6': 1.6rem
+);
+
+
+// Layout settings
+// Files are located in `layout` folder
+// --------------------------------------------
+
+// Sidebar
+$sidebar: (
+     'font-color': #97989d,
+);
+
+
+// Components settings
+// Files are located in `components` folder
+// --------------------------------------------
+
+// Table
+$table: (
+     'border-color':          #f1f1f1,
+     'tr-border-color-hover': #e7f2f6,
+     'tr-color-hover':        #f0fbff
+);
+
+// Input
+$input: (
+     'background':          white,
+     'font-size':           map-get($font-size, base),
+     'color':               map-get($colors, grey),
+     'border-color':        #ececec,
+     'border-color-success': map-get($colors, success),
+     'border-color-focus':  map-get($colors, primary),
+     'placeholder-color':   #999999,
+);
+
+// Modal
+$modal: (
+    'background':          white,
+);
+
+

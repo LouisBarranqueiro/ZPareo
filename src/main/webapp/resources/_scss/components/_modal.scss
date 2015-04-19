@@ -1,0 +1,98 @@
+#mask {
+    width:    100%;
+    height:   100%;
+    position: fixed;
+    top:      0px;
+    left:     0px;
+    z-index:  9;
+}
+
+.modal {
+    padding:       18px 9px;
+    display:       none;
+    border-radius: $border-radius-base;
+    background:    map-get($modal, background);
+    overflow:      scroll;
+    position:      fixed;
+    z-index:       10;
+
+    .modal__mod__head {
+        display: block;
+        padding: 0 9px 9px 9px;
+        width:   auto;
+
+        .modal__mod__head__title {
+            width:         auto;
+            padding:       0 0 18px 0;
+            color:         map-get($colors, dark-white);
+            border-bottom: 1px solid map-get($border-colors, light-grey);
+            margin:        0;
+            font-size:     map-get($font-size, xlarge) !important;
+        }
+    }
+    .modal__mod--xs {
+        width:  30%;
+        margin: 9px;
+    }
+    .modal__mod--sm {
+        width:  46%;
+        margin: 9px;
+    }
+    .modal__mod--md {
+        width:  60%;
+        margin: 9px;
+    }
+    .modal__mod--lg {
+        width:  94%;
+        margin: 9px;
+    }
+    .modal__mod--vertical {
+        height:         auto;
+        display:        inline-block;
+        vertical-align: top;
+        max-height:     500px;
+        overflow:       hidden;
+    }
+    .modal__mod--scrollable {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        max-height: 400px;
+    }
+    .modal__mod__control {
+        padding: 9px;
+    }
+}
+
+@media screen and (max-height: 800px) {
+    .modal {
+        max-height: 600px;
+
+        .modal__mod--vertical,
+        .modal__mod--scrollable {
+            max-height: 440px;
+        }
+    }
+}
+
+@media screen and (max-height: 900px) {
+    .modal {
+        max-height: 700px;
+
+        .modal__mod--vertical,
+        .modal__mod--scrollable {
+            max-height: 540px;
+        }
+    }
+}
+
+@media screen and (max-height: 1080px) {
+    .modal {
+        max-height: 800px;
+
+        .modal__mod--vertical,
+        .modal__mod--scrollable {
+            max-height: 640px;
+        }
+    }
+}
+

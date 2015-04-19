@@ -1,0 +1,83 @@
+html {
+    font-family: $font-family-base;
+    // equal to 10px, useful to use em and rem
+    font-size:   62.5%;
+    // Gives you better control of the font size when the first selected font is not available.
+    @include prefix(text-size-adjust, 100%, 'ms' 'webkit');
+    // Overrides the highlight color shown when the user taps
+    //a link or a JavaScript clickable element in Safari on iPhone
+    @include prefix(tap-highlight-color, rgba(0, 0, 0, 0), 'webkit');
+}
+
+body {
+    width:          100%;
+    min-width:      900px;
+    height:         100%;
+    margin:         0;
+    padding:        0;
+    background:     white;
+    font-family:    $font-family-base;
+    font-size:      map-get($font-size, base);
+    line-height:    $line-height-base;
+    letter-spacing: $letter-spacing-base;
+    // Improve smoothing of the font by adding subpixel in Safari
+    @include prefix(font-smoothing, subpixel-antialiased, 'webkit');
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    letter-spacing: -0.1px;
+    font-family:    'Open Sans', sans-serif;
+    font-weight:    700;
+    line-height:    1.45em;
+    color:          #4a4a4a;
+}
+
+// List each header with his font size
+@each $key, $value in $headings-font-size {
+    #{$key} {
+        font-size: $value;
+    }
+}
+
+a {
+    &.unstyled,
+    &.unstyled:hover,
+    &.unstyled:active {
+        text-decoration: none;
+    }
+}
+
+p,
+ul,
+ol,
+dl {
+    margin: 0 0 1.75em 0;
+}
+
+table {
+    border-spacing:  0;
+    border-collapse: collapse;
+}
+
+td,
+th {
+    padding: 0;
+}
+
+dl dt {
+    font-size:   map-get($font-size, small);
+    font-weight: bold;
+    color:       map-get($colors, primary);
+}
+
+dl dd {
+    font-size:   map-get($font-size, small);
+    font-weight: normal;
+    color:       map-get($colors, gray);
+    margin:      0 2px 15px 0;
+}

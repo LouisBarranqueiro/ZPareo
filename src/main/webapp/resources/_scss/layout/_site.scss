@@ -1,0 +1,7 @@
+#site-wrap {
+    width:      100%;
+    min-height: 100%;
+    position:   relative;
+    margin:     0 auto;
+    background: map-get($background-colors, grey);
+}

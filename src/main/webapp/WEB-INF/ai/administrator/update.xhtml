@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <form id="edit-administrator" action="#{request.contextPath}/ai/administrator/update" method="POST"
+          class="form--horizontal">
+        <div class="modal__mod__head">
+            <h3 class="modal__mod__head__title text-center">Editing of administrator n°#{administrator.id}</h3>
+        </div>
+        <div class="modal__mod--lg">
+            <input type="hidden" name="id" class="form--control" value="#{administrator.id}" size="30"
+                   pattern="[0-9]+" placeholder="id"/>
+            <label>FIRST NAME</label>
+            <input type="text" name="firstName" class="form--control" value="#{administrator.firstName}"
+                   pattern="[A-Za-z ]{2,50}"
+                   x-moz-errormessage="Please enter a first name between 2 and 50 characters"
+                   required="required"/>
+            <span class="form__error">#{administratorForm.errors['firstName']}</span>
+            <label>LAST NAME</label>
+            <input type="text" name="lastName" class="form--control" value="#{administrator.lastName}"
+                   pattern="[A-Za-z ]{2,50}"
+                   x-moz-errormessage="Please enter a last name between 2 and 50 characters"
+                   required="required"/>
+            <span class="form__error">#{administratorForm.errors['lastName']}</span>
+            <label>EMAIL</label>
+            <input type="text" name="emailAddress" class="form--control" value="#{administrator.emailAddress}"
+                   pattern="[a-zA-Z0-9@.-_]+@[a-zA-Z.]{2,20}.[a-zA-Z]{2,3}"
+                   x-moz-errormessage="Please enter a valid email" required="required"/>
+            <span class="form__error">#{administratorForm.errors['emailAddress']}</span>
+            <label>PASSWORD</label>
+            <input type="password" name="password" class="form--control" pattern=".{8,}"
+                   x-moz-error-message="Please enter a valid password"
+                   required="required"/>
+            <span class="form__error">#{administratorForm.errors['password']}</span>
+            <label>CONFIRMATION</label>
+            <input type="password" name="confirmation" class="form--control" pattern=".{8,}"
+                   x-moz-error-message="Please enter a valid password"
+                   required="required"/>
+            <span class="form__error">#{administratorForm.errors['password']}</span>
+            <span class="form__error">#{administratorForm.errors['administrator']}</span>
+        </div>
+        <div class="form__control modal__mod__control">
+            <button type="submit" class="btn btn--primary" onclick="editAdmin()">UPDATE</button>
+            <button type="button" class="btn btn--default" onclick="removeModalWindow()">CANCEL</button>
+        </div>
+    </form>
+</html>

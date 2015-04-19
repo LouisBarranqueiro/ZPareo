@@ -1,0 +1,47 @@
+.btn {
+    width:          auto;
+    height:         auto;
+    display:        inline-block;
+    padding:        12px 15px;
+    border-radius:  $border-radius-base;
+    background:     white;
+    cursor:         pointer;
+    font-size:      map-get($font-size, medium);
+    font-weight:    bold;
+    line-height:    1em;
+    letter-spacing: 0.05em;
+}
+
+// Color variant
+.btn--default {
+    @include button-color-variant(map-get($colors, 'base'));
+}
+
+.btn--success {
+    @include button-color-variant(map-get($colors, success));
+}
+
+.btn--primary {
+    @include button-color-variant(map-get($colors, primary));
+}
+
+.btn--danger {
+    @include button-color-variant(map-get($colors, danger));
+}
+
+// Style variant
+.btn--icon,
+.btn--icon:hover {
+    width:       30px;
+    height:      30px;
+    padding:     0 0 0 0;
+    border:      1px solid map-get($colors, light-grey);
+    font-size:   21px;
+    line-height: 32px;
+    color:       map-get($colors, base);
+}
+
+// Size variant
+.btn--100 {
+    width: 100% !important;
+}

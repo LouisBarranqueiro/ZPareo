@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:decorate template="templates/login.xhtml">
+        <!-- header title -->
+        <ui:define name="title">authentification</ui:define>
+        <!-- Main content -->
+        <ui:define name="main-content">
+            <div class="vertical-align-middle"></div>
+            <div id="login" class="mod mod--xs mod--center">
+                <h1 class="mod__head text-center">ZPareo</h1>
+                <form id="check-login" action="#{request.contextPath}/connexion" method="POST" class="form--horizontal">
+                    <input type="text" name="emailAddress" class="form--control" value="#{user.emailAddress}" placeholder="Email"
+                           pattern="[a-zA-Z0-9@.-_]+@[a-zA-Z]{2,20}.[a-zA-Z]{2,3}" required="required"/>
+                    <input type="password" name="password" class="form--control" placeholder="Password" pattern=".{8,}" required="required"/>
+                    <span class="form__error">#{form.errors['login']}</span>
+                    <button type="submit" class="btn btn--100 btn--primary">LOGIN</button>
+                </form>
+                <div class="icon-load-wrap icon-load-wrap--center">
+                    <span class="icon-load"></span>
+                </div>
+            </div>
+        </ui:define>
+    </ui:decorate>
+</html>

@@ -1,0 +1,42 @@
+.mod {
+    height:        auto;
+    position:      relative;
+    padding:       18px;
+    display:       inline-block;
+    border-radius: $border-radius-base;
+    background:    white;
+    margin:        9px;
+    @include prefix(box-shadow, 0 1px 1px #e9e9e9, 'webkit' 'moz' 'ms');
+}
+
+.mod--lg {
+    width: calc(100% - (9px * 6));
+}
+
+.mod--md {
+    width: calc(70% - (9px * 6.5));
+}
+
+.mod--sm {
+    width: calc(50% - (9px * 6.5));
+}
+
+.mod--xs {
+    width: calc(30% - (9px * 6.5));
+}
+
+.mod__head {
+    display:       block;
+    font-size:     map-get($font-size, xlarge);
+    height:        30px;
+    color:         map-get($colors, dark-white);
+    width:         100%;
+    margin:        0 0 15px 0;
+    border-bottom: 1px solid map-get($border-colors, light-grey);
+}
+
+.mod--center {
+    display:      block;
+    margin-right: auto;
+    margin-left:  auto;
+}

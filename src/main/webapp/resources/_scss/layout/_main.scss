@@ -1,0 +1,49 @@
+#main-wrap {
+    width:      -moz-calc(100% - 210px);
+    width:      -webkit-calc(100% - 210px);
+    min-height: 100%;
+    height:     auto;
+    display:    inline-block;
+    background: map-get($background-colors, grey);
+    position:   relative;
+    top:        0px;
+    left:       210px;
+
+    .main__head {
+        width:      auto;
+        height:     41px;
+        padding:    18px;
+        @include prefix(box-shadow, 0 1px 1px map-get($border-colors, shadow), 'webkit' 'moz' 'ms');
+        background: #ffffff;
+        position:   relative;
+        z-index:    5;
+
+        .main__head__title {
+            width:     48%;
+            height:    auto;
+            margin:    0;
+            font-size: map-get($headings-font-size, h4);
+            color:     map-get($colors, light-black);
+            margin:    0;
+        }
+        .main__head__desc {
+            width:     48%;
+            height:    auto;
+            color:     map-get($colors, base);
+            font-size: map-get($font-size, small);
+        }
+        .main__head__control {
+            position: absolute;
+            top:      20px;
+            right:    15px;
+        }
+    }
+
+    .main__content {
+        width:      auto;
+        padding:    9px;
+        overflow:   hidden;
+        background: map-get($background-colors, 'grey');
+    }
+}
+

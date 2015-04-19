@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <ui:decorate template="../../templates/administrator-app.xhtml">
+        <!-- header title -->
+        <ui:define name="title">students</ui:define>
+        <!-- Main content -->
+        <ui:define name="main-content">
+            <div id="main-wrap" class="main">
+                <div class="main__head">
+                    <h1 class="main__head__title">Students</h1>
+                    <p class="main__head__desc">#{numbStudents} students recorded</p>
+                    <button type="button" class="btn btn--success main__head__control"
+                            onclick="displayRespModal('#{request.contextPath}/ai/student/create', 300)">ADD A STUDENT
+                    </button>
+                </div>
+                <div class="main__content">
+                    <div class="mod mod--lg">
+                        <form action="#{request.contextPath}/ai/student" method="get" class="form--inline">
+                            <table class="table">
+                                <thead>
+                                    <tr class="tr--ref">
+                                        <th class="sortable">ID</th>
+                                        <th class="sortable">FIRST NAME</th>
+                                        <th class="sortable">LAST NAME</th>
+                                        <th class="sortable">EMAIL</th>
+                                        <th class="sortable">GROUP</th>
+                                        <th>ACTION</th>
+                                    </tr>
+                                    <tr class="tr--search">
+                                        <th>
+                                            <input type="text" name="id" size="10" pattern="[0-9]+"
+                                                   placeholder="Id"/>
+                                        </th>
+                                        <th>
+                                            <input type="text" name="firstName" size="20" pattern="[A-Za-z ]+"
+                                                   placeholder="First name"/>
+                                        </th>
+                                        <th>
+                                            <input type="text" name="lastName" size="20" pattern="[A-Za-z ]+"
+                                                   placeholder="Last name"/>
+                                        </th>
+                                        <th>
+                                            <input type="text" name="emailAddress" size="25"
+                                                   pattern="[A-Za-z0-9@.-_]+"
+                                                   placeholder="email"/>
+                                        </th>
+                                        <th>
+                                            <select name="group">
+                                                <option value="" selected="selected">Tous</option>
+                                                <c:forEach items="${groups}" var="group">
+                                                    <option value="${group.id}">#{group.name}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <button type="submit" class="btn btn--primary">SEARCH</button>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${students}" var="student">
+                                        <tr class="tr--md">
+                                            <td>#{student.id}</td>
+                                            <td>#{student.firstName}</td>
+                                            <td>#{student.lastName}</td>
+                                            <td>#{student.emailAddress}</td>
+                                            <td>#{student.group.name}</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn--icon"
+                                                            onclick="displayRespModal('#{request.contextPath}/ai/student/update?id=#{student.id}', 300)">
+                                                        <span class="icon-edit"></span>
+                                                    </button>
+                                                    <button type="button" class="btn btn--icon"
+                                                            onclick="displayRespModal('#{request.contextPath}/ai/student/reset-password?id=#{student.id}', 'auto')">
+                                                        <span class="icon-rotate"></span>
+                                                    </button>
+                                                    <button type="button" class="btn btn--icon"
+                                                            onclick="displayRespModal('#{request.contextPath}/ai/student/delete?id=#{student.id}', 'auto')">
+                                                        <span class="icon-trashcan"></span>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+    </ui:decorate>
+</html>

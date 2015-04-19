@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:view>
+        <div id="sidebar-wrap" class="sidebar--student">
+            <div class="sidebar__user-info">
+                <span class="sidebar__user-info__picture"></span>
+                <span class="sidebar__user-info__name">
+                    #{sessionScope.studentSession.firstName.toUpperCase()}<br/>
+                    #{sessionScope.studentSession.lastName.toUpperCase()}
+                </span>
+            </div>
+            <nav class="sidebar__nav">
+                <a href="#{request.contextPath}/si/gradebook">
+                    <span class="icon-stats"></span>
+                    <span>GRADEBOOK</span>
+                </a>
+                <a href="#{request.contextPath}/logout">
+                    <span class="icon-switch2"></span>
+                    <span>LOGOUT</span>
+                </a>
+            </nav>
+        </div>
+    </f:view>
+</html>

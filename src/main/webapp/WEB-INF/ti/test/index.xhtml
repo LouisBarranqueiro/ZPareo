@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <ui:decorate template="../../templates/teacher-app.xhtml">
+        <!-- header title -->
+        <ui:define name="title">teachers</ui:define>
+        <!-- Main content -->
+        <ui:define name="main-content">
+            <div id="main-wrap" class="main">
+                <div class="main__head">
+                    <h1 class="main__head__title">Tests</h1>
+                    <p class="main__head__desc">#{numbTests} tests recorded</p>
+                    <button type="button" class="btn btn--success main__head__control"
+                            onclick="displayRespModal('#{request.contextPath}/ti/test/create', 300)">ADD A TEST
+                    </button>
+                </div>
+                <div class="main__content">
+                    <div class="mod mod--lg">
+                        <form action="#{request.contextPath}/ti/test" method="get" class="form--inline">
+                            <table class="table">
+                                <thead>
+                                    <tr class="tr--ref">
+                                        <th class="sortable">ID</th>
+                                        <th class="sortable">DATE</th>
+                                        <th class="sortable">FORMAT</th>
+                                        <th class="sortable">TITLE</th>
+                                        <th class="sortable">GROUP</th>
+                                        <th class="sortable">SUBJECT</th>
+                                        <th class="sortable">AVERAGE</th>
+                                        <th>ACTION</th>
+                                    </tr>
+                                    <tr class="tr--search">
+                                        <th><input type="text" name="id" size="8" pattern="[0-9]+"
+                                                   placeholder="id"/></th>
+                                        <th><input type="text" name="date" class="form--control datepicker"
+                                                   size="10"
+                                                   placeholder="Date"
+                                                   pattern="(0[1-9]|1[012])/(0[1-9]|[12][0-9]|3[01])/(19|20)\d\d"/>
+                                        </th>
+                                        <th>
+                                            <select name="format" class="form--control">
+                                                <option disabled="disabled" value="">Format</option>
+                                                <option value="">All</option>
+                                                <option value="1">Written</option>
+                                                <option value="2">Oral</option>
+                                            </select>
+                                        </th>
+                                        <th><input type="text" name="title" class="form--control" size="25"
+                                                   pattern=".{5,55}" placeholder="Title"/></th>
+                                        <th>
+                                            <select name="group" class="form--control">
+                                                <option disabled="disabled" value="">Group</option>
+                                                <option value="">All</option>
+                                                <c:forEach items="#{sessionScope.teacherSession.groups}"
+                                                           var="teacherGroup">
+                                                    <option value="#{teacherGroup.id}">
+                                                        #{teacherGroup.name}
+                                                    </option>
+                                                </c:forEach>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <select name="subject" class="form--control">
+                                                <option disabled="disabled" value="">Subject</option>
+                                                <option value="">All</option>
+                                                <c:forEach items="#{sessionScope.teacherSession.subjects}"
+                                                           var="subject">
+                                                    <option value="#{subject.id}">
+                                                        #{subject.name}
+                                                    </option>
+                                                </c:forEach>
+                                            </select>
+                                        </th>
+                                        <th></th>
+                                        <th>
+                                            <button type="submit" class="btn btn--primary">SEARCH</button>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="#{tests}" var="test">
+                                        <tr class="tr--md">
+                                            <td>#{test.id}</td>
+                                            <td>#{test.date}</td>
+                                            <td>#{test.format.name}</td>
+                                            <td>#{test.title}</td>
+                                            <td>#{test.group.name}</td>
+                                            <td>#{test.subject.name}    </td>
+                                            <td>
+                                                <h:outputText value="#{test.average}">
+                                                    <f:convertNumber maxFractionDigits="1"/>
+                                                </h:outputText>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn--icon"
+                                                            onclick="displayRespModal('#{request.contextPath}/ti/test/read?id=#{test.id}', 550)">
+                                                        <span class="icon-list2"></span>
+                                                    </button>
+                                                    <button type="button" class="btn btn--icon"
+                                                            onclick="displayRespModal('#{request.contextPath}/ti/test/update?id=#{test.id}', 600)">
+                                                        <span class="icon-edit"></span>
+                                                    </button>
+                                                    <button type="button" class="btn btn--icon"
+                                                            onclick="displayRespModal('#{request.contextPath}/ti/test/delete?id=#{test.id}', 'auto')">
+                                                        <span class="icon-trashcan"></span>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+    </ui:decorate>
+</html>

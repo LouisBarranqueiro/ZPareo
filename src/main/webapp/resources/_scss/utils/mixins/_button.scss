@@ -1,0 +1,24 @@
+/// Helper for 'components/button' to stylize a button with a specified color
+/// @param {Color} $color - Color CSS value
+@mixin button-color-variant($color) {
+    color:  $color !important;
+    border: 1px solid $color;
+
+    &:hover {
+        color:  darken($color, 5) !important;
+        border: 1px solid darken($color, 5);
+    }
+
+    &:active {
+        color:  lighten($color, 20) !important;
+        border: 1px solid lighten($color, 20);
+    }
+}
+
+/// Helper for 'components/button' to stylize a button with a specified size and padding
+/// @param {Number} $font-size - Font size CSS value
+/// @param {List} $padding - Padding CSS value
+@mixin button-size-variant($font-size, $padding) {
+    font-size: $font-size;
+    padding:   $padding;
+}

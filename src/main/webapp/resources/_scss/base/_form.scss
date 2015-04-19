@@ -1,0 +1,119 @@
+input,
+button,
+select,
+textarea {
+    width:            auto;
+    padding:          9px 12px;
+    border:           1px solid map-get($input, border-color);
+    border-radius:    $border-radius-base;
+    background-color: map-get($input, background);
+    background-image: none;
+    font-weight:      normal;
+    line-height:      $line-height-base;
+    font-size:        map-get($input, font-size);
+    color:            map-get($input, color);
+    margin:           0;
+    @include prefix(box-sizing, border-box, 'webkit' 'moz');
+
+}
+
+select,
+select:focus {
+    -webkit-appearance: none;
+    height:             39px;
+    padding-right:      40px;
+    background:         url('../img/icons/sortable.png') no-repeat -moz-calc(100% - 15px) 50%;
+    background:         url('../img/icons/sortable.png') no-repeat -webkit-calc(100% - 15px) 50%;
+}
+
+input:focus,
+input[required]:focus,
+textarea:focus,
+textarea:focus[required]:focus,
+select:focus,
+select[required]:focus {
+    border-color: map-get($input, border-color-focus) !important;
+    outline:      0;
+}
+
+textarea,
+select[multiple] {
+    height: auto;
+}
+
+label {
+    font-size:   map-get($font-size, medium);;
+    font-weight: bold;
+    color:       map-get($colors, primary);
+}
+
+input::-moz-placeholder,
+select::-moz-placeholder,
+textarea::-moz-placeholder {
+    color:   map-get($input, placeholder-color);
+    opacity: 1;
+}
+
+input::-ms-placeholder,
+select::-ms-placeholder,
+textarea::-ms-placeholder,
+input::-webkit-placeholder,
+select::-webkit-placeholder,
+textarea::-webkit-placeholder {
+    color: map-get($input, placeholder-color);
+}
+
+input[disabled],
+input[readonly],
+select[disabled],
+select[readonly] {
+    cursor:           not-allowed;
+    background-color: darken(map-get($input, background), 10);
+    opacity:          1;
+}
+
+input[required],
+textarea[required] {
+    border:     1px solid map-get($input, border-color);
+    background: url("../img/icons/required-input.png") white -moz-calc(100% - 10px) 50% no-repeat;
+    background: url("../img/icons/required-input.png") white -webkit-calc(100% - 10px) 50% no-repeat;
+}
+
+input[required]:valid,
+textarea[required]:valid {
+    background: url("../img/icons/valid-input.png") white -moz-calc(100% - 10px) 50% no-repeat;
+    background: url("../img/icons/valid-input.png") white -webkit-calc(100% - 10px) 50% no-repeat;
+}
+
+textarea[required]:focus:valid {
+
+}
+
+input[required]:focus:valid,
+textarea[required]:focus:valid {
+    border-color: map-get($input, border-color-success) !important;
+    background:   url("../img/icons/valid-input.png") white -moz-calc(100% - 10px) 50% no-repeat;
+    background:   url("../img/icons/valid-input.png") white -webkit-calc(100% - 10px) 50% no-repeat;
+}
+
+input[disabled],
+textarea[disabled] {
+
+    background: url("../img/icons/valid-input.png") white -moz-calc(100% - 10px) 50% no-repeat !important;
+    background: url("../img/icons/valid-input.png") white -webkit-calc(100% - 10px) 50% no-repeat !important;
+}
+
+select[disabled] {
+    background: url("../img/icons/valid-input.png") white -moz-calc(100% - 35px) 50% no-repeat !important;
+    background: url("../img/icons/valid-input.png") white -webkit-calc(100% - 35px) 50% no-repeat !important;
+}
+
+input[required]:focus:invalid,
+textarea[required]:focus:invalid {
+    border:  1px solid map-get($input, border-color);
+    outline: none;
+}
+
+input:invalid {
+    box-shadow: none;
+}

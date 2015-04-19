@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <form id="create-group" action="#{request.contextPath}/ai/group/create" method="post" class="form--horizontal">
+        <div class="modal__mod__head">
+            <h3 class="modal__mod__head__title text-center">Adding a group</h3>
+        </div>
+        <div class="modal__mod--lg">
+            <label>NOM</label>
+            <input type="text" name="name" class="form--control" value="#{group.name}" size="30" pattern="(G|g)[A-Za-z]" required="required"/>
+            <span class="form__error">#{groupForm.errors['name']}</span>
+            <span class="form__error">#{groupForm.errors['group']}</span>
+        </div>
+        <div class="form__control modal__mod__control">
+            <button type="submit" class="btn btn--primary" onclick="createGroup()">ADD</button>
+            <button type="button" class="btn btn--default" onclick="removeModalWindow()">CANCEL</button>
+        </div>
+    </form>
+</html>

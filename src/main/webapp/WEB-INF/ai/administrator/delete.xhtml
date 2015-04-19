@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <form id="delete-administrator" action="#{request.contextPath}/ai/administrator/delete" method="POST" class="form--horizontal">
+        <div class="modal__mod__head">
+            <h3 class="modal__mod__head__title text-center">Deleting of administrator n° #{administrator.id}</h3>
+        </div>
+        <div class="modal__mod--lg">
+            <p>Are you sure to delete the administrator : #{administrator.firstName} #{administrator.lastName} ?</p>
+            <input type="hidden" name="id" class="form-control input-sm" value="#{administrator.id}" size="30" pattern="[0-9]{1,11}" readonly="readonly" required="required"/>
+        </div>
+        <div class="form__control modal__mod__control">
+            <button type="submit" class="btn btn--danger" onclick="deleteAdmin()">DELETE</button>
+            <button type="button" class="btn btn--default" onclick="removeModalWindow()">CANCEL</button>
+        </div>
+    </form>
+</html>

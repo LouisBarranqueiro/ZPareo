@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <ui:decorate template="../templates/student-app.xhtml">
+        <!-- header title -->
+        <ui:define name="title">gradebook</ui:define>
+        <!-- Main content -->
+        <ui:define name="main-content">
+            <div id="main-wrap" class="main">
+                <div class="main__head">
+                    <h1 class="main__head__title">Gradebook</h1>
+                    <p class="main__head__desc">#{sessionScope.studentSession.firstName} #{sessionScope.studentSession.lastName} - Groupe : #{sessionScope.studentSession.group.name} - Moyenne générale :
+                        <h:outputText value="#{student.gradebook.average}">
+                            <f:convertNumber pattern="#0.00"/>
+                        </h:outputText>
+                    </p>
+                </div>
+                <div class="main__content">
+                    <div class="mod mod--lg">
+                        <div id="averages-student-chart">
+                            <c:forEach items="#{student.gradebook.subjectScores}" var="subjectScore">
+                                <span class="subjects" data-subject="#{subjectScore.subject.name}"></span>
+                                <span class="averages" data-average="#{subjectScore.average}"></span>
+                            </c:forEach>
+                        </div>
+                    </div>
+                    <div class="mod mod--xs">
+                        <h3 class="mod__head">Averages by subject</h3>
+                        <table class="table">
+                            <thead>
+                                <tr class="tr--ref">
+                                    <th class="sortable">SUBJECT</th>
+                                    <th class="sortable">AVERAGE</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tr--lg">
+                                <c:forEach items="#{student.gradebook.subjectScores}" var="subjectScore">
+                                    <tr>
+                                        <td>#{subjectScore.subject.name}</td>
+                                        <td>
+                                            <h:outputText value="#{subjectScore.average}">
+                                                <f:convertNumber pattern="#0.00"/>
+                                            </h:outputText>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mod mod--md">
+                        <h3 class="mod__head">Scores by test</h3>
+                        <table class="table">
+                            <thead>
+                                <tr class="tr--ref">
+                                    <th class="sortable">FORMAT</th>
+                                    <th class="sortable">SUBJECT</th>
+                                    <th class="sortable">TITLE</th>
+                                    <th class="sortable">DATE</th>
+                                    <th class="sortable">COEFFICIENT</th>
+                                    <th class="sortable">SCORE</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tr--lg">
+                                <c:forEach items="#{student.gradebook.subjectScores}" var="subjectScore">
+                                    <c:forEach items="#{subjectScore.tests}" var="test">
+                                        <tr>
+                                            <td>#{test.format.name}</td>
+                                            <td>#{test.subject.name}</td>
+                                            <td>#{test.title}</td>
+                                            <td>#{test.date}</td>
+                                            <td>#{test.coefficient}</td>
+                                            <c:forEach items="#{test.scores}" var="score">
+                                                <td>
+                                                    <h:outputText value="#{score.score}">
+                                                        <f:convertNumber pattern="#0.00"/>
+                                                    </h:outputText>
+                                                </td>
+                                            </c:forEach>
+                                        </tr>
+                                    </c:forEach>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+    </ui:decorate>
+</html>
